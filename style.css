@@ -1,132 +1,25 @@
-/* Bringbold Nineties Demo */
-@font-face {
-    font-family: 'Bringbold';
-    src: url('Bringbold Nineties Demo.ttf') format('truetype'),
-         url('Bringbold Nineties Demo.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-transform: uppercase;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    background: #000;
-    color: #f0f0f0;
-    letter-spacing: 3px;
-    overflow-x: hidden;
-}
-
-/* SUBTLE GRAIN */
-
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: url("grain.png");
-    opacity: 0.05;
-    pointer-events: none;
-    z-index: 999;
-}
-
-/* NAVBAR */
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30px 100px;
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(8px);
-}
-
+/* Logo link fix */
 .logo a {
     text-decoration: none;
-    color: white;
+    color: white !important;
     font-family: 'Bringbold', sans-serif;
+    transition: none;
 }
 
-.nav-links a {
-    color: #aaa;
-    text-decoration: none;
-    margin-left: 40px;
-    font-size: 12px;
-    transition: 0.3s ease;
+/* Prevent flashing colors on hover / visited */
+.logo a:visited,
+.logo a:hover,
+.logo a:active {
+    color: white !important;
 }
 
-.nav-links a:hover {
-    color: white;
-}
-
-/* ENTER PAGE */
-
-.enter-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: radial-gradient(circle at center, #111 0%, #000 70%);
-    transition: opacity 0.8s ease;
-}
-
-.fade-out {
-    opacity: 0;
-}
-
-.enter-container {
-    text-align: center;
-}
-
-.enter-logo {
-    font-size: 56px;
-    letter-spacing: 8px;
-    margin-bottom: 40px;
-    opacity: 0;
-    animation: fadeIn 1.2s ease forwards;
-}
-
-.enter-button {
-    background: white;
-    color: black;
-    border: none;
-    padding: 14px 50px;
-    font-size: 14px;
-    letter-spacing: 3px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    opacity: 0;
-    animation: fadeIn 1.5s ease forwards;
-}
-
-.enter-button:hover {
-    background: #d1d1d1;
-    transform: scale(1.05);
-}
-
-@keyframes fadeIn {
-    to { opacity: 1; }
-}
-
-/* HOME HERO */
-
-.home-hero {
-    min-height: 100vh;
-    padding: 160px 120px 120px 120px;
-}
-
-/* Posters 9:16 with rounded corners */
-
+/* Posters row */
 .poster-row {
     display: flex;
+    justify-content: flex-start; /* three posters in a row */
     gap: 40px;
     padding-top: 40px;
+    flex-wrap: nowrap; /* no wrapping, side by side */
 }
 
 .poster {
@@ -134,8 +27,9 @@ nav {
     aspect-ratio: 9 / 16;
     border-radius: 22px;
     overflow: hidden;
-    transition: 0.3s ease;
+    transition: transform 0.3s ease;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .poster img {
@@ -143,7 +37,6 @@ nav {
     height: 100%;
     object-fit: cover;
     border-radius: 22px;
-    transition: 0.3s ease;
 }
 
 .poster:hover {
