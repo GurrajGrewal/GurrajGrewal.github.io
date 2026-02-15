@@ -1,42 +1,91 @@
-/* Posters row - responsive */
-.poster-row {
+/* ENTER PAGE OVERHAUL */
+
+.enter-page {
     display: flex;
-    justify-content: center; /* center posters on screen */
-    gap: 40px;
-    padding-top: 40px;
-    flex-wrap: wrap; /* wrap if screen too small */
-}
-
-.poster {
-    width: 260px;
-    aspect-ratio: 9 / 16;
-    border-radius: 22px;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: radial-gradient(circle at center, #111 0%, #000 80%);
+    position: relative;
     overflow: hidden;
-    transition: transform 0.3s ease;
+    transition: opacity 0.8s ease;
+}
+
+.enter-container {
+    text-align: center;
+    z-index: 2;
+}
+
+/* Logo */
+.enter-logo {
+    font-family: 'Bringbold', sans-serif;
+    font-size: 72px;
+    letter-spacing: 10px;
+    margin-bottom: 20px;
+    color: white;
+    text-shadow: 0 0 12px rgba(255,255,255,0.3), 0 0 24px rgba(255,255,255,0.1);
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards;
+}
+
+/* Subtitle */
+.enter-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: #aaa;
+    margin-bottom: 50px;
+    letter-spacing: 3px;
+    opacity: 0;
+    animation: fadeIn 1.5s ease forwards 0.5s;
+}
+
+/* Button */
+.enter-button {
+    background: none;
+    border: 2px solid white;
+    color: white;
+    padding: 16px 60px;
+    font-size: 14px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
     cursor: pointer;
-    flex-shrink: 0;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 1.5s ease forwards 1s;
 }
 
-.poster img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 22px;
+.enter-button:hover {
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 0 20px rgba(255,255,255,0.4);
+    transform: scale(1.05);
 }
 
-.poster:hover {
-    transform: translateY(-8px) scale(1.03);
+/* Fade-in animation */
+@keyframes fadeIn {
+    to { opacity: 1; }
 }
 
-/* Responsive adjustments */
-@media (max-width: 900px) {
-    .poster {
-        width: 200px; /* shrink poster width */
-    }
+/* Subtle moving particles (lines) */
+.particles {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.02),
+        rgba(255,255,255,0.02) 1px,
+        transparent 2px,
+        transparent 6px
+    );
+    animation: moveLines 10s linear infinite;
+    z-index: 1;
 }
 
-@media (max-width: 600px) {
-    .poster {
-        width: 140px;
-    }
+@keyframes moveLines {
+    0% { background-position: 0 0; }
+    100% { background-position: 200px 200px; }
+}
+
+/* Fade-out */
+.fade-out {
+    opacity: 0;
 }
