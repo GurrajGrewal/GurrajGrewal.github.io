@@ -1,29 +1,32 @@
 /* ENTER PAGE OVERHAUL */
-
 .enter-page {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: radial-gradient(circle at center, #111 0%, #000 80%);
+    background: radial-gradient(circle at center, #111 0%, #000 90%);
     position: relative;
     overflow: hidden;
-    transition: opacity 0.8s ease;
+    flex-direction: column;
 }
 
+/* Container */
 .enter-container {
     text-align: center;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; /* spacing between logo, subtitle, button */
 }
 
 /* Logo */
 .enter-logo {
     font-family: 'Bringbold', sans-serif;
-    font-size: 72px;
-    letter-spacing: 10px;
-    margin-bottom: 20px;
+    font-size: 80px;
     color: white;
-    text-shadow: 0 0 12px rgba(255,255,255,0.3), 0 0 24px rgba(255,255,255,0.1);
+    letter-spacing: 12px;
+    text-shadow: 0 0 15px rgba(255,255,255,0.3), 0 0 35px rgba(255,255,255,0.1);
     opacity: 0;
     animation: fadeIn 1.2s ease forwards;
 }
@@ -33,7 +36,6 @@
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     color: #aaa;
-    margin-bottom: 50px;
     letter-spacing: 3px;
     opacity: 0;
     animation: fadeIn 1.5s ease forwards 0.5s;
@@ -60,32 +62,23 @@
     transform: scale(1.05);
 }
 
-/* Fade-in animation */
+/* Fade-in */
 @keyframes fadeIn {
     to { opacity: 1; }
 }
 
-/* Subtle moving particles (lines) */
-.particles {
+/* Grain overlay */
+.grain-overlay {
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-        45deg,
-        rgba(255,255,255,0.02),
-        rgba(255,255,255,0.02) 1px,
-        transparent 2px,
-        transparent 6px
-    );
-    animation: moveLines 10s linear infinite;
+    background: url("grain.png");
+    opacity: 0.08;
+    pointer-events: none;
     z-index: 1;
 }
 
-@keyframes moveLines {
-    0% { background-position: 0 0; }
-    100% { background-position: 200px 200px; }
-}
-
-/* Fade-out */
+/* Fade-out on ENTER click */
 .fade-out {
     opacity: 0;
+    transition: opacity 0.8s ease;
 }
