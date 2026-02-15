@@ -1,25 +1,10 @@
-/* Logo link fix */
-.logo a {
-    text-decoration: none;
-    color: white !important;
-    font-family: 'Bringbold', sans-serif;
-    transition: none;
-}
-
-/* Prevent flashing colors on hover / visited */
-.logo a:visited,
-.logo a:hover,
-.logo a:active {
-    color: white !important;
-}
-
-/* Posters row */
+/* Posters row - responsive */
 .poster-row {
     display: flex;
-    justify-content: flex-start; /* three posters in a row */
+    justify-content: center; /* center posters on screen */
     gap: 40px;
     padding-top: 40px;
-    flex-wrap: nowrap; /* no wrapping, side by side */
+    flex-wrap: wrap; /* wrap if screen too small */
 }
 
 .poster {
@@ -41,4 +26,17 @@
 
 .poster:hover {
     transform: translateY(-8px) scale(1.03);
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .poster {
+        width: 200px; /* shrink poster width */
+    }
+}
+
+@media (max-width: 600px) {
+    .poster {
+        width: 140px;
+    }
 }
