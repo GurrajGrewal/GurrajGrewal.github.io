@@ -1,9 +1,67 @@
 /* Bringbold Nineties Demo */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap'); * { margin: 0; padding: 0; box-sizing: border-box; }
+@font-face {
+    font-family: 'Bringbold';
+    src: url('Bringbold Nineties Demo.ttf') format('truetype'),
+         url('Bringbold Nineties Demo.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-transform: uppercase;
+}
 
 body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #0b0b0b;
+    font-family: 'Inter', sans-serif;
+    background: #000;
+    color: #f0f0f0;
+    letter-spacing: 3px;
+    overflow-x: hidden;
+}
+
+/* SUBTLE GRAIN */
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url("grain.png");
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 999;
+}
+
+/* NAVBAR */
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 100px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
+}
+
+.logo a {
+    text-decoration: none;
+    color: white;
+    font-family: 'Bringbold', sans-serif;
+}
+
+.nav-links a {
+    color: #aaa;
+    text-decoration: none;
+    margin-left: 40px;
+    font-size: 12px;
+    transition: 0.3s ease;
+}
+
+.nav-links a:hover {
     color: white;
 }
 
@@ -28,7 +86,6 @@ body {
 
 .enter-logo {
     font-size: 56px;
-    font-weight: 800;
     letter-spacing: 8px;
     margin-bottom: 40px;
     opacity: 0;
@@ -41,7 +98,6 @@ body {
     border: none;
     padding: 14px 50px;
     font-size: 14px;
-    font-weight: 600;
     letter-spacing: 3px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -55,57 +111,41 @@ body {
 }
 
 @keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
-
-/* NAVBAR */
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 60px;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
-}
-
-.logo {
-    font-weight: 800;
-    font-size: 20px;
-    letter-spacing: 2px;
-}
-
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    margin-left: 30px;
-    font-weight: 500;
-    transition: 0.3s;
-}
-
-.nav-links a:hover {
-    color: #b3b3b3;
+    to { opacity: 1; }
 }
 
 /* HOME HERO */
 
 .home-hero {
-    height: 90vh;
+    min-height: 100vh;
+    padding: 160px 120px 120px 120px;
+}
+
+/* Posters 9:16 with rounded corners */
+
+.poster-row {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 80px;
+    gap: 40px;
+    padding-top: 40px;
 }
 
-.home-hero h1 {
-    font-size: 72px;
-    font-weight: 800;
+.poster {
+    width: 260px;
+    aspect-ratio: 9 / 16;
+    border-radius: 22px;
+    overflow: hidden;
+    transition: 0.3s ease;
+    cursor: pointer;
 }
 
-.home-hero p {
-    margin-top: 15px;
-    font-size: 18px;
-    color: #999;
+.poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 22px;
+    transition: 0.3s ease;
+}
+
+.poster:hover {
+    transform: translateY(-8px) scale(1.03);
 }
