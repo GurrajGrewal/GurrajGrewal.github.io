@@ -50,13 +50,17 @@ nav .nav-links a:hover {
 }
 
 /* ===== RELEASES PAGE POSTERS ===== */
-.poster-row {
+.page-hero {
+    min-height: calc(100vh - 80px); /* full height minus navbar */
     display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-    padding-top: 40px;
+    flex-direction: column;
+    justify-content: center;  /* vertically center */
+    align-items: center;      /* horizontally center */
+    gap: 50px;
+    text-align: center;
+    padding: 0 20px;
 }
+
 
 .poster {
     width: 260px;
