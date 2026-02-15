@@ -60,6 +60,14 @@ body {
     color: white;
 }
 
+.page-hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 80px; /* IMPORTANT because navbar is fixed */
+}
+
 /* ===== HOME PAGE HERO ===== */
 .home-hero {
     min-height: 100vh;
