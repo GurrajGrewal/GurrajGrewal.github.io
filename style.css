@@ -1,10 +1,49 @@
-/* Posters row - responsive */
+/* Base body for Home & Releases */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0b0b0b; /* solid black background */
+    color: white;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+}
+
+/* Ensure nav links are white */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+nav .logo a,
+nav .nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+nav .nav-links a:hover {
+    color: #b3b3b3;
+}
+
+/* Home page hero */
+.home-hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 80px;
+}
+
+/* Releases page posters */
 .poster-row {
     display: flex;
-    justify-content: center; /* center posters on screen */
+    justify-content: center;
     gap: 40px;
+    flex-wrap: wrap;
     padding-top: 40px;
-    flex-wrap: wrap; /* wrap if screen too small */
 }
 
 .poster {
@@ -26,17 +65,4 @@
 
 .poster:hover {
     transform: translateY(-8px) scale(1.03);
-}
-
-/* Responsive adjustments */
-@media (max-width: 900px) {
-    .poster {
-        width: 200px; /* shrink poster width */
-    }
-}
-
-@media (max-width: 600px) {
-    .poster {
-        width: 140px;
-    }
 }
