@@ -1,84 +1,44 @@
-/* ENTER PAGE OVERHAUL */
-.enter-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: radial-gradient(circle at center, #111 0%, #000 90%);
-    position: relative;
-    overflow: hidden;
-    flex-direction: column;
-}
-
-/* Container */
-.enter-container {
-    text-align: center;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px; /* spacing between logo, subtitle, button */
-}
-
-/* Logo */
-.enter-logo {
+/* Logo link fix */
+.logo a {
+    text-decoration: none;
+    color: white !important;
     font-family: 'Bringbold', sans-serif;
-    font-size: 80px;
-    color: white;
-    letter-spacing: 12px;
-    text-shadow: 0 0 15px rgba(255,255,255,0.3), 0 0 35px rgba(255,255,255,0.1);
-    opacity: 0;
-    animation: fadeIn 1.2s ease forwards;
+    transition: none;
 }
 
-/* Subtitle */
-.enter-subtitle {
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    color: #aaa;
-    letter-spacing: 3px;
-    opacity: 0;
-    animation: fadeIn 1.5s ease forwards 0.5s;
+/* Prevent flashing colors on hover / visited */
+.logo a:visited,
+.logo a:hover,
+.logo a:active {
+    color: white !important;
 }
 
-/* Button */
-.enter-button {
-    background: none;
-    border: 2px solid white;
-    color: white;
-    padding: 16px 60px;
-    font-size: 14px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
+/* Posters row */
+.poster-row {
+    display: flex;
+    justify-content: flex-start; /* three posters in a row */
+    gap: 40px;
+    padding-top: 40px;
+    flex-wrap: nowrap; /* no wrapping, side by side */
+}
+
+.poster {
+    width: 260px;
+    aspect-ratio: 9 / 16;
+    border-radius: 22px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
     cursor: pointer;
-    transition: all 0.3s ease;
-    opacity: 0;
-    animation: fadeIn 1.5s ease forwards 1s;
+    flex-shrink: 0;
 }
 
-.enter-button:hover {
-    background: rgba(255,255,255,0.1);
-    box-shadow: 0 0 20px rgba(255,255,255,0.4);
-    transform: scale(1.05);
+.poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 22px;
 }
 
-/* Fade-in */
-@keyframes fadeIn {
-    to { opacity: 1; }
-}
-
-/* Grain overlay */
-.grain-overlay {
-    position: absolute;
-    inset: 0;
-    background: url("grain.png");
-    opacity: 0.08;
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* Fade-out on ENTER click */
-.fade-out {
-    opacity: 0;
-    transition: opacity 0.8s ease;
+.poster:hover {
+    transform: translateY(-8px) scale(1.03);
 }
