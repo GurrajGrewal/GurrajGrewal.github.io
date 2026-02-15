@@ -1,21 +1,26 @@
-/* Base body for Home & Releases */
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: #0b0b0b;
-    color: white;
-    text-transform: uppercase;
+/* ===== BASE RESET ===== */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-/* Nav */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0b0b0b; /* solid black */
+    color: white;
+    text-transform: uppercase;
+}
+
+/* ===== NAVBAR ===== */
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 60px;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0,0,0,0.8);
     backdrop-filter: blur(10px);
+    z-index: 10;
 }
 
 nav .logo a {
@@ -35,7 +40,7 @@ nav .nav-links a:hover {
     color: #b3b3b3;
 }
 
-/* Home hero section */
+/* ===== HOME PAGE HERO ===== */
 .home-hero {
     min-height: 100vh;
     display: flex;
@@ -44,7 +49,7 @@ nav .nav-links a:hover {
     padding-left: 80px;
 }
 
-/* Releases posters */
+/* ===== RELEASES PAGE POSTERS ===== */
 .poster-row {
     display: flex;
     justify-content: center;
@@ -72,4 +77,82 @@ nav .nav-links a:hover {
 
 .poster:hover {
     transform: translateY(-8px) scale(1.03);
+}
+
+/* ===== ENTER PAGE (fully scoped) ===== */
+.enter-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: radial-gradient(circle at center, #111 0%, #000 90%);
+    position: relative;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+.enter-container {
+    text-align: center;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.enter-logo {
+    font-family: 'Bringbold', sans-serif;
+    font-size: 80px;
+    color: white;
+    letter-spacing: 12px;
+    text-shadow: 0 0 15px rgba(255,255,255,0.3), 0 0 35px rgba(255,255,255,0.1);
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards;
+}
+
+.enter-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: #aaa;
+    letter-spacing: 3px;
+    opacity: 0;
+    animation: fadeIn 1.5s ease forwards 0.5s;
+}
+
+.enter-button {
+    background: none;
+    border: 2px solid white;
+    color: white;
+    padding: 16px 60px;
+    font-size: 14px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 1.5s ease forwards 1s;
+}
+
+.enter-button:hover {
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 0 20px rgba(255,255,255,0.4);
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.grain-overlay {
+    position: absolute;
+    inset: 0;
+    background: url("grain.png");
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.8s ease;
 }
