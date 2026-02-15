@@ -1,25 +1,56 @@
-/* Logo link fix */
-.logo a {
-    text-decoration: none;
-    color: white !important;
+/* Base body for Home & Releases */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0b0b0b;
+    color: white;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+}
+
+/* Nav */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+nav .logo a {
+    color: white;
     font-family: 'Bringbold', sans-serif;
-    transition: none;
+    text-decoration: none;
 }
 
-/* Prevent flashing colors on hover / visited */
-.logo a:visited,
-.logo a:hover,
-.logo a:active {
-    color: white !important;
+nav .nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 12px;
 }
 
-/* Posters row */
+nav .nav-links a:hover {
+    color: #b3b3b3;
+}
+
+/* Home hero section */
+.home-hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 80px;
+}
+
+/* Releases posters */
 .poster-row {
     display: flex;
-    justify-content: flex-start; /* three posters in a row */
+    justify-content: center;
     gap: 40px;
+    flex-wrap: wrap;
     padding-top: 40px;
-    flex-wrap: nowrap; /* no wrapping, side by side */
 }
 
 .poster {
@@ -27,8 +58,8 @@
     aspect-ratio: 9 / 16;
     border-radius: 22px;
     overflow: hidden;
-    transition: transform 0.3s ease;
     cursor: pointer;
+    transition: transform 0.3s ease;
     flex-shrink: 0;
 }
 
