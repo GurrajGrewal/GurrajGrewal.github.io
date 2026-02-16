@@ -276,3 +276,141 @@ body {
     transform: scale(1.03);
 }
 
+/* ===== HERO BANNER ===== */
+
+.hero-banner {
+    margin-top: 80px;
+    position: relative;
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-text {
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+}
+
+.hero-text h1 {
+    font-size: 48px;
+    text-transform: none;
+}
+
+.subtitle {
+    margin-top: 8px;
+    font-size: 16px;
+    color: #aaa;
+    text-transform: none;
+}
+
+/* ===== MAIN GRID ===== */
+
+.home-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr 360px;
+    gap: 40px;
+    padding: 40px 60px;
+}
+
+/* ===== POPULAR COLUMN ===== */
+
+.popular-column h2 {
+    margin-bottom: 20px;
+    text-transform: none;
+}
+
+.popular-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.popular-item {
+    position: relative;
+    height: 55px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.popular-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.popular-item span {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    text-transform: none;
+    font-weight: 600;
+}
+
+/* ===== FEATURE COLUMN ===== */
+
+.feature-column {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.feature-banner {
+    height: 180px;   /* stretched mini banners */
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.feature-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ===== COMMUNITY COLUMN ===== */
+
+.community-column h2 {
+    margin-bottom: 20px;
+    text-transform: none;
+}
+
+.post {
+    background: #111;
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 10px;
+    text-transform: none;
+}
+
+.post p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-transform: none;
+}
+
+.post-stats {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: #888;
+    text-transform: none;
+}
+
+
