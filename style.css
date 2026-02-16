@@ -35,7 +35,7 @@ body {
 }
 
 .logo img {
-    height: 32px;
+    height: 52px;
     width: auto;
 }
 
@@ -130,7 +130,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: radial-gradient(circle at center, #111 0%, #000 70%);
+    background: #000;
 }
 
 .enter-container {
@@ -138,10 +138,8 @@ body {
 }
 
 .enter-logo-img {
-    width: 300px;
-    max-width: 80%;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-    cursor: pointer;
+    width: 420px;
+    max-width: 85%;
 }
 
 .enter-logo-img:hover {
