@@ -314,6 +314,15 @@ body {
     text-shadow: 0 3px 12px rgba(0, 0, 0, 0.8);
 }
 
+/* Poppins for Verified + Impressions */
+
+.verified-row span,
+.subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
 
 /* ===== MAIN GRID ===== */
 
