@@ -19,13 +19,16 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    height: 130px; /* Taller so logo can breathe */
-    background: rgba(0, 0, 0, 0.92);
-    backdrop-filter: blur(12px);
+    height: 80px;
+    background: rgba(0, 0, 0, 0.95);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
+}
+
+body {
+    padding-top: 80px; /* EXACT same height as navbar */
 }
 
 /* Logo */
@@ -279,7 +282,6 @@ body {
 /* ===== HERO BANNER ===== */
 
 .hero-banner {
-    margin-top: 80px;
     position: relative;
     width: 100%;
     height: 320px;
