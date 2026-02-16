@@ -16,16 +16,16 @@ body {
 /* ===== NAVBAR ===== */
 
 .navbar {
-    position: fixed;
+    position: absolute;  /* was fixed */
     top: 0;
     width: 100%;
-    height: 130px; /* Taller so logo can breathe */
-    background: rgba(0, 0, 0, 0.92);
-    backdrop-filter: blur(12px);
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 10;
+    background: transparent; /* remove black overlay */
+    backdrop-filter: none;
 }
 
 /* Logo */
@@ -279,10 +279,9 @@ body {
 /* ===== HERO BANNER ===== */
 
 .hero-banner {
-    margin-top: 80px;
     position: relative;
     width: 100%;
-    height: 320px;
+    height: 420px; /* taller for more impact */
     overflow: hidden;
 }
 
@@ -308,6 +307,18 @@ body {
     font-size: 16px;
     color: #aaa;
     text-transform: none;
+}
+
+.hero-banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.6) 0%,
+        rgba(0,0,0,0.3) 30%,
+        rgba(0,0,0,0.8) 100%
+    );
 }
 
 /* ===== MAIN GRID ===== */
