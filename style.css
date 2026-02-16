@@ -432,34 +432,3 @@ body {
     color: #888;
     text-transform: none;
 }
-
-/* VERIFIED ROW */
-
-.verified-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-}
-
-.verified-row img {
-    width: 18px;
-    height: 18px;
-    object-fit: contain;
-}
-
-.verified-row span {
-    font-size: 14px;
-    font-weight: 500;
-    color: #1DB954; /* Spotify green vibe */
-    text-transform: none;
-}
-
-/* Make impressions white */
-.subtitle {
-    margin-top: 8px;
-    font-size: 16px;
-    color: white;
-    text-transform: none;
-}
-
