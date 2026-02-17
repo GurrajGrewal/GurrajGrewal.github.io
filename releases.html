@@ -133,11 +133,16 @@ const prevBtn = document.querySelector(".prev");
 const releaseDate = document.getElementById("releaseDate");
 
 let currentIndex = 0;
+let autoSlideInterval;
+let idleTimer;
+
+const AUTO_DELAY = 8000;     // 8 seconds between slides
+const IDLE_DELAY = 10000;    // 10 seconds after interaction before restarting auto
 
 const dates = [
     "Released: November 13th, 2022",
     "Released: April 15th, 2025",
-    "Released: December 13th, 2025"
+    "Released: December 13th 2025"
 ];
 
 function updateSlider() {
@@ -156,15 +161,46 @@ function prevSlide() {
     updateSlider();
 }
 
-nextBtn.addEventListener("click", nextSlide);
-prevBtn.addEventListener("click", prevSlide);
+/* ===== AUTO SLIDE SYSTEM ===== */
+
+function startAutoSlide() {
+    autoSlideInterval = setInterval(() => {
+        nextSlide();
+    }, AUTO_DELAY);
+}
+
+function stopAutoSlide() {
+    clearInterval(autoSlideInterval);
+}
+
+function resetIdleTimer() {
+    stopAutoSlide();
+    clearTimeout(idleTimer);
+
+    idleTimer = setTimeout(() => {
+        startAutoSlide();
+    }, IDLE_DELAY);
+}
+
+/* ===== EVENT LISTENERS ===== */
+
+nextBtn.addEventListener("click", () => {
+    nextSlide();
+    resetIdleTimer();
+});
+
+prevBtn.addEventListener("click", () => {
+    prevSlide();
+    resetIdleTimer();
+});
+
+/* Optional: pause auto when mouse is over slider */
+document.querySelector(".release-feature").addEventListener("mouseenter", stopAutoSlide);
+document.querySelector(".release-feature").addEventListener("mouseleave", resetIdleTimer);
 
 window.addEventListener("resize", updateSlider);
 
-setInterval(nextSlide, 6000);
-
+/* Start auto when page loads */
+startAutoSlide();
 updateSlider();
 </script>
-
-</body>
-</html>
