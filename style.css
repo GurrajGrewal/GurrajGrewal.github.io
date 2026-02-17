@@ -467,3 +467,162 @@ body {
     text-transform: none;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
 }
+
+/* ===== RELEASE FEATURE ===== */
+
+.release-feature {
+    display: flex;
+    justify-content: space-between;
+    padding: 120px 80px 60px 80px;
+    gap: 80px;
+    min-height: 80vh;
+}
+
+.release-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.release-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.release-right img {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 24px;
+}
+
+/* Exclusive subtitle */
+
+.exclusive {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    margin-bottom: 30px;
+    text-transform: none;
+}
+
+.exclusive img {
+    height: 20px;
+    width: auto;
+}
+
+/* Project logo */
+
+.release-logo img {
+    width: 350px;
+    margin-bottom: 30px;
+}
+
+/* Description */
+
+.release-description {
+    max-width: 500px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #ccc;
+    text-transform: none;
+    margin-bottom: 30px;
+}
+
+/* Buttons */
+
+.release-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.play-btn {
+    background: white;
+    color: black;
+    border: none;
+    padding: 12px 26px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.info-btn {
+    background: #222;
+    color: white;
+    border: 1px solid #333;
+    padding: 12px 26px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.play-btn:hover {
+    background: #ddd;
+}
+
+.info-btn:hover {
+    background: #333;
+}
+
+/* Arrows */
+
+.arrow-controls {
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.arrow {
+    background: #111;
+    color: white;
+    border: 1px solid #333;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.arrow:hover {
+    background: #222;
+}
+
+/* ===== RELEASE ROW ===== */
+
+.release-row {
+    padding: 40px 80px 100px 80px;
+}
+
+.release-row h2 {
+    margin-bottom: 30px;
+    font-size: 20px;
+    text-transform: none;
+}
+
+.release-scroll {
+    display: flex;
+    gap: 30px;
+}
+
+.release-card {
+    width: 260px;
+    height: 160px;
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.release-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.release-card:hover {
+    transform: scale(1.05);
+}
+
+
