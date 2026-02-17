@@ -33,6 +33,16 @@
 
             <div class="release-overlay">
                 <div class="release-left">
+                    
+                    <div class="release-meta">
+                    <img src="yellowstar.png" class="star-icon">
+                    <span>6.1</span>
+                    <span class="dot">•</span>
+                    <span>2022</span>
+                    <span class="dot">•</span>
+                    <span>1 Season</span>
+                    </div>
+
                     <div class="release-logo">
                         <img src="white.png">
                     </div>
@@ -56,6 +66,16 @@
 
             <div class="release-overlay">
                 <div class="release-left">
+                    
+                    <div class="release-meta">
+                    <img src="redstar.png" class="star-icon">
+                    <span>4.7</span>
+                    <span class="dot">•</span>
+                    <span>2025</span>
+                    <span class="dot">•</span>
+                    <span>1 Season</span>
+                    </div>
+                    
                     <div class="release-logo">
                         <img src="white.png">
                     </div>
@@ -79,6 +99,16 @@
 
             <div class="release-overlay">
                 <div class="release-left">
+
+                    <div class="release-meta">
+                    <img src="yellowstar.png" class="star-icon">
+                    <span>6.4</span>
+                    <span class="dot">•</span>
+                    <span>2025</span>
+                    <span class="dot">•</span>
+                    <span>1 Season</span>
+                    </div>
+                    
                     <div class="release-logo">
                         <img src="white.png">
                     </div>
@@ -103,12 +133,6 @@
         <img src="white.png" alt="Trending">
     </div>
 
-    <div class="release-date" id="releaseDate">
-        Released: November 13th, 2022
-        Released: April 15th, 2025
-        Released: December 13th, 2025
-    </div>
-
     <div class="arrow-controls">
         <button class="arrow prev">‹</button>
         <button class="arrow next">›</button>
@@ -130,7 +154,6 @@ const slider = document.getElementById("slider");
 const slides = document.querySelectorAll(".release-slide");
 const nextBtn = document.querySelector(".next");
 const prevBtn = document.querySelector(".prev");
-const releaseDate = document.getElementById("releaseDate");
 
 let currentIndex = 0;
 let autoSlideInterval;
@@ -138,12 +161,6 @@ let idleTimer;
 
 const AUTO_DELAY = 8000;     // 8 seconds between slides
 const IDLE_DELAY = 10000;    // 10 seconds after interaction before restarting auto
-
-const dates = [
-    "Released: November 13th, 2022",
-    "Released: April 15th, 2025",
-    "Released: December 13th 2025"
-];
 
 function updateSlider() {
     const slideWidth = slides[0].clientWidth;
