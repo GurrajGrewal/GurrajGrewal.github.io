@@ -31,8 +31,9 @@
         <div class="release-slide">
             <div class="release-bg" style="background-image: url('HCMArt.png');"></div>
 
+            <!-- Trending #2 -->
             <div class="trending-badge">
-                <img src="#2.png" alt="Trending">
+                <img src="#2.png" alt="Trending Rank 2">
             </div>
 
             <div class="release-overlay">
@@ -63,6 +64,7 @@
                         <button class="info-btn">More Info</button>
                         <button class="season-btn">Seasons</button>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -71,8 +73,9 @@
         <div class="release-slide">
             <div class="release-bg" style="background-image: url('PRE-PARTYART.png');"></div>
 
+            <!-- Trending #3 -->
             <div class="trending-badge">
-                <img src="#3.png" alt="Trending">
+                <img src="#3.png" alt="Trending Rank 3">
             </div>
 
             <div class="release-overlay">
@@ -103,6 +106,7 @@
                         <button class="info-btn">More Info</button>
                         <button class="season-btn">Seasons</button>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -111,8 +115,9 @@
         <div class="release-slide">
             <div class="release-bg" style="background-image: url('HCMAArt.png');"></div>
 
+            <!-- Trending #1 -->
             <div class="trending-badge">
-                <img src="#1.png" alt="Trending">
+                <img src="#1.png" alt="Trending Rank 1">
             </div>
 
             <div class="release-overlay">
@@ -143,6 +148,7 @@
                         <button class="info-btn">More Info</button>
                         <button class="season-btn">Seasons</button>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -173,60 +179,23 @@ const nextBtn = document.querySelector(".next");
 const prevBtn = document.querySelector(".prev");
 
 let currentIndex = 0;
-let autoSlideInterval;
-let idleTimer;
-
-const AUTO_DELAY = 8000;
-const IDLE_DELAY = 10000;
 
 function updateSlider() {
     const slideWidth = slides[0].clientWidth;
     slider.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
 }
 
-function nextSlide() {
+nextBtn.addEventListener("click", () => {
     currentIndex = (currentIndex + 1) % slides.length;
     updateSlider();
-}
-
-function prevSlide() {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    updateSlider();
-}
-
-function startAutoSlide() {
-    autoSlideInterval = setInterval(nextSlide, AUTO_DELAY);
-}
-
-function stopAutoSlide() {
-    clearInterval(autoSlideInterval);
-}
-
-function resetIdleTimer() {
-    stopAutoSlide();
-    clearTimeout(idleTimer);
-    idleTimer = setTimeout(startAutoSlide, IDLE_DELAY);
-}
-
-nextBtn.addEventListener("click", () => {
-    nextSlide();
-    resetIdleTimer();
 });
 
 prevBtn.addEventListener("click", () => {
-    prevSlide();
-    resetIdleTimer();
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    updateSlider();
 });
 
-document.querySelector(".release-feature")
-    .addEventListener("mouseenter", stopAutoSlide);
-
-document.querySelector(".release-feature")
-    .addEventListener("mouseleave", resetIdleTimer);
-
 window.addEventListener("resize", updateSlider);
-
-startAutoSlide();
 updateSlider();
 </script>
 
