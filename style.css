@@ -521,20 +521,23 @@ body {
 
 /* Trending Badge (Curved 1:1 Top Right) */
 
+.release-slide {
+    position: relative;
+}
+
 .trending-badge {
     position: absolute;
-    top: 50px;
-    right: 50px;
-    width: 50px;
-    aspect-ratio: 1 / 1;
-    border-radius: 20px;   /* controls curve amount */
-    overflow: hidden;      /* forces image to follow curve */
+    top: 40px;
+    right: 60px;
+    width: 95px;
+    height: 95px;
+    z-index: 5;
 }
 
 .trending-badge img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 /* Release Date (Moved Up) */
