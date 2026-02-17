@@ -785,3 +785,26 @@ body {
     gap: 10px;
     z-index: 6;
 }
+
+/* ===== RELEASE META (Rating / Year / Seasons) ===== */
+
+.release-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: #e0e0e0;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.release-meta .star-icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.release-meta .dot {
+    opacity: 0.6;
+}
+
