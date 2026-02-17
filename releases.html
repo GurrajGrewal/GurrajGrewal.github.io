@@ -31,36 +31,31 @@
         <div class="release-slide">
             <div class="release-bg" style="background-image: url('HCMArt.png');"></div>
 
+            <div class="trending-badge">
+                <img src="#2.png" alt="Trending">
+            </div>
+
             <div class="release-overlay">
                 <div class="release-left">
                     
                     <div class="release-meta">
-                    <img src="yellowstar.png" class="star-icon">
-                    <span>6.1</span>
-                    <span class="dot">•</span>
-                    <span>2022</span>
-                    <span class="dot">•</span>
-                    <span>1 Season</span>
+                        <img src="yellowstar.png" class="star-icon">
+                        <span>6.1</span>
+                        <span class="dot">•</span>
+                        <span>2022</span>
+                        <span class="dot">•</span>
+                        <span>1 Season</span>
                     </div>
-
-                        <div class="trending-badge">
-        <img src="#2.png" alt="Trending">
-    </div>
-
-    <div class="arrow-controls">
-        <button class="arrow prev">‹</button>
-        <button class="arrow next">›</button>
-    </div>
 
                     <div class="release-logo">
                         <img src="HCMLogo.png">
                     </div>
 
                     <div class="release-description">
-                    <p>
-                    Violethyst and Sibashi enter each match with one goal: survive. 
-                    In a world where a single mistake ends the game, teamwork is the only way out.
-                    </p>
+                        <p>
+                        Violethyst and Sibashi enter each match with one goal: survive. 
+                        In a world where a single mistake ends the game, teamwork is the only way out.
+                        </p>
                     </div>
 
                     <div class="release-buttons">
@@ -76,36 +71,31 @@
         <div class="release-slide">
             <div class="release-bg" style="background-image: url('PRE-PARTYART.png');"></div>
 
+            <div class="trending-badge">
+                <img src="#3.png" alt="Trending">
+            </div>
+
             <div class="release-overlay">
                 <div class="release-left">
                     
                     <div class="release-meta">
-                    <img src="redstar.png" class="star-icon">
-                    <span>4.7</span>
-                    <span class="dot">•</span>
-                    <span>2025</span>
-                    <span class="dot">•</span>
-                    <span>1 Season</span>
+                        <img src="redstar.png" class="star-icon">
+                        <span>4.7</span>
+                        <span class="dot">•</span>
+                        <span>2025</span>
+                        <span class="dot">•</span>
+                        <span>1 Season</span>
                     </div>
 
-                        <div class="trending-badge">
-        <img src="#3.png" alt="Trending">
-    </div>
-
-    <div class="arrow-controls">
-        <button class="arrow prev">‹</button>
-        <button class="arrow next">›</button>
-    </div>
-                    
                     <div class="release-logo">
                         <img src="PRE-PARTYLOGO.png">
                     </div>
 
                     <div class="release-description">
-                    <p>
-                    A Hypixel Cinematic Montage Series spinoff centered on Viouth, a variant of Violethyst. 
-                    Introducing tracks from The Weeknd's Hurry Up Tomorrow Album turned into montages.
-                    </p>
+                        <p>
+                        A Hypixel Cinematic Montage Series spinoff centered on Viouth, a variant of Violethyst. 
+                        Introducing tracks from The Weeknd's Hurry Up Tomorrow Album turned into montages.
+                        </p>
                     </div>
 
                     <div class="release-buttons">
@@ -117,40 +107,35 @@
             </div>
         </div>
 
-                <!-- SLIDE 3 -->
+        <!-- SLIDE 3 -->
         <div class="release-slide">
             <div class="release-bg" style="background-image: url('HCMAArt.png');"></div>
+
+            <div class="trending-badge">
+                <img src="#1.png" alt="Trending">
+            </div>
 
             <div class="release-overlay">
                 <div class="release-left">
 
                     <div class="release-meta">
-                    <img src="yellowstar.png" class="star-icon">
-                    <span>6.4</span>
-                    <span class="dot">•</span>
-                    <span>2025</span>
-                    <span class="dot">•</span>
-                    <span>1 Season</span>
+                        <img src="yellowstar.png" class="star-icon">
+                        <span>6.4</span>
+                        <span class="dot">•</span>
+                        <span>2025</span>
+                        <span class="dot">•</span>
+                        <span>1 Season</span>
                     </div>
 
-                        <div class="trending-badge">
-        <img src="#1.png" alt="Trending">
-    </div>
-
-    <div class="arrow-controls">
-        <button class="arrow prev">‹</button>
-        <button class="arrow next">›</button>
-    </div>
-                    
                     <div class="release-logo">
                         <img src="HCMALogo.png">
                     </div>
 
                     <div class="release-description">
-                    <p>
-                    Three years later, Violethyst returns to the games. 
-                    Revisiting the rivalry, the matches, and the momentum that started it all.
-                    </p>
+                        <p>
+                        Three years later, Violethyst returns to the games. 
+                        Revisiting the rivalry, the matches, and the momentum that started it all.
+                        </p>
                     </div>
 
                     <div class="release-buttons">
@@ -162,6 +147,12 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- GLOBAL ARROWS (ONLY ONCE) -->
+    <div class="arrow-controls">
+        <button class="arrow prev">‹</button>
+        <button class="arrow next">›</button>
     </div>
 
 </section>
@@ -185,13 +176,12 @@ let currentIndex = 0;
 let autoSlideInterval;
 let idleTimer;
 
-const AUTO_DELAY = 8000;     // 8 seconds between slides
-const IDLE_DELAY = 10000;    // 10 seconds after interaction before restarting auto
+const AUTO_DELAY = 8000;
+const IDLE_DELAY = 10000;
 
 function updateSlider() {
     const slideWidth = slides[0].clientWidth;
     slider.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-    releaseDate.textContent = dates[currentIndex];
 }
 
 function nextSlide() {
@@ -204,12 +194,8 @@ function prevSlide() {
     updateSlider();
 }
 
-/* ===== AUTO SLIDE SYSTEM ===== */
-
 function startAutoSlide() {
-    autoSlideInterval = setInterval(() => {
-        nextSlide();
-    }, AUTO_DELAY);
+    autoSlideInterval = setInterval(nextSlide, AUTO_DELAY);
 }
 
 function stopAutoSlide() {
@@ -219,13 +205,8 @@ function stopAutoSlide() {
 function resetIdleTimer() {
     stopAutoSlide();
     clearTimeout(idleTimer);
-
-    idleTimer = setTimeout(() => {
-        startAutoSlide();
-    }, IDLE_DELAY);
+    idleTimer = setTimeout(startAutoSlide, IDLE_DELAY);
 }
-
-/* ===== EVENT LISTENERS ===== */
 
 nextBtn.addEventListener("click", () => {
     nextSlide();
@@ -237,13 +218,17 @@ prevBtn.addEventListener("click", () => {
     resetIdleTimer();
 });
 
-/* Optional: pause auto when mouse is over slider */
-document.querySelector(".release-feature").addEventListener("mouseenter", stopAutoSlide);
-document.querySelector(".release-feature").addEventListener("mouseleave", resetIdleTimer);
+document.querySelector(".release-feature")
+    .addEventListener("mouseenter", stopAutoSlide);
+
+document.querySelector(".release-feature")
+    .addEventListener("mouseleave", resetIdleTimer);
 
 window.addEventListener("resize", updateSlider);
 
-/* Start auto when page loads */
 startAutoSlide();
 updateSlider();
 </script>
+
+</body>
+</html>
