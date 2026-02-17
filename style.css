@@ -472,7 +472,8 @@ body {
 
 .release-feature {
     position: relative;
-    height: 85vh;
+    height: 70vh; /* reduced from 85vh */
+    min-height: 520px;
     overflow: hidden;
 }
 
@@ -487,13 +488,17 @@ body {
     z-index: 1;
 }
 
-/* Dark cinematic fade for readability */
+/* Dark cinematic fade */
 
 .release-bg::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.2) 70%);
+    background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.9) 35%,
+        rgba(0,0,0,0.25) 75%
+    );
 }
 
 /* Overlay Content */
@@ -502,7 +507,7 @@ body {
     position: relative;
     z-index: 2;
     height: 100%;
-    padding: 120px 80px;
+    padding: 90px 80px; /* tightened */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -514,14 +519,14 @@ body {
     max-width: 600px;
 }
 
-/* Trending Badge (Top Right) */
+/* Trending Badge (True Top Right, 1:1) */
 
 .trending-badge {
     position: absolute;
-    top: 120px;
-    right: 80px;
-    width: 80px;
-    height: 80px;
+    top: 40px;
+    right: 60px;
+    width: 90px;
+    aspect-ratio: 1 / 1;
 }
 
 .trending-badge img {
@@ -530,12 +535,12 @@ body {
     object-fit: contain;
 }
 
-/* Release Date (Bottom Right) */
+/* Release Date (Moved Up) */
 
 .release-date {
     position: absolute;
-    bottom: 60px;
-    right: 80px;
+    bottom: 110px; /* moved up */
+    right: 60px;
     font-size: 14px;
     color: #ccc;
     letter-spacing: 1px;
@@ -548,8 +553,7 @@ body {
     align-items: center;
     gap: 10px;
     font-size: 14px;
-    margin-bottom: 30px;
-    text-transform: none;
+    margin-bottom: 25px;
 }
 
 .exclusive img {
@@ -560,8 +564,8 @@ body {
 /* Project logo */
 
 .release-logo img {
-    width: 350px;
-    margin-bottom: 30px;
+    width: 320px;
+    margin-bottom: 25px;
 }
 
 /* Description */
@@ -571,17 +575,18 @@ body {
     font-size: 15px;
     line-height: 1.6;
     color: #ccc;
-    text-transform: none;
     margin-bottom: 30px;
 }
 
-/* Buttons */
+/* Buttons Row */
 
 .release-buttons {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
 }
+
+/* Play Button */
 
 .play-btn {
     background: white;
@@ -593,6 +598,12 @@ body {
     border-radius: 6px;
 }
 
+.play-btn:hover {
+    background: #ddd;
+}
+
+/* Info Button */
+
 .info-btn {
     background: #222;
     color: white;
@@ -602,20 +613,31 @@ body {
     border-radius: 6px;
 }
 
-.play-btn:hover {
-    background: #ddd;
-}
-
 .info-btn:hover {
     background: #333;
+}
+
+/* NEW Seasons Button */
+
+.season-btn {
+    background: #1a1a1a;
+    color: white;
+    border: 1px solid #444;
+    padding: 12px 22px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.season-btn:hover {
+    background: #2a2a2a;
 }
 
 /* Arrows */
 
 .arrow-controls {
     display: flex;
-    gap: 10px;
-    margin-left: 20px;
+    gap: 8px;
+    margin-left: 10px; /* pushes them after Seasons */
 }
 
 .arrow {
@@ -635,13 +657,12 @@ body {
 /* ===== RELEASE ROW ===== */
 
 .release-row {
-    padding: 40px 80px 100px 80px;
+    padding: 50px 80px 100px 80px;
 }
 
 .release-row h2 {
     margin-bottom: 30px;
     font-size: 20px;
-    text-transform: none;
 }
 
 .release-scroll {
@@ -667,5 +688,3 @@ body {
 .release-card:hover {
     transform: scale(1.05);
 }
-
-
