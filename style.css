@@ -468,34 +468,77 @@ body {
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
-/* ===== RELEASE FEATURE ===== */
+/* ===== HERO BACKGROUND RELEASE ===== */
 
 .release-feature {
-    display: flex;
-    justify-content: space-between;
-    padding: 120px 80px 60px 80px;
-    gap: 80px;
-    min-height: 80vh;
+    position: relative;
+    height: 85vh;
+    overflow: hidden;
 }
 
-.release-left {
-    flex: 1;
+/* Full Background Artwork */
+
+.release-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url("white.png"); /* MAIN ARTWORK */
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+/* Dark cinematic fade for readability */
+
+.release-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.2) 70%);
+}
+
+/* Overlay Content */
+
+.release-overlay {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    padding: 120px 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.release-right {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* Left Content */
+
+.release-left {
+    max-width: 600px;
 }
 
-.release-right img {
+/* Trending Badge (Top Right) */
+
+.trending-badge {
+    position: absolute;
+    top: 120px;
+    right: 80px;
+    width: 80px;
+    height: 80px;
+}
+
+.trending-badge img {
     width: 100%;
-    max-width: 600px;
-    border-radius: 24px;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Release Date (Bottom Right) */
+
+.release-date {
+    position: absolute;
+    bottom: 60px;
+    right: 80px;
+    font-size: 14px;
+    color: #ccc;
+    letter-spacing: 1px;
 }
 
 /* Exclusive subtitle */
