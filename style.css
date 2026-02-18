@@ -767,3 +767,52 @@ body {
 .release-meta .dot {
     opacity: 0.6;
 }
+
+.hidden {
+    display: none;
+}
+
+.release-row {
+    padding: 60px 80px;
+    transition: transform 0.4s ease;
+}
+
+.row-title {
+    font-size: 20px;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+.release-scroll {
+    display: flex;
+    gap: 25px;
+    overflow-x: auto;
+}
+
+.release-card img {
+    width: 260px;
+    border-radius: 8px;
+}
+
+.small-episodes .release-card img {
+    width: 170px;
+}
+
+.episode-meta {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.episode-number {
+    font-size: 13px;
+    color: #888;
+}
+
+.episode-title {
+    font-size: 14px;
+    color: white;
+}
+
+
+
