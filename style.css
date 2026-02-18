@@ -774,7 +774,6 @@ body {
 
 .release-row {
     padding: 60px 80px;
-    transition: transform 0.4s ease;
 }
 
 .row-title {
@@ -785,34 +784,64 @@ body {
 
 .release-scroll {
     display: flex;
-    gap: 25px;
+    gap: 20px;
     overflow-x: auto;
+    scroll-behavior: smooth;
 }
 
-.release-card img {
+.release-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.release-scroll::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 10px;
+}
+
+/* ===== TIMELINE CARDS ===== */
+
+.timeline-card img {
     width: 260px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
     border-radius: 8px;
 }
 
-.small-episodes .release-card img {
-    width: 170px;
+/* ===== EPISODE CARDS ===== */
+
+.episode-scroll .release-card {
+    flex: 0 0 auto;
+    width: 220px;
+}
+
+.episode-scroll img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 .episode-meta {
     margin-top: 8px;
-    display: flex;
-    flex-direction: column;
 }
 
 .episode-number {
+    display: block;
     font-size: 13px;
     color: #888;
 }
 
 .episode-title {
+    display: block;
     font-size: 14px;
     color: white;
 }
 
+/* ===== SEASON HEADER ===== */
+
+.season-toggle {
+    cursor: pointer;
+    user-select: none;
+}
 
 
