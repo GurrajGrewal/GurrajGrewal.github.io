@@ -148,14 +148,33 @@
 
 </section>
 
-<section class="release-row">
-    <h2>The Timeline</h2>
-    <div class="release-scroll">
-        <div class="release-card"><img src="white.png"></div>
-        <div class="release-card"><img src="white.png"></div>
-        <div class="release-card"><img src="white.png"></div>
+<section class="release-row" id="releaseRow">
+
+    <!-- DEFAULT VIEW -->
+    <div id="timelineView">
+        <h2 class="row-title">The Timeline</h2>
+        <div class="release-scroll">
+            <div class="release-card"><img src="white.png"></div>
+            <div class="release-card"><img src="white.png"></div>
+            <div class="release-card"><img src="white.png"></div>
+        </div>
     </div>
+
+    <!-- SEASON VIEW -->
+    <div id="seasonView" class="hidden">
+
+        <h2 class="row-title season-header">
+            &#9776; Season 1
+        </h2>
+
+        <div class="release-scroll small-episodes" id="episodeContainer">
+            <!-- Episodes injected by JS -->
+        </div>
+
+    </div>
+
 </section>
+
 
 <script>
 const slider = document.getElementById("slider");
@@ -163,16 +182,25 @@ const slides = document.querySelectorAll(".release-slide");
 const nextBtn = document.querySelector(".next");
 const prevBtn = document.querySelector(".prev");
 
+const playButtons = document.querySelectorAll(".play-btn");
+const timelineView = document.getElementById("timelineView");
+const seasonView = document.getElementById("seasonView");
+const releaseRow = document.getElementById("releaseRow");
+const episodeContainer = document.getElementById("episodeContainer");
+
 let currentIndex = 0;
 let autoSlideInterval;
+let autoSliding = true;
 
-/* ===== SLIDE FUNCTION ===== */
+/* ========================= */
+/* SLIDER LOGIC */
+/* ========================= */
+
 function updateSlider() {
     const slideWidth = slides[0].clientWidth;
     slider.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
 }
 
-/* ===== NEXT / PREV ===== */
 function nextSlide() {
     currentIndex = (currentIndex + 1) % slides.length;
     updateSlider();
@@ -185,28 +213,96 @@ function prevSlide() {
 
 nextBtn.addEventListener("click", () => {
     nextSlide();
-    resetAutoSlide();
 });
 
 prevBtn.addEventListener("click", () => {
     prevSlide();
-    resetAutoSlide();
 });
 
-/* ===== AUTO SLIDE ===== */
 function startAutoSlide() {
-    autoSlideInterval = setInterval(nextSlide, 8000); // 8 seconds
+    autoSlideInterval = setInterval(nextSlide, 5000);
 }
 
-function resetAutoSlide() {
+function stopAutoSlide() {
     clearInterval(autoSlideInterval);
-    startAutoSlide();
+    autoSliding = false;
 }
 
-/* ===== INIT ===== */
 window.addEventListener("resize", updateSlider);
-
 updateSlider();
 startAutoSlide();
+
+/* ========================= */
+/* EPISODE DATA (SCALABLE) */
+/* ========================= */
+
+const projects = {
+    0: [
+        { number: 1, title: "The Beginning" },
+        { number: 2, title: "First Blood" },
+        { number: 3, title: "Final Stand" }
+    ],
+    1: [
+        { number: 1, title: "Variant Arrival" },
+        { number: 2, title: "Montage Protocol" },
+        { number: 3, title: "Hurry Up Tomorrow" }
+    ],
+    2: [
+        { number: 1, title: "Return of Violethyst" },
+        { number: 2, title: "The Rivalry" },
+        { number: 3, title: "Momentum Restored" }
+    ]
+};
+
+/* ========================= */
+/* PLAY BUTTON LOGIC */
+/* ========================= */
+
+playButtons.forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+
+        // STOP AUTO SLIDE
+        if (autoSliding) stopAutoSlide();
+
+        // Hide timeline, show season view
+        timelineView.classList.add("hidden");
+        seasonView.classList.remove("hidden");
+
+        // Move section down
+        releaseRow.style.transform = "translateY(40px)";
+
+        // Load correct project episodes
+        loadEpisodes(index);
+
+        // Scroll to it
+        seasonView.scrollIntoView({ behavior: "smooth" });
+    });
+});
+
+/* ========================= */
+/* LOAD EPISODES */
+/* ========================= */
+
+function loadEpisodes(projectIndex) {
+
+    episodeContainer.innerHTML = "";
+
+    projects[projectIndex].forEach(ep => {
+
+        const card = document.createElement("div");
+        card.classList.add("release-card");
+
+        card.innerHTML = `
+            <img src="white.png">
+            <div class="episode-meta">
+                <span class="episode-number">Episode ${ep.number}:</span>
+                <span class="episode-title">${ep.title}</span>
+            </div>
+        `;
+
+        episodeContainer.appendChild(card);
+    });
+}
 </script>
+
 
