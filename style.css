@@ -601,9 +601,9 @@ body {
     background: #333;
 }
 
-/* NEW Seasons Button */
+/* NEW Preview Button */
 
-.season-btn {
+.preview-btn {
     background: #222;
     color: white;
     border: 1px solid #333;
@@ -612,7 +612,7 @@ body {
     border-radius: 6px;
 }
 
-.season-btn:hover {
+.preview-btn:hover {
     background: #2a2a2a;
 }
 
