@@ -147,42 +147,64 @@
     </div>
 
 </section>
-
-<section class="release-row">
-    <h2>The Timeline</h2>
-    <div class="release-scroll">
-        <div class="release-card"><img src="white.png"></div>
-        <div class="release-card"><img src="white.png"></div>
-        <div class="release-card"><img src="white.png"></div>
-    </div>
-</section>
-
+    
 <script>
 const slider = document.getElementById("slider");
 const slides = document.querySelectorAll(".release-slide");
 const nextBtn = document.querySelector(".next");
 const prevBtn = document.querySelector(".prev");
+const playButtons = document.querySelectorAll(".play-btn");
 
 let currentIndex = 0;
+let autoSlideInterval;
+let autoSliding = true;
 
 function updateSlider() {
     const slideWidth = slides[0].clientWidth;
     slider.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
 }
 
+/* ===== MANUAL ARROWS ===== */
+
 nextBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex + 1) % slides.length;
-    updateSlider();
+    if (autoSliding) {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateSlider();
+    }
 });
 
 prevBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    updateSlider();
+    if (autoSliding) {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        updateSlider();
+    }
+});
+
+/* ===== AUTOSLIDE ===== */
+
+function startAutoSlide() {
+    autoSlideInterval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateSlider();
+    }, 5000);
+}
+
+function stopAutoSlide() {
+    clearInterval(autoSlideInterval);
+    autoSliding = false;
+}
+
+startAutoSlide();
+
+/* ===== STOP AUTOSLIDE ON PLAY ===== */
+
+playButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        stopAutoSlide();
+    });
 });
 
 window.addEventListener("resize", updateSlider);
 updateSlider();
 </script>
 
-</body>
-</html>
