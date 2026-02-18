@@ -601,9 +601,9 @@ body {
     background: #333;
 }
 
-/* NEW Preview Button */
+/* NEW Seasons Button */
 
-.preview-btn {
+.season-btn {
     background: #222;
     color: white;
     border: 1px solid #333;
@@ -612,7 +612,7 @@ body {
     border-radius: 6px;
 }
 
-.preview-btn:hover {
+.season-btn:hover {
     background: #2a2a2a;
 }
 
@@ -766,180 +766,4 @@ body {
 
 .release-meta .dot {
     opacity: 0.6;
-}
-
-.hidden {
-    display: none;
-}
-
-.release-row {
-    padding: 60px 80px;
-}
-
-.row-title {
-    font-size: 20px;
-    letter-spacing: 2px;
-    margin-bottom: 25px;
-}
-
-.release-scroll {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-}
-
-.release-scroll::-webkit-scrollbar {
-    height: 6px;
-}
-
-.release-scroll::-webkit-scrollbar-thumb {
-    background: #444;
-    border-radius: 10px;
-}
-
-.release-section {
-    padding: 40px 80px;
-}
-
-/* Remove giant gap */
-.release-section > div {
-    margin-bottom: 40px;
-}
-
-/* ================= SEASON BAR ================= */
-
-.season-bar {
-    position: relative;
-    margin-bottom: 30px;
-}
-
-/* Main Button */
-.season-selector {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    user-select: none;
-}
-
-/* Dropdown */
-.season-dropdown {
-    position: absolute;
-    top: 40px;
-    left: 0;
-    background: #111;
-    border: 1px solid #333;
-    border-radius: 8px;
-    width: 180px;
-    max-height: 150px;
-    overflow-y: auto;
-    z-index: 10;
-}
-
-/* Scrollbar */
-.season-dropdown::-webkit-scrollbar {
-    width: 6px;
-}
-
-.season-dropdown::-webkit-scrollbar-thumb {
-    background: #444;
-    border-radius: 10px;
-}
-
-.season-option {
-    padding: 10px 15px;
-    cursor: pointer;
-}
-
-.season-option:hover {
-    background: #222;
-}
-
-.hidden {
-    display: none;
-}
-
-
-/* ================= EPISODES ================= */
-
-.episodes-scroll {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-}
-
-.episodes-scroll .episode-card {
-    flex: 0 0 auto;
-    width: 240px;
-}
-
-.episodes-scroll img {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.episode-meta {
-    margin-top: 8px;
-}
-
-.episode-number {
-    font-size: 13px;
-    color: #888;
-    display: block;
-}
-
-.episode-title {
-    font-size: 14px;
-    color: white;
-    display: block;
-}
-
-/* ================= TIMELINE ================= */
-
-.timeline-scroll {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-}
-
-.timeline-card img {
-    width: 260px;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-/* Utility */
-.hidden {
-    display: none;
-}
-
-.release-slider {
-    position: relative;
-    height: 85vh;
-    overflow: hidden;
-}
-
-.release-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-}
-
-.release-slide.active {
-    opacity: 1;
-    z-index: 2;
-}
-
-.episodes-scroll {
-    display: flex;
-    gap: 30px;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
 }
