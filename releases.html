@@ -104,7 +104,6 @@
 
     <div class="season-dropdown hidden" id="seasonDropdown">
         <div class="season-option" data-season="1">Season 1</div>
-        <div class="season-option" data-season="2">Season 2</div>
     </div>
 
 </div>
@@ -116,7 +115,7 @@
 
 <!-- Timeline -->
 <div class="timeline-row">
-    <h2 class="row-title">THE TIMELINE</h2>
+    <h2 class="row-title">The Timeline</h2>
     <div class="timeline-scroll">
         <div class="timeline-card"><img src="white.png"></div>
         <div class="timeline-card"><img src="white.png"></div>
@@ -126,29 +125,55 @@
 
 </section>
 
-<!-- ================= SCRIPT ================= -->
-
 <script>
+
+/* ================= SCRIPT, SLIDER ================= */
 
 const slides = document.querySelectorAll(".release-slide");
 const nextBtn = document.querySelector(".next");
 const prevBtn = document.querySelector(".prev");
+
 let current = 0;
+let autoSlideInterval;
+let autoSliding = true;
 
 function showSlide(index){
     slides.forEach(s => s.classList.remove("active"));
     slides[index].classList.add("active");
 }
 
-nextBtn.onclick = () => {
+function nextSlide(){
     current = (current + 1) % slides.length;
     showSlide(current);
-};
+}
 
-prevBtn.onclick = () => {
+function prevSlide(){
     current = (current - 1 + slides.length) % slides.length;
     showSlide(current);
-};
+}
+
+/* ---------- ARROWS ---------- */
+
+nextBtn.addEventListener("click", nextSlide);
+prevBtn.addEventListener("click", prevSlide);
+
+/* ---------- AUTOSLIDE ---------- */
+
+function startAutoSlide(){
+    autoSlideInterval = setInterval(() => {
+        nextSlide();
+    }, 5000); // 5 seconds
+}
+
+function stopAutoSlide(){
+    if(autoSliding){
+        clearInterval(autoSlideInterval);
+        autoSliding = false;
+    }
+}
+
+startAutoSlide();
+
 
 /* ================= PROJECT DATA ================= */
 
@@ -156,17 +181,21 @@ const projectData = {
     0: {
         seasons: {
             1: [
-                {number:1,title:"The Beginning"},
-                {number:2,title:"First Blood"},
-                {number:3,title:"Final Stand"}
-            ],
-            2: [
-                {number:1,title:"Reawakening"},
-                {number:2,title:"Clash of Rivals"}
+                {number:1,title:"Couloir, Intro"},
+                {number:2,title:"Japan & Shiawase"},
+                {number:3,title:"Tell Me A Joke"},
+                {number:4,title:"Under My Skin"},
+                {number:5,title:"My Eyes"},
+                {number:6,title:"Lean Wit Me"},
+                {number:7,title:"Dustcutter"},
+                {number:8,title:"Always Be My Fault"},
+                {number:9,title:"Cinderella"},
+                {number:10,title:"Drugs You Should Try It"}
             ]
         }
     }
 };
+
 
 /* ================= ELEMENTS ================= */
 
@@ -180,12 +209,14 @@ const episodeContainer = document.getElementById("episodeContainer");
 
 let activeProject = 0;
 
+
 /* ================= LOAD EPISODES ================= */
 
 function loadEpisodes(projectIndex, season){
     episodeContainer.innerHTML = "";
 
-    const episodes = projectData[projectIndex].seasons[season];
+    const episodes = projectData[projectIndex]?.seasons[season];
+    if(!episodes) return;
 
     episodes.forEach(ep=>{
         const card = document.createElement("div");
@@ -203,11 +234,14 @@ function loadEpisodes(projectIndex, season){
     });
 }
 
+
 /* ================= PLAY BUTTON ================= */
 
 playButtons.forEach((btn,index)=>{
     btn.addEventListener("click",()=>{
         activeProject = index;
+
+        stopAutoSlide(); // 🔥 stops autoslider when Play pressed
 
         seasonBar.classList.remove("hidden");
         episodesRow.classList.remove("hidden");
@@ -217,6 +251,7 @@ playButtons.forEach((btn,index)=>{
         episodesRow.scrollIntoView({behavior:"smooth"});
     });
 });
+
 
 /* ================= DROPDOWN ================= */
 
@@ -238,5 +273,3 @@ document.querySelectorAll(".season-option").forEach(option=>{
 
 </script>
 
-</body>
-</html>
