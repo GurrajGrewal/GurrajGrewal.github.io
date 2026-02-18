@@ -150,25 +150,27 @@
 
 <section class="release-row" id="releaseRow">
 
-    <!-- DEFAULT VIEW -->
+<section class="release-row" id="releaseRow">
+
+    <!-- TIMELINE (DEFAULT) -->
     <div id="timelineView">
         <h2 class="row-title">The Timeline</h2>
-        <div class="release-scroll">
-            <div class="release-card"><img src="white.png"></div>
-            <div class="release-card"><img src="white.png"></div>
-            <div class="release-card"><img src="white.png"></div>
+        <div class="release-scroll timeline-scroll">
+            <div class="release-card timeline-card"><img src="white.png"></div>
+            <div class="release-card timeline-card"><img src="white.png"></div>
+            <div class="release-card timeline-card"><img src="white.png"></div>
         </div>
     </div>
 
     <!-- SEASON VIEW -->
     <div id="seasonView" class="hidden">
 
-        <h2 class="row-title season-header">
+        <h2 class="row-title season-toggle" id="seasonToggle">
             &#9776; Season 1
         </h2>
 
-        <div class="release-scroll small-episodes" id="episodeContainer">
-            <!-- Episodes injected by JS -->
+        <div class="release-scroll episode-scroll" id="episodeContainer">
+            <!-- Injected dynamically -->
         </div>
 
     </div>
@@ -185,16 +187,14 @@ const prevBtn = document.querySelector(".prev");
 const playButtons = document.querySelectorAll(".play-btn");
 const timelineView = document.getElementById("timelineView");
 const seasonView = document.getElementById("seasonView");
-const releaseRow = document.getElementById("releaseRow");
+const seasonToggle = document.getElementById("seasonToggle");
 const episodeContainer = document.getElementById("episodeContainer");
 
 let currentIndex = 0;
 let autoSlideInterval;
 let autoSliding = true;
 
-/* ========================= */
-/* SLIDER LOGIC */
-/* ========================= */
+/* ================= SLIDER ================= */
 
 function updateSlider() {
     const slideWidth = slides[0].clientWidth;
@@ -211,13 +211,8 @@ function prevSlide() {
     updateSlider();
 }
 
-nextBtn.addEventListener("click", () => {
-    nextSlide();
-});
-
-prevBtn.addEventListener("click", () => {
-    prevSlide();
-});
+nextBtn.addEventListener("click", nextSlide);
+prevBtn.addEventListener("click", prevSlide);
 
 function startAutoSlide() {
     autoSlideInterval = setInterval(nextSlide, 5000);
@@ -232,9 +227,7 @@ window.addEventListener("resize", updateSlider);
 updateSlider();
 startAutoSlide();
 
-/* ========================= */
-/* EPISODE DATA (SCALABLE) */
-/* ========================= */
+/* ================= PROJECT DATA ================= */
 
 const projects = {
     0: [
@@ -254,34 +247,23 @@ const projects = {
     ]
 };
 
-/* ========================= */
-/* PLAY BUTTON LOGIC */
-/* ========================= */
+/* ================= PLAY BUTTON ================= */
 
 playButtons.forEach((btn, index) => {
     btn.addEventListener("click", () => {
 
-        // STOP AUTO SLIDE
         if (autoSliding) stopAutoSlide();
 
-        // Hide timeline, show season view
         timelineView.classList.add("hidden");
         seasonView.classList.remove("hidden");
 
-        // Move section down
-        releaseRow.style.transform = "translateY(40px)";
-
-        // Load correct project episodes
         loadEpisodes(index);
 
-        // Scroll to it
         seasonView.scrollIntoView({ behavior: "smooth" });
     });
 });
 
-/* ========================= */
-/* LOAD EPISODES */
-/* ========================= */
+/* ================= LOAD EPISODES ================= */
 
 function loadEpisodes(projectIndex) {
 
@@ -303,6 +285,14 @@ function loadEpisodes(projectIndex) {
         episodeContainer.appendChild(card);
     });
 }
+
+/* ================= TOGGLE BACK TO TIMELINE ================= */
+
+seasonToggle.addEventListener("click", () => {
+    seasonView.classList.add("hidden");
+    timelineView.classList.remove("hidden");
+});
 </script>
+
 
 
