@@ -798,23 +798,52 @@ body {
     border-radius: 10px;
 }
 
-/* ===== TIMELINE CARDS ===== */
-
-.timeline-card img {
-    width: 260px;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: 8px;
+.release-section {
+    padding: 40px 80px;
 }
 
-/* ===== EPISODE CARDS ===== */
+/* Remove giant gap */
+.release-section > div {
+    margin-bottom: 40px;
+}
 
-.episode-scroll .release-card {
+/* ================= SEASON BAR ================= */
+
+.season-bar {
+    overflow: hidden;
+}
+
+.season-scroll {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+}
+
+.season-item {
+    white-space: nowrap;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.season-item.active {
+    opacity: 1;
+}
+
+/* ================= EPISODES ================= */
+
+.episodes-scroll {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+}
+
+.episodes-scroll .episode-card {
     flex: 0 0 auto;
-    width: 220px;
+    width: 240px;
 }
 
-.episode-scroll img {
+.episodes-scroll img {
     width: 100%;
     aspect-ratio: 16 / 9;
     object-fit: cover;
@@ -826,22 +855,36 @@ body {
 }
 
 .episode-number {
-    display: block;
     font-size: 13px;
     color: #888;
+    display: block;
 }
 
 .episode-title {
-    display: block;
     font-size: 14px;
     color: white;
+    display: block;
 }
 
-/* ===== SEASON HEADER ===== */
+/* ================= TIMELINE ================= */
 
-.season-toggle {
-    cursor: pointer;
-    user-select: none;
+.timeline-scroll {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
 }
+
+.timeline-card img {
+    width: 260px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Utility */
+.hidden {
+    display: none;
+}
+
 
 
