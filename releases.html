@@ -179,100 +179,69 @@
 
 
 <script>
-const slider = document.getElementById("slider");
-const slides = document.querySelectorAll(".release-slide");
-const nextBtn = document.querySelector(".next");
-const prevBtn = document.querySelector(".prev");
-
 const playButtons = document.querySelectorAll(".play-btn");
-const timelineView = document.getElementById("timelineView");
-const seasonView = document.getElementById("seasonView");
-const seasonToggle = document.getElementById("seasonToggle");
+
+const seasonBar = document.getElementById("seasonBar");
+const episodesRow = document.getElementById("episodesRow");
+const timelineRow = document.getElementById("timelineRow");
 const episodeContainer = document.getElementById("episodeContainer");
 
-let currentIndex = 0;
 let autoSlideInterval;
 let autoSliding = true;
 
-/* ================= SLIDER ================= */
-
-function updateSlider() {
-    const slideWidth = slides[0].clientWidth;
-    slider.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-}
-
-function nextSlide() {
-    currentIndex = (currentIndex + 1) % slides.length;
-    updateSlider();
-}
-
-function prevSlide() {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    updateSlider();
-}
-
-nextBtn.addEventListener("click", nextSlide);
-prevBtn.addEventListener("click", prevSlide);
-
-function startAutoSlide() {
-    autoSlideInterval = setInterval(nextSlide, 5000);
-}
+/* ================= STOP AUTOSLIDE ================= */
 
 function stopAutoSlide() {
-    clearInterval(autoSlideInterval);
-    autoSliding = false;
+    if (autoSliding) {
+        clearInterval(autoSlideInterval);
+        autoSliding = false;
+    }
 }
-
-window.addEventListener("resize", updateSlider);
-updateSlider();
-startAutoSlide();
 
 /* ================= PROJECT DATA ================= */
 
-const projects = {
-    0: [
-        { number: 1, title: "The Beginning" },
-        { number: 2, title: "First Blood" },
-        { number: 3, title: "Final Stand" }
-    ],
-    1: [
-        { number: 1, title: "Variant Arrival" },
-        { number: 2, title: "Montage Protocol" },
-        { number: 3, title: "Hurry Up Tomorrow" }
-    ],
-    2: [
-        { number: 1, title: "Return of Violethyst" },
-        { number: 2, title: "The Rivalry" },
-        { number: 3, title: "Momentum Restored" }
-    ]
+const projectData = {
+    0: {
+        seasons: {
+            1: [
+                { number: 1, title: "The Beginning" },
+                { number: 2, title: "First Blood" },
+                { number: 3, title: "Final Stand" }
+            ]
+        }
+    },
+    1: {
+        seasons: {
+            1: [
+                { number: 1, title: "Variant Arrival" },
+                { number: 2, title: "Montage Protocol" },
+                { number: 3, title: "Hurry Up Tomorrow" }
+            ]
+        }
+    },
+    2: {
+        seasons: {
+            1: [
+                { number: 1, title: "Return of Violethyst" },
+                { number: 2, title: "The Rivalry" },
+                { number: 3, title: "Momentum Restored" }
+            ]
+        }
+    }
 };
-
-/* ================= PLAY BUTTON ================= */
-
-playButtons.forEach((btn, index) => {
-    btn.addEventListener("click", () => {
-
-        if (autoSliding) stopAutoSlide();
-
-        timelineView.classList.add("hidden");
-        seasonView.classList.remove("hidden");
-
-        loadEpisodes(index);
-
-        seasonView.scrollIntoView({ behavior: "smooth" });
-    });
-});
 
 /* ================= LOAD EPISODES ================= */
 
-function loadEpisodes(projectIndex) {
+function loadEpisodes(projectIndex, season = 1) {
 
     episodeContainer.innerHTML = "";
 
-    projects[projectIndex].forEach(ep => {
+    const episodes = projectData[projectIndex].seasons[season];
+
+    episodes.forEach(ep => {
 
         const card = document.createElement("div");
-        card.classList.add("release-card");
+        card.classList.add("episode-card");
 
         card.innerHTML = `
             <img src="white.png">
@@ -286,13 +255,27 @@ function loadEpisodes(projectIndex) {
     });
 }
 
-/* ================= TOGGLE BACK TO TIMELINE ================= */
+/* ================= PLAY BUTTON ================= */
 
-seasonToggle.addEventListener("click", () => {
-    seasonView.classList.add("hidden");
-    timelineView.classList.remove("hidden");
+playButtons.forEach((btn, index) => {
+
+    btn.addEventListener("click", () => {
+
+        stopAutoSlide();
+
+        seasonBar.classList.remove("hidden");
+        episodesRow.classList.remove("hidden");
+
+        loadEpisodes(index, 1);
+
+        /* Move timeline BELOW episodes */
+        episodesRow.after(timelineRow);
+
+        episodesRow.scrollIntoView({ behavior: "smooth" });
+
+    });
+
 });
 </script>
-
 
 
