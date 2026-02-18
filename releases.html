@@ -80,6 +80,34 @@
             </div>
         </div>
     </div>
+    
+    <!-- SLIDE 3 -->
+<div class="release-slide">
+    <div class="release-bg" style="background-image:url('HCMAArt.png');"></div>
+    <div class="release-overlay">
+        <div class="release-left">
+            <div class="release-meta">
+                <img src="yellowstar.png" class="star-icon">
+                <span>6.4 • 2025 • 1 Season</span>
+            </div>
+
+            <div class="release-logo">
+                <img src="HCMALogo.png">
+            </div>
+
+            <p class="release-description">
+                Three years later, Violethyst returns to the games.
+                Revisiting the rivalry, the matches, and the momentum that started it all.
+            </p>
+
+            <div class="release-buttons">
+                <button class="play-btn">▶ Play</button>
+                <button class="info-btn">More Info</button>
+            </div>
+        </div>
+    </div>
+</div>
+    
 
 </div>
 
@@ -127,7 +155,7 @@
 
 <script>
 
-/* ================= SCRIPT, SLIDER ================= */
+/* ================= SLIDER ================= */
 
 const slides = document.querySelectorAll(".release-slide");
 const nextBtn = document.querySelector(".next");
@@ -135,7 +163,7 @@ const prevBtn = document.querySelector(".prev");
 
 let current = 0;
 let autoSlideInterval;
-let autoSliding = true;
+let inEpisodeMode = false;
 
 function showSlide(index){
     slides.forEach(s => s.classList.remove("active"));
@@ -152,28 +180,17 @@ function prevSlide(){
     showSlide(current);
 }
 
-/* ---------- ARROWS ---------- */
-
-nextBtn.addEventListener("click", nextSlide);
-prevBtn.addEventListener("click", prevSlide);
-
 /* ---------- AUTOSLIDE ---------- */
 
 function startAutoSlide(){
-    autoSlideInterval = setInterval(() => {
-        nextSlide();
-    }, 5000); // 5 seconds
+    autoSlideInterval = setInterval(nextSlide, 5000);
 }
 
 function stopAutoSlide(){
-    if(autoSliding){
-        clearInterval(autoSlideInterval);
-        autoSliding = false;
-    }
+    clearInterval(autoSlideInterval);
 }
 
 startAutoSlide();
-
 
 /* ================= PROJECT DATA ================= */
 
@@ -196,19 +213,12 @@ const projectData = {
     }
 };
 
-
 /* ================= ELEMENTS ================= */
 
 const playButtons = document.querySelectorAll(".play-btn");
 const seasonBar = document.getElementById("seasonBar");
-const seasonSelector = document.getElementById("seasonSelector");
-const seasonDropdown = document.getElementById("seasonDropdown");
-const currentSeasonLabel = document.getElementById("currentSeasonLabel");
 const episodesRow = document.getElementById("episodesRow");
 const episodeContainer = document.getElementById("episodeContainer");
-
-let activeProject = 0;
-
 
 /* ================= LOAD EPISODES ================= */
 
@@ -234,14 +244,13 @@ function loadEpisodes(projectIndex, season){
     });
 }
 
-
 /* ================= PLAY BUTTON ================= */
 
 playButtons.forEach((btn,index)=>{
     btn.addEventListener("click",()=>{
-        activeProject = index;
 
-        stopAutoSlide(); // 🔥 stops autoslider when Play pressed
+        stopAutoSlide();
+        inEpisodeMode = true;
 
         seasonBar.classList.remove("hidden");
         episodesRow.classList.remove("hidden");
@@ -252,24 +261,30 @@ playButtons.forEach((btn,index)=>{
     });
 });
 
+/* ================= ARROWS BEHAVIOR SWITCH ================= */
 
-/* ================= DROPDOWN ================= */
-
-seasonSelector.addEventListener("click",()=>{
-    seasonDropdown.classList.toggle("hidden");
+nextBtn.addEventListener("click",()=>{
+    if(!inEpisodeMode){
+        nextSlide();
+    } else {
+        episodeContainer.scrollBy({
+            left: 400,
+            behavior: "smooth"
+        });
+    }
 });
 
-document.querySelectorAll(".season-option").forEach(option=>{
-    option.addEventListener("click",()=>{
-        const season = option.dataset.season;
-
-        currentSeasonLabel.textContent = "Season " + season;
-
-        loadEpisodes(activeProject, season);
-
-        seasonDropdown.classList.add("hidden");
-    });
+prevBtn.addEventListener("click",()=>{
+    if(!inEpisodeMode){
+        prevSlide();
+    } else {
+        episodeContainer.scrollBy({
+            left: -400,
+            behavior: "smooth"
+        });
+    }
 });
 
 </script>
+
 
