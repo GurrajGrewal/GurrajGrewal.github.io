@@ -152,30 +152,34 @@
 
 <section class="release-row" id="releaseRow">
 
-    <!-- TIMELINE (DEFAULT) -->
-    <div id="timelineView">
-        <h2 class="row-title">The Timeline</h2>
-        <div class="release-scroll timeline-scroll">
-            <div class="release-card timeline-card"><img src="white.png"></div>
-            <div class="release-card timeline-card"><img src="white.png"></div>
-            <div class="release-card timeline-card"><img src="white.png"></div>
+<section class="release-section" id="releaseSection">
+
+    <!-- SEASON SELECTOR (HIDDEN INITIALLY) -->
+    <div class="season-bar hidden" id="seasonBar">
+        <div class="season-scroll" id="seasonScroll">
+            <div class="season-item active">≡ Season 1</div>
+            <div class="season-item">≡ Season 2</div>
+            <div class="season-item">≡ Specials</div>
         </div>
     </div>
 
-    <!-- SEASON VIEW -->
-    <div id="seasonView" class="hidden">
+    <!-- EPISODES ROW (HIDDEN INITIALLY) -->
+    <div class="episodes-row hidden" id="episodesRow">
+        <div class="episodes-scroll" id="episodeContainer"></div>
+    </div>
 
-        <h2 class="row-title season-toggle" id="seasonToggle">
-            &#9776; Season 1
-        </h2>
-
-        <div class="release-scroll episode-scroll" id="episodeContainer">
-            <!-- Injected dynamically -->
+    <!-- TIMELINE (ALWAYS EXISTS) -->
+    <div class="timeline-row" id="timelineRow">
+        <h2 class="row-title">THE TIMELINE</h2>
+        <div class="timeline-scroll">
+            <div class="timeline-card"><img src="white.png"></div>
+            <div class="timeline-card"><img src="white.png"></div>
+            <div class="timeline-card"><img src="white.png"></div>
         </div>
-
     </div>
 
 </section>
+
 
 
 <script>
