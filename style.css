@@ -676,7 +676,7 @@ body {
 
 
 
-/* ===== SLIDER SYSTEM ===== */
+/* ================= HERO SLIDER ================= */
 
 .release-feature {
     position: relative;
@@ -689,62 +689,50 @@ body {
 .release-slider {
     display: flex;
     height: 100%;
+    width: 300%; /* 3 slides */
     transition: transform 0.8s ease-in-out;
 }
 
 .release-slide {
-    min-width: 100%;
+    width: 100%;
     height: 100%;
     position: relative;
     flex-shrink: 0;
 }
 
-/* Background artwork */
-.release-slide .release-bg {
+/* Background */
+
+.release-bg {
     position: absolute;
     inset: 0;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    z-index: 1;
 }
 
-/* Softer cinematic gradient */
-.release-slide .release-bg::after {
+.release-bg::after {
     content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(
         to right,
-        rgba(0,0,0,0.65) 30%,
-        rgba(0,0,0,0.15) 75%
+        rgba(0,0,0,0.7) 30%,
+        rgba(0,0,0,0.2) 75%
     );
 }
 
-/* Overlay content */
-.release-slide .release-overlay {
+/* Overlay */
+
+.release-overlay {
     position: relative;
     z-index: 2;
     height: 100%;
     padding: 90px 80px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-transform: none; /* Prevent inherited ALL CAPS */
+    align-items: center;
 }
 
-/* ===== ARROWS ===== */
-
-.arrow-controls {
-    position: absolute;
-    bottom: 40px;
-    left: 80px;
-    display: flex;
-    gap: 10px;
-    z-index: 6;
-}
-
-/* ===== RELEASE META (Rating / Year / Seasons) ===== */
+/* Meta */
 
 .release-meta {
     display: flex;
@@ -753,17 +741,90 @@ body {
     font-size: 15px;
     color: #e0e0e0;
     margin-bottom: 20px;
-    font-weight: 500;
-    text-transform: none; /* CRITICAL: disables uppercase */
-    letter-spacing: normal; /* Prevent stretched caps look */
+    text-transform: none;
 }
 
-.release-meta .star-icon {
+.star-icon {
     width: 18px;
-    height: 18px;
-    object-fit: contain;
 }
 
-.release-meta .dot {
-    opacity: 0.6;
+/* Logo */
+
+.release-logo img {
+    width: 320px;
+    margin-bottom: 25px;
 }
+
+/* Description */
+
+.release-description {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #ccc;
+    margin-bottom: 30px;
+    max-width: 520px;
+    text-transform: none;
+}
+
+/* Buttons */
+
+.release-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+/* Buttons Styling */
+
+.play-btn {
+    background: white;
+    color: black;
+    border: none;
+    padding: 12px 26px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.play-btn:hover {
+    background: #ddd;
+}
+
+.info-btn,
+.season-btn {
+    background: #222;
+    color: white;
+    border: 1px solid #333;
+    padding: 12px 22px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.info-btn:hover,
+.season-btn:hover {
+    background: #333;
+}
+
+/* Arrows */
+
+.arrow-controls {
+    position: absolute;
+    bottom: 40px;
+    left: 80px;
+    display: flex;
+    gap: 10px;
+}
+
+.arrow {
+    background: #111;
+    color: white;
+    border: 1px solid #333;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.arrow:hover {
+    background: #222;
+}
+
