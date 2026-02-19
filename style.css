@@ -767,3 +767,110 @@ body {
 .release-meta .dot {
     opacity: 0.6;
 }
+
+/* ================= EPISODES SECTION ================= */
+
+.episodes-section {
+    padding: 60px 80px;
+    background: #0e0e0e;
+}
+
+.episodes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.episodes-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+.episodes-track {
+    display: flex;
+    gap: 22px;
+    transition: transform 0.5s ease;
+}
+
+/* Episode Card */
+
+.episode-card {
+    width: 240px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.episode-thumb {
+    width: 100%;
+    height: 135px;
+    background: #2a2a2a;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.episode-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.play-overlay::before {
+    content: "▶";
+    background: rgba(255,255,255,0.9);
+    color: black;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.episode-info {
+    margin-top: 10px;
+}
+
+.episode-number {
+    font-size: 13px;
+    color: #aaa;
+}
+
+.episode-title {
+    font-size: 15px;
+    margin-top: 3px;
+    color: white;
+}
+
+/* Episode arrows */
+
+.episode-arrows {
+    display: flex;
+    gap: 10px;
+}
+
+.ep-arrow {
+    width: 34px;
+    height: 34px;
+    background: #1c1c1c;
+    color: white;
+    border: 1px solid #333;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.ep-arrow:hover {
+    background: #333;
+}
+
+
