@@ -206,33 +206,33 @@ updateSlider();
 
 const episodeData = {
     0: [
-        "Couloir",
-        "Japan & Shiawase",
-        "Tell Me A Joke",
-        "Under My Skin",
-        "My Eyes",
-        "Lean Wit Me",
-        "Dustcutter",
-        "Always Be My Fault",
-        "Cinderella",
-        "Drugs You Should Try It"
+        { title: "Couloir", img: "hcm-ep1.png" },
+        { title: "Japan & Shiawase", img: "hcm-ep2.png" },
+        { title: "Tell Me A Joke", img: "hcm-ep3.png" },
+        { title: "Under My Skin", img: "hcm-ep4.png" },
+        { title: "My Eyes", img: "hcm-ep5.png" },
+        { title: "Lean Wit Me", img: "hcm-ep6.png" },
+        { title: "Dustcutter", img: "hcm-ep7.png" },
+        { title: "Always Be My Fault", img: "hcm-ep8.png" },
+        { title: "Cinderella", img: "hcm-ep9.png" },
+        { title: "Drugs You Should Try It", img: "hcm-ep10.png" }
     ],
 
     1: [
-        "Until We're Skin & Bones",
-        "Baptized In Fear",
-        "Open Hearts",
-        "Opening Night",
-        "Reflections Laughing",
-        "Baptized In Fear & Open Hearts Mashup",
-        "Dancing In The Flames"
+        { title: "Until We're Skin & Bones", img: "pp-ep1.png" },
+        { title: "Baptized In Fear", img: "pp-ep2.png" },
+        { title: "Open Hearts", img: "pp-ep3.png" },
+        { title: "Opening Night", img: "pp-ep4.png" },
+        { title: "Reflections Laughing", img: "pp-ep5.png" },
+        { title: "Baptized In Fear & Open Hearts Mashup", img: "pp-ep6.png" },
+        { title: "Dancing In The Flames", img: "pp-ep7.png" }
     ],
 
     2: [
-        "Good Days In Speedway",
-        "Verglas: Couloir Mountains Revisited",
-        "Behold",
-        "My Soul"
+        { title: "Good Days In Speedway", img: "ann-ep1.png" },
+        { title: "Verglas: Couloir Mountains Revisited", img: "ann-ep2.png" },
+        { title: "Behold", img: "ann-ep3.png" },
+        { title: "My Soul", img: "ann-ep4.png" }
     ]
 };
 
@@ -246,7 +246,6 @@ let episodeScrollIndex = 0;
 
 function generateEpisodes(slideIndex) {
 
-    // Start fade out
     episodesTrack.classList.add("fade-out");
 
     setTimeout(() => {
@@ -255,27 +254,26 @@ function generateEpisodes(slideIndex) {
         episodeScrollIndex = 0;
         episodesTrack.style.transform = "translateX(0px)";
 
-        const titles = episodeData[slideIndex];
+        const episodes = episodeData[slideIndex];
 
-        for (let i = 0; i < titles.length; i++) {
+        for (let i = 0; i < episodes.length; i++) {
             const card = document.createElement("div");
             card.className = "episode-card";
 
             card.innerHTML = `
                 <div class="episode-thumb">
-                    <img src="white.png">
+                    <img src="${episodes[i].img}">
                     <div class="play-overlay"></div>
                 </div>
                 <div class="episode-info">
                     <div class="episode-number">Episode ${i + 1}:</div>
-                    <div class="episode-title">${titles[i]}</div>
+                    <div class="episode-title">${episodes[i].title}</div>
                 </div>
             `;
 
             episodesTrack.appendChild(card);
         }
 
-        // Fade back in
         episodesTrack.classList.remove("fade-out");
         episodesTrack.classList.add("fade-in");
 
@@ -289,7 +287,7 @@ function generateEpisodes(slideIndex) {
 /* Scroll Logic */
 
 function getMaxScrollIndex() {
-    const cardWidth = 262; // 240 width + 22 gap
+    const cardWidth = 262;
     const totalCards = episodesTrack.children.length;
     const visibleWidth = document.querySelector(".episodes-wrapper").offsetWidth;
 
@@ -326,8 +324,6 @@ leftArrow.addEventListener("click", () => {
 function onSlideChange(index) {
     generateEpisodes(index);
 }
-
-/* Override your existing updateSlider */
 
 const originalUpdateSlider = updateSlider;
 
