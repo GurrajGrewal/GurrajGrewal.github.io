@@ -257,7 +257,7 @@ function generateEpisodes(slideIndex) {
 
         const titles = episodeData[slideIndex];
 
-        for (let i = 1; i < titles.length; i++) {
+        for (let i = 0; i < titles.length; i++) {
             const card = document.createElement("div");
             card.className = "episode-card";
 
@@ -267,7 +267,7 @@ function generateEpisodes(slideIndex) {
                     <div class="play-overlay"></div>
                 </div>
                 <div class="episode-info">
-                    <div class="episode-number">Episode ${i}:</div>
+                    <div class="episode-number">Episode ${i + 1}:</div>
                     <div class="episode-title">${titles[i]}</div>
                 </div>
             `;
