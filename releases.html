@@ -246,11 +246,30 @@ function generateEpisodes(slideIndex) {
 
 /* Scroll Logic */
 
+function getMaxScrollIndex() {
+    const cardWidth = 262; // 240 width + 22 gap
+    const totalCards = episodesTrack.children.length;
+    const visibleWidth = document.querySelector(".episodes-wrapper").offsetWidth;
+
+    const totalWidth = totalCards * cardWidth;
+    const maxOffset = totalWidth - visibleWidth;
+
+    return Math.max(0, Math.ceil(maxOffset / cardWidth));
+}
+
+/* RIGHT */
+
 rightArrow.addEventListener("click", () => {
-    episodeScrollIndex++;
-    episodesTrack.style.transform =
-        `translateX(-${episodeScrollIndex * 262}px)`;
+    const maxIndex = getMaxScrollIndex();
+
+    if (episodeScrollIndex < maxIndex) {
+        episodeScrollIndex++;
+        episodesTrack.style.transform =
+            `translateX(-${episodeScrollIndex * 262}px)`;
+    }
 });
+
+/* LEFT */
 
 leftArrow.addEventListener("click", () => {
     if (episodeScrollIndex > 0) {
