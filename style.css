@@ -787,6 +787,25 @@ body {
     position: relative;
 }
 
+/* RIGHT SIDE FADE */
+
+.episodes-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px; /* fade width */
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(
+        to right,
+        rgba(14,14,14,0) 0%,
+        rgba(14,14,14,0.6) 40%,
+        rgba(14,14,14,0.9) 75%,
+        #0e0e0e 100%
+    );
+}
+
 .episodes-track {
     display: flex;
     gap: 22px;
