@@ -219,29 +219,45 @@ let episodeScrollIndex = 0;
 /* Generate Episodes */
 
 function generateEpisodes(slideIndex) {
-    episodesTrack.innerHTML = "";
-    episodeScrollIndex = 0;
-    episodesTrack.style.transform = "translateX(0px)";
 
-    const count = episodeData[slideIndex];
+    // Start fade out
+    episodesTrack.classList.add("fade-out");
 
-    for (let i = 1; i <= count; i++) {
-        const card = document.createElement("div");
-        card.className = "episode-card";
+    setTimeout(() => {
 
-        card.innerHTML = `
-            <div class="episode-thumb">
-                <img src="white.png">
-                <div class="play-overlay"></div>
-            </div>
-            <div class="episode-info">
-                <div class="episode-number">Episode ${i}:</div>
-                <div class="episode-title">Episode Title ${i}</div>
-            </div>
-        `;
+        episodesTrack.innerHTML = "";
+        episodeScrollIndex = 0;
+        episodesTrack.style.transform = "translateX(0px)";
 
-        episodesTrack.appendChild(card);
-    }
+        const count = episodeData[slideIndex];
+
+        for (let i = 1; i <= count; i++) {
+            const card = document.createElement("div");
+            card.className = "episode-card";
+
+            card.innerHTML = `
+                <div class="episode-thumb">
+                    <img src="white.png">
+                    <div class="play-overlay"></div>
+                </div>
+                <div class="episode-info">
+                    <div class="episode-number">Episode ${i}:</div>
+                    <div class="episode-title">Episode Title ${i}</div>
+                </div>
+            `;
+
+            episodesTrack.appendChild(card);
+        }
+
+        // Fade back in
+        episodesTrack.classList.remove("fade-out");
+        episodesTrack.classList.add("fade-in");
+
+        setTimeout(() => {
+            episodesTrack.classList.remove("fade-in");
+        }, 350);
+
+    }, 300);
 }
 
 /* Scroll Logic */
