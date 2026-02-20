@@ -205,9 +205,35 @@ updateSlider();
 /* ================= EPISODE DATA ================= */
 
 const episodeData = {
-    0: 10, // HCM
-    1: 7,  // Pre-Party
-    2: 4   // HCM Anniversary
+    0: [
+        "Couloir",
+        "Japan & Shiawase",
+        "Tell Me A Joke",
+        "Under My Skin",
+        "My Eyes",
+        "Lean Wit Me",
+        "Dustcutter",
+        "Always Be My Fault",
+        "Cinderella",
+        "Drugs You Should Try It"
+    ],
+
+    1: [
+        "Until We're Skin & Bones",
+        "Baptized In Fear",
+        "Open Hearts",
+        "Opening Night",
+        "Reflections Laughing",
+        "Baptized In Fear & Open Hearts Mashup",
+        "Dancing In The Flames"
+    ],
+
+    2: [
+        "Good Days In Speedway",
+        "Verglas: Couloir Mountains Revisited",
+        "Behold",
+        "My Soul"
+    ]
 };
 
 const episodesTrack = document.getElementById("episodesTrack");
@@ -229,9 +255,9 @@ function generateEpisodes(slideIndex) {
         episodeScrollIndex = 0;
         episodesTrack.style.transform = "translateX(0px)";
 
-        const count = episodeData[slideIndex];
+        const titles = episodeData[slideIndex];
 
-        for (let i = 1; i <= count; i++) {
+        for (let i = 0; i < titles.length; i++) {
             const card = document.createElement("div");
             card.className = "episode-card";
 
@@ -242,7 +268,7 @@ function generateEpisodes(slideIndex) {
                 </div>
                 <div class="episode-info">
                     <div class="episode-number">Episode ${i}:</div>
-                    <div class="episode-title">Episode Title ${i}</div>
+                    <div class="episode-title">${titles[i]}</div>
                 </div>
             `;
 
