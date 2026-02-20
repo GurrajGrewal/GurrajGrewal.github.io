@@ -892,4 +892,22 @@ body {
     background: #333;
 }
 
+/* Episodes Fade Transition */
+
+.episodes-track {
+    display: flex;
+    gap: 22px;
+    transition: transform 0.5s ease, opacity 0.35s ease;
+}
+
+.episodes-track.fade-out {
+    opacity: 0;
+}
+
+.episodes-track.fade-in {
+    opacity: 1;
+}
+
+
+
 
