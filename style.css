@@ -1053,7 +1053,13 @@ body {
     gap: 20px;
 }
 
-
+.season-label {
+    width: 40px;
+    font-weight: 600;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+}
 
 /* Straight horizontal ratings line */
 .ratings-line {
