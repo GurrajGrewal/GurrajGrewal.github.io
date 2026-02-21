@@ -1049,15 +1049,11 @@ body {
 /* Season row */
 .ratings-row {
     display: flex;
-    align-items: center;
+    align-items: center;   /* THIS fixes vertical alignment */
     gap: 20px;
 }
 
-.season-label {
-    width: 40px;
-    font-weight: 600;
-    color: #aaa;
-}
+
 
 /* Straight horizontal ratings line */
 .ratings-line {
@@ -1086,5 +1082,7 @@ body {
     margin-top: 12px;
 }
 
-
+.project-block {
+    margin-bottom: 120px;   /* increase spacing */
+}
 
