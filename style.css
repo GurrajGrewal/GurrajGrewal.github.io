@@ -1003,7 +1003,88 @@ body {
     vertical-align: middle;
 }
 
+/* Align rating row */
+.rating-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.season-label {
+    font-weight: 600;
+    color: #aaa;
+    min-width: 40px;
+    margin-top: 34px;
+}
+
+/* Ratings table */
+.ratings-table {
+    margin-top: 20px;
+}
+
+/* Episode header row (E1 E2 E3...) */
+.ratings-header {
+    display: flex;
+    gap: 12px;
+    margin-left: 60px;
+    margin-bottom: 10px;
+}
+
+.ratings-header div {
+    width: 60px;
+    text-align: center;
+    font-size: 13px;
+    color: #888;
+}
+
+/* Season row */
+.ratings-row {
+    display: flex;
+    align-items: stretch;   /* important */
+    gap: 20px;
+}
+
+.season-label {
+    width: 40px;
+    font-weight: 600;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Straight horizontal ratings line */
+.ratings-line {
+    display: flex;
+    gap: 12px;
+}
+
+/* Rating tile */
+.rating-tile {
+    width: 60px;
+    height: 40px;              /* fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
 /* Star */
 .star-icon {
     width: 28px;
+}
+
+.rating-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.project-block {
+    padding-bottom: 80px;
+    margin-bottom: 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 }
