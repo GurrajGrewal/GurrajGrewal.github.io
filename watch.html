@@ -29,7 +29,7 @@
 <section class="ratings-section">
 
     <div class="project-header">
-        <img src="HCMPoster.png" class="project-poster">
+        <img src="poster1.png" class="project-poster">
 
         <div class="project-info">
             <h2>Hypixel Cinematic Montages</h2>
@@ -58,16 +58,16 @@
 
 <script>
 const episodeRatings = [
-    8.6, 8.3, 8.8, 8.9, 8.6, 8.8, 9.0, 9.3,
-    8.1, 8.2, 8.5, 8.5, 8.8, 9.1, 6.0, 9.2
+    4.7, 4.5, 7.6, 5.2, 7.5, 6.9, 7.4, 6.1,
+    7.2, 6.8
 ];
 
 const grid = document.getElementById("ratingsGrid");
 
 function getRatingColor(score) {
-    if (score <= 5) return "#e74c3c";        // RED
-    if (score <= 7) return "#f1c40f";        // YELLOW
-    if (score <= 9) return "#2ecc71";        // GREEN
+    if (score <= 4.9) return "#e74c3c";        // RED
+    if (score <= 6.9) return "#f1c40f";        // YELLOW
+    if (score <= 8.9) return "#2ecc71";        // GREEN
     return "#00cfe8";                        // AQUA
 }
 
