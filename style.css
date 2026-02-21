@@ -1020,15 +1020,22 @@ body {
 
 /* Ratings table */
 .ratings-table {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     margin-top: 20px;
 }
 
 /* Episode header row (E1 E2 E3...) */
 .ratings-header {
     display: flex;
-    gap: 12px;
-    margin-left: 60px;
-    margin-bottom: 10px;
+    align-items: center;
+    gap: 20px; /* SAME gap as ratings-row */
+}
+
+.ratings-header::before {
+    content: "";
+    width: 40px; /* exact same width as .season-label */
 }
 
 .ratings-header div {
