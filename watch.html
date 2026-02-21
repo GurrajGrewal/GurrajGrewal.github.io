@@ -24,8 +24,6 @@
 
 </header>
 
-<!-- ================= RATINGS SECTION ================= -->
-
 <section class="ratings-section">
 
     <div class="project-header">
@@ -37,60 +35,63 @@
         </div>
     </div>
 
-<div class="overall-rating">
-    <h3>Community Rating</h3>
-
-    <div class="rating-box">
-        <img src="yellowstar.png" class="star-icon">
-        <span class="rating-score">6.1</span>
-        <span class="rating-out">/10</span>
+    <div class="overall-rating">
+        <h3>Community Rating</h3>
+        <div class="rating-box">
+            <img src="yellowstar.png" class="star-icon">
+            <span class="rating-score">6.1</span>
+            <span class="rating-out">/10</span>
+        </div>
     </div>
-</div>
 
-<div class="episode-ratings">
-    <h3>Ratings by episode</h3>
+    <div class="episode-ratings">
+        <h3>Ratings by episode</h3>
 
-    <div class="season-row">
-        <div class="season-label">S1</div>
-        <div class="ratings-grid" id="ratingsGrid"></div>
+        <div class="ratings-table">
+
+            <!-- Episode header row -->
+            <div class="ratings-header" id="ratingsHeader"></div>
+
+            <!-- Season row -->
+            <div class="ratings-row">
+                <div class="season-label">S1</div>
+                <div class="ratings-line" id="ratingsGrid"></div>
+            </div>
+
+        </div>
     </div>
-</div>
 
 </section>
 
 <script>
 const episodeRatings = [
-    4.7, 4.5, 7.6, 5.2, 7.5, 6.9, 7.4, 6.1,
-    7.2, 6.8
+    4.7, 4.5, 7.6, 5.2, 7.5, 6.9, 7.4, 6.1, 7.2, 6.8
 ];
 
+const header = document.getElementById("ratingsHeader");
 const grid = document.getElementById("ratingsGrid");
 
 function getRatingColor(score) {
-    if (score <= 3.9) return "#e74c3c";        // RED
-    if (score <= 6.9) return "#f1c40f";        // YELLOW
-    if (score <= 8.9) return "#2ecc71";        // GREEN
-    return "#00cfe8";                        // AQUA
+    if (score < 4) return "#e74c3c";      // 0–3.9 RED
+    if (score < 7) return "#f1c40f";      // 4–6.9 YELLOW
+    if (score < 9) return "#2ecc71";      // 7–8.9 GREEN
+    return "#00cfe8";                     // 9–10 AQUA
 }
 
 episodeRatings.forEach((score, index) => {
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "rating-item";
+    // Create E1, E2, E3 header
+    const epHeader = document.createElement("div");
+    epHeader.textContent = "E" + (index + 1);
+    header.appendChild(epHeader);
 
-    const epLabel = document.createElement("div");
-    epLabel.className = "ep-label";
-    epLabel.textContent = "EP" + (index + 1);
-
+    // Create rating tile
     const tile = document.createElement("div");
     tile.className = "rating-tile";
     tile.style.background = getRatingColor(score);
     tile.textContent = score;
 
-    wrapper.appendChild(epLabel);
-    wrapper.appendChild(tile);
-
-    grid.appendChild(wrapper);
+    grid.appendChild(tile);
 });
 </script>
 
