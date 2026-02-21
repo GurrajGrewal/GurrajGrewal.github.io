@@ -1020,57 +1020,36 @@ body {
 
 /* Ratings table */
 .ratings-table {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: 40px repeat(auto-fit, 60px);
+    row-gap: 10px;
+    column-gap: 12px;
+    align-items: center;
     margin-top: 20px;
 }
 
-/* Episode header row (E1 E2 E3...) */
+/* Header row (E1 E2 E3...) */
 .ratings-header {
-    display: flex;
-    align-items: center;
-    gap: 20px; /* SAME gap as ratings-row */
-}
-
-.ratings-header::before {
-    content: "";
-    width: 40px; /* exact same width as .season-label */
+    display: contents;
 }
 
 .ratings-header div {
-    width: 60px;
     text-align: center;
     font-size: 13px;
     color: #888;
 }
 
-/* Season row */
-.ratings-row {
-    display: flex;
-    align-items: stretch;   /* important */
-    gap: 20px;
-}
-
+/* Season label */
 .season-label {
-    width: 40px;
+    text-align: center;
     font-weight: 600;
     color: #aaa;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-/* Straight horizontal ratings line */
-.ratings-line {
-    display: flex;
-    gap: 12px;
-}
-
-/* Rating tile */
+/* Rating tiles */
 .rating-tile {
     width: 60px;
-    height: 40px;              /* fixed height */
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
