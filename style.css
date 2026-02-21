@@ -1026,34 +1026,64 @@ body {
     margin-top: 34px;
 }
 
-/* Ratings grid */
-.ratings-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-    gap: 12px;
+/* Ratings table */
+.ratings-table {
+    margin-top: 20px;
 }
 
-/* Episode wrapper */
-.rating-item {
+/* Episode header row (E1 E2 E3...) */
+.ratings-header {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    gap: 12px;
+    margin-left: 60px;
+    margin-bottom: 10px;
 }
 
-/* EP label above tile */
-.ep-label {
-    font-size: 12px;
+.ratings-header div {
+    width: 60px;
+    text-align: center;
+    font-size: 13px;
     color: #888;
-    margin-bottom: 6px;
+}
+
+/* Season row */
+.ratings-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.season-label {
+    width: 40px;
+    font-weight: 600;
+    color: #aaa;
+}
+
+/* Straight horizontal ratings line */
+.ratings-line {
+    display: flex;
+    gap: 12px;
 }
 
 /* Rating tile */
 .rating-tile {
-    padding: 10px 0;
     width: 60px;
+    padding: 10px 0;
     text-align: center;
     border-radius: 8px;
     font-weight: 600;
+}
+
+/* Star */
+.star-icon {
+    width: 28px;
+}
+
+.rating-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
 }
 
 
