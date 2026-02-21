@@ -1011,13 +1011,6 @@ body {
     margin-top: 12px;
 }
 
-.season-label {
-    font-weight: 600;
-    color: #aaa;
-    min-width: 40px;
-    margin-top: 34px;
-}
-
 /* Ratings table */
 .ratings-table {
     margin-top: 20px;
