@@ -141,10 +141,10 @@
 <script>
 
 function getRatingColor(score) {
-    if (score < 4) return "#e74c3c";
-    if (score < 7) return "#f1c40f";
-    if (score < 9) return "#2ecc71";
-    return "#00cfe8";
+    if (score < 4) return "#e74c3c"; //RED
+    if (score < 7) return "#e1ad01"; //YELLOW
+    if (score < 9) return "#2ecc71"; //GREEN
+    return "#00cfe8";                //AQUA
 }
 
 function generateRatings(ratingsArray, headerId, gridId) {
@@ -182,7 +182,7 @@ generateRatings(
 );
 
 generateRatings(
-    [8.2, 6.5, 8.6, 6.6],
+    [8.2, 6.5, 9.6, 6.6],
     "header3",
     "grid3"
 );
