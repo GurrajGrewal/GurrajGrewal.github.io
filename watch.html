@@ -30,3 +30,57 @@
 
 </body>
 </html>
+
+<section class="ratings-section">
+
+    <div class="project-header">
+        <img src="HCMPoster.png" class="project-poster">
+
+        <div class="project-info">
+            <h2>Hypixel Cinematic Montages</h2>
+            <h1>Ratings</h1>
+        </div>
+    </div>
+
+    <div class="overall-rating">
+        <h3>Community Rating</h3>
+
+        <div class="rating-box">
+            <span class="rating-score">8.6</span>
+            <span class="rating-out">/10</span>
+        </div>
+    </div>
+
+    <div class="episode-ratings">
+        <h3>Ratings by episode</h3>
+
+        <div class="ratings-grid" id="ratingsGrid">
+            <!-- JS Injected -->
+        </div>
+    </div>
+
+</section>
+
+<script>
+const episodeRatings = [
+    8.6, 8.3, 8.8, 8.9, 8.6, 8.8, 9.0, 9.3,
+    8.1, 8.2, 8.5, 8.5, 8.8, 9.1, 6.0, 9.2
+];
+
+const grid = document.getElementById("ratingsGrid");
+
+function getRatingColor(score) {
+    if (score <= 4) return "#e74c3c";        // RED
+    if (score <= 6) return "#f1c40f";        // YELLOW
+    if (score <= 8) return "#2ecc71";        // GREEN
+    return "#00cfe8";                        // AQUA
+}
+
+episodeRatings.forEach(score => {
+    const tile = document.createElement("div");
+    tile.className = "rating-tile";
+    tile.style.background = getRatingColor(score);
+    tile.textContent = score;
+    grid.appendChild(tile);
+});
+</script>
