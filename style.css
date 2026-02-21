@@ -996,7 +996,65 @@ body {
     font-weight: 600;
 }
 
+/* Star icon */
+.star-icon {
+    width: 28px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
 
+/* Align rating row */
+.rating-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+/* Season row layout */
+.season-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.season-label {
+    font-weight: 600;
+    color: #aaa;
+    min-width: 40px;
+    margin-top: 34px;
+}
+
+/* Ratings grid */
+.ratings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 12px;
+}
+
+/* Episode wrapper */
+.rating-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* EP label above tile */
+.ep-label {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 6px;
+}
+
+/* Rating tile */
+.rating-tile {
+    padding: 10px 0;
+    width: 60px;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: 600;
+}
 
 
 
