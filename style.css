@@ -937,6 +937,66 @@ body {
     opacity: 1;
 }
 
+.ratings-section {
+    padding: 80px;
+    background: #0e0e0e;
+    color: white;
+}
+
+/* Header */
+.project-header {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.project-poster {
+    width: 140px;
+    border-radius: 10px;
+}
+
+.project-info h2 {
+    color: #aaa;
+    font-weight: 500;
+}
+
+.project-info h1 {
+    font-size: 48px;
+    margin-top: 5px;
+}
+
+/* Overall Rating */
+.overall-rating {
+    margin-bottom: 60px;
+}
+
+.rating-box {
+    margin-top: 15px;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.rating-score {
+    font-size: 48px;
+}
+
+/* Episode Grid */
+.ratings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.rating-tile {
+    padding: 12px 0;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+
 
 
 
