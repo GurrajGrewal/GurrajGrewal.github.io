@@ -37,22 +37,24 @@
         </div>
     </div>
 
-    <div class="overall-rating">
-        <h3>Community Rating</h3>
+<div class="overall-rating">
+    <h3>Community Rating</h3>
 
-        <div class="rating-box">
-            <span class="rating-score">6.1</span>
-            <span class="rating-out">/10</span>
-        </div>
+    <div class="rating-box">
+        <img src="yellowstar.png" class="star-icon">
+        <span class="rating-score">6.1</span>
+        <span class="rating-out">/10</span>
     </div>
+</div>
 
-    <div class="episode-ratings">
-        <h3>Ratings by episode</h3>
+<div class="episode-ratings">
+    <h3>Ratings by episode</h3>
 
-        <div class="ratings-grid" id="ratingsGrid">
-            <!-- JS Injected -->
-        </div>
+    <div class="season-row">
+        <div class="season-label">S1</div>
+        <div class="ratings-grid" id="ratingsGrid"></div>
     </div>
+</div>
 
 </section>
 
@@ -71,12 +73,24 @@ function getRatingColor(score) {
     return "#00cfe8";                        // AQUA
 }
 
-episodeRatings.forEach(score => {
+episodeRatings.forEach((score, index) => {
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "rating-item";
+
+    const epLabel = document.createElement("div");
+    epLabel.className = "ep-label";
+    epLabel.textContent = "EP" + (index + 1);
+
     const tile = document.createElement("div");
     tile.className = "rating-tile";
     tile.style.background = getRatingColor(score);
     tile.textContent = score;
-    grid.appendChild(tile);
+
+    wrapper.appendChild(epLabel);
+    wrapper.appendChild(tile);
+
+    grid.appendChild(wrapper);
 });
 </script>
 
