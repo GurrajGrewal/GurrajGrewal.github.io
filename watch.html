@@ -26,11 +26,14 @@
 
 <section class="ratings-section">
 
+<!-- ================= PROJECT 1 ================= -->
+
+<div class="project-block">
+
     <div class="project-header">
         <img src="poster1.png" class="project-poster">
-
         <div class="project-info">
-            <h2>Hypixel Cinematic Montages</h2>
+            <h2>Hypixel Cinematic Montages: Series</h2>
             <h1>Ratings</h1>
         </div>
     </div>
@@ -48,51 +51,144 @@
         <h3>Ratings by episode</h3>
 
         <div class="ratings-table">
+            <div class="ratings-header" id="header1"></div>
 
-            <!-- Episode header row -->
-            <div class="ratings-header" id="ratingsHeader"></div>
-
-            <!-- Season row -->
             <div class="ratings-row">
                 <div class="season-label">S1</div>
-                <div class="ratings-line" id="ratingsGrid"></div>
+                <div class="ratings-line" id="grid1"></div>
             </div>
-
         </div>
     </div>
+
+</div>
+
+
+<!-- ================= PROJECT 2 ================= -->
+
+<div class="project-block">
+
+    <div class="project-header">
+        <img src="poster2.png" class="project-poster">
+        <div class="project-info">
+            <h2>Pre-Party</h2>
+            <h1>Ratings</h1>
+        </div>
+    </div>
+
+    <div class="overall-rating">
+        <h3>Community Rating</h3>
+        <div class="rating-box">
+            <img src="yellowstar.png" class="star-icon">
+            <span class="rating-score">4.7</span>
+            <span class="rating-out">/10</span>
+        </div>
+    </div>
+
+    <div class="episode-ratings">
+        <h3>Ratings by episode</h3>
+
+        <div class="ratings-table">
+            <div class="ratings-header" id="header2"></div>
+
+            <div class="ratings-row">
+                <div class="season-label">S1</div>
+                <div class="ratings-line" id="grid2"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- ================= PROJECT 3 ================= -->
+
+<div class="project-block">
+
+    <div class="project-header">
+        <img src="poster3.png" class="project-poster">
+        <div class="project-info">
+            <h2>Hypixel Cinematic Montages: Anniversary</h2>
+            <h1>Ratings</h1>
+        </div>
+    </div>
+
+    <div class="overall-rating">
+        <h3>Community Rating</h3>
+        <div class="rating-box">
+            <img src="yellowstar.png" class="star-icon">
+            <span class="rating-score">6.4</span>
+            <span class="rating-out">/10</span>
+        </div>
+    </div>
+
+    <div class="episode-ratings">
+        <h3>Ratings by episode</h3>
+
+        <div class="ratings-table">
+            <div class="ratings-header" id="header3"></div>
+
+            <div class="ratings-row">
+                <div class="season-label">S1</div>
+                <div class="ratings-line" id="grid3"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</section>
 
 </section>
 
 <script>
-const episodeRatings = [
-    4.7, 4.5, 7.6, 5.2, 7.5, 6.9, 7.4, 6.1, 7.2, 6.8
-];
-
-const header = document.getElementById("ratingsHeader");
-const grid = document.getElementById("ratingsGrid");
 
 function getRatingColor(score) {
-    if (score < 4) return "#e74c3c";      // 0–3.9 RED
-    if (score < 7) return "#f1c40f";      // 4–6.9 YELLOW
-    if (score < 9) return "#2ecc71";      // 7–8.9 GREEN
-    return "#00cfe8";                     // 9–10 AQUA
+    if (score < 4) return "#e74c3c";
+    if (score < 7) return "#f1c40f";
+    if (score < 9) return "#2ecc71";
+    return "#00cfe8";
 }
 
-episodeRatings.forEach((score, index) => {
+function generateRatings(ratingsArray, headerId, gridId) {
 
-    // Create E1, E2, E3 header
-    const epHeader = document.createElement("div");
-    epHeader.textContent = "E" + (index + 1);
-    header.appendChild(epHeader);
+    const header = document.getElementById(headerId);
+    const grid = document.getElementById(gridId);
 
-    // Create rating tile
-    const tile = document.createElement("div");
-    tile.className = "rating-tile";
-    tile.style.background = getRatingColor(score);
-    tile.textContent = score;
+    ratingsArray.forEach((score, index) => {
 
-    grid.appendChild(tile);
-});
+        const epHeader = document.createElement("div");
+        epHeader.textContent = "E" + (index + 1);
+        header.appendChild(epHeader);
+
+        const tile = document.createElement("div");
+        tile.className = "rating-tile";
+        tile.style.background = getRatingColor(score);
+        tile.textContent = score;
+
+        grid.appendChild(tile);
+    });
+}
+
+/* PROJECT DATA */
+
+generateRatings(
+    [4.7, 4.5, 7.6, 5.2, 7.5, 6.9, 7.4, 6.1, 7.2, 6.8],
+    "header1",
+    "grid1"
+);
+
+generateRatings(
+    [3.2, 7.4, 5.5, 4.9, 5.7, 7.7, 7.0],
+    "header2",
+    "grid2"
+);
+
+generateRatings(
+    [8.2, 6.5, 8.6, 6.6],
+    "header3",
+    "grid3"
+);
+
 </script>
 
 </body>
