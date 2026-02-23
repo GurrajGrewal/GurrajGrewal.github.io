@@ -162,7 +162,8 @@ function generateRatings(ratingsArray, headerId, gridId) {
         const tile = document.createElement("div");
         tile.className = "rating-tile";
         tile.style.background = getRatingColor(score);
-        tile.textContent = score;
+
+        tile.textContent = (score === 10) ? "10" : Number(score).toFixed(1);
 
         grid.appendChild(tile);
     });
