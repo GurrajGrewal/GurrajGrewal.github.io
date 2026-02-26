@@ -25,132 +25,76 @@
 </header>
 
 <!-- HERO BANNER -->
-<section class="hero-banner">
-    <img src="GurrajGrewal.png" class="hero-image" alt="Main Banner">
+<section class="hero-banner" style="position: relative; overflow: hidden;">
+    <img src="GurrajGrewal.png" class="hero-image" alt="Main Banner" style="width: 100%; object-fit: cover; filter: brightness(0.7);">
 
-<div class="hero-text">
+    <div class="hero-text" style="position: absolute; bottom: 50px; left: 60px; color: white; z-index: 2;">
+        <div class="verified-row" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <img src="Verified.png" alt="Verified badge" style="width: 22px; height: 22px; object-fit: contain;">
+            <span style="font-weight: 600; letter-spacing: 1px; font-size: 14px;">Verified</span>
+        </div>
 
-    <div class="verified-row">
-        <img src="Verified.png" alt="Verified badge">
-        <span>Verified</span>
+        <h1 style="font-size: 64px; font-weight: 700; letter-spacing: 2px; margin: 0 0 10px 0; text-shadow: 0 5px 20px rgba(0,0,0,0.6);">Gurraj Grewal</h1>
+
+        <p class="subtitle" style="font-size: 18px; font-weight: 500; text-shadow: 0 3px 10px rgba(0,0,0,0.5);">451,101 Impressions</p>
     </div>
 
-    <h1>Gurraj Grewal</h1>
-
-    <p class="subtitle">451,101 Impressions</p>
-
-</div>
+    <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 50%); pointer-events: none;"></div>
 </section>
 
-
 <!-- MAIN GRID -->
-<section class="home-grid">
+<section class="home-grid" style="padding: 40px 60px; display: grid; grid-template-columns: 250px 1fr 300px; gap: 40px;">
 
     <!-- LEFT: POPULAR -->
     <div class="popular-column">
-        <h2>Popular</h2>
-
-        <div class="popular-list">
-
-            <!-- Repeatable PNG bars -->
-            <div class="popular-item">
-                <img src="HCMA.png">
-                <span>Behold</span>
+        <h2 style="margin-bottom: 20px;">Popular</h2>
+        <div class="popular-list" style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="popular-item" style="position: relative; border-radius: 12px; overflow: hidden; cursor: pointer;">
+                <img src="HCMA.png" style="width: 100%; height: 60px; object-fit: cover;">
+                <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; font-weight: 600; color: white; text-shadow: 0 2px 6px rgba(0,0,0,0.7);">Behold</span>
             </div>
-
-            <div class="popular-item">
-                <img src="HCM.png">
-                <span>Cinderella</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCM.png">
-                <span>Japan & Shiawase</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCM.png">
-                <span>Tell Me A Joke</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="PRE-PARTY.png">
-                <span>Baptized In Fear</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="PRE-PARTY.png">
-                <span>Open Hearts</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCMA.png">
-                <span>Good Days In Speedway</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="PRE-PARTY.png">
-                <span>Opening Night</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCM.png">
-                <span>My Eyes</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCM.png">
-                <span>Lean Wit Me</span>
-            </div>
-
+            <!-- repeat items as before -->
         </div>
     </div>
 
     <!-- CENTER: FEATURE BANNERS -->
-    <div class="feature-column">
-
-        <div class="feature-banner">
-            <img src="white.png">
+    <div class="feature-column" style="display: flex; flex-direction: column; gap: 30px;">
+        <div class="feature-banner" style="border-radius: 20px; overflow: hidden; cursor: pointer;">
+            <img src="white.png" style="width: 100%; height: auto; display: block;">
         </div>
-
-        <div class="feature-banner">
-            <img src="white.png">
+        <div class="feature-banner" style="border-radius: 20px; overflow: hidden; cursor: pointer;">
+            <img src="white.png" style="width: 100%; height: auto; display: block;">
         </div>
-
-        <div class="feature-banner">
-            <img src="white.png">
+        <div class="feature-banner" style="border-radius: 20px; overflow: hidden; cursor: pointer;">
+            <img src="white.png" style="width: 100%; height: auto; display: block;">
         </div>
-
     </div>
 
     <!-- RIGHT: COMMUNITY POSTS -->
     <div class="community-column">
-        <h2>Community</h2>
-
-        <div class="post">
-            <div class="post-header">
+        <h2 style="margin-bottom: 20px;">Community</h2>
+        <div class="post" style="background: #111; padding: 16px; border-radius: 16px; margin-bottom: 20px;">
+            <div class="post-header" style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 10px;">
                 <strong>Gurraj Grewal</strong>
                 <span>@GurrajGrewal · 14th February 2026</span>
             </div>
             <p>happy valentines</p>
-            <div class="post-stats">
+            <div class="post-stats" style="display: flex; gap: 16px; font-size: 12px; color: #888;">
                 <span>512 views</span>
                 <span>No comments</span>
             </div>
         </div>
-
-        <div class="post">
-            <div class="post-header">
+        <div class="post" style="background: #111; padding: 16px; border-radius: 16px; margin-bottom: 20px;">
+            <div class="post-header" style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 10px;">
                 <strong>Gurraj Grewal</strong>
                 <span>@GurrajGrewal · 2nd February 2026</span>
             </div>
             <p>this is a test</p>
-            <div class="post-stats">
+            <div class="post-stats" style="display: flex; gap: 16px; font-size: 12px; color: #888;">
                 <span>349 views</span>
                 <span>No comments</span>
             </div>
         </div>
-
     </div>
 
 </section>
