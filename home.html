@@ -1,22 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Home - Gurraj Grewal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Gurraj Grewal</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(to bottom, #1a1a1a 0%, #121212 40%, #000 100%);
+            color: white;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #b3b3b3;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .navbar a:hover {
+            color: white;
+        }
+
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: flex-end;
+            padding: 120px 60px 60px 60px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.9)), url('hero-bg.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content h1 {
+            font-size: 72px;
+            margin: 0;
+        }
+
+        .hero-content p {
+            color: #b3b3b3;
+            margin-top: 10px;
+        }
+
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 30px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            background: #1db954;
+            color: black;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: #2a2a2a;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #3a3a3a;
+        }
+
+        .content-section {
+            padding: 60px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .card-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: #181818;
+            padding: 15px;
+            border-radius: 12px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            background: #242424;
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .card h4 {
+            margin: 10px 0 5px 0;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #b3b3b3;
+        }
+    </style>
 </head>
 <body>
 
 <header class="navbar">
-    <div class="logo">
-        <a href="index.html">
-            <img src="logo-big-tran.png" alt="Logo">
-        </a>
-    </div>
-
-    <ul class="nav-center">
+    <div class="logo">GURRAJ GREWAL</div>
+    <ul>
         <li><a href="home.html">HOME</a></li>
         <li><a href="releases.html">RELEASES</a></li>
         <li><a href="announcements.html">ANNOUNCEMENTS</a></li>
@@ -24,135 +151,43 @@
     </ul>
 </header>
 
-<!-- HERO BANNER -->
-<section class="hero-banner">
-    <img src="GurrajGrewal.png" class="hero-image" alt="Main Banner">
-
-<div class="hero-text">
-
-    <div class="verified-row">
-        <img src="Verified.png" alt="Verified badge">
-        <span>Verified</span>
+<section class="hero">
+    <div class="hero-content">
+        <h1>Daytona</h1>
+        <p>Directed by Gurraj Grewal • Hypixel Cinematic Universe</p>
+        <div class="action-buttons">
+            <button class="btn btn-primary">Watch Now</button>
+            <button class="btn btn-secondary">View Releases</button>
+        </div>
     </div>
-
-    <h1>Gurraj Grewal</h1>
-
-    <p class="subtitle">451,101 Impressions</p>
-
-</div>
 </section>
 
-
-<!-- MAIN GRID -->
-<section class="home-grid">
-
-    <!-- LEFT: POPULAR -->
-    <div class="popular-column">
-        <h2>Popular</h2>
-
-        <div class="popular-list">
-
-            <!-- Repeatable PNG bars -->
-            <div class="popular-item">
-                <img src="HCMA.png">
-                <span>Behold</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCM.png">
-                <span>Cinderella</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCM.png">
-                <span>Japan & Shiawase</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCM.png">
-                <span>Tell Me A Joke</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="PRE-PARTY.png">
-                <span>Baptized In Fear</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="PRE-PARTY.png">
-                <span>Open Hearts</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCMA.png">
-                <span>Good Days In Speedway</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="PRE-PARTY.png">
-                <span>Opening Night</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCM.png">
-                <span>My Eyes</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCM.png">
-                <span>Lean Wit Me</span>
-            </div>
-
+<section class="content-section">
+    <div class="section-title">Popular Releases</div>
+    <div class="card-row">
+        <div class="card">
+            <img src="poster1.png">
+            <h4>HCM: Series</h4>
+            <p>Survival. Loyalty. Competition.</p>
+        </div>
+        <div class="card">
+            <img src="poster2.png">
+            <h4>Pre-Party</h4>
+            <p>A variant’s downfall.</p>
+        </div>
+        <div class="card">
+            <img src="poster3.png">
+            <h4>Anniversary</h4>
+            <p>The return to the games.</p>
         </div>
     </div>
+</section>
 
-    <!-- CENTER: FEATURE BANNERS -->
-    <div class="feature-column">
-
-        <div class="feature-banner">
-            <img src="white.png">
-        </div>
-
-        <div class="feature-banner">
-            <img src="white.png">
-        </div>
-
-        <div class="feature-banner">
-            <img src="white.png">
-        </div>
-
-    </div>
-
-    <!-- RIGHT: COMMUNITY POSTS -->
-    <div class="community-column">
-        <h2>Community</h2>
-
-        <div class="post">
-            <div class="post-header">
-                <strong>Gurraj Grewal</strong>
-                <span>@GurrajGrewal · 14th February 2026</span>
-            </div>
-            <p>happy valentines</p>
-            <div class="post-stats">
-                <span>512 views</span>
-                <span>No comments</span>
-            </div>
-        </div>
-
-        <div class="post">
-            <div class="post-header">
-                <strong>Gurraj Grewal</strong>
-                <span>@GurrajGrewal · 2nd February 2026</span>
-            </div>
-            <p>this is a test</p>
-            <div class="post-stats">
-                <span>349 views</span>
-                <span>No comments</span>
-            </div>
-        </div>
-
-    </div>
-
+<section class="content-section">
+    <div class="section-title">About</div>
+    <p style="max-width:700px; color:#b3b3b3; line-height:1.6;">
+        Gurraj Grewal is a cinematic editor and storyteller crafting immersive narratives inside the Hypixel universe. Blending competitive gameplay with dystopian themes and music-driven storytelling, his projects explore loyalty, identity, and control within a system built on games.
+    </p>
 </section>
 
 </body>
