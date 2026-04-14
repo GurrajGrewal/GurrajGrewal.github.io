@@ -21,31 +21,17 @@
             z-index: -1;
         }
 
-        /* TOP LEFT LOGO BOX (FIXED PROPORTIONS) */
-        .logo-box {
+        /* LOGO (NO GLASS BOX) */
+        .logo {
             position: absolute;
             top: 15px;
             left: 15px;
-
-            padding: 12px 16px;
-
-            background: rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-
-            border-radius: 16px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .logo-box img {
-            height: 60px;      /* clean controllable size */
+        .logo img {
+            height: 70px;
             width: auto;
             display: block;
-
-            object-fit: contain;
         }
 
         /* CENTER NAVBAR */
@@ -103,8 +89,8 @@
 <!-- BACKGROUND -->
 <div class="bg"></div>
 
-<!-- LOGO BOX -->
-<div class="logo-box">
+<!-- LOGO (NO BOX) -->
+<div class="logo">
     <a href="home.html">
         <img src="logo-big-tran.png" alt="Logo">
     </a>
