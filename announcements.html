@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
 </head>
-<body style="margin: 0; overflow: hidden;">
+<body style="margin: 0;">
 
 <header class="navbar" style="
     position: absolute;
@@ -38,14 +38,14 @@
     overflow: hidden;
 ">
 
-<img src="DaytonaCover.png" style="
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: bottom;
-    transform: scale(1.05);
-    animation: slowZoom 20s ease forwards;
-">
+    <img src="DaytonaCover.png" style="
+        width: 100%;
+        height: 100vh;
+        object-fit: contain;
+        display: block;
+    ">
+
+</section>
 
 <style>
 @keyframes slowZoom {
