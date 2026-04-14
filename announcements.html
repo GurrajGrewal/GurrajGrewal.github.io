@@ -21,89 +21,41 @@
             z-index: -1;
         }
 
-        /* LOGO (NO GLASS BOX) */
-        .logo {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-        }
-
-        .logo img {
-            height: 90px;
-            width: auto;
-            display: block;
-        }
-
-        /* CENTER NAVBAR */
+        /* TRANSPARENT GLASS NAVBAR */
         .navbar {
             position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 900px;
+            top: 0;
+            width: 100%;
+            z-index: 10;
 
-            display: flex;
-            justify-content: center;
-
-            padding: 12px 25px;
-
-            background: rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-
-            border-radius: 20px;
-
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-        }
-
-        /* NAV LINKS */
-        .nav-center {
-            display: flex;
-            gap: 20px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-center li a {
-            display: block;
-            padding: 10px 14px;
-            border-radius: 12px;
-
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-
-            transition: 0.2s ease;
-        }
-
-        .nav-center li a:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
     </style>
 </head>
 
 <body>
 
-<!-- BACKGROUND -->
+<!-- BACKGROUND IMAGE -->
 <div class="bg"></div>
 
-<!-- LOGO (NO BOX) -->
-<div class="logo">
-    <a href="home.html">
-        <img src="logo-big-tran.png" alt="Logo">
-    </a>
-</div>
-
-<!-- CENTER NAVBAR -->
+<!-- NAVBAR -->
 <header class="navbar">
+
+    <div class="logo">
+        <a href="home.html">
+            <img src="logo-big-tran.png" alt="Logo">
+        </a>
+    </div>
+
     <ul class="nav-center">
         <li><a href="home.html">HOME</a></li>
         <li><a href="releases.html">RELEASES</a></li>
         <li><a href="announcements.html">ANNOUNCEMENTS</a></li>
         <li><a href="watch.html">WATCH & RATINGS</a></li>
     </ul>
+
 </header>
 
 </body>
