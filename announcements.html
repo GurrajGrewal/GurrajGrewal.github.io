@@ -39,10 +39,14 @@
             align-items: center;
         }
 
-        .logo-box img {
-            height: 50px;   /* adjust size here */
-            display: block;
-        }
+.logo-box img {
+    height: 85px;
+    width: auto;
+    display: block;
+
+    object-fit: contain;
+    transform: scale(1.2);  /* 👈 makes ONLY the logo visually bigger */
+}
 
         /* CENTER NAVBAR */
         .navbar {
