@@ -5,14 +5,13 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
 </head>
-<body style="margin: 0;">
+<body style="margin: 0; overflow: hidden;">
 
 <header class="navbar" style="
     position: absolute;
     top: 0;
     width: 100%;
     z-index: 10;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
 ">
 
     <div class="logo">
@@ -30,30 +29,12 @@
 
 </header>
 
-<!-- FULL IMAGE PAGE -->
+<!-- FULL SCREEN IMAGE -->
 <section style="
-    position: relative;
     width: 100%;
     height: 100vh;
-    overflow: hidden;
+    background: url('DaytonaCover.png') center/cover no-repeat;
 ">
-
-    <img src="DaytonaCover.png" style="
-        width: 100%;
-        height: 100vh;
-        object-fit: contain;
-        display: block;
-    ">
-
-</section>
-
-<style>
-@keyframes slowZoom {
-    from { transform: scale(1.05); }
-    to { transform: scale(1.1); }
-}
-</style>
-
 </section>
 
 </body>
