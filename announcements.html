@@ -25,10 +25,15 @@ onmouseenter="showNav()">
     top: 0;
     width: 100%;
     z-index: 10;
+
     transform: translateY(-100%);
     opacity: 0;
+
     transition: all 0.4s ease;
-"
+
+    background: rgba(0, 0, 0, 0.9); /* THIS is the fix */
+    backdrop-filter: blur(8px);     /* optional but looks insane */
+">
 onmouseenter="showNav()"
 onmouseleave="hideNav()">
 
