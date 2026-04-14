@@ -20,7 +20,7 @@
             -webkit-backdrop-filter: blur(10px);
         }
 
-        /* NAV LINKS CONTAINER */
+        /* NAV LINKS */
         .nav-center {
             display: flex;
             gap: 10px;
@@ -29,7 +29,6 @@
             padding: 10px 20px;
         }
 
-        /* BIGGER HITBOX */
         .nav-center li a {
             display: inline-block;
             padding: 10px 16px;
@@ -42,9 +41,13 @@
             transition: all 0.2s ease;
         }
 
-        /* HOVER EFFECT */
         .nav-center li a:hover {
             background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ACTIVE PAGE */
+        .nav-center li a[href="watch.html"] {
+            background: rgba(255, 255, 255, 0.3);
         }
     </style>
 </head>
