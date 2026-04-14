@@ -5,19 +5,11 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
 </head>
+
 <body style="margin: 0; overflow: hidden;">
 
-<header class="navbar" style="
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 10;
-    transform: translateY(-100%);
-    opacity: 0;
-    transition: all 0.3s ease;
-">
-
-    <div style="
+<!-- HOVER TRIGGER (invisible area at top) -->
+<div style="
     position: fixed;
     top: 0;
     width: 100%;
@@ -31,8 +23,18 @@ document.querySelector('.navbar').style.opacity = '1';
 onmouseleave="
 document.querySelector('.navbar').style.transform = 'translateY(-100%)';
 document.querySelector('.navbar').style.opacity = '0';
-"
+">
 </div>
+
+<header class="navbar" style="
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+">
 
     <div class="logo">
         <a href="home.html">
