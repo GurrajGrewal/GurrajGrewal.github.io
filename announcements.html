@@ -21,16 +21,55 @@
             z-index: -1;
         }
 
-        /* TRANSPARENT GLASS NAVBAR */
+        /* NAVBAR GLASS + ROUNDED + CENTERED */
         .navbar {
             position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 10;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1100px;
 
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 12px 25px;
+
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            border-radius: 20px;
+
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        /* NAV LINKS CONTAINER */
+        .nav-center {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* BIGGER HITBOX LINKS */
+        .nav-center li a {
+            display: block;
+            padding: 10px 14px;
+            border-radius: 12px;
+
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+
+            transition: 0.2s ease;
+        }
+
+        /* HOVER EFFECT */
+        .nav-center li a:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
     </style>
 </head>
