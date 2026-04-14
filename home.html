@@ -6,7 +6,49 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        /* NAVBAR */
+        .navbar {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* NAV LINKS CONTAINER */
+        .nav-center {
+            display: flex;
+            gap: 10px;
+            list-style: none;
+            margin: 0;
+            padding: 10px 20px;
+        }
+
+        /* BIGGER HITBOX */
+        .nav-center li a {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 999px;
+
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+
+            transition: all 0.2s ease;
+        }
+
+        /* HOVER EFFECT */
+        .nav-center li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
 </head>
+
 <body>
 
 <header class="navbar">
@@ -42,10 +84,6 @@
     <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 50%); pointer-events: none;"></div>
 </section>
 
-</div>
-</section>
-
-
 <!-- MAIN GRID -->
 <section class="home-grid">
 
@@ -55,75 +93,25 @@
 
         <div class="popular-list">
 
-            <!-- Repeatable PNG bars -->
-            <div class="popular-item">
-                <img src="HCMA.png">
-                <span>Behold</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCM.png">
-                <span>Cinderella</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCM.png">
-                <span>Japan & Shiawase</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCM.png">
-                <span>Tell Me A Joke</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="PRE-PARTY.png">
-                <span>Baptized In Fear</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="PRE-PARTY.png">
-                <span>Open Hearts</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCMA.png">
-                <span>Good Days In Speedway</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="PRE-PARTY.png">
-                <span>Opening Night</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCM.png">
-                <span>My Eyes</span>
-            </div>
-
-            <div class="popular-item">
-                <img src="HCM.png">
-                <span>Lean Wit Me</span>
-            </div>
+            <div class="popular-item"><img src="HCMA.png"><span>Behold</span></div>
+            <div class="popular-item"><img src="HCM.png"><span>Cinderella</span></div>
+            <div class="popular-item"><img src="HCM.png"><span>Japan & Shiawase</span></div>
+            <div class="popular-item"><img src="HCM.png"><span>Tell Me A Joke</span></div>
+            <div class="popular-item"><img src="PRE-PARTY.png"><span>Baptized In Fear</span></div>
+            <div class="popular-item"><img src="PRE-PARTY.png"><span>Open Hearts</span></div>
+            <div class="popular-item"><img src="HCMA.png"><span>Good Days In Speedway</span></div>
+            <div class="popular-item"><img src="PRE-PARTY.png"><span>Opening Night</span></div>
+            <div class="popular-item"><img src="HCM.png"><span>My Eyes</span></div>
+            <div class="popular-item"><img src="HCM.png"><span>Lean Wit Me</span></div>
 
         </div>
     </div>
 
     <!-- CENTER: FEATURE BANNERS -->
     <div class="feature-column">
-
-        <div class="feature-banner">
-            <img src="HCMAnniversary.png">
-        </div>
-
-        <div class="feature-banner">
-            <img src="white.png">
-        </div>
-
-        <div class="feature-banner">
-            <img src="white.png">
-        </div>
-
+        <div class="feature-banner"><img src="HCMAnniversary.png"></div>
+        <div class="feature-banner"><img src="white.png"></div>
+        <div class="feature-banner"><img src="white.png"></div>
     </div>
 
     <!-- RIGHT: COMMUNITY POSTS -->
