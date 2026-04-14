@@ -21,17 +21,40 @@
             z-index: -1;
         }
 
-        /* NAVBAR GLASS + ROUNDED + CENTERED */
+        /* TOP LEFT LOGO BOX */
+        .logo-box {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+
+            padding: 10px 15px;
+
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            border-radius: 16px;
+
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-box img {
+            height: 50px;   /* adjust size here */
+            display: block;
+        }
+
+        /* CENTER NAVBAR */
         .navbar {
             position: absolute;
             top: 15px;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
-            max-width: 1100px;
+            max-width: 900px;
 
             display: flex;
-            align-items: center;
+            justify-content: center;
 
             padding: 12px 25px;
 
@@ -44,23 +67,15 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
         }
 
-        /* LOGO SIZE + SPACING */
-        .logo img {
-         height: 90px;
-        display: block;
-        }
-        /* PUSH NAV LINKS TO RIGHT (FIXES CLASH) */
+        /* NAV LINKS */
         .nav-center {
             display: flex;
             gap: 20px;
             list-style: none;
             margin: 0;
             padding: 0;
-
-            margin-left: auto;   /* 🔥 KEY FIX */
         }
 
-        /* BIGGER HITBOX LINKS */
         .nav-center li a {
             display: block;
             padding: 10px 14px;
@@ -73,7 +88,6 @@
             transition: 0.2s ease;
         }
 
-        /* HOVER EFFECT */
         .nav-center li a:hover {
             background: rgba(255, 255, 255, 0.15);
         }
@@ -82,25 +96,24 @@
 
 <body>
 
-<!-- BACKGROUND IMAGE -->
+<!-- BACKGROUND -->
 <div class="bg"></div>
 
-<!-- NAVBAR -->
+<!-- LOGO BOX (SEPARATE) -->
+<div class="logo-box">
+    <a href="home.html">
+        <img src="logo-big-tran.png" alt="Logo">
+    </a>
+</div>
+
+<!-- CENTER NAVBAR -->
 <header class="navbar">
-
-    <div class="logo">
-        <a href="home.html">
-            <img src="logo-big-tran.png" alt="Logo">
-        </a>
-    </div>
-
     <ul class="nav-center">
         <li><a href="home.html">HOME</a></li>
         <li><a href="releases.html">RELEASES</a></li>
         <li><a href="announcements.html">ANNOUNCEMENTS</a></li>
         <li><a href="watch.html">WATCH & RATINGS</a></li>
     </ul>
-
 </header>
 
 </body>
