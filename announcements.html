@@ -9,18 +9,39 @@
         body {
             margin: 0;
         }
+
+        /* FULL SCREEN BACKGROUND IMAGE */
+        .bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: url('DaytonaCover.png') center/cover no-repeat;
+            z-index: -1;
+        }
+
+        /* TRANSPARENT GLASS NAVBAR */
+        .navbar {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 
 <body>
 
-<header class="navbar" style="
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 10;
-    background: transparent;
-">
+<!-- BACKGROUND IMAGE -->
+<div class="bg"></div>
+
+<!-- NAVBAR -->
+<header class="navbar">
 
     <div class="logo">
         <a href="home.html">
@@ -36,18 +57,6 @@
     </ul>
 
 </header>
-
-<!-- FULL SCREEN BACKGROUND -->
-<section style="
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: url('DaytonaCover.png') center/cover no-repeat;
-    z-index: -1;
-">
-</section>
 
 </body>
 </html>
