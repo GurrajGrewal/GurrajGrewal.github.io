@@ -1,65 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Home - Gurraj Grewal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="favicon.png">
+<meta charset="UTF-8">
+<title>Home - Gurraj Grewal</title>
 
-    <style>
-        /* NAVBAR */
-        .navbar {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 10;
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="favicon.png">
 
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: black;
+    color: white;
+}
 
-        /* NAV LINKS */
-        .nav-center {
-            display: flex;
-            gap: 10px;
-            list-style: none;
-            margin: 0;
-            padding: 10px 20px;
-        }
+/* NAVBAR */
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 40px;
 
-        .nav-center li a {
-            display: inline-block;
-            padding: 10px 16px;
-            border-radius: 999px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+}
 
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
+.nav-center {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
 
-            transition: all 0.2s ease;
-        }
+.nav-center a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
 
-        .nav-center li a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
+.nav-center a:hover {
+    color: white;
+}
 
-        /* ACTIVE PAGE */
-        .nav-center li a[href="home.html"] {
-            background: rgba(255, 255, 255, 0.3);
-        }
-    </style>
+/* HERO */
+.hero {
+    position: relative;
+    height: 60vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 60px;
+}
+
+.hero img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6);
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 64px;
+    margin: 0;
+}
+
+.hero p {
+    opacity: 0.8;
+}
+
+/* MAIN SECTION */
+.main {
+    background: linear-gradient(to bottom, rgba(20,20,20,1), black);
+    padding: 40px 60px;
+}
+
+/* RELEASE ROW */
+.row {
+    margin-bottom: 50px;
+}
+
+.row h2 {
+    margin-bottom: 20px;
+}
+
+/* HORIZONTAL SCROLL */
+.scroll {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+
+/* CARDS */
+.card {
+    min-width: 180px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.card p {
+    margin: 8px 0 0 0;
+    font-size: 14px;
+}
+
+/* PLAY BUTTON (OPTIONAL) */
+.play-btn {
+    width: 50px;
+    height: 50px;
+    background: #1db954;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+</style>
 </head>
 
 <body>
 
 <header class="navbar">
-    <div class="logo">
-        <a href="index.html">
-            <img src="logo-big-tran.png" alt="Logo">
-        </a>
-    </div>
+    <img src="logo-big-tran.png" style="height:40px;">
 
     <ul class="nav-center">
         <li><a href="home.html">HOME</a></li>
@@ -69,82 +161,63 @@
     </ul>
 </header>
 
-<!-- HERO BANNER -->
-<section class="hero-banner" style="position: relative; overflow: hidden;">
-    <img src="GurrajGrewal.png" class="hero-image" alt="Main Banner" style="width: 100%; object-fit: cover; filter: brightness(0.7);">
+<!-- HERO -->
+<section class="hero">
+    <img src="GurrajGrewal.png">
 
-    <div class="hero-text" style="position: absolute; bottom: 50px; left: 60px; color: white; z-index: 2;">
-        <div class="verified-row" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-            <img src="Verified.png" alt="Verified badge" style="width: 22px; height: 22px; object-fit: contain;">
-            <span style="font-weight: 600; letter-spacing: 1px; font-size: 14px;">Verified</span>
-        </div>
-
-        <h1 style="font-size: 64px; font-weight: 700; letter-spacing: 2px; margin: 0 0 10px 0; text-shadow: 0 5px 20px rgba(0,0,0,0.6);">Gurraj Grewal</h1>
-
-        <p class="subtitle" style="font-size: 18px; font-weight: 500; text-shadow: 0 3px 10px rgba(0,0,0,0.5);">451,101 Impressions</p>
+    <div class="hero-content">
+        <h1>Gurraj Grewal</h1>
+        <p>451,101 Impressions</p>
     </div>
-
-    <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 50%); pointer-events: none;"></div>
 </section>
 
-<!-- MAIN GRID -->
-<section class="home-grid">
+<!-- MAIN -->
+<section class="main">
 
-    <!-- LEFT: POPULAR -->
-    <div class="popular-column">
-        <h2>Popular</h2>
+    <!-- PLAY BUTTON -->
+    <div class="play-btn">▶</div>
 
-        <div class="popular-list">
+    <!-- RELEASES -->
+    <div class="row">
+        <h2>Releases</h2>
 
-            <div class="popular-item"><img src="HCMA.png"><span>Behold</span></div>
-            <div class="popular-item"><img src="HCM.png"><span>Cinderella</span></div>
-            <div class="popular-item"><img src="HCM.png"><span>Japan & Shiawase</span></div>
-            <div class="popular-item"><img src="HCM.png"><span>Tell Me A Joke</span></div>
-            <div class="popular-item"><img src="PRE-PARTY.png"><span>Baptized In Fear</span></div>
-            <div class="popular-item"><img src="PRE-PARTY.png"><span>Open Hearts</span></div>
-            <div class="popular-item"><img src="HCMA.png"><span>Good Days In Speedway</span></div>
-            <div class="popular-item"><img src="PRE-PARTY.png"><span>Opening Night</span></div>
-            <div class="popular-item"><img src="HCM.png"><span>My Eyes</span></div>
-            <div class="popular-item"><img src="HCM.png"><span>Lean Wit Me</span></div>
+        <div class="scroll">
+
+            <div class="card">
+                <img src="HCMA.png">
+                <p>Hypixel Cinematic Montages (Anniversary)</p>
+            </div>
+
+            <div class="card">
+                <img src="PRE-PARTY.png">
+                <p>Pre-Party</p>
+            </div>
+
+            <div class="card">
+                <img src="HCM.png">
+                <p>Hypixel Cinematic Montages (Original)</p>
+            </div>
 
         </div>
     </div>
 
-    <!-- CENTER: FEATURE BANNERS -->
-    <div class="feature-column">
-        <div class="feature-banner"><img src="HCMAnniversary.png"></div>
-        <div class="feature-banner"><img src="white.png"></div>
-        <div class="feature-banner"><img src="white.png"></div>
-    </div>
+    <!-- SERIES (DAYTONA) -->
+    <div class="row">
+        <h2>Series</h2>
 
-    <!-- RIGHT: COMMUNITY POSTS -->
-    <div class="community-column">
-        <h2>Community</h2>
+        <div class="scroll">
 
-        <div class="post">
-            <div class="post-header">
-                <strong>Gurraj Grewal</strong>
-                <span>@GurrajGrewal · 14th February 2026</span>
+            <div class="card">
+                <img src="DaytonaCover.png">
+                <p>Daytona</p>
             </div>
-            <p>happy valentines</p>
-            <div class="post-stats">
-                <span>512 views</span>
-                <span>No comments</span>
+
+            <div class="card">
+                <img src="white.png">
+                <p>Coming Soon</p>
             </div>
+
         </div>
-
-        <div class="post">
-            <div class="post-header">
-                <strong>Gurraj Grewal</strong>
-                <span>@GurrajGrewal · 2nd February 2026</span>
-            </div>
-            <p>this is a test</p>
-            <div class="post-stats">
-                <span>349 views</span>
-                <span>No comments</span>
-            </div>
-        </div>
-
     </div>
 
 </section>
