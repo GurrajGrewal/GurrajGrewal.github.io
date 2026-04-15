@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Watch & Ratings - Gurraj Grewal</title>
+
+    <!-- SAME FONT AS HOME -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
-        /* NAVBAR */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: black;
+            color: white;
+        }
+
+        /* NAVBAR (IDENTICAL TO HOME) */
         .navbar {
             position: absolute;
             top: 0;
@@ -18,7 +30,6 @@
             -webkit-backdrop-filter: blur(10px);
         }
 
-        /* NAV LINKS */
         .nav-center {
             display: flex;
             gap: 10px;
@@ -49,13 +60,13 @@
         }
     </style>
 </head>
-    
+
 <body>
 
 <header class="navbar">
 
     <div class="logo">
-        <a href="home.html">
+        <a href="index.html">
             <img src="logo-big-tran.png" alt="Logo">
         </a>
     </div>
@@ -107,7 +118,6 @@
 
 </div>
 
-
 <!-- ================= PROJECT 2 ================= -->
 
 <div class="project-block">
@@ -143,7 +153,6 @@
     </div>
 
 </div>
-
 
 <!-- ================= PROJECT 3 ================= -->
 
@@ -186,12 +195,12 @@
 <script>
 
 function getRatingColor(score) {
-    if (score < 3) return "#351e4f"; //PURPLE
-    if (score < 5) return "#8e0808"; //RED
-    if (score < 7) return "#cea502"; //YELLOW
-    if (score < 8) return "#1abf2d"; //GREEN
-    if (score < 9.5) return "#008236"; //DARK GREEN
-    return "#02d2f7";                //AQUA
+    if (score < 3) return "#351e4f";
+    if (score < 5) return "#8e0808";
+    if (score < 7) return "#cea502";
+    if (score < 8) return "#1abf2d";
+    if (score < 9.5) return "#008236";
+    return "#02d2f7";
 }
 
 function generateRatings(ratingsArray, headerId, gridId) {
@@ -214,8 +223,6 @@ function generateRatings(ratingsArray, headerId, gridId) {
         grid.appendChild(tile);
     });
 }
-
-/* PROJECT DATA */
 
 generateRatings(
     [5.0, 4.6, 8.6, 4.8, 6.9, 6.7, 7.0, 5.9, 6.9, 6.6],
