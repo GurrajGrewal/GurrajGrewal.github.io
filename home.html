@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Home - Gurraj Grewal</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="favicon.png">
 
 <style>
@@ -15,35 +15,39 @@ body {
     color: white;
 }
 
-/* NAVBAR */
+/* NAVBAR (your original style) */
 .navbar {
     position: absolute;
     top: 0;
     width: 100%;
     z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 40px;
 
-    background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
 }
 
 .nav-center {
     display: flex;
-    gap: 20px;
+    gap: 10px;
     list-style: none;
+    margin: 0;
+    padding: 10px 20px;
 }
 
-.nav-center a {
-    color: #ccc;
-    text-decoration: none;
-    font-size: 14px;
-    letter-spacing: 2px;
-}
+.nav-center li a {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 999px;
 
-.nav-center a:hover {
     color: white;
+    text-decoration: none;
+    font-weight: 500;
+
+    transition: all 0.2s ease;
+}
+
+.nav-center li a:hover {
+    background: rgba(255,255,255,0.2);
 }
 
 /* HERO */
@@ -53,6 +57,7 @@ body {
     display: flex;
     align-items: flex-end;
     padding: 60px;
+    overflow: hidden;
 }
 
 .hero img {
@@ -60,33 +65,25 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.6);
-    top: 0;
-    left: 0;
-    z-index: 0;
+    filter: brightness(0.7);
 }
 
-.hero-content {
+.hero-text {
     position: relative;
     z-index: 2;
 }
 
-.hero h1 {
+.hero-text h1 {
     font-size: 64px;
     margin: 0;
 }
 
-.hero p {
-    opacity: 0.8;
-}
-
-/* MAIN SECTION */
+/* MAIN */
 .main {
-    background: linear-gradient(to bottom, rgba(20,20,20,1), black);
     padding: 40px 60px;
 }
 
-/* RELEASE ROW */
+/* ROW */
 .row {
     margin-bottom: 50px;
 }
@@ -95,55 +92,34 @@ body {
     margin-bottom: 20px;
 }
 
-/* HORIZONTAL SCROLL */
+/* SCROLL ROW */
 .scroll {
     display: flex;
     gap: 20px;
-    overflow-x: auto;
-    padding-bottom: 10px;
 }
 
-.scroll::-webkit-scrollbar {
-    height: 6px;
-}
-
-.scroll::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 10px;
-}
-
-/* CARDS */
+/* CARD FIX (no more cutoff) */
 .card {
-    min-width: 180px;
+    width: 320px;
     cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.card:hover {
-    transform: scale(1.05);
 }
 
 .card img {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
 }
 
+/* KEY FIX: scale WITHOUT clipping */
+.card:hover img {
+    transform: scale(1.05);
+}
+
+/* TITLE TEXT */
 .card p {
-    margin: 8px 0 0 0;
+    margin-top: 10px;
     font-size: 14px;
-}
-
-/* PLAY BUTTON (OPTIONAL) */
-.play-btn {
-    width: 50px;
-    height: 50px;
-    background: #1db954;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    cursor: pointer;
+    color: #ccc;
 }
 </style>
 </head>
@@ -151,7 +127,11 @@ body {
 <body>
 
 <header class="navbar">
-    <img src="logo-big-tran.png" style="height:40px;">
+    <div class="logo">
+        <a href="index.html">
+            <img src="logo-big-tran.png" alt="Logo" style="height:40px;">
+        </a>
+    </div>
 
     <ul class="nav-center">
         <li><a href="home.html">HOME</a></li>
@@ -165,7 +145,7 @@ body {
 <section class="hero">
     <img src="GurrajGrewal.png">
 
-    <div class="hero-content">
+    <div class="hero-text">
         <h1>Gurraj Grewal</h1>
         <p>451,101 Impressions</p>
     </div>
@@ -174,15 +154,11 @@ body {
 <!-- MAIN -->
 <section class="main">
 
-    <!-- PLAY BUTTON -->
-    <div class="play-btn">▶</div>
-
     <!-- RELEASES -->
     <div class="row">
         <h2>Releases</h2>
 
         <div class="scroll">
-
             <div class="card">
                 <img src="HCMA.png">
                 <p>Hypixel Cinematic Montages (Anniversary)</p>
@@ -197,16 +173,14 @@ body {
                 <img src="HCM.png">
                 <p>Hypixel Cinematic Montages (Original)</p>
             </div>
-
         </div>
     </div>
 
-    <!-- SERIES (DAYTONA) -->
+    <!-- UPCOMING -->
     <div class="row">
-        <h2>Series</h2>
+        <h2>Upcoming</h2>
 
         <div class="scroll">
-
             <div class="card">
                 <img src="DaytonaCover.png">
                 <p>Daytona</p>
@@ -216,7 +190,6 @@ body {
                 <img src="white.png">
                 <p>Coming Soon</p>
             </div>
-
         </div>
     </div>
 
