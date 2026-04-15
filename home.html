@@ -94,21 +94,19 @@
             margin-bottom: 60px;
         }
 
+        /* FIX: ALIGN HEADINGS WITH CARDS */
         .row h2 {
-            margin-bottom: 20px;
+            margin: 0 0 10px 24px; /* matches scroll padding-left */
             font-size: 22px;
         }
 
-        /* ===================== */
-        /* FIXED SCROLL BEHAVIOR */
-        /* ===================== */
-
+        /* SCROLL */
         .scroll {
             display: flex;
             gap: 18px;
             overflow-x: auto;
 
-            padding: 20px 24px; /* IMPORTANT: fixes edge clipping */
+            padding: 20px 24px;
         }
 
         .scroll::-webkit-scrollbar {
@@ -120,10 +118,7 @@
             border-radius: 10px;
         }
 
-        /* ===================== */
-        /* FIXED CARD HOVER      */
-        /* ===================== */
-
+        /* CARD */
         .card {
             min-width: 320px;
             height: 180px;
@@ -139,7 +134,7 @@
 
         .card:hover {
             transform: scale(1.04);
-            z-index: 10; /* stronger layering fix */
+            z-index: 10;
             box-shadow: 0 14px 35px rgba(0,0,0,0.55);
         }
 
