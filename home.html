@@ -15,23 +15,30 @@ body {
     color: white;
 }
 
-/* ===== YOUR NAVBAR (UNCHANGED) ===== */
+/* ================= NAVBAR (YOUR STYLE, FIXED) ================= */
 .navbar {
     position: absolute;
     top: 0;
     width: 100%;
     z-index: 10;
 
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 40px;
+
+    padding: 10px 30px;
+
+    background: rgba(0, 0, 0, 0.4); /* darker so it's readable */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
+/* LOGO */
+.logo img {
+    height: 32px;
+}
+
+/* NAV LINKS */
 .nav-center {
     display: flex;
     gap: 10px;
@@ -42,26 +49,29 @@ body {
 
 .nav-center li a {
     display: inline-block;
-    padding: 10px 16px;
+    padding: 8px 14px;
     border-radius: 999px;
 
-    color: white;
+    color: #ddd;
     text-decoration: none;
     font-weight: 500;
+    font-size: 13px;
 
     transition: all 0.2s ease;
 }
 
 .nav-center li a:hover {
     background: rgba(255, 255, 255, 0.2);
+    color: white;
 }
 
 /* ACTIVE PAGE */
 .nav-center li a[href="home.html"] {
     background: rgba(255, 255, 255, 0.3);
+    color: white;
 }
 
-/* ===== HERO ===== */
+/* ================= HERO ================= */
 .hero {
     position: relative;
     height: 60vh;
@@ -95,7 +105,7 @@ body {
     opacity: 0.8;
 }
 
-/* ===== MAIN ===== */
+/* ================= MAIN ================= */
 .main {
     background: linear-gradient(to bottom, rgba(20,20,20,1), black);
     padding: 40px 60px;
@@ -110,7 +120,7 @@ body {
     margin-bottom: 20px;
 }
 
-/* SCROLL ROW */
+/* SCROLL */
 .scroll {
     display: flex;
     gap: 20px;
@@ -127,7 +137,7 @@ body {
     border-radius: 10px;
 }
 
-/* CARDS */
+/* CARDS (FIXED HOVER ISSUE) */
 .card {
     min-width: 200px;
     cursor: pointer;
@@ -139,9 +149,9 @@ body {
     transition: transform 0.25s ease;
 }
 
-/* FIXED HOVER (no cutoff) */
+/* IMPORTANT: zoom ONLY image so it doesn't get cut */
 .card:hover img {
-    transform: scale(1.05);
+    transform: scale(1.08);
 }
 
 .card p {
@@ -167,7 +177,12 @@ body {
 <body>
 
 <header class="navbar">
-    <img src="logo-big-tran.png" style="height:40px;">
+
+    <div class="logo">
+        <a href="home.html">
+            <img src="logo-big-tran.png">
+        </a>
+    </div>
 
     <ul class="nav-center">
         <li><a href="home.html">HOME</a></li>
@@ -175,6 +190,7 @@ body {
         <li><a href="announcements.html">ANNOUNCEMENTS</a></li>
         <li><a href="watch.html">WATCH & RATINGS</a></li>
     </ul>
+
 </header>
 
 <!-- HERO -->
@@ -190,7 +206,6 @@ body {
 <!-- MAIN -->
 <section class="main">
 
-    <!-- PLAY BUTTON -->
     <div class="play-btn">▶</div>
 
     <!-- RELEASES -->
@@ -198,6 +213,7 @@ body {
         <h2>Releases</h2>
 
         <div class="scroll">
+
             <div class="card">
                 <img src="HCMA.png">
                 <p>Hypixel Cinematic Montages (Anniversary)</p>
@@ -212,14 +228,16 @@ body {
                 <img src="HCM.png">
                 <p>Hypixel Cinematic Montages (Original)</p>
             </div>
+
         </div>
     </div>
 
-    <!-- UPCOMING -->
+    <!-- UPCOMING (renamed) -->
     <div class="row">
         <h2>Upcoming</h2>
 
         <div class="scroll">
+
             <div class="card">
                 <img src="DaytonaCover.png">
                 <p>Daytona</p>
@@ -229,6 +247,7 @@ body {
                 <img src="white.png">
                 <p>Coming Soon</p>
             </div>
+
         </div>
     </div>
 
