@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Home - Gurraj Grewal</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="favicon.png">
 
 <style>
@@ -15,7 +15,7 @@ body {
     color: white;
 }
 
-/* NAVBAR (your original style) */
+/* ===== YOUR NAVBAR (UNCHANGED) ===== */
 .navbar {
     position: absolute;
     top: 0;
@@ -24,6 +24,12 @@ body {
 
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 40px;
 }
 
 .nav-center {
@@ -31,7 +37,7 @@ body {
     gap: 10px;
     list-style: none;
     margin: 0;
-    padding: 10px 20px;
+    padding: 0;
 }
 
 .nav-center li a {
@@ -47,10 +53,15 @@ body {
 }
 
 .nav-center li a:hover {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
 }
 
-/* HERO */
+/* ACTIVE PAGE */
+.nav-center li a[href="home.html"] {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* ===== HERO ===== */
 .hero {
     position: relative;
     height: 60vh;
@@ -65,21 +76,28 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.7);
+    filter: brightness(0.6);
+    top: 0;
+    left: 0;
 }
 
-.hero-text {
+.hero-content {
     position: relative;
     z-index: 2;
 }
 
-.hero-text h1 {
+.hero h1 {
     font-size: 64px;
     margin: 0;
 }
 
-/* MAIN */
+.hero p {
+    opacity: 0.8;
+}
+
+/* ===== MAIN ===== */
 .main {
+    background: linear-gradient(to bottom, rgba(20,20,20,1), black);
     padding: 40px 60px;
 }
 
@@ -96,30 +114,52 @@ body {
 .scroll {
     display: flex;
     gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
 }
 
-/* CARD FIX (no more cutoff) */
+.scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+
+/* CARDS */
 .card {
-    width: 320px;
+    min-width: 200px;
     cursor: pointer;
 }
 
 .card img {
     width: 100%;
-    border-radius: 12px;
-    transition: transform 0.3s ease;
+    border-radius: 10px;
+    transition: transform 0.25s ease;
 }
 
-/* KEY FIX: scale WITHOUT clipping */
+/* FIXED HOVER (no cutoff) */
 .card:hover img {
     transform: scale(1.05);
 }
 
-/* TITLE TEXT */
 .card p {
-    margin-top: 10px;
+    margin: 8px 0 0 0;
     font-size: 14px;
-    color: #ccc;
+}
+
+/* PLAY BUTTON */
+.play-btn {
+    width: 50px;
+    height: 50px;
+    background: #1db954;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    cursor: pointer;
 }
 </style>
 </head>
@@ -127,11 +167,7 @@ body {
 <body>
 
 <header class="navbar">
-    <div class="logo">
-        <a href="index.html">
-            <img src="logo-big-tran.png" alt="Logo" style="height:40px;">
-        </a>
-    </div>
+    <img src="logo-big-tran.png" style="height:40px;">
 
     <ul class="nav-center">
         <li><a href="home.html">HOME</a></li>
@@ -145,7 +181,7 @@ body {
 <section class="hero">
     <img src="GurrajGrewal.png">
 
-    <div class="hero-text">
+    <div class="hero-content">
         <h1>Gurraj Grewal</h1>
         <p>451,101 Impressions</p>
     </div>
@@ -153,6 +189,9 @@ body {
 
 <!-- MAIN -->
 <section class="main">
+
+    <!-- PLAY BUTTON -->
+    <div class="play-btn">▶</div>
 
     <!-- RELEASES -->
     <div class="row">
