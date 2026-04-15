@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Home - Gurraj Grewal</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
@@ -55,7 +56,7 @@
             color: white;
         }
 
-        /* HERO */
+        /* HERO (UNCHANGED) */
         .hero-banner {
             position: relative;
             height: 65vh;
@@ -75,7 +76,6 @@
             padding: 40px 60px;
         }
 
-        /* PLAY BUTTON */
         .play-btn {
             width: 55px;
             height: 55px;
@@ -91,7 +91,7 @@
 
         /* ROW */
         .row {
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
 
         .row h2 {
@@ -99,11 +99,12 @@
             font-size: 22px;
         }
 
-        /* SCROLL ROW */
+        /* HORIZONTAL SCROLL */
         .scroll {
             display: flex;
-            gap: 20px;
+            gap: 18px;
             overflow-x: auto;
+            padding-bottom: 10px;
         }
 
         .scroll::-webkit-scrollbar {
@@ -115,26 +116,53 @@
             border-radius: 10px;
         }
 
-        /* CARDS */
+        /* ===================== */
+        /* NEW CINEMATIC CARDS   */
+        /* ===================== */
+
         .card {
-            min-width: 180px;
-            transition: transform 0.2s ease;
+            min-width: 320px;
+            height: 180px;
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
             cursor: pointer;
+            flex-shrink: 0;
+            transition: transform 0.25s ease;
         }
 
         .card:hover {
-            transform: scale(1.08);
+            transform: scale(1.04);
         }
 
         .card img {
             width: 100%;
-            border-radius: 10px;
+            height: 100%;
+            object-fit: cover;
             display: block;
+            filter: brightness(0.75);
         }
 
         .card p {
-            margin-top: 8px;
+            position: absolute;
+            bottom: 10px;
+            left: 12px;
+            right: 12px;
+
+            margin: 0;
             font-size: 14px;
+            font-weight: 500;
+
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        /* subtle gradient overlay for readability */
+        .card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.6), transparent 60%);
         }
     </style>
 </head>
@@ -171,38 +199,38 @@
 
     <div class="play-btn">▶</div>
 
-    <!-- RELEASES -->
+    <!-- RELEASES (REWORKED) -->
     <div class="row">
         <h2>Releases</h2>
 
         <div class="scroll">
 
             <div class="card">
-                <img src="HCMA.png">
+                <img src="white.png">
                 <p>Hypixel Cinematic Montages (Anniversary)</p>
             </div>
 
             <div class="card">
-                <img src="PRE-PARTY.png">
+                <img src="white.png">
                 <p>Pre-Party</p>
             </div>
 
             <div class="card">
-                <img src="HCM.png">
+                <img src="white.png">
                 <p>Hypixel Cinematic Montages (Original)</p>
             </div>
 
         </div>
     </div>
 
-    <!-- UPCOMING -->
+    <!-- UPCOMING (REWORKED) -->
     <div class="row">
         <h2>Upcoming</h2>
 
         <div class="scroll">
 
             <div class="card">
-                <img src="DaytonaCover.png">
+                <img src="white.png">
                 <p>Daytona</p>
             </div>
 
