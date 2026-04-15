@@ -15,7 +15,7 @@ body {
     color: white;
 }
 
-/* ================= NAVBAR (YOUR STYLE, FIXED) ================= */
+/* ================= NAVBAR ================= */
 .navbar {
     position: absolute;
     top: 0;
@@ -24,18 +24,28 @@ body {
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center; /* center everything */
 
-    padding: 10px 30px;
+    padding: 10px 0;
 
-    background: rgba(0, 0, 0, 0.4); /* darker so it's readable */
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
 }
 
-/* LOGO */
+/* INNER CONTAINER (prevents overflow) */
+.nav-inner {
+    width: 100%;
+    max-width: 1200px; /* keeps things aligned */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+/* LOGO (FIXED SIZE) */
 .logo img {
-    height: 32px;
+    height: 40px; /* restore proper size */
+    width: auto;
 }
 
 /* NAV LINKS */
@@ -65,7 +75,7 @@ body {
     color: white;
 }
 
-/* ACTIVE PAGE */
+/* ACTIVE */
 .nav-center li a[href="home.html"] {
     background: rgba(255, 255, 255, 0.3);
     color: white;
@@ -111,7 +121,6 @@ body {
     padding: 40px 60px;
 }
 
-/* ROW */
 .row {
     margin-bottom: 50px;
 }
@@ -120,7 +129,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* SCROLL */
 .scroll {
     display: flex;
     gap: 20px;
@@ -137,7 +145,7 @@ body {
     border-radius: 10px;
 }
 
-/* CARDS (FIXED HOVER ISSUE) */
+/* CARDS */
 .card {
     min-width: 200px;
     cursor: pointer;
@@ -149,7 +157,6 @@ body {
     transition: transform 0.25s ease;
 }
 
-/* IMPORTANT: zoom ONLY image so it doesn't get cut */
 .card:hover img {
     transform: scale(1.08);
 }
@@ -177,20 +184,22 @@ body {
 <body>
 
 <header class="navbar">
+    <div class="nav-inner">
 
-    <div class="logo">
-        <a href="home.html">
-            <img src="logo-big-tran.png">
-        </a>
+        <div class="logo">
+            <a href="home.html">
+                <img src="logo-big-tran.png">
+            </a>
+        </div>
+
+        <ul class="nav-center">
+            <li><a href="home.html">HOME</a></li>
+            <li><a href="releases.html">RELEASES</a></li>
+            <li><a href="announcements.html">ANNOUNCEMENTS</a></li>
+            <li><a href="watch.html">WATCH & RATINGS</a></li>
+        </ul>
+
     </div>
-
-    <ul class="nav-center">
-        <li><a href="home.html">HOME</a></li>
-        <li><a href="releases.html">RELEASES</a></li>
-        <li><a href="announcements.html">ANNOUNCEMENTS</a></li>
-        <li><a href="watch.html">WATCH & RATINGS</a></li>
-    </ul>
-
 </header>
 
 <!-- HERO -->
@@ -232,7 +241,7 @@ body {
         </div>
     </div>
 
-    <!-- UPCOMING (renamed) -->
+    <!-- UPCOMING -->
     <div class="row">
         <h2>Upcoming</h2>
 
