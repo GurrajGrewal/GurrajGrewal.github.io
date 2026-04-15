@@ -7,6 +7,51 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="favicon.png">
 
+  <style>
+        /* NAVBAR */
+        .navbar {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* NAV LINKS */
+        .nav-center {
+            display: flex;
+            gap: 10px;
+            list-style: none;
+            margin: 0;
+            padding: 10px 20px;
+        }
+
+        .nav-center li a {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 999px;
+
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+
+            transition: all 0.2s ease;
+        }
+
+        .nav-center li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ACTIVE PAGE */
+        .nav-center li a[href="releases.html"] {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+
+    
 <style>
 body {
     margin: 0;
@@ -15,71 +60,6 @@ body {
     color: white;
 }
 
-/* ================= NAVBAR ================= */
-.navbar {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 10;
-
-    display: flex;
-    align-items: center;
-    justify-content: center; /* center everything */
-
-    padding: 10px 0;
-
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px);
-}
-
-/* INNER CONTAINER (prevents overflow) */
-.nav-inner {
-    width: 100%;
-    max-width: 1200px; /* keeps things aligned */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-}
-
-/* LOGO (FIXED SIZE) */
-.logo img {
-    height: 40px; /* restore proper size */
-    width: auto;
-}
-
-/* NAV LINKS */
-.nav-center {
-    display: flex;
-    gap: 10px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-center li a {
-    display: inline-block;
-    padding: 8px 14px;
-    border-radius: 999px;
-
-    color: #ddd;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 13px;
-
-    transition: all 0.2s ease;
-}
-
-.nav-center li a:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-/* ACTIVE */
-.nav-center li a[href="home.html"] {
-    background: rgba(255, 255, 255, 0.3);
-    color: white;
-}
 
 /* ================= HERO ================= */
 .hero {
