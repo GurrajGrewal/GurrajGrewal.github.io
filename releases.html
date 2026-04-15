@@ -6,56 +6,61 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
 
-    <style>
-        /* NAVBAR */
-        .navbar {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 10;
+<style>
+/* NAVBAR */
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
 
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
 
-        /* NAV LINKS */
-        .nav-center {
-            display: flex;
-            gap: 10px;
-            list-style: none;
-            margin: 0;
-            padding: 10px 20px;
-        }
+/* NAV LINKS */
+.nav-center {
+    display: flex;
+    gap: 14px;
+    list-style: none;
+    margin: 0;
+    padding: 14px 30px;
+    align-items: center;
+}
 
-        .nav-center li a {
-            display: inline-block;
-            padding: 10px 16px;
-            border-radius: 999px;
+/* CLEANER FONT STYLE */
+.nav-center li a {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 999px;
 
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 1px;
 
-            transition: all 0.2s ease;
-        }
+    transition: all 0.2s ease;
+}
 
-        .nav-center li a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
+/* HOVER */
+.nav-center li a:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.15);
+}
 
-        /* ACTIVE PAGE */
-        .nav-center li a[href="releases.html"] {
-            background: rgba(255, 255, 255, 0.3);
-        }
-    </style>
-</head>
-<body>
+/* ACTIVE PAGE */
+.nav-center li a[href="home.html"] {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+}
+</style>
 
 <header class="navbar">
     <div class="logo">
         <a href="index.html">
-            <img src="logo-big-tran.png" alt="Logo">
+            <img src="logo-big-tran.png" alt="Logo" style="height:40px;">
         </a>
     </div>
 
