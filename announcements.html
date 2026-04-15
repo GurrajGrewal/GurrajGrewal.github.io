@@ -1,16 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Announcements - Gurraj Grewal</title>
+
+    <!-- SAME FONT AS HOME -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
         body {
             margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: black;
+            color: white;
         }
 
-        /* FULL SCREEN BACKGROUND IMAGE */
+        /* BACKGROUND IMAGE */
         .bg {
             position: fixed;
             top: 0;
@@ -21,7 +29,7 @@
             z-index: -1;
         }
 
-        /* TRANSPARENT GLASS NAVBAR */
+        /* NAVBAR (IDENTICAL TO HOME) */
         .navbar {
             position: absolute;
             top: 0;
@@ -33,20 +41,18 @@
             -webkit-backdrop-filter: blur(10px);
         }
 
-        /* NAV CONTAINER */
         .nav-center {
             display: flex;
-            gap: 10px; /* spacing between items */
+            gap: 10px;
             list-style: none;
             margin: 0;
             padding: 10px 20px;
         }
 
-        /* MAKE LINKS BIGGER + BUTTON-LIKE */
         .nav-center li a {
             display: inline-block;
-            padding: 10px 16px;   /* 👈 BIGGER HITBOX */
-            border-radius: 999px; /* 👈 fully rounded pill */
+            padding: 10px 16px;
+            border-radius: 999px;
 
             color: white;
             text-decoration: none;
@@ -55,10 +61,10 @@
             transition: all 0.2s ease;
         }
 
-        /* HOVER BACKGROUND */
         .nav-center li a:hover {
             background: rgba(255, 255, 255, 0.2);
         }
+
         /* ACTIVE PAGE */
         .nav-center li a[href="announcements.html"] {
             background: rgba(255, 255, 255, 0.3);
@@ -68,14 +74,11 @@
 
 <body>
 
-<!-- BACKGROUND IMAGE -->
 <div class="bg"></div>
 
-<!-- NAVBAR -->
 <header class="navbar">
-
     <div class="logo">
-        <a href="home.html">
+        <a href="index.html">
             <img src="logo-big-tran.png" alt="Logo">
         </a>
     </div>
@@ -86,7 +89,6 @@
         <li><a href="announcements.html">ANNOUNCEMENTS</a></li>
         <li><a href="watch.html">WATCH & RATINGS</a></li>
     </ul>
-
 </header>
 
 </body>
