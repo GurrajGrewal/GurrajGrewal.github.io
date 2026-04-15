@@ -99,12 +99,16 @@
             font-size: 22px;
         }
 
-        /* SCROLL FIX */
+        /* ===================== */
+        /* FIXED SCROLL BEHAVIOR */
+        /* ===================== */
+
         .scroll {
             display: flex;
             gap: 18px;
             overflow-x: auto;
-            padding: 12px 0; /* IMPORTANT: gives hover breathing room */
+
+            padding: 20px 24px; /* IMPORTANT: fixes edge clipping */
         }
 
         .scroll::-webkit-scrollbar {
@@ -135,8 +139,8 @@
 
         .card:hover {
             transform: scale(1.04);
-            z-index: 5; /* prevents clipping under neighbors */
-            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+            z-index: 10; /* stronger layering fix */
+            box-shadow: 0 14px 35px rgba(0,0,0,0.55);
         }
 
         .card img {
@@ -167,6 +171,7 @@
             inset: 0;
             background: linear-gradient(to top, rgba(0,0,0,0.6), transparent 60%);
         }
+
     </style>
 </head>
 
