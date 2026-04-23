@@ -209,7 +209,33 @@
 <section class="episodes-section">
 
     <div class="episodes-header">
-        <button class="season-btn">≡ Season 1 ▼</button>
+        <button class="season-btn" onclick="openSeasonMenu()">
+    <span id="currentSeason">Season 1</span>
+</button>
+
+        <div id="seasonOverlay" class="season-overlay">
+
+    <div class="season-grid">
+
+        <!-- SEASON 1 -->
+        <div class="season-card" onclick="selectSeason(1)">
+            <img src="season1-thumb.png">
+            <div class="season-label">Season 1</div>
+        </div>
+
+        <!-- ADD MORE LIKE THIS LATER -->
+        <!--
+        <div class="season-card" onclick="selectSeason(2)">
+            <img src="season2-thumb.png">
+            <div class="season-label">Season 2</div>
+        </div>
+        -->
+
+    </div>
+
+    <div class="close-overlay" onclick="closeSeasonMenu()">×</div>
+
+</div>
 
         <div class="episode-arrows">
             <button class="ep-arrow left">‹</button>
@@ -448,6 +474,28 @@ function closeVideo() {
 /* PLAY BUTTON */
 function playCurrentSeries() {
     openVideo(videoLinks[currentIndex][0]);
+}
+
+// SEASONS BUTTON //
+
+let currentSeason = 1;
+
+function openSeasonMenu() {
+    document.getElementById("seasonOverlay").style.display = "block";
+}
+
+function closeSeasonMenu() {
+    document.getElementById("seasonOverlay").style.display = "none";
+}
+
+function selectSeason(season) {
+    currentSeason = season;
+
+    document.getElementById("currentSeason").textContent = "Season " + season;
+
+    closeSeasonMenu();
+
+    generateEpisodes(currentIndex); // reuse your system
 }
 
 </script>
