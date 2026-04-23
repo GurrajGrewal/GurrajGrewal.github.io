@@ -112,7 +112,7 @@
 
                     <div class="release-buttons">
                         <button class="play-btn" onclick="playCurrentSeries()">▶ Play</button>
-                        <button class="info-btn">More Info</button>
+                        <button class="info-btn">Seasons</button>
                         <button class="season-btn">Gallery</button>
                     </div>
 
@@ -149,7 +149,7 @@
 
                     <div class="release-buttons">
                         <button class="play-btn" onclick="playCurrentSeries()">▶ Play</button>
-                        <button class="info-btn">More Info</button>
+                        <button class="info-btn">Seasons</button>
                         <button class="season-btn">Gallery</button>
                     </div>
 
@@ -186,7 +186,7 @@
 
                     <div class="release-buttons">
                         <button class="play-btn" onclick="playCurrentSeries()">▶ Play</button>
-                        <button class="info-btn">More Info</button>
+                        <button class="info-btn">Seasons</button>
                         <button class="season-btn">Gallery</button>
                     </div>
 
@@ -208,14 +208,16 @@
 
 <section class="episodes-section">
 
-    <div class="episodes-header">
-        <button class="season-btn">≡ Season 1 ▼</button>
+<div class="episodes-header">
 
-        <div class="episode-arrows">
-            <button class="ep-arrow left">‹</button>
-            <button class="ep-arrow right">›</button>
-        </div>
+    <div class="season-title" id="seasonTitle">Season 1</div>
+
+    <div class="episode-arrows">
+        <button class="ep-arrow left">‹</button>
+        <button class="ep-arrow right">›</button>
     </div>
+
+</div>
 
     <div class="episodes-wrapper">
         <div class="episodes-track" id="episodesTrack"></div>
@@ -385,6 +387,9 @@ leftArrow.addEventListener("click", () => {
 
 function onSlideChange(index) {
     generateEpisodes(index);
+
+    document.getElementById("seasonTitle").textContent =
+        "Season " + (currentSeason?.[index] || 1);
 }
 
 const originalUpdateSlider = updateSlider;
