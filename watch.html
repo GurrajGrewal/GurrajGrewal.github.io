@@ -212,11 +212,12 @@ function generateRatings(ratingsArray, headerId, gridId, hasPrologue = true) {
 
         const epHeader = document.createElement("div");
 
-        if (hasPrologue && index === 0) {
-            epHeader.textContent = "P"; // or "PRO" or "Intro"
-        } else {
-            epHeader.textContent = "E" + (hasPrologue ? index : index + 1);
-        }
+if (hasPrologue && index === 0) {
+    epHeader.textContent = "P"; // or "PROLOGUE"
+} else {
+    const episodeNumber = hasPrologue ? index : index + 1;
+    epHeader.textContent = "E" + episodeNumber;
+}
 
         header.appendChild(epHeader);
 
@@ -232,7 +233,7 @@ function generateRatings(ratingsArray, headerId, gridId, hasPrologue = true) {
 
 // HCM → HAS PROLOGUE
 generateRatings(
-    [5.0, 4.6, 8.6, 4.8, 6.9, 6.7, 7.0, 5.9, 6.9, 6.6],
+    [5.0, 4.6, 8.6, 4.8, 6.9, 6.7, 7.0, 4.7, 6.9, 6.6],
     "header1",
     "grid1",
     true
