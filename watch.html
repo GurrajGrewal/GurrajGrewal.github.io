@@ -203,7 +203,7 @@ function getRatingColor(score) {
     return "#02d2f7";
 }
 
-function generateRatings(ratingsArray, headerId, gridId, hasPrologue = false) {
+function generateRatings(ratingsArray, headerId, gridId, hasPrologue = true) {
 
     const header = document.getElementById(headerId);
     const grid = document.getElementById(gridId);
@@ -230,22 +230,28 @@ function generateRatings(ratingsArray, headerId, gridId, hasPrologue = false) {
     });
 }
 
+// HCM → HAS PROLOGUE
 generateRatings(
     [5.0, 4.6, 8.6, 4.8, 6.9, 6.7, 7.0, 5.9, 6.9, 6.6],
     "header1",
-    "grid1"
+    "grid1",
+    true
 );
 
+// Pre-Party → HAS PROLOGUE
 generateRatings(
     [2.3, 6.6, 5.5, 4.6, 5.7, 7.1, 7.0],
     "header2",
-    "grid2"
+    "grid2",
+    true
 );
 
+// HCM Anniversary → NO PROLOGUE
 generateRatings(
     [6.7, 4.0, 7.4, 5.6],
     "header3",
-    "grid3"
+    "grid3",
+    false
 );
 
 </script>
