@@ -225,10 +225,14 @@
 <div id="videoModal" class="glass-modal">
     <div class="glass-backdrop" onclick="closeVideo()"></div>
 
-    <div class="glass-player">
+    <div class="glass-wrapper">
+
         <button class="glass-close" onclick="closeVideo()">×</button>
 
-        <iframe id="videoFrame" allow="autoplay; fullscreen"></iframe>
+        <div class="glass-player">
+            <iframe id="videoFrame" allow="autoplay; fullscreen"></iframe>
+        </div>
+
     </div>
 </div>
 
