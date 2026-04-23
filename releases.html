@@ -206,23 +206,24 @@
 
 <!-- ================= EPISODE SECTION ================= -->
 
-<section class="episodes-section">
+<div class="episodes-header">
 
-<div class="season-dropdown">
-    <button class="season-btn" onclick="toggleSeasonMenu()">
-        ≡ <span id="currentSeason">Season 1</span> ▼
-    </button>
+    <div class="season-dropdown">
+        <button class="season-btn" onclick="toggleSeasonMenu()">
+            ≡ <span id="currentSeason">Season 1</span> ▼
+        </button>
 
-    <div class="season-menu" id="seasonMenu">
-        <div onclick="selectSeason(1)">Season 1</div>
-    </div>
-</div>
-
-        <div class="episode-arrows">
-            <button class="ep-arrow left">‹</button>
-            <button class="ep-arrow right">›</button>
+        <div class="season-menu" id="seasonMenu">
+            <div onclick="selectSeason(1)">Season 1</div>
         </div>
     </div>
+
+    <div class="episode-arrows">
+        <button class="ep-arrow left">‹</button>
+        <button class="ep-arrow right">›</button>
+    </div>
+
+</div>
 
     <div class="episodes-wrapper">
         <div class="episodes-track" id="episodesTrack"></div>
