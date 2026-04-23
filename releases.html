@@ -436,10 +436,10 @@ const videoLinks = {
 
 /* OPEN VIDEO */
 function openVideo(url) {
-    document.getElementById("videoFrame").src = url + "?autoplay=1&rel=0";
-    document.getElementById("videoModal").style.display = "flex";
-}
+    document.getElementById("videoFrame").src =
+        url + "?autoplay=1&rel=0&modestbranding=1";
 
+    document.getElementById("videoModal").style.display = "flex";
 }
 
 /* CLOSE VIDEO */
