@@ -222,9 +222,14 @@
     </div>
 
 <!-- VIDEO MODAL -->
-<div id="videoModal" class="video-modal">
-    <div class="close-video" onclick="closeVideo()">×</div>
-    <iframe id="videoFrame" allow="autoplay; fullscreen"></iframe>
+<div id="videoModal" class="glass-modal">
+    <div class="glass-backdrop" onclick="closeVideo()"></div>
+
+    <div class="glass-player">
+        <button class="glass-close" onclick="closeVideo()">×</button>
+
+        <iframe id="videoFrame" allow="autoplay; fullscreen"></iframe>
+    </div>
 </div>
 
 <script>
@@ -452,6 +457,8 @@ function closeVideo() {
 function playCurrentSeries() {
     openVideo(videoLinks[currentIndex][0]);
 }
+
+
 
 </script>
 
