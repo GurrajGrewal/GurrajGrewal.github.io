@@ -771,30 +771,41 @@ body {
 /* ================= EPISODES SECTION ================= */
 
 .episodes-section {
-    padding: 60px 80px;
+    padding: 40px 80px 60px; /* slightly tighter top padding */
     background: #0e0e0e;
 }
 
+/* HEADER (FIXED LAYOUT SHIFT) */
 .episodes-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+
+    margin: 0 0 18px 0; /* reduced + cleaner */
 }
 
+/* SEASON TITLE */
+.episodes-title {
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1;
+    letter-spacing: 0.5px;
+}
+
+/* WRAPPER */
 .episodes-wrapper {
     overflow: hidden;
     position: relative;
 }
 
 /* RIGHT SIDE FADE */
-
 .episodes-wrapper::after {
     content: "";
     position: absolute;
     top: 0;
     right: 0;
-    width: 120px; /* fade width */
+    width: 120px;
     height: 100%;
     pointer-events: none;
     background: linear-gradient(
@@ -806,14 +817,14 @@ body {
     );
 }
 
+/* TRACK */
 .episodes-track {
     display: flex;
     gap: 22px;
     transition: transform 0.5s ease;
 }
 
-/* Episode Card */
-
+/* EPISODE CARD */
 .episode-card {
     width: 240px;
     flex-shrink: 0;
@@ -1111,7 +1122,7 @@ body {
 .season-title {
     font-size: 32px;
     font-weight: 600;
-    margin: 20px 0 20px 0;
+    margin: 20px 0 10px 0;
     text-align: center;
     letter-spacing: 1px;
 }
