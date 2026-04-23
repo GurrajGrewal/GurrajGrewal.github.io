@@ -1081,3 +1081,29 @@ body {
     margin-bottom: 80px;
     border-bottom: 1px solid rgba(255,255,255,0.08);
 }
+
+/* VIDEO MODAL */
+.video-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.video-modal iframe {
+    width: 80%;
+    height: 80%;
+    border-radius: 12px;
+}
+
+.close-video {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 32px;
+    color: white;
+    cursor: pointer;
+}
