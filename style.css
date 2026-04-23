@@ -1107,3 +1107,54 @@ body {
     color: white;
     cursor: pointer;
 }
+
+.season-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.9);
+    display: none;
+
+    z-index: 999;
+}
+
+.season-grid {
+    display: flex;
+    gap: 20px;
+    padding: 100px 60px;
+}
+
+.season-card {
+    width: 320px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s;
+}
+
+.season-card:hover {
+    transform: scale(1.05);
+}
+
+.season-card img {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.season-label {
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.close-overlay {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    cursor: pointer;
+}
