@@ -1108,30 +1108,88 @@ body {
     border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-/* VIDEO MODAL */
-.video-modal {
+/* FULL SCREEN OVERLAY */
+.glass-modal {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.9);
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 9999;
 }
 
-.video-modal iframe {
-    width: 80%;
-    height: 80%;
-    border-radius: 12px;
-}
-
-.close-video {
+/* DARK BLUR BACKDROP */
+.glass-backdrop {
     position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 32px;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* PLAYER CONTAINER */
+.glass-player {
+    position: relative;
+    width: 80%;
+    max-width: 1000px;
+    aspect-ratio: 16 / 9;
+
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 18px;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    overflow: hidden;
+
+    animation: popIn 0.25s ease-out;
+}
+
+/* VIDEO */
+.glass-player iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* CLOSE BUTTON */
+.glass-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+    border: none;
+
+    background: rgba(255, 255, 255, 0.1);
     color: white;
+
+    font-size: 20px;
     cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.glass-close:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* OPEN ANIMATION */
+@keyframes popIn {
+    from {
+        transform: scale(0.96);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .season-title {
