@@ -1107,3 +1107,11 @@ body {
     color: white;
     cursor: pointer;
 }
+
+.season-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 20px 0 10px 0;
+    text-align: center;
+    letter-spacing: 1px;
+}
