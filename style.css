@@ -1107,28 +1107,3 @@ body {
     color: white;
     cursor: pointer;
 }
-
-.season-dropdown {
-    position: relative;
-}
-
-.season-menu {
-    position: absolute;
-    top: 45px;
-    left: 0;
-    background: #111;
-    border-radius: 8px;
-    padding: 8px 0;
-    display: none;
-    min-width: 140px;
-    z-index: 20;
-}
-
-.season-menu div {
-    padding: 10px 14px;
-    cursor: pointer;
-}
-
-.season-menu div:hover {
-    background: rgba(255,255,255,0.1);
-}
