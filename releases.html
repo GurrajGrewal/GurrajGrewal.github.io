@@ -208,8 +208,15 @@
 
 <section class="episodes-section">
 
-    <div class="episodes-header">
-        <button class="season-btn">≡ Season 1 ▼</button>
+<div class="season-dropdown">
+    <button class="season-btn" onclick="toggleSeasonMenu()">
+        ≡ <span id="currentSeason">Season 1</span> ▼
+    </button>
+
+    <div class="season-menu" id="seasonMenu">
+        <div onclick="selectSeason(1)">Season 1</div>
+    </div>
+</div>
 
         <div class="episode-arrows">
             <button class="ep-arrow left">‹</button>
@@ -453,4 +460,23 @@ function playCurrentSeries() {
     openVideo(videoLinks[currentIndex][0]);
 }
 
+</script>
+
+<script>
+let currentSeasonIndex = 1;
+
+function toggleSeasonMenu() {
+    const menu = document.getElementById("seasonMenu");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+
+function selectSeason(season) {
+    currentSeasonIndex = season;
+
+    document.getElementById("currentSeason").textContent = "Season " + season;
+
+    document.getElementById("seasonMenu").style.display = "none";
+
+    generateEpisodes(currentIndex);
+}
 </script>
