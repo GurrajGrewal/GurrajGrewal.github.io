@@ -209,33 +209,7 @@
 <section class="episodes-section">
 
     <div class="episodes-header">
-<button class="season-btn" onclick="openSeasonMenu()">
-    Seasons • <span id="currentSeason">1</span>
-</button>
-
-        <div id="seasonOverlay" class="season-overlay">
-
-    <div class="season-grid">
-
-        <!-- SEASON 1 -->
-        <div class="season-card" onclick="selectSeason(1)">
-            <img src="season1-thumb.png">
-            <div class="season-label">Season 1</div>
-        </div>
-
-        <!-- ADD MORE LIKE THIS LATER -->
-        <!--
-        <div class="season-card" onclick="selectSeason(2)">
-            <img src="season2-thumb.png">
-            <div class="season-label">Season 2</div>
-        </div>
-        -->
-
-    </div>
-
-    <div class="close-overlay" onclick="closeSeasonMenu()">×</div>
-
-</div>
+        <button class="season-btn">≡ Season 1 ▼</button>
 
         <div class="episode-arrows">
             <button class="ep-arrow left">‹</button>
@@ -281,49 +255,39 @@ updateSlider();
 </script>
 
 <script>
-    
-/* GLOBAL ACTIVE PROJECT */
-let activeProject = 0;
-let currentIndex = 0;
-    
+
 /* ================= EPISODE DATA ================= */
 
 const episodeData = {
-    0: {
-        1: [
-            { title: "Couloir", img: "hcmEP1.png" },
-            { title: "Japan & Shiawase", img: "hcmEP2.png" },
-            { title: "Tell Me A Joke", img: "hcmEP3.png" },
-            { title: "Under My Skin", img: "hcmEP4.png" },
-            { title: "My Eyes", img: "hcmEP5.png" },
-            { title: "Lean Wit Me", img: "hcmEP6.png" },
-            { title: "Dustcutter", img: "hcmEP7.png" },
-            { title: "Always Be My Fault", img: "hcmEP8.png" },
-            { title: "Cinderella", img: "hcmEP9.png" },
-            { title: "Drugs You Should Try It", img: "hcmEP10.png" }
-        ]
-    },
+    0: [
+        { title: "Couloir", img: "hcmEP1.png" },
+        { title: "Japan & Shiawase", img: "hcmEP2.png" },
+        { title: "Tell Me A Joke", img: "hcmEP3.png" },
+        { title: "Under My Skin", img: "hcmEP4.png" },
+        { title: "My Eyes", img: "hcmEP5.png" },
+        { title: "Lean Wit Me", img: "hcmEP6.png" },
+        { title: "Dustcutter", img: "hcmEP7.png" },
+        { title: "Always Be My Fault", img: "hcmEP8.png" },
+        { title: "Cinderella", img: "hcmEP9.png" },
+        { title: "Drugs You Should Try It", img: "hcmEP10.png" }
+    ],
 
-    1: {
-        1: [
-            { title: "Until We're Skin & Bones", img: "preEP1.png" },
-            { title: "Baptized In Fear", img: "preEP2.png" },
-            { title: "Open Hearts", img: "preEP3.png" },
-            { title: "Opening Night", img: "preEP4.png" },
-            { title: "Reflections Laughing", img: "preEP5.png" },
-            { title: "Baptized In Fear & Open Hearts Mashup", img: "preEP6.png" },
-            { title: "Dancing In The Flames", img: "preEP7.png" }
-        ]
-    },
+    1: [
+        { title: "Until We're Skin & Bones", img: "preEP1.png" },
+        { title: "Baptized In Fear", img: "preEP2.png" },
+        { title: "Open Hearts", img: "preEP3.png" },
+        { title: "Opening Night", img: "preEP4.png" },
+        { title: "Reflections Laughing", img: "preEP5.png" },
+        { title: "Baptized In Fear & Open Hearts Mashup", img: "preEP6.png" },
+        { title: "Dancing In The Flames", img: "preEP7.png" }
+    ],
 
-    2: {
-        1: [
-            { title: "Good Days In Speedway", img: "hcmaEP1.png" },
-            { title: "Verglas: Couloir Mountains Revisited", img: "hcmaEP2.png" },
-            { title: "Behold", img: "hcmaEP3.png" },
-            { title: "My Soul", img: "hcmaEP4.png" }
-        ]
-    }
+    2: [
+        { title: "Good Days In Speedway", img: "hcmaEP1.png" },
+        { title: "Verglas: Couloir Mountains Revisited", img: "hcmaEP2.png" },
+        { title: "Behold", img: "hcmaEP3.png" },
+        { title: "My Soul", img: "hcmaEP4.png" }
+    ]
 };
 
 const episodesTrack = document.getElementById("episodesTrack");
@@ -334,7 +298,7 @@ let episodeScrollIndex = 0;
 
 /* Generate Episodes */
 
-function generateEpisodes() {
+function generateEpisodes(slideIndex) {
 
     episodesTrack.classList.add("fade-out");
 
@@ -344,31 +308,31 @@ function generateEpisodes() {
         episodeScrollIndex = 0;
         episodesTrack.style.transform = "translateX(0px)";
 
-        const season = currentSeason[activeProject] || 1;
-        const episodes = episodeData[activeProject][season] || [];
+        const episodes = episodeData[slideIndex];
 
         for (let i = 0; i < episodes.length; i++) {
-
             const card = document.createElement("div");
             card.className = "episode-card";
 
-            card.innerHTML = `
-                <div class="episode-thumb">
-                    <img src="${episodes[i].img}">
-                    <div class="play-overlay"></div>
-                </div>
-                <div class="episode-info">
-                    <div class="episode-number">
-                        ${i === 0 ? "Prologue:" : "Episode " + (i + 1) + ":"}
-                    </div>
-                    <div class="episode-title">${episodes[i].title}</div>
-                </div>
-            `;
+card.innerHTML = `
+    <div class="episode-thumb">
+        <img src="${episodes[i].img}">
+        <div class="play-overlay"></div>
+    </div>
+    <div class="episode-info">
+        <div class="episode-number">
+            ${(slideIndex === 0 || slideIndex === 1)
+                ? (i === 0 ? "Prologue" + ":" : "Episode " + i + ":")
+                : "Episode " + (i + 1) + ":"}
+        </div>
+        <div class="episode-title">${episodes[i].title}</div>
+    </div>
+`;
 
             card.onclick = () => {
-                openVideo(videoLinks[activeProject][i]);
+            openVideo(videoLinks[slideIndex][i]);
             };
-
+            
             episodesTrack.appendChild(card);
         }
 
@@ -420,9 +384,7 @@ leftArrow.addEventListener("click", () => {
 /* Hook into Hero Slider */
 
 function onSlideChange(index) {
-    currentIndex = index;
-    activeProject = index;
-    generateEpisodes();
+    generateEpisodes(index);
 }
 
 const originalUpdateSlider = updateSlider;
@@ -434,7 +396,7 @@ updateSlider = function() {
 
 /* Initial load */
 
-generateEpisodes();
+generateEpisodes(0);
 
 /* VIDEO LINKS (EDIT THESE) */
 const videoLinks = {
@@ -488,34 +450,6 @@ function playCurrentSeries() {
     openVideo(videoLinks[currentIndex][0]);
 }
 
-// SEASONS BUTTON (FIXED PER PROJECT)
-
-let currentSeason = {
-    0: 1,
-    1: 1,
-    2: 1
-};
-
-function openSeasonMenu() {
-    document.getElementById("seasonOverlay").style.display = "block";
-}
-
-function closeSeasonMenu() {
-    document.getElementById("seasonOverlay").style.display = "none";
-}
-
-function selectSeason(season) {
-    // store season for CURRENT project
-    currentSeason[activeProject] = season;
-
-    // update UI text
-    document.getElementById("currentSeason").textContent =
-        "Season " + season;
-
-    closeSeasonMenu();
-
-    generateEpisodes();
-}
 </script>
 
 </body>
