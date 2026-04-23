@@ -111,7 +111,7 @@
                     </div>
 
                     <div class="release-buttons">
-                        <button class="play-btn">▶ Play</button>
+                        <button class="play-btn" onclick="playCurrentSeries()">▶ Play</button>
                         <button class="info-btn">More Info</button>
                         <button class="season-btn">Gallery</button>
                     </div>
@@ -148,7 +148,7 @@
                     </div>
 
                     <div class="release-buttons">
-                        <button class="play-btn">▶ Play</button>
+                        <button class="play-btn" onclick="playCurrentSeries()">▶ Play</button>
                         <button class="info-btn">More Info</button>
                         <button class="season-btn">Gallery</button>
                     </div>
@@ -185,7 +185,7 @@
                     </div>
 
                     <div class="release-buttons">
-                        <button class="play-btn">▶ Play</button>
+                        <button class="play-btn" onclick="playCurrentSeries()">▶ Play</button>
                         <button class="info-btn">More Info</button>
                         <button class="season-btn">Gallery</button>
                     </div>
@@ -221,7 +221,11 @@
         <div class="episodes-track" id="episodesTrack"></div>
     </div>
 
-</section>
+<!-- VIDEO MODAL -->
+<div id="videoModal" class="video-modal">
+    <div class="close-video" onclick="closeVideo()">×</div>
+    <iframe id="videoFrame" allow="autoplay; fullscreen"></iframe>
+</div>
 
 <script>
 const slider = document.getElementById("slider");
@@ -313,17 +317,25 @@ function generateEpisodes(slideIndex) {
             const card = document.createElement("div");
             card.className = "episode-card";
 
-            card.innerHTML = `
-                <div class="episode-thumb">
-                    <img src="${episodes[i].img}">
-                    <div class="play-overlay"></div>
-                </div>
-                <div class="episode-info">
-                    <div class="episode-number">Episode ${i + 1}:</div>
-                    <div class="episode-title">${episodes[i].title}</div>
-                </div>
-            `;
+card.innerHTML = `
+    <div class="episode-thumb">
+        <img src="${episodes[i].img}">
+        <div class="play-overlay"></div>
+    </div>
+    <div class="episode-info">
+        <div class="episode-number">
+            ${(slideIndex === 0 || slideIndex === 1)
+                ? (i === 0 ? "Prologue" : "Episode " + i + ":")
+                : "Episode " + (i + 1) + ":"}
+        </div>
+        <div class="episode-title">${episodes[i].title}</div>
+    </div>
+`;
 
+            card.onclick = () => {
+            openVideo(videoLinks[slideIndex][i]);
+            };
+            
             episodesTrack.appendChild(card);
         }
 
@@ -388,5 +400,55 @@ updateSlider = function() {
 /* Initial load */
 
 generateEpisodes(0);
+
+/* VIDEO LINKS (EDIT THESE) */
+const videoLinks = {
+0: [
+    "https://www.youtube.com/embed/ep1",
+    "https://www.youtube.com/embed/ep2",
+    "https://www.youtube.com/embed/ep3",
+    "https://www.youtube.com/embed/ep4",
+    "https://www.youtube.com/embed/ep5",
+    "https://www.youtube.com/embed/ep6",
+    "https://www.youtube.com/embed/ep7",
+    "https://www.youtube.com/embed/ep8",
+    "https://www.youtube.com/embed/ep9",
+    "https://www.youtube.com/embed/ep10"
+],
+1: [
+    "https://www.youtube.com/embed/pre1",
+    "https://www.youtube.com/embed/pre2",
+    "https://www.youtube.com/embed/pre3",
+    "https://www.youtube.com/embed/pre4",
+    "https://www.youtube.com/embed/pre5",
+    "https://www.youtube.com/embed/pre6",
+    "https://www.youtube.com/embed/pre7"
+],
+2: [
+    "https://www.youtube.com/embed/a1",
+    "https://www.youtube.com/embed/a2",
+    "https://www.youtube.com/embed/a3",
+    "https://www.youtube.com/embed/a4"
+]
+};
+
+/* OPEN VIDEO */
+function openVideo(url) {
+    document.getElementById("videoFrame").src =
+        url + "?autoplay=1&rel=0&modestbranding=1";
+
+    document.getElementById("videoModal").style.display = "flex";
+}
+
+/* CLOSE VIDEO */
+function closeVideo() {
+    document.getElementById("videoFrame").src = "";
+    document.getElementById("videoModal").style.display = "none";
+}
+
+/* PLAY BUTTON */
+function playCurrentSeries() {
+    openVideo(videoLinks[currentIndex][0]);
+}
 
 </script>
