@@ -203,7 +203,7 @@ function getRatingColor(score) {
     return "#02d2f7";
 }
 
-function generateRatings(ratingsArray, headerId, gridId) {
+function generateRatings(ratingsArray, headerId, gridId, hasPrologue = false) {
 
     const header = document.getElementById(headerId);
     const grid = document.getElementById(gridId);
@@ -211,7 +211,13 @@ function generateRatings(ratingsArray, headerId, gridId) {
     ratingsArray.forEach((score, index) => {
 
         const epHeader = document.createElement("div");
-        epHeader.textContent = "E" + (index + 1);
+
+        if (hasPrologue && index === 0) {
+            epHeader.textContent = "P"; // or "PRO" or "Intro"
+        } else {
+            epHeader.textContent = "E" + (hasPrologue ? index : index + 1);
+        }
+
         header.appendChild(epHeader);
 
         const tile = document.createElement("div");
