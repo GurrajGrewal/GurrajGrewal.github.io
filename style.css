@@ -775,40 +775,37 @@ body {
     background: #0e0e0e;
 }
 
-/* HEADER ROW */
+/* HEADER (FIXED LAYOUT SHIFT) */
 .episodes-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    margin: 0 0 18px 0;
+    margin: 0 0 18px 0; /* reduced + cleaner */
 }
 
-/* SEASON LABEL (CINEMATIC STYLE) */
-.season-label {
-    font-size: 26px;
+/* SEASON TITLE */
+.episodes-title {
+    font-family: poppins;
+    font-size: 22px;
     font-weight: 500;
 
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.85);
 
-    padding-left: 6px;
+    margin: 0 0 10px 0;
 
-    position: relative;
-}
+    /* makes it feel "UI-like", not like page text */
+    padding: 6px 14px;
+    display: inline-block;
 
-/* subtle accent line like streaming UI */
-.season-label::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
 
-    width: 3px;
-    height: 70%;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 
-    background: rgba(255, 255, 255, 0.35);
-    border-radius: 2px;
+    line-height: 1;
 }
 
 /* WRAPPER */
