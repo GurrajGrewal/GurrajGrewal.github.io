@@ -786,16 +786,26 @@ body {
 
 /* SEASON TITLE */
 .episodes-title {
-    font-family: inherit;
-    font-size: 38px;
+    font-family: poppins;
+    font-size: 22px;
     font-weight: 500;
-    letter-spacing: 2px;
-    margin: 0;
-    line-height: 1;
 
-    color: white;
-    opacity: 0.95;
-    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+
+    margin: 0 0 10px 0;
+
+    /* makes it feel "UI-like", not like page text */
+    padding: 6px 14px;
+    display: inline-block;
+
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    line-height: 1;
 }
 
 /* WRAPPER */
