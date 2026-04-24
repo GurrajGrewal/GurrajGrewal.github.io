@@ -208,20 +208,20 @@
 
         <div class="scroll">
 
-            <div class="card">
-                <img src="HCMAArt.png">
-                <p>Hypixel Cinematic Montages (Anniversary)</p>
-            </div>
+<div class="card" onclick="goToSlide(2)">
+    <img src="HCMAArt.png">
+    <p>Hypixel Cinematic Montages (Anniversary)</p>
+</div>
 
-            <div class="card">
-                <img src="PRE-PARTYART.png">
-                <p>Pre-Party</p>
-            </div>
+<div class="card" onclick="goToSlide(1)">
+    <img src="PRE-PARTYART.png">
+    <p>Pre-Party</p>
+</div>
 
-            <div class="card">
-                <img src="HCMArt.png">
-                <p>Hypixel Cinematic Montages (Original)</p>
-            </div>
+<div class="card" onclick="goToSlide(0)">
+    <img src="HCMArt.png">
+    <p>Hypixel Cinematic Montages (Original)</p>
+</div>
 
         </div>
     </div>
@@ -239,6 +239,12 @@
 
         </div>
     </div>
+
+    <script>
+function goToSlide(index) {
+    window.location.href = `releases.html?slide=${index}`;
+}
+</script>
 
 </section>
 
