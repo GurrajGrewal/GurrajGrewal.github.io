@@ -188,6 +188,40 @@
         </div>
     </div>
 
+    <!-- ================= PROJECT 4 ================= -->
+
+<div class="project-block">
+
+    <div class="project-header">
+        <img src="poster4.png" class="project-poster">
+        <div class="project-info">
+            <h2>Daytona</h2>
+            <h1>Ratings</h1>
+        </div>
+    </div>
+
+    <div class="overall-rating">
+        <h3>Avg. Rating</h3>
+        <div class="rating-box">
+            <img src="yellowstar.png" class="star-icon">
+            <span class="rating-score">-</span>
+            <span class="rating-out">/10</span>
+        </div>
+    </div>
+
+    <div class="episode-ratings">
+        <h3>Ratings by episode</h3>
+
+        <div class="ratings-table">
+            <div class="ratings-header" id="header4"></div>
+
+            <div class="ratings-row">
+                <div class="season-label">S1</div>
+                <div class="ratings-line" id="grid4"></div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 </section>
@@ -252,6 +286,14 @@ generateRatings(
     [6.7, 4.0, 7.4, 5.6],
     "header3",
     "grid3",
+    false
+);
+
+// HCM Anniversary → NO PROLOGUE
+generateRatings(
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "header4",
+    "grid4",
     false
 );
 
