@@ -1216,3 +1216,84 @@ body {
 .release-slide {
     min-width: 100%;
 }
+
+/* ================= RATING PAGE UPGRADE ================= */
+
+/* BIGGER SECTION SPACING */
+.overall-rating {
+    padding: 35px 40px;
+}
+
+.episode-ratings {
+    padding: 10px 40px 40px;
+}
+
+/* AVG RATING BIGGER */
+.rating-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 34px;
+    font-weight: 600;
+}
+
+/* HEADINGS */
+.overall-rating h3,
+.episode-ratings h3 {
+    font-size: 18px;
+    opacity: 0.8;
+    margin-bottom: 14px;
+}
+
+/* ================= GRID SYSTEM FIX ================= */
+
+/* HEADER + GRID MUST ALIGN PERFECTLY */
+.ratings-header,
+.ratings-line {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+/* EP LABELS (CENTER FIXED) */
+.ratings-header div {
+    width: 52px;
+    text-align: center;
+    font-size: 13px;
+    opacity: 0.6;
+    transform: translateY(2px);
+}
+
+/* SEASON LABEL ALIGNMENT */
+.season-label {
+    width: 52px;
+    opacity: 0.6;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ================= SCORE TILES (IMDb STYLE UPGRADE) ================= */
+
+.rating-tile {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    transition: transform 0.15s ease;
+}
+
+.rating-tile:hover {
+    transform: scale(1.08);
+}
+
+
