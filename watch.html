@@ -136,14 +136,13 @@ body {
     margin-bottom: 18px;
 }
 
-/* TABLE WRAPPER */
+/* TABLE */
 .ratings-table {
     margin-top: 10px;
 }
 
-/* ================= ALIGNMENT FIX (IMPORTANT) ================= */
+/* ================= FIXED ALIGNMENT ================= */
 
-/* shared left offset so headers + tiles line up perfectly */
 .ratings-header,
 .ratings-line {
     display: flex;
@@ -151,9 +150,9 @@ body {
     align-items: center;
 }
 
-/* THIS is the fix for E1/E2 shift */
+/* FIX: clean alignment instead of padding hack */
 .ratings-header {
-    padding-left: 82px; /* matches season label + spacing */
+    margin-left: 70px; /* 58px tile + 12px gap */
     margin-bottom: 10px;
 }
 
@@ -172,11 +171,11 @@ body {
     text-align: center;
 }
 
-/* ================= RATING TILES (balanced IMDb style) ================= */
+/* ================= RATING TILES ================= */
 
 .rating-tile {
     width: 58px;
-    height: 58px;   /* back to more square (NOT too horizontal) */
+    height: 58px;
     border-radius: 12px;
 
     display: flex;
