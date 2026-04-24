@@ -136,54 +136,48 @@ body {
     margin-bottom: 18px;
 }
 
-/* TABLE */
+/* TABLE WRAPPER */
 .ratings-table {
     margin-top: 10px;
 }
 
-/* HEADER ROW */
-.ratings-header {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 10px;
-}
+/* ================= ALIGNMENT FIX (IMPORTANT) ================= */
 
-/* FIXED PERFECT CENTERING FOR E1 / E2 / E3 */
-.ratings-header div {
-    width: 70px;
-    text-align: center;
-    font-size: 13px;
-    opacity: 0.6;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* ROW */
+/* shared left offset so headers + tiles line up perfectly */
+.ratings-header,
 .ratings-line {
     display: flex;
     gap: 12px;
     align-items: center;
 }
 
-/* SEASON LABEL FIX */
-.season-label {
-    width: 70px;
-    opacity: 0.6;
-    text-align: center;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* THIS is the fix for E1/E2 shift */
+.ratings-header {
+    padding-left: 82px; /* matches season label + spacing */
+    margin-bottom: 10px;
 }
 
-/* ================= IMDb-STYLE RATING TILES ================= */
+/* EP LABELS */
+.ratings-header div {
+    width: 58px;
+    text-align: center;
+    font-size: 13px;
+    opacity: 0.6;
+}
+
+/* SEASON LABEL */
+.season-label {
+    width: 58px;
+    opacity: 0.6;
+    text-align: center;
+}
+
+/* ================= RATING TILES (balanced IMDb style) ================= */
 
 .rating-tile {
-    width: 74px;
-    height: 46px;   /* <- makes it slightly horizontal */
-    border-radius: 10px;
+    width: 58px;
+    height: 58px;   /* back to more square (NOT too horizontal) */
+    border-radius: 12px;
 
     display: flex;
     align-items: center;
@@ -262,7 +256,6 @@ body {
 
 <!-- PRE PARTY -->
 <div class="project-block">
-
     <div class="project-header">
         <img src="PRE-PARTYART.png">
         <div class="project-info">
@@ -291,12 +284,10 @@ body {
             </div>
         </div>
     </div>
-
 </div>
 
 <!-- HCMA -->
 <div class="project-block">
-
     <div class="project-header">
         <img src="HCMAArt.png">
         <div class="project-info">
@@ -325,12 +316,10 @@ body {
             </div>
         </div>
     </div>
-
 </div>
 
 <!-- DAYTONA -->
 <div class="project-block">
-
     <div class="project-header">
         <img src="DaytonaArt.png">
         <div class="project-info">
@@ -359,7 +348,6 @@ body {
             </div>
         </div>
     </div>
-
 </div>
 
 </section>
