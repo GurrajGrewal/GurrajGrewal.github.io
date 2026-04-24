@@ -187,6 +187,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <!-- ================= PROJECT 4 ================= -->
 
@@ -235,6 +236,7 @@ function getRatingColor(score) {
     if (score < 8) return "#1abf2d";
     if (score < 9.5) return "#008236";
     return "#02d2f7";
+    
 }
 
 function generateRatings(ratingsArray, headerId, gridId, hasPrologue = true) {
@@ -246,20 +248,26 @@ function generateRatings(ratingsArray, headerId, gridId, hasPrologue = true) {
 
         const epHeader = document.createElement("div");
 
-if (hasPrologue && index === 0) {
-    epHeader.textContent = "P"; // or "PROLOGUE"
-} else {
-    const episodeNumber = hasPrologue ? index : index + 1;
-    epHeader.textContent = "E" + episodeNumber;
-}
+        if (hasPrologue && index === 0) {
+            epHeader.textContent = "P";
+        } else {
+            const episodeNumber = hasPrologue ? index : index + 1;
+            epHeader.textContent = "E" + episodeNumber;
+        }
 
         header.appendChild(epHeader);
 
         const tile = document.createElement("div");
         tile.className = "rating-tile";
-        tile.style.background = getRatingColor(score);
 
-        tile.textContent = (score === 10) ? "10" : Number(score).toFixed(1);
+        
+        if (score === 0) {
+            tile.textContent = "-";
+            tile.style.background = "#222";
+        } else {
+            tile.style.background = getRatingColor(score);
+            tile.textContent = (score === 10) ? "10" : Number(score).toFixed(1);
+        }
 
         grid.appendChild(tile);
     });
@@ -289,7 +297,7 @@ generateRatings(
     false
 );
 
-// HCM Anniversary → NO PROLOGUE
+// DAYTONA → NO PROLOGUE
 generateRatings(
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     "header4",
