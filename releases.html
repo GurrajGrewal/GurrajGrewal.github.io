@@ -252,8 +252,7 @@ if (!isNaN(startSlide)) {
 }
 
 function updateSlider() {
-    const slideWidth = slides[0].clientWidth;
-    slider.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
 }
 
 nextBtn.addEventListener("click", () => {
