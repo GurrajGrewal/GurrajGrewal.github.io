@@ -1208,3 +1208,11 @@ body {
     text-align: center;
     letter-spacing: 1px;
 }
+
+.release-slider {
+    display: flex;
+}
+
+.release-slide {
+    min-width: 100%;
+}
