@@ -244,6 +244,13 @@ const prevBtn = document.querySelector(".prev");
 
 let currentIndex = 0;
 
+const params = new URLSearchParams(window.location.search);
+const startSlide = parseInt(params.get("slide"));
+
+if (!isNaN(startSlide)) {
+    currentIndex = startSlide;
+}
+
 function updateSlider() {
     const slideWidth = slides[0].clientWidth;
     slider.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
