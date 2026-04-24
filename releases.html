@@ -266,7 +266,12 @@ prevBtn.addEventListener("click", () => {
 });
 
 window.addEventListener("resize", updateSlider);
+
 updateSlider();
+
+window.addEventListener("load", () => {
+    updateSlider();
+});
 </script>
 
 <script>
