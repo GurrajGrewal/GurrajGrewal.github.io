@@ -1,64 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Watch & Ratings - Gurraj Grewal</title>
+<meta charset="UTF-8">
+<title>Watch & Ratings - Gurraj Grewal</title>
 
-    <!-- SAME FONT AS HOME -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="favicon.png">
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="favicon.png">
+<style>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: black;
-            color: white;
-        }
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: black;
+    color: white;
+}
 
-        /* NAVBAR (IDENTICAL TO HOME) */
-        .navbar {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 10;
+/* NAVBAR */
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
 
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
+.nav-center {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+    margin: 0;
+    padding: 10px 20px;
+}
 
-        .nav-center {
-            display: flex;
-            gap: 10px;
-            list-style: none;
-            margin: 0;
-            padding: 10px 20px;
-        }
+.nav-center li a {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 999px;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s;
+}
 
-        .nav-center li a {
-            display: inline-block;
-            padding: 10px 16px;
-            border-radius: 999px;
+.nav-center li a:hover {
+    background: rgba(255,255,255,0.2);
+}
 
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
+.nav-center li a[href="watch.html"] {
+    background: rgba(255,255,255,0.3);
+}
 
-            transition: all 0.2s ease;
-        }
+/* PAGE */
+.ratings-section {
+    padding: 120px 80px 80px;
+}
 
-        .nav-center li a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
+/* PROJECT BLOCK (GLASS CARD) */
+.project-block {
+    margin-bottom: 80px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.08);
+}
 
-        /* ACTIVE PAGE */
-        .nav-center li a[href="watch.html"] {
-            background: rgba(255, 255, 255, 0.3);
-        }
-    </style>
+/* HERO IMAGE HEADER */
+.project-header {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+}
+
+.project-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6) contrast(1.1);
+    transform: scale(1.02);
+}
+
+.project-info {
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+}
+
+.project-info h2 {
+    margin: 0;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.project-info h1 {
+    margin: 5px 0 0;
+    font-size: 42px;
+}
+
+/* RATING SECTION */
+.overall-rating {
+    padding: 25px 30px;
+}
+
+.rating-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 26px;
+}
+
+/* EPISODE GRID AREA */
+.episode-ratings {
+    padding: 0 30px 30px;
+}
+
+.ratings-table {
+    margin-top: 10px;
+}
+
+/* HEADER ROW */
+.ratings-header,
+.ratings-line {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.ratings-header div {
+    width: 40px;
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+/* TILES */
+.rating-tile {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+
+/* SEASON LABEL */
+.season-label {
+    width: 40px;
+    opacity: 0.6;
+}
+
+</style>
 </head>
 
 <body>
@@ -82,12 +181,11 @@
 
 <section class="ratings-section">
 
-<!-- ================= PROJECTS ================= -->
-
+<!-- HCM -->
 <div class="project-block">
 
     <div class="project-header">
-        <img src="poster1.png" class="project-poster">
+        <img src="HCMArt.png">
         <div class="project-info">
             <h2>Hypixel Cinematic Montages: Series</h2>
             <h1>Ratings</h1>
@@ -97,33 +195,31 @@
     <div class="overall-rating">
         <h3>Avg. Rating</h3>
         <div class="rating-box">
-            <img src="yellowstar.png" class="star-icon">
-            <span class="rating-score">6.2</span>
-            <span class="rating-out">/10</span>
+            <img src="yellowstar.png" width="24">
+            <span>6.2</span>/10
         </div>
     </div>
 
     <div class="episode-ratings">
         <h3>Ratings by episode</h3>
-        <div class="ratings-table">
 
+        <div class="ratings-table">
             <div class="ratings-header" id="header1"></div>
 
-            <div class="ratings-row">
+            <div class="ratings-line">
                 <div class="season-label">S1</div>
                 <div class="ratings-line" id="grid1"></div>
             </div>
-
         </div>
     </div>
 
 </div>
 
-
+<!-- PRE PARTY -->
 <div class="project-block">
 
     <div class="project-header">
-        <img src="poster2.png" class="project-poster">
+        <img src="PRE-PARTYART.png">
         <div class="project-info">
             <h2>Pre-Party</h2>
             <h1>Ratings</h1>
@@ -133,33 +229,31 @@
     <div class="overall-rating">
         <h3>Avg. Rating</h3>
         <div class="rating-box">
-            <img src="yellowstar.png" class="star-icon">
-            <span class="rating-score">5.2</span>
-            <span class="rating-out">/10</span>
+            <img src="yellowstar.png" width="24">
+            <span>5.2</span>/10
         </div>
     </div>
 
     <div class="episode-ratings">
         <h3>Ratings by episode</h3>
-        <div class="ratings-table">
 
+        <div class="ratings-table">
             <div class="ratings-header" id="header2"></div>
 
-            <div class="ratings-row">
+            <div class="ratings-line">
                 <div class="season-label">S1</div>
                 <div class="ratings-line" id="grid2"></div>
             </div>
-
         </div>
     </div>
 
 </div>
 
-
+<!-- HCMA -->
 <div class="project-block">
 
     <div class="project-header">
-        <img src="poster3.png" class="project-poster">
+        <img src="HCMAArt.png">
         <div class="project-info">
             <h2>Hypixel Cinematic Montages: Anniversary</h2>
             <h1>Ratings</h1>
@@ -169,33 +263,31 @@
     <div class="overall-rating">
         <h3>Avg. Rating</h3>
         <div class="rating-box">
-            <img src="yellowstar.png" class="star-icon">
-            <span class="rating-score">5.9</span>
-            <span class="rating-out">/10</span>
+            <img src="yellowstar.png" width="24">
+            <span>5.9</span>/10
         </div>
     </div>
 
     <div class="episode-ratings">
         <h3>Ratings by episode</h3>
-        <div class="ratings-table">
 
+        <div class="ratings-table">
             <div class="ratings-header" id="header3"></div>
 
-            <div class="ratings-row">
+            <div class="ratings-line">
                 <div class="season-label">S1</div>
                 <div class="ratings-line" id="grid3"></div>
             </div>
-
         </div>
     </div>
 
 </div>
 
-
+<!-- DAYTONA -->
 <div class="project-block">
 
     <div class="project-header">
-        <img src="poster4.png" class="project-poster">
+        <img src="DaytonaArt.png">
         <div class="project-info">
             <h2>Daytona</h2>
             <h1>Ratings</h1>
@@ -205,23 +297,21 @@
     <div class="overall-rating">
         <h3>Avg. Rating</h3>
         <div class="rating-box">
-            <img src="greenstar.png" class="star-icon">
-            <span class="rating-score">8.9</span>
-            <span class="rating-out">/10</span>
+            <img src="greenstar.png" width="24">
+            <span>8.9</span>/10
         </div>
     </div>
 
     <div class="episode-ratings">
         <h3>Ratings by episode</h3>
-        <div class="ratings-table">
 
+        <div class="ratings-table">
             <div class="ratings-header" id="header4"></div>
 
-            <div class="ratings-row">
+            <div class="ratings-line">
                 <div class="season-label">S1</div>
                 <div class="ratings-line" id="grid4"></div>
             </div>
-
         </div>
     </div>
 
@@ -230,7 +320,6 @@
 </section>
 
 <script>
-
 function getRatingColor(score) {
     if (score < 3) return "#351e4f";
     if (score < 5) return "#8e0808";
@@ -238,75 +327,38 @@ function getRatingColor(score) {
     if (score < 8) return "#1abf2d";
     if (score < 9.5) return "#008236";
     return "#02d2f7";
-    
 }
 
-function generateRatings(ratingsArray, headerId, gridId, hasPrologue = true) {
+function generateRatings(arr, headerId, gridId, prologue=false) {
 
     const header = document.getElementById(headerId);
     const grid = document.getElementById(gridId);
 
-    ratingsArray.forEach((score, index) => {
+    arr.forEach((score, i) => {
 
-        const epHeader = document.createElement("div");
+        const h = document.createElement("div");
+        h.textContent = (prologue && i === 0) ? "P" : "E" + (prologue ? i : i+1);
+        header.appendChild(h);
 
-        if (hasPrologue && index === 0) {
-            epHeader.textContent = "P";
-        } else {
-            const episodeNumber = hasPrologue ? index : index + 1;
-            epHeader.textContent = "E" + episodeNumber;
-        }
+        const t = document.createElement("div");
+        t.className = "rating-tile";
 
-        header.appendChild(epHeader);
-
-        const tile = document.createElement("div");
-        tile.className = "rating-tile";
-
-        
         if (score === 0) {
-            tile.textContent = "-";
-            tile.style.background = "#222";
+            t.textContent = "-";
+            t.style.background = "#222";
         } else {
-            tile.style.background = getRatingColor(score);
-            tile.textContent = (score === 10) ? "10" : Number(score).toFixed(1);
+            t.textContent = score.toFixed(1);
+            t.style.background = getRatingColor(score);
         }
 
-        grid.appendChild(tile);
+        grid.appendChild(t);
     });
 }
 
-// HCM → HAS PROLOGUE
-generateRatings(
-    [5.0, 4.6, 8.6, 4.8, 6.9, 6.7, 7.0, 4.7, 6.9, 6.6],
-    "header1",
-    "grid1",
-    true
-);
-
-// Pre-Party → HAS PROLOGUE
-generateRatings(
-    [2.3, 6.6, 5.5, 4.6, 5.7, 7.1, 7.0],
-    "header2",
-    "grid2",
-    true
-);
-
-// HCM Anniversary → NO PROLOGUE
-generateRatings(
-    [6.7, 4.0, 7.4, 5.6],
-    "header3",
-    "grid3",
-    false
-);
-
-// DAYTONA → NO PROLOGUE
-generateRatings(
-    [8.7, 7.7, 8.9, 9.5, 9.1, 7.9, 8.9, 9.7, 9.5],
-    "header4",
-    "grid4",
-    false
-);
-
+generateRatings([5.0,4.6,8.6,4.8,6.9,6.7,7.0,4.7,6.9,6.6],"header1","grid1",true);
+generateRatings([2.3,6.6,5.5,4.6,5.7,7.1,7.0],"header2","grid2",true);
+generateRatings([6.7,4.0,7.4,5.6],"header3","grid3",false);
+generateRatings([8.7,7.7,8.9,9.5,9.1,7.9,8.9,9.7,9.5],"header4","grid4",false);
 </script>
 
 </body>
