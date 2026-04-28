@@ -340,6 +340,16 @@ function generateMultiSeasonTable(containerId, seasons) {
         seasonLabel.textContent = label;
         row.appendChild(seasonLabel);
 
+        // If the table has a prologue column but this season doesn't, add a blank spacer
+        const tableHasPrologue = seasons[0].prologue;
+        if (tableHasPrologue && !prologue) {
+            const spacer = document.createElement("div");
+            spacer.style.width = "58px";
+            spacer.style.height = "58px";
+            spacer.style.flexShrink = "0";
+            row.appendChild(spacer);
+        }
+
         scores.forEach((score, i) => {
             const tile = document.createElement("div");
             tile.className = "rating-tile";
