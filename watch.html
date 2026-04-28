@@ -141,23 +141,22 @@ body {
     margin-top: 10px;
 }
 
-/* ================= FIXED ALIGNMENT ================= */
-
-.ratings-header,
-.ratings-line {
+.ratings-row {
     display: flex;
     gap: 12px;
     align-items: center;
+    margin-bottom: 14px;
 }
 
-/* FIX: clean alignment instead of padding hack */
-.ratings-header {
-    margin-left: 70px; /* 58px tile + 12px gap */
+.ratings-header-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
     margin-bottom: 10px;
+    margin-left: 70px; /* 58px season-label + 12px gap */
 }
 
-/* EP LABELS */
-.ratings-header div {
+.ratings-header-row div {
     width: 58px;
     text-align: center;
     font-size: 13px;
@@ -169,14 +168,15 @@ body {
     width: 58px;
     opacity: 0.6;
     text-align: center;
+    flex-shrink: 0;
 }
 
-/* ================= RATING TILES ================= */
-
+/* RATING TILES */
 .rating-tile {
     width: 58px;
     height: 58px;
     border-radius: 12px;
+    flex-shrink: 0;
 
     display: flex;
     align-items: center;
@@ -201,196 +201,179 @@ body {
 <body>
 
 <header class="navbar">
+    <div class="logo">
+        <a href="index.html">
+            <img src="logo-big-tran.png" alt="Logo">
+        </a>
+    </div>
 
-<div class="logo">
-    <a href="index.html">
-        <img src="logo-big-tran.png" alt="Logo">
-    </a>
-</div>
-
-<ul class="nav-center">
-    <li><a href="home.html">HOME</a></li>
-    <li><a href="releases.html">RELEASES</a></li>
-    <li><a href="announcements.html">ANNOUNCEMENTS</a></li>
-    <li><a href="watch.html">WATCH & RATINGS</a></li>
-</ul>
-
+    <ul class="nav-center">
+        <li><a href="home.html">HOME</a></li>
+        <li><a href="releases.html">RELEASES</a></li>
+        <li><a href="announcements.html">ANNOUNCEMENTS</a></li>
+        <li><a href="watch.html">WATCH & RATINGS</a></li>
+    </ul>
 </header>
 
 <section class="ratings-section">
 
-<!-- HCM -->
-<div class="project-block">
+    <!-- HCM (S1 + S2) -->
+    <div class="project-block">
 
-    <div class="project-header">
-        <img src="HCMRatings.png">
-        <div class="project-info">
-            <h2>Hypixel Cinematic Montages: Series</h2>
-            <h1>Ratings</h1>
-        </div>
-    </div>
-
-    <div class="overall-rating">
-        <h3>Avg. Rating</h3>
-        <div class="rating-box">
-            <img src="yellowstar.png">
-            <span>6.2</span>/10
-        </div>
-    </div>
-
-    <div class="episode-ratings">
-        <h3>Ratings by episode</h3>
-
-        <div class="ratings-table">
-            <div class="ratings-header" id="header1"></div>
-
-            <div class="ratings-line">
-                <div class="season-label">S1</div>
-                <div class="ratings-line" id="grid1"></div>
+        <div class="project-header">
+            <img src="HCMRatings.png">
+            <div class="project-info">
+                <h2>Hypixel Cinematic Montages: Series</h2>
+                <h1>Ratings</h1>
             </div>
         </div>
-    </div>
 
-</div>
-
-<!-- PRE PARTY -->
-<div class="project-block">
-    <div class="project-header">
-        <img src="PrePartyRatings.png">
-        <div class="project-info">
-            <h2>Pre-Party</h2>
-            <h1>Ratings</h1>
-        </div>
-    </div>
-
-    <div class="overall-rating">
-        <h3>Avg. Rating</h3>
-        <div class="rating-box">
-            <img src="yellowstar.png">
-            <span>5.2</span>/10
-        </div>
-    </div>
-
-    <div class="episode-ratings">
-        <h3>Ratings by episode</h3>
-
-        <div class="ratings-table">
-            <div class="ratings-header" id="header2"></div>
-
-            <div class="ratings-line">
-                <div class="season-label">S1</div>
-                <div class="ratings-line" id="grid2"></div>
+        <div class="overall-rating">
+            <h3>Avg. Rating</h3>
+            <div class="rating-box">
+                <img src="yellowstar.png">
+                <span>6.0</span>/10
             </div>
         </div>
-    </div>
-</div>
 
-<!-- HCMA -->
-<div class="project-block">
-    <div class="project-header">
-        <img src="HCMARatings.png">
-        <div class="project-info">
-            <h2>Hypixel Cinematic Montages: Anniversary</h2>
-            <h1>Ratings</h1>
+        <div class="episode-ratings">
+            <h3>Ratings by episode</h3>
+            <div class="ratings-table" id="hcmTable"></div>
         </div>
+
     </div>
 
-    <div class="overall-rating">
-        <h3>Avg. Rating</h3>
-        <div class="rating-box">
-            <img src="yellowstar.png">
-            <span>5.9</span>/10
-        </div>
-    </div>
+    <!-- PRE-PARTY -->
+    <div class="project-block">
 
-    <div class="episode-ratings">
-        <h3>Ratings by episode</h3>
-
-        <div class="ratings-table">
-            <div class="ratings-header" id="header3"></div>
-
-            <div class="ratings-line">
-                <div class="season-label">S1</div>
-                <div class="ratings-line" id="grid3"></div>
+        <div class="project-header">
+            <img src="PrePartyRatings.png">
+            <div class="project-info">
+                <h2>Pre-Party</h2>
+                <h1>Ratings</h1>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- DAYTONA -->
-<div class="project-block">
-    <div class="project-header">
-        <img src="DaytonaRatings.png">
-        <div class="project-info">
-            <h2>Daytona</h2>
-            <h1>Ratings</h1>
-        </div>
-    </div>
-
-    <div class="overall-rating">
-        <h3>Avg. Rating</h3>
-        <div class="rating-box">
-            <img src="redstar.png">
-            <span>-</span>/10
-        </div>
-    </div>
-
-    <div class="episode-ratings">
-        <h3>Ratings by episode</h3>
-
-        <div class="ratings-table">
-            <div class="ratings-header" id="header4"></div>
-
-            <div class="ratings-line">
-                <div class="season-label">S1</div>
-                <div class="ratings-line" id="grid4"></div>
+        <div class="overall-rating">
+            <h3>Avg. Rating</h3>
+            <div class="rating-box">
+                <img src="yellowstar.png">
+                <span>5.2</span>/10
             </div>
         </div>
+
+        <div class="episode-ratings">
+            <h3>Ratings by episode</h3>
+            <div class="ratings-table" id="preTable"></div>
+        </div>
+
     </div>
-</div>
+
+    <!-- DAYTONA -->
+    <div class="project-block">
+
+        <div class="project-header">
+            <img src="DaytonaRatings.png">
+            <div class="project-info">
+                <h2>Daytona</h2>
+                <h1>Ratings</h1>
+            </div>
+        </div>
+
+        <div class="overall-rating">
+            <h3>Avg. Rating</h3>
+            <div class="rating-box">
+                <img src="redstar.png">
+                <span>-</span>/10
+            </div>
+        </div>
+
+        <div class="episode-ratings">
+            <h3>Ratings by episode</h3>
+            <div class="ratings-table" id="daytonaTable"></div>
+        </div>
+
+    </div>
 
 </section>
 
 <script>
 function getRatingColor(score) {
-    if (score < 3) return "#351e4f";
-    if (score < 5) return "#8e0808";
-    if (score < 7) return "#cea502";
-    if (score < 8) return "#1abf2d";
+    if (score < 3)   return "#351e4f";
+    if (score < 5)   return "#8e0808";
+    if (score < 7)   return "#cea502";
+    if (score < 8)   return "#1abf2d";
     if (score < 9.5) return "#008236";
     return "#02d2f7";
 }
 
-function generateRatings(arr, headerId, gridId, prologue=false) {
+/**
+ * Renders one or more seasons into a table container.
+ *
+ * @param {string} containerId  - ID of the .ratings-table div
+ * @param {Array}  seasons      - Array of { label, scores, prologue } objects
+ */
+function generateMultiSeasonTable(containerId, seasons) {
+    const container = document.getElementById(containerId);
 
-    const header = document.getElementById(headerId);
-    const grid = document.getElementById(gridId);
+    // Build the widest header (longest season)
+    const maxEps = Math.max(...seasons.map(s => s.scores.length));
+    const headerRow = document.createElement("div");
+    headerRow.className = "ratings-header-row";
 
-    arr.forEach((score, i) => {
+    for (let i = 0; i < maxEps; i++) {
+        const cell = document.createElement("div");
+        // Use the first season's prologue setting for header labels
+        const usePrologue = seasons[0].prologue;
+        cell.textContent = (usePrologue && i === 0) ? "P" : "E" + (usePrologue ? i : i + 1);
+        headerRow.appendChild(cell);
+    }
+    container.appendChild(headerRow);
 
-        const h = document.createElement("div");
-        h.textContent = (prologue && i === 0) ? "P" : "E" + (prologue ? i : i+1);
-        header.appendChild(h);
+    // Build each season row
+    seasons.forEach(({ label, scores, prologue }) => {
+        const row = document.createElement("div");
+        row.className = "ratings-row";
 
-        const t = document.createElement("div");
-        t.className = "rating-tile";
+        const seasonLabel = document.createElement("div");
+        seasonLabel.className = "season-label";
+        seasonLabel.textContent = label;
+        row.appendChild(seasonLabel);
 
-        if (score === 0) {
-            t.textContent = "-";
-            t.style.background = "#222";
-        } else {
-            t.textContent = score.toFixed(1);
-            t.style.background = getRatingColor(score);
-        }
+        scores.forEach((score, i) => {
+            const tile = document.createElement("div");
+            tile.className = "rating-tile";
 
-        grid.appendChild(t);
+            if (score === 0) {
+                tile.textContent = "-";
+                tile.style.background = "#222";
+            } else {
+                tile.textContent = score.toFixed(1);
+                tile.style.background = getRatingColor(score);
+            }
+
+            row.appendChild(tile);
+        });
+
+        container.appendChild(row);
     });
 }
 
-generateRatings([5.0,4.6,8.6,4.8,6.9,6.7,7.0,4.7,6.9,6.6],"header1","grid1",true);
-generateRatings([2.3,6.6,5.5,4.6,5.7,7.1,7.0],"header2","grid2",true);
-generateRatings([6.7,4.0,7.4,5.6],"header3","grid3",false);
-generateRatings([0,0,0,0,0,0,0,0,0],"header4","grid4",false);
+// HCM — Season 1 + Season 2
+generateMultiSeasonTable("hcmTable", [
+    { label: "S1", scores: [5.0, 4.6, 8.6, 4.8, 6.9, 6.7, 7.0, 4.7, 6.9, 6.6], prologue: true },
+    { label: "S2", scores: [6.7, 4.0, 7.4, 5.6],                                prologue: false }
+]);
+
+// Pre-Party — Season 1
+generateMultiSeasonTable("preTable", [
+    { label: "S1", scores: [2.3, 6.6, 5.5, 4.6, 5.7, 7.1, 7.0], prologue: true }
+]);
+
+// Daytona — Season 1 (unreleased)
+generateMultiSeasonTable("daytonaTable", [
+    { label: "S1", scores: [0, 0, 0, 0, 0, 0, 0, 0, 0], prologue: false }
+]);
 </script>
 
 </body>
