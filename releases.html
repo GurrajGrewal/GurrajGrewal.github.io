@@ -53,7 +53,7 @@
             color: white;
         }
 
-        /* ── SEASONS MODAL ── */
+        /* ── SEASONS MODAL (shared) ── */
         .seasons-modal {
             display: none;
             position: fixed;
@@ -199,6 +199,181 @@
             border-radius: 2px;
             opacity: 0.4;
         }
+
+        /* ── GALLERY MODAL ── */
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-modal.open {
+            display: flex;
+        }
+
+        .gallery-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(12px);
+        }
+
+        .gallery-panel {
+            position: relative;
+            z-index: 1;
+            width: 92%;
+            max-width: 1100px;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* header row */
+        .gallery-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .gallery-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+        }
+
+        .gallery-close {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            line-height: 1;
+        }
+
+        .gallery-close:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* main image */
+        .gallery-main {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #111;
+            margin-bottom: 16px;
+            flex-shrink: 0;
+        }
+
+        .gallery-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.25s ease;
+        }
+
+        .gallery-main img.fade {
+            opacity: 0;
+        }
+
+        /* prev/next arrows */
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.55);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 2;
+        }
+
+        .gallery-arrow:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .gallery-arrow.left  { left: 14px; }
+        .gallery-arrow.right { right: 14px; }
+
+        /* counter */
+        .gallery-counter {
+            position: absolute;
+            bottom: 12px;
+            right: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.08em;
+            background: rgba(0,0,0,0.4);
+            padding: 4px 10px;
+            border-radius: 999px;
+        }
+
+        /* thumbnail strip */
+        .gallery-thumbs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .gallery-thumbs::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .gallery-thumbs::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+        }
+
+        .gallery-thumb {
+            flex-shrink: 0;
+            width: 100px;
+            height: 62px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s, opacity 0.2s;
+            opacity: 0.5;
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-thumb.active {
+            border-color: white;
+            opacity: 1;
+        }
+
+        .gallery-thumb:hover {
+            opacity: 0.85;
+        }
     </style>
 </head>
 
@@ -224,7 +399,7 @@
 
     <div class="release-slider" id="slider">
 
-        <!-- SLIDE 1 — HCM Series (supports Season 1 & 2) -->
+        <!-- SLIDE 1 — HCM Series -->
         <div class="release-slide" id="slide-hcm">
             <div class="release-bg" id="hcmBg" style="background-image: url('HCMArt.png');"></div>
 
@@ -253,8 +428,8 @@
 
                     <div class="release-buttons">
                         <button class="play-btn" onclick="playCurrentSeries()">▶ Play</button>
-                        <button class="info-btn" onclick="openSeasonsModal()">Seasons</button>
-                        <button class="season-btn">Gallery</button>
+                        <button class="info-btn" onclick="openSeasonsModal('hcm')">Seasons</button>
+                        <button class="season-btn" onclick="openGallery('hcm')">Gallery</button>
                     </div>
 
                 </div>
@@ -290,8 +465,8 @@
 
                     <div class="release-buttons">
                         <button class="play-btn" onclick="playCurrentSeries()">▶ Play</button>
-                        <button class="info-btn">Seasons</button>
-                        <button class="season-btn">Gallery</button>
+                        <button class="info-btn" onclick="openSeasonsModal('pre')">Seasons</button>
+                        <button class="season-btn" onclick="openGallery('pre')">Gallery</button>
                     </div>
 
                 </div>
@@ -337,14 +512,13 @@
     </div>
 </div>
 
-<!-- ================= SEASONS MODAL ================= -->
-<div class="seasons-modal" id="seasonsModal">
-    <div class="seasons-backdrop" onclick="closeSeasonsModal()"></div>
+<!-- ================= HCM SEASONS MODAL ================= -->
+<div class="seasons-modal" id="seasonsModal-hcm">
+    <div class="seasons-backdrop" onclick="closeSeasonsModal('hcm')"></div>
     <div class="seasons-panel">
         <h3>Select a Season</h3>
-        <button class="seasons-close" onclick="closeSeasonsModal()">×</button>
+        <button class="seasons-close" onclick="closeSeasonsModal('hcm')">×</button>
 
-        <!-- Season 1 option -->
         <div class="season-option active" id="seasonOpt1" onclick="selectSeason(1)">
             <img src="HCMArt.png" alt="Season 1">
             <div class="season-option-info">
@@ -355,7 +529,6 @@
             <span class="season-option-check">✓</span>
         </div>
 
-        <!-- Season 2 option -->
         <div class="season-option" id="seasonOpt2" onclick="selectSeason(2)">
             <img src="HCMAArt.png" alt="Season 2">
             <div class="season-option-info">
@@ -365,6 +538,47 @@
             </div>
             <span class="season-option-check">✓</span>
         </div>
+    </div>
+</div>
+
+<!-- ================= PRE-PARTY SEASONS MODAL ================= -->
+<div class="seasons-modal" id="seasonsModal-pre">
+    <div class="seasons-backdrop" onclick="closeSeasonsModal('pre')"></div>
+    <div class="seasons-panel">
+        <h3>Select a Season</h3>
+        <button class="seasons-close" onclick="closeSeasonsModal('pre')">×</button>
+
+        <div class="season-option active">
+            <img src="PRE-PARTYART.png" alt="Season 1">
+            <div class="season-option-info">
+                <div class="season-option-label">Season 1</div>
+                <div class="season-option-title">Pre-Party</div>
+                <div class="season-option-ep">7 Episodes · 2025</div>
+            </div>
+            <span class="season-option-check">✓</span>
+        </div>
+    </div>
+</div>
+
+<!-- ================= GALLERY MODAL ================= -->
+<div class="gallery-modal" id="galleryModal">
+    <div class="gallery-backdrop" onclick="closeGallery()"></div>
+    <div class="gallery-panel">
+
+        <div class="gallery-header">
+            <span class="gallery-title" id="galleryTitle">Gallery</span>
+            <button class="gallery-close" onclick="closeGallery()">×</button>
+        </div>
+
+        <div class="gallery-main">
+            <img id="galleryMainImg" src="white.png" alt="">
+            <button class="gallery-arrow left" onclick="galleryStep(-1)">‹</button>
+            <button class="gallery-arrow right" onclick="galleryStep(1)">›</button>
+            <span class="gallery-counter" id="galleryCounter">1 / 1</span>
+        </div>
+
+        <div class="gallery-thumbs" id="galleryThumbs"></div>
+
     </div>
 </div>
 
@@ -420,14 +634,16 @@ function applyHcmSeason(season) {
 }
 
 /* ── SEASONS MODAL ── */
-function openSeasonsModal() {
-    document.getElementById("seasonsModal").classList.add("open");
-    document.getElementById("seasonOpt1").classList.toggle("active", hcmSeason === 1);
-    document.getElementById("seasonOpt2").classList.toggle("active", hcmSeason === 2);
+function openSeasonsModal(series) {
+    if (series === 'hcm') {
+        document.getElementById("seasonOpt1").classList.toggle("active", hcmSeason === 1);
+        document.getElementById("seasonOpt2").classList.toggle("active", hcmSeason === 2);
+    }
+    document.getElementById(`seasonsModal-${series}`).classList.add("open");
 }
 
-function closeSeasonsModal() {
-    document.getElementById("seasonsModal").classList.remove("open");
+function closeSeasonsModal(series) {
+    document.getElementById(`seasonsModal-${series}`).classList.remove("open");
 }
 
 function selectSeason(season) {
@@ -441,7 +657,7 @@ function selectSeason(season) {
     document.getElementById("seasonOpt1").classList.toggle("active", season === 1);
     document.getElementById("seasonOpt2").classList.toggle("active", season === 2);
 
-    closeSeasonsModal();
+    closeSeasonsModal('hcm');
 }
 
 /* ── EPISODE DATA ── */
@@ -511,6 +727,89 @@ const videoLinks = {
         "https://www.youtube.com/embed/BV6weMlOTNw"
     ]
 };
+
+/* ── GALLERY DATA ── */
+const galleryData = {
+    hcm: {
+        title: "HCM — Gallery",
+        images: Array(12).fill("white.png")
+    },
+    pre: {
+        title: "Pre-Party — Gallery",
+        images: Array(10).fill("white.png")
+    }
+};
+
+let galleryImages = [];
+let galleryIndex = 0;
+
+function openGallery(series) {
+    const data = galleryData[series];
+    galleryImages = data.images;
+    galleryIndex = 0;
+
+    document.getElementById("galleryTitle").textContent = data.title;
+
+    // Build thumbs
+    const thumbsEl = document.getElementById("galleryThumbs");
+    thumbsEl.innerHTML = "";
+    galleryImages.forEach((src, i) => {
+        const thumb = document.createElement("div");
+        thumb.className = "gallery-thumb" + (i === 0 ? " active" : "");
+        thumb.innerHTML = `<img src="${src}" alt="Screenshot ${i + 1}">`;
+        thumb.onclick = () => goToGalleryIndex(i);
+        thumbsEl.appendChild(thumb);
+    });
+
+    renderGalleryMain();
+    document.getElementById("galleryModal").classList.add("open");
+}
+
+function closeGallery() {
+    document.getElementById("galleryModal").classList.remove("open");
+}
+
+function renderGalleryMain() {
+    const img = document.getElementById("galleryMainImg");
+    img.classList.add("fade");
+    setTimeout(() => {
+        img.src = galleryImages[galleryIndex];
+        img.classList.remove("fade");
+    }, 150);
+
+    document.getElementById("galleryCounter").textContent =
+        `${galleryIndex + 1} / ${galleryImages.length}`;
+
+    // Update thumb active state
+    document.querySelectorAll(".gallery-thumb").forEach((t, i) => {
+        t.classList.toggle("active", i === galleryIndex);
+    });
+
+    // Scroll active thumb into view
+    const thumbsEl = document.getElementById("galleryThumbs");
+    const activeThumb = thumbsEl.children[galleryIndex];
+    if (activeThumb) {
+        activeThumb.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    }
+}
+
+function galleryStep(dir) {
+    galleryIndex = (galleryIndex + dir + galleryImages.length) % galleryImages.length;
+    renderGalleryMain();
+}
+
+function goToGalleryIndex(i) {
+    galleryIndex = i;
+    renderGalleryMain();
+}
+
+// Keyboard nav for gallery
+document.addEventListener("keydown", (e) => {
+    if (!document.getElementById("galleryModal").classList.contains("open")) return;
+    if (e.key === "ArrowLeft")  galleryStep(-1);
+    if (e.key === "ArrowRight") galleryStep(1);
+    if (e.key === "Escape")     closeGallery();
+});
 
 const episodesTrack = document.getElementById("episodesTrack");
 const leftArrow = document.querySelector(".ep-arrow.left");
