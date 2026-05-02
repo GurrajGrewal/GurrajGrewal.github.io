@@ -354,32 +354,15 @@ const nextBtn = document.querySelector(".next");
 const prevBtn = document.querySelector(".prev");
 
 let currentIndex = 0;
+let hcmSeason = 1;
 
 const params = new URLSearchParams(window.location.search);
 const startSlide = parseInt(params.get("slide"));
+const startSeason = parseInt(params.get("season"));
+
 if (!isNaN(startSlide)) currentIndex = startSlide;
 
-function updateSlider() {
-    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-    onSlideChange(currentIndex);
-}
-
-nextBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex + 1) % slides.length;
-    updateSlider();
-});
-
-prevBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    updateSlider();
-});
-
-window.addEventListener("resize", updateSlider);
-window.addEventListener("load", updateSlider);
-
 /* ── SEASON STATE for HCM (slide 0) ── */
-let hcmSeason = 1; // 1 or 2
-
 const hcmSeasonData = {
     1: {
         rating: "6.2",
@@ -416,7 +399,6 @@ function applyHcmSeason(season) {
 /* ── SEASONS MODAL ── */
 function openSeasonsModal() {
     document.getElementById("seasonsModal").classList.add("open");
-    // sync checkmarks
     document.getElementById("seasonOpt1").classList.toggle("active", hcmSeason === 1);
     document.getElementById("seasonOpt2").classList.toggle("active", hcmSeason === 2);
 }
@@ -429,12 +411,10 @@ function selectSeason(season) {
     hcmSeason = season;
     applyHcmSeason(season);
 
-    // Update episode section
     const episodeKey = hcmSeasonData[season].episodeKey;
     generateEpisodes(episodeKey);
     document.getElementById("seasonTitle").textContent = hcmSeasonData[season].seasonTitle;
 
-    // Update checkmarks
     document.getElementById("seasonOpt1").classList.toggle("active", season === 1);
     document.getElementById("seasonOpt2").classList.toggle("active", season === 2);
 
@@ -456,10 +436,10 @@ const episodeData = {
         { title: "Drugs You Should Try It", img: "hcmEP10.png" }
     ],
     hcm_s2: [
-        { title: "Good Days In Speedway",              img: "hcmaEP1.png" },
+        { title: "Good Days In Speedway",                img: "hcmaEP1.png" },
         { title: "Verglas: Couloir Mountains Revisited", img: "hcmaEP2.png" },
-        { title: "Behold",                             img: "hcmaEP3.png" },
-        { title: "My Soul",                            img: "hcmaEP4.png" }
+        { title: "Behold",                               img: "hcmaEP3.png" },
+        { title: "My Soul",                              img: "hcmaEP4.png" }
     ],
     pre: [
         { title: "Until We're Skin & Bones",              img: "preEP1.png" },
@@ -474,7 +454,7 @@ const episodeData = {
 
 /* Slide index → episode key mapping */
 const slideEpisodeKey = {
-    0: () => hcmSeasonData[hcmSeason].episodeKey,  // dynamic — depends on season
+    0: () => hcmSeasonData[hcmSeason].episodeKey,
     1: () => "pre"
 };
 
@@ -611,8 +591,30 @@ function playCurrentSeries() {
     openVideo(videoLinks[key][0]);
 }
 
+/* ── SLIDER CONTROLS ── */
+function updateSlider() {
+    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+    onSlideChange(currentIndex);
+}
+
+nextBtn.addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % slides.length;
+    updateSlider();
+});
+
+prevBtn.addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    updateSlider();
+});
+
+window.addEventListener("resize", updateSlider);
+
 /* ── INIT ── */
-generateEpisodes("hcm_s1");
+updateSlider();
+
+if (!isNaN(startSeason) && startSeason === 2) {
+    selectSeason(startSeason);
+}
 
 </script>
 
