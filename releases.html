@@ -231,7 +231,6 @@
             flex-direction: column;
         }
 
-        /* header row */
         .gallery-header {
             display: flex;
             align-items: center;
@@ -267,7 +266,6 @@
             background: rgba(255,255,255,0.2);
         }
 
-        /* main image */
         .gallery-main {
             position: relative;
             width: 100%;
@@ -290,7 +288,6 @@
             opacity: 0;
         }
 
-        /* prev/next arrows */
         .gallery-arrow {
             position: absolute;
             top: 50%;
@@ -317,7 +314,6 @@
         .gallery-arrow.left  { left: 14px; }
         .gallery-arrow.right { right: 14px; }
 
-        /* counter */
         .gallery-counter {
             position: absolute;
             bottom: 12px;
@@ -331,7 +327,6 @@
             border-radius: 999px;
         }
 
-        /* thumbnail strip */
         .gallery-thumbs {
             display: flex;
             gap: 10px;
@@ -473,6 +468,43 @@
             </div>
         </div>
 
+        <!-- SLIDE 3 — DAYTONA -->
+        <div class="release-slide">
+            <div class="release-bg" style="background-image: url('DaytonaArt.png');"></div>
+
+            <div class="release-overlay">
+                <div class="release-left">
+
+                    <div class="release-meta">
+                        <img src="redstar.png" class="star-icon">
+                        <span>-</span>
+                        <span class="dot">•</span>
+                        <span>2026</span>
+                        <span class="dot">•</span>
+                        <span>1 Season</span>
+                    </div>
+
+                    <div class="release-logo">
+                        <img src="DAYTONALogo.png">
+                    </div>
+
+                    <div class="release-description">
+                        <p>
+                            Four players from Shasta take part in the Hypixel Games in Los Angeles.
+                            While the matches play out as expected, some things don't seem to follow the same rules.
+                        </p>
+                    </div>
+
+                    <div class="release-buttons">
+                        <button class="play-btn" onclick="playCurrentSeries()">▶ Watch Trailer</button>
+                        <button class="info-btn" onclick="openSeasonsModal('daytona')">Seasons</button>
+                        <button class="season-btn" onclick="openGallery('daytona')">Gallery</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- GLOBAL ARROWS -->
@@ -554,6 +586,25 @@
                 <div class="season-option-label">Season 1</div>
                 <div class="season-option-title">Pre-Party</div>
                 <div class="season-option-ep">6 Episodes · 2025</div>
+            </div>
+            <span class="season-option-check">✓</span>
+        </div>
+    </div>
+</div>
+
+<!-- ================= DAYTONA SEASONS MODAL ================= -->
+<div class="seasons-modal" id="seasonsModal-daytona">
+    <div class="seasons-backdrop" onclick="closeSeasonsModal('daytona')"></div>
+    <div class="seasons-panel">
+        <h3>Select a Season</h3>
+        <button class="seasons-close" onclick="closeSeasonsModal('daytona')">×</button>
+
+        <div class="season-option active">
+            <img src="DaytonaArt.png" alt="Season 1">
+            <div class="season-option-info">
+                <div class="season-option-label">Season 1</div>
+                <div class="season-option-title">Daytona</div>
+                <div class="season-option-ep">9 Episodes · 2026</div>
             </div>
             <span class="season-option-check">✓</span>
         </div>
@@ -688,13 +739,25 @@ const episodeData = {
         { title: "Reflections Laughing",                  img: "preEP5.png" },
         { title: "Baptized In Fear & Open Hearts Mashup", img: "preEP6.png" },
         { title: "Dancing In The Flames",                 img: "preEP7.png" }
+    ],
+    daytona: [
+        { title: "From Shasta", img: "white.png" },
+        { title: "TBA", img: "white.png" },
+        { title: "TBA", img: "white.png" },
+        { title: "TBA", img: "white.png" },
+        { title: "TBA", img: "white.png" },
+        { title: "TBA", img: "white.png" },
+        { title: "TBA", img: "white.png" },
+        { title: "TBA", img: "white.png" },
+        { title: "TBA", img: "white.png" }
     ]
 };
 
 /* Slide index → episode key mapping */
 const slideEpisodeKey = {
     0: () => hcmSeasonData[hcmSeason].episodeKey,
-    1: () => "pre"
+    1: () => "pre",
+    2: () => "daytona"
 };
 
 /* ── VIDEO LINKS ── */
@@ -725,6 +788,17 @@ const videoLinks = {
         "https://www.youtube.com/embed/m0BXrsELMXw",
         "https://www.youtube.com/embed/ZJrPjhUWBnI",
         "https://www.youtube.com/embed/BV6weMlOTNw"
+    ],
+    daytona: [
+        "https://www.youtube.com/embed/u7msMYh8Yyk", // trailer plays for all placeholder episodes
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
+        "https://www.youtube.com/embed/u7msMYh8Yyk"
     ]
 };
 
@@ -744,8 +818,7 @@ const galleryData = {
             "HCMGallery9.png",
             "HCMGallery10.png",
             "HCMGallery11.png",
-            "HCMGallery12.png",
-            // ... one per screenshot
+            "HCMGallery12.png"
         ]
     },
     pre: {
@@ -760,8 +833,12 @@ const galleryData = {
             "PrePartyGallery7.png",
             "PrePartyGallery8.png",
             "PrePartyGallery9.png",
-            "PrePartyGallery10.png",
+            "PrePartyGallery10.png"
         ]
+    },
+    daytona: {
+        title: "Daytona — Gallery",
+        images: Array(9).fill("white.png")
     }
 };
 
@@ -775,7 +852,6 @@ function openGallery(series) {
 
     document.getElementById("galleryTitle").textContent = data.title;
 
-    // Build thumbs
     const thumbsEl = document.getElementById("galleryThumbs");
     thumbsEl.innerHTML = "";
     galleryImages.forEach((src, i) => {
@@ -805,12 +881,10 @@ function renderGalleryMain() {
     document.getElementById("galleryCounter").textContent =
         `${galleryIndex + 1} / ${galleryImages.length}`;
 
-    // Update thumb active state
     document.querySelectorAll(".gallery-thumb").forEach((t, i) => {
         t.classList.toggle("active", i === galleryIndex);
     });
 
-    // Scroll active thumb into view
     const thumbsEl = document.getElementById("galleryThumbs");
     const activeThumb = thumbsEl.children[galleryIndex];
     if (activeThumb) {
@@ -828,7 +902,6 @@ function goToGalleryIndex(i) {
     renderGalleryMain();
 }
 
-// Keyboard nav for gallery
 document.addEventListener("keydown", (e) => {
     if (!document.getElementById("galleryModal").classList.contains("open")) return;
     if (e.key === "ArrowLeft")  galleryStep(-1);
@@ -862,7 +935,7 @@ function generateEpisodes(key) {
 
             const numLabel = (isPrologue && i === 0)
                 ? "Prologue:"
-                : (key === "hcm_s2" ? `Episode ${i + 1}:` : `Episode ${i}:`);
+                : (key === "hcm_s2" ? `Episode ${i + 1}:` : `Episode ${i + 1}:`);
 
             card.innerHTML = `
                 <div class="episode-thumb">
@@ -917,7 +990,8 @@ function onSlideChange(index) {
     const titleMap = {
         hcm_s1: "Season 1",
         hcm_s2: "Season 2",
-        pre: "Season 1"
+        pre: "Season 1",
+        daytona: "Season 1"
     };
     document.getElementById("seasonTitle").textContent = titleMap[key] || "Season 1";
 }
