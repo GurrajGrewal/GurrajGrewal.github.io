@@ -394,7 +394,7 @@
 
     <div class="release-slider" id="slider">
 
-        <!-- SLIDE 1 — HCM Beginnings -->
+        <!-- SLIDE 1 — HCM -->
         <div class="release-slide" id="slide-hcm">
             <div class="release-bg" id="hcmBg" style="background-image: url('HCMArt.png');"></div>
 
@@ -425,6 +425,10 @@
                         <button class="play-btn" onclick="playCurrentSeries()">▶ Play</button>
                         <button class="info-btn" onclick="openSeasonsModal('hcm')">Seasons</button>
                         <button class="season-btn" onclick="openGallery('hcm')">Gallery</button>
+                        <div class="arrow-controls">
+                            <button class="arrow prev">‹</button>
+                            <button class="arrow next">›</button>
+                        </div>
                     </div>
 
                 </div>
@@ -462,6 +466,10 @@
                         <button class="play-btn" onclick="playCurrentSeries()">▶ Play</button>
                         <button class="info-btn" onclick="openSeasonsModal('pre')">Seasons</button>
                         <button class="season-btn" onclick="openGallery('pre')">Gallery</button>
+                        <div class="arrow-controls">
+                            <button class="arrow prev">‹</button>
+                            <button class="arrow next">›</button>
+                        </div>
                     </div>
 
                 </div>
@@ -499,18 +507,16 @@
                         <button class="play-btn" onclick="playCurrentSeries()">▶ Watch Trailer</button>
                         <button class="info-btn" onclick="openSeasonsModal('daytona')">Seasons</button>
                         <button class="season-btn" onclick="openGallery('daytona')">Gallery</button>
+                        <div class="arrow-controls">
+                            <button class="arrow prev">‹</button>
+                            <button class="arrow next">›</button>
+                        </div>
                     </div>
 
                 </div>
             </div>
         </div>
 
-    </div>
-
-    <!-- GLOBAL ARROWS -->
-    <div class="arrow-controls">
-        <button class="arrow prev">‹</button>
-        <button class="arrow next">›</button>
     </div>
 
 </section>
@@ -638,8 +644,8 @@
 /* ── SLIDER ── */
 const slider = document.getElementById("slider");
 const slides = document.querySelectorAll(".release-slide");
-const nextBtn = document.querySelector(".next");
-const prevBtn = document.querySelector(".prev");
+const nextBtns = document.querySelectorAll(".arrow.next");
+const prevBtns = document.querySelectorAll(".arrow.prev");
 
 let currentIndex = 0;
 let hcmSeason = 1;
@@ -790,7 +796,7 @@ const videoLinks = {
         "https://www.youtube.com/embed/BV6weMlOTNw"
     ],
     daytona: [
-        "https://www.youtube.com/embed/u7msMYh8Yyk", // trailer plays for all placeholder episodes
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
         "https://www.youtube.com/embed/u7msMYh8Yyk",
         "https://www.youtube.com/embed/u7msMYh8Yyk",
         "https://www.youtube.com/embed/u7msMYh8Yyk",
@@ -935,7 +941,7 @@ function generateEpisodes(key) {
 
             const numLabel = (isPrologue && i === 0)
                 ? "Prologue:"
-                : (key === "hcm_s2" ? `Episode ${i + 1}:` : `Episode ${i + 1}:`);
+                : `Episode ${i + 1}:`;
 
             card.innerHTML = `
                 <div class="episode-thumb">
@@ -1018,15 +1024,15 @@ function updateSlider() {
     onSlideChange(currentIndex);
 }
 
-nextBtn.addEventListener("click", () => {
+nextBtns.forEach(btn => btn.addEventListener("click", () => {
     currentIndex = (currentIndex + 1) % slides.length;
     updateSlider();
-});
+}));
 
-prevBtn.addEventListener("click", () => {
+prevBtns.forEach(btn => btn.addEventListener("click", () => {
     currentIndex = (currentIndex - 1 + slides.length) % slides.length;
     updateSlider();
-});
+}));
 
 window.addEventListener("resize", updateSlider);
 
