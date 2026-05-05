@@ -472,7 +472,7 @@ body {
 
 .release-feature {
     position: relative;
-    height: 70vh;
+    height: 70vh; /* reduced from 85vh */
     min-height: 520px;
     overflow: hidden;
 }
@@ -482,7 +482,7 @@ body {
 .release-bg {
     position: absolute;
     inset: 0;
-    background-image: url("white.png");
+    background-image: url("white.png"); /* MAIN ARTWORK */
     background-size: cover;
     background-position: center;
     z-index: 1;
@@ -507,7 +507,7 @@ body {
     position: relative;
     z-index: 2;
     height: 100%;
-    padding: 90px 80px;
+    padding: 90px 80px; /* tightened */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -519,11 +519,11 @@ body {
     max-width: 600px;
 }
 
-/* Release Date */
+/* Release Date (Moved Up) */
 
 .release-date {
     position: absolute;
-    bottom: 110px;
+    bottom: 110px; /* moved up */
     right: 60px;
     font-size: 14px;
     color: #ccc;
@@ -568,7 +568,6 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
-    flex-wrap: wrap;
 }
 
 /* Play Button */
@@ -602,7 +601,7 @@ body {
     background: #333;
 }
 
-/* Seasons Button */
+/* NEW Seasons Button */
 
 .season-btn {
     background: #222;
@@ -617,12 +616,12 @@ body {
     background: #2a2a2a;
 }
 
-/* ===== ARROWS — now inline with buttons, not absolutely positioned ===== */
+/* Arrows */
 
 .arrow-controls {
     display: flex;
     gap: 8px;
-    margin-left: auto; /* pushes arrows to the far right of the flex row */
+    margin-left: 10px; /* pushes them after Seasons */
 }
 
 .arrow {
@@ -673,6 +672,8 @@ body {
 .release-card:hover {
     transform: scale(1.05);
 }
+
+
 
 
 /* ===== SLIDER SYSTEM ===== */
@@ -729,7 +730,18 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-transform: none;
+    text-transform: none; /* Prevent inherited ALL CAPS */
+}
+
+/* ===== ARROWS ===== */
+
+.arrow-controls {
+    position: absolute;
+    bottom: 40px;
+    left: 80px;
+    display: flex;
+    gap: 10px;
+    z-index: 6;
 }
 
 /* ===== RELEASE META (Rating / Year / Seasons) ===== */
@@ -742,8 +754,8 @@ body {
     color: #e0e0e0;
     margin-bottom: 20px;
     font-weight: 500;
-    text-transform: none;
-    letter-spacing: normal;
+    text-transform: none; /* CRITICAL: disables uppercase */
+    letter-spacing: normal; /* Prevent stretched caps look */
 }
 
 .release-meta .star-icon {
@@ -759,16 +771,17 @@ body {
 /* ================= EPISODES SECTION ================= */
 
 .episodes-section {
-    padding: 40px 80px 60px;
+    padding: 40px 80px 60px; /* slightly tighter top padding */
     background: #0e0e0e;
 }
 
-/* HEADER */
+/* HEADER (FIXED LAYOUT SHIFT) */
 .episodes-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 18px 0;
+
+    margin: 0 0 18px 0; /* reduced + cleaner */
 }
 
 /* SEASON TITLE */
@@ -776,15 +789,22 @@ body {
     font-family: poppins;
     font-size: 22px;
     font-weight: 500;
+
     color: rgba(255, 255, 255, 0.85);
+
     margin: 0 0 10px 0;
+
+    /* makes it feel "UI-like", not like page text */
     padding: 6px 14px;
     display: inline-block;
+
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 999px;
+
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+
     line-height: 1;
 }
 
@@ -850,29 +870,42 @@ body {
     justify-content: center;
 }
 
+/* Smaller glass circle */
 .play-overlay::before {
     content: "";
     position: absolute;
-    width: 44px;
-    height: 44px;
+    width: 44px;   /* was ~58px */
+    height: 44px;  /* was ~58px */
     border-radius: 50%;
+
     background: rgba(255, 255, 255, 0.20);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);              /* reduced blur */
     -webkit-backdrop-filter: blur(5px);
+
     border: 1px solid rgba(255, 255, 255, 0.30);
     transition: all 0.3s ease;
 }
 
+/* Smaller triangle */
 .play-overlay::after {
     content: "";
     position: relative;
     z-index: 2;
-    border-left: 10px solid white;
+
+    border-left: 10px solid white;   /* scaled down */
     border-top: 6px solid transparent;
     border-bottom: 6px solid transparent;
-    margin-left: 3px;
+
+    margin-left: 3px; /* optical centering */
 }
 
+/* Hover effect */
+.episode-card:hover .play-overlay::before {
+    background: rgba(255, 255, 255, 0.32);
+    transform: scale(1.08);
+}
+
+/* Optional hover polish */
 .episode-card:hover .play-overlay::before {
     background: rgba(255, 255, 255, 0.35);
     transform: scale(1.08);
@@ -1009,7 +1042,7 @@ body {
     margin-top: 20px;
 }
 
-/* Episode header row */
+/* Episode header row (E1 E2 E3...) */
 .ratings-header {
     display: flex;
     gap: 12px;
@@ -1027,7 +1060,7 @@ body {
 /* Season row */
 .ratings-row {
     display: flex;
-    align-items: stretch;
+    align-items: stretch;   /* important */
     gap: 20px;
 }
 
@@ -1049,7 +1082,7 @@ body {
 /* Rating tile */
 .rating-tile {
     width: 60px;
-    height: 40px;
+    height: 40px;              /* fixed height */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1094,29 +1127,35 @@ body {
     -webkit-backdrop-filter: blur(14px);
 }
 
-/* WRAPPER */
+/* WRAPPER (handles button placement) */
 .glass-wrapper {
     position: relative;
     width: 92%;
     max-width: 1400px;
 }
 
-/* CLOSE BUTTON */
+/* CLOSE BUTTON (NOW ABOVE PLAYER) */
 .glass-close {
     position: absolute;
     top: -55px;
     left: 50%;
     transform: translateX(-50%);
+
     width: 44px;
     height: 44px;
+
     border-radius: 50%;
     border: none;
+
     background: rgba(255, 255, 255, 0.12);
     color: white;
+
     font-size: 22px;
     cursor: pointer;
+
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+
     transition: 0.2s;
 }
 
@@ -1124,17 +1163,22 @@ body {
     background: rgba(255, 255, 255, 0.25);
 }
 
-/* PLAYER */
+/* BIGGER PLAYER */
 .glass-player {
     width: 100%;
     aspect-ratio: 16 / 9;
+
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 22px;
+
     box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
+
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+
     overflow: hidden;
+
     animation: popIn 0.25s ease-out;
 }
 
@@ -1171,166 +1215,4 @@ body {
 
 .release-slide {
     min-width: 100%;
-}
-
-
-/* ============================================================
-   RESPONSIVE BREAKPOINTS
-   ============================================================ */
-
-/* ── MEDIUM — zoomed desktop / small laptop (≤ 1100px) ── */
-@media (max-width: 1100px) {
-
-    .release-slide .release-overlay {
-        padding: 60px 50px;
-    }
-
-    .release-logo img {
-        width: 240px;
-    }
-
-    .release-description {
-        font-size: 14px;
-    }
-
-    .episodes-section {
-        padding: 30px 50px 50px;
-    }
-}
-
-/* ── TABLET / HEAVY ZOOM (≤ 860px) ── */
-@media (max-width: 860px) {
-
-    .release-feature {
-        height: auto;
-        min-height: 480px;
-    }
-
-    .release-slide .release-overlay {
-        padding: 60px 32px 40px;
-        justify-content: center;
-    }
-
-    .release-slide .release-bg::after {
-        background: linear-gradient(
-            to top,
-            rgba(0,0,0,0.92) 0%,
-            rgba(0,0,0,0.55) 55%,
-            rgba(0,0,0,0.1) 100%
-        );
-    }
-
-    .release-left {
-        max-width: 100%;
-    }
-
-    .release-logo img {
-        width: 180px;
-        margin-bottom: 16px;
-    }
-
-    .release-description {
-        font-size: 13px;
-        margin-bottom: 20px;
-    }
-
-    .release-buttons {
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    /* arrows stay in-flow with buttons, no override needed */
-
-    .episodes-section {
-        padding: 24px 24px 40px;
-    }
-
-    .episodes-title {
-        font-size: 17px;
-    }
-
-    .logo {
-        left: 20px;
-    }
-
-    .logo img {
-        height: 65px;
-    }
-
-    .nav-center {
-        gap: 24px;
-    }
-
-    .nav-center a {
-        font-size: 12px;
-        letter-spacing: 2px;
-    }
-}
-
-/* ── MOBILE (≤ 600px) ── */
-@media (max-width: 600px) {
-
-    .release-feature {
-        min-height: 420px;
-    }
-
-    .release-slide .release-overlay {
-        padding: 60px 20px 32px;
-    }
-
-    .release-logo img {
-        width: 140px;
-    }
-
-    .release-meta {
-        font-size: 12px;
-        gap: 8px;
-    }
-
-    .release-description {
-        display: none;
-    }
-
-    .play-btn,
-    .info-btn,
-    .season-btn {
-        padding: 10px 16px;
-        font-size: 13px;
-    }
-
-    .arrow {
-        width: 30px;
-        height: 30px;
-        font-size: 14px;
-    }
-
-    .episodes-section {
-        padding: 20px 16px 36px;
-    }
-
-    .episode-card {
-        width: 180px;
-    }
-
-    .episode-thumb {
-        height: 102px;
-    }
-
-    .logo img {
-        height: 50px;
-    }
-
-    .nav-center {
-        gap: 12px;
-    }
-
-    .nav-center a {
-        font-size: 11px;
-        letter-spacing: 1px;
-        padding: 6px 8px;
-    }
-
-    .ratings-section {
-        padding: 40px 20px;
-    }
 }
