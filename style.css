@@ -1216,3 +1216,186 @@ body {
 .release-slide {
     min-width: 100%;
 }
+
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================ */
+
+/* ── MEDIUM — zoomed desktop / small laptop (≤ 1100px) ── */
+@media (max-width: 1100px) {
+
+    .release-slide .release-overlay {
+        padding: 60px 50px;
+    }
+
+    .arrow-controls {
+        left: 50px;
+        bottom: 30px;
+    }
+
+    .release-logo img {
+        width: 240px;
+    }
+
+    .release-description {
+        font-size: 14px;
+    }
+
+    .episodes-section {
+        padding: 30px 50px 50px;
+    }
+}
+
+/* ── TABLET / HEAVY ZOOM (≤ 860px) ── */
+@media (max-width: 860px) {
+
+    /* Shrink hero so content fits */
+    .release-feature {
+        height: auto;
+        min-height: 480px;
+    }
+
+    .release-slide .release-overlay {
+        padding: 80px 32px 100px; /* extra bottom for arrow clearance */
+        justify-content: flex-end;
+    }
+
+    /* Stronger gradient so text is always readable */
+    .release-slide .release-bg::after {
+        background: linear-gradient(
+            to top,
+            rgba(0,0,0,0.92) 0%,
+            rgba(0,0,0,0.55) 55%,
+            rgba(0,0,0,0.1) 100%
+        );
+    }
+
+    .release-left {
+        max-width: 100%;
+    }
+
+    .release-logo img {
+        width: 180px;
+        margin-bottom: 16px;
+    }
+
+    .release-description {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+
+    /* Buttons wrap instead of overflow */
+    .release-buttons {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    /* Move arrows to bottom-right so they don't clash */
+    .arrow-controls {
+        left: auto;
+        right: 24px;
+        bottom: 24px;
+    }
+
+    .episodes-section {
+        padding: 24px 24px 40px;
+    }
+
+    .episodes-title {
+        font-size: 17px;
+    }
+
+    /* Navbar: tighten logo + shrink gaps */
+    .logo {
+        left: 20px;
+    }
+
+    .logo img {
+        height: 65px;
+    }
+
+    .nav-center {
+        gap: 24px;
+    }
+
+    .nav-center a {
+        font-size: 12px;
+        letter-spacing: 2px;
+    }
+}
+
+/* ── MOBILE (≤ 600px) ── */
+@media (max-width: 600px) {
+
+    .release-feature {
+        min-height: 420px;
+    }
+
+    .release-slide .release-overlay {
+        padding: 70px 20px 90px;
+    }
+
+    .release-logo img {
+        width: 140px;
+    }
+
+    .release-meta {
+        font-size: 12px;
+        gap: 8px;
+    }
+
+    .release-description {
+        display: none; /* hide on very small screens to save space */
+    }
+
+    .play-btn,
+    .info-btn,
+    .season-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+    .arrow-controls {
+        right: 16px;
+        bottom: 16px;
+    }
+
+    .arrow {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+
+    .episodes-section {
+        padding: 20px 16px 36px;
+    }
+
+    .episode-card {
+        width: 180px;
+    }
+
+    .episode-thumb {
+        height: 102px;
+    }
+
+    /* Stack navbar items tighter */
+    .logo img {
+        height: 50px;
+    }
+
+    .nav-center {
+        gap: 12px;
+    }
+
+    .nav-center a {
+        font-size: 11px;
+        letter-spacing: 1px;
+        padding: 6px 8px;
+    }
+
+    /* ratings page */
+    .ratings-section {
+        padding: 40px 20px;
+    }
+}
