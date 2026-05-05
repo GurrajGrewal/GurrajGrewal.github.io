@@ -394,7 +394,7 @@
 
     <div class="release-slider" id="slider">
 
-        <!-- SLIDE 1 — HCM -->
+        <!-- SLIDE 1 — HCM Series -->
         <div class="release-slide" id="slide-hcm">
             <div class="release-bg" id="hcmBg" style="background-image: url('HCMArt.png');"></div>
 
@@ -425,10 +425,6 @@
                         <button class="play-btn" onclick="playCurrentSeries()">▶ Play</button>
                         <button class="info-btn" onclick="openSeasonsModal('hcm')">Seasons</button>
                         <button class="season-btn" onclick="openGallery('hcm')">Gallery</button>
-                        <div class="arrow-controls">
-                            <button class="arrow prev">‹</button>
-                            <button class="arrow next">›</button>
-                        </div>
                     </div>
 
                 </div>
@@ -457,7 +453,7 @@
 
                     <div class="release-description">
                         <p>
-                            A Hypixel Cinematic Montages Spinoff centered on Viouth, a variant of Violethyst.
+                            A Hypixel Cinematic Montage Series spinoff centered on Viouth, a variant of Violethyst.
                             Introducing tracks from The Weeknd's Hurry Up Tomorrow album turned into montages.
                         </p>
                     </div>
@@ -466,10 +462,6 @@
                         <button class="play-btn" onclick="playCurrentSeries()">▶ Play</button>
                         <button class="info-btn" onclick="openSeasonsModal('pre')">Seasons</button>
                         <button class="season-btn" onclick="openGallery('pre')">Gallery</button>
-                        <div class="arrow-controls">
-                            <button class="arrow prev">‹</button>
-                            <button class="arrow next">›</button>
-                        </div>
                     </div>
 
                 </div>
@@ -507,16 +499,18 @@
                         <button class="play-btn" onclick="playCurrentSeries()">▶ Watch Trailer</button>
                         <button class="info-btn" onclick="openSeasonsModal('daytona')">Seasons</button>
                         <button class="season-btn" onclick="openGallery('daytona')">Gallery</button>
-                        <div class="arrow-controls">
-                            <button class="arrow prev">‹</button>
-                            <button class="arrow next">›</button>
-                        </div>
                     </div>
 
                 </div>
             </div>
         </div>
 
+    </div>
+
+    <!-- GLOBAL ARROWS -->
+    <div class="arrow-controls">
+        <button class="arrow prev">‹</button>
+        <button class="arrow next">›</button>
     </div>
 
 </section>
@@ -561,7 +555,7 @@
             <img src="HCMArt.png" alt="Season 1">
             <div class="season-option-info">
                 <div class="season-option-label">Season 1</div>
-                <div class="season-option-title">Hypixel Cinematic Montages: Beginnings</div>
+                <div class="season-option-title">Hypixel Cinematic Montages: Series</div>
                 <div class="season-option-ep">9 Episodes · 2022</div>
             </div>
             <span class="season-option-check">✓</span>
@@ -644,8 +638,8 @@
 /* ── SLIDER ── */
 const slider = document.getElementById("slider");
 const slides = document.querySelectorAll(".release-slide");
-const nextBtns = document.querySelectorAll(".arrow.next");
-const prevBtns = document.querySelectorAll(".arrow.prev");
+const nextBtn = document.querySelector(".next");
+const prevBtn = document.querySelector(".prev");
 
 let currentIndex = 0;
 let hcmSeason = 1;
@@ -796,7 +790,7 @@ const videoLinks = {
         "https://www.youtube.com/embed/BV6weMlOTNw"
     ],
     daytona: [
-        "https://www.youtube.com/embed/u7msMYh8Yyk",
+        "https://www.youtube.com/embed/u7msMYh8Yyk", // trailer plays for all placeholder episodes
         "https://www.youtube.com/embed/u7msMYh8Yyk",
         "https://www.youtube.com/embed/u7msMYh8Yyk",
         "https://www.youtube.com/embed/u7msMYh8Yyk",
@@ -811,7 +805,7 @@ const videoLinks = {
 /* ── GALLERY DATA ── */
 const galleryData = {
     hcm: {
-        title: "Hypixel Cinematic Montages: Beginnings & Anniversary — Gallery",
+        title: "Hypixel Cinematic Montages: Series & Anniversary — Gallery",
         images: [
             "HCMGallery1.png",
             "HCMGallery2.png",
@@ -941,7 +935,7 @@ function generateEpisodes(key) {
 
             const numLabel = (isPrologue && i === 0)
                 ? "Prologue:"
-                : `Episode ${i + 1}:`;
+                : (key === "hcm_s2" ? `Episode ${i + 1}:` : `Episode ${i + 1}:`);
 
             card.innerHTML = `
                 <div class="episode-thumb">
@@ -1024,15 +1018,15 @@ function updateSlider() {
     onSlideChange(currentIndex);
 }
 
-nextBtns.forEach(btn => btn.addEventListener("click", () => {
+nextBtn.addEventListener("click", () => {
     currentIndex = (currentIndex + 1) % slides.length;
     updateSlider();
-}));
+});
 
-prevBtns.forEach(btn => btn.addEventListener("click", () => {
+prevBtn.addEventListener("click", () => {
     currentIndex = (currentIndex - 1 + slides.length) % slides.length;
     updateSlider();
-}));
+});
 
 window.addEventListener("resize", updateSlider);
 
