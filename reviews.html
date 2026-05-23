@@ -38,13 +38,9 @@
             transition: all 0.2s ease;
         }
 
-        .nav-center li a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
+        .nav-center li a:hover { background: rgba(255,255,255,0.2); }
 
-        .nav-center li a[href="reviews.html"] {
-            background: rgba(255, 255, 255, 0.3);
-        }
+        .nav-center li a[href="reviews.html"] { background: rgba(255,255,255,0.3); }
 
         body {
             margin: 0;
@@ -80,10 +76,9 @@
             font-size: 13px;
             color: rgba(255,255,255,0.35);
             margin: 0;
-            letter-spacing: 0.02em;
         }
 
-        /* ── SORT / FILTER BAR ── */
+        /* ── FILTER BAR ── */
         .filter-bar {
             display: flex;
             align-items: center;
@@ -105,18 +100,10 @@
             white-space: nowrap;
         }
 
-        .filter-chip:hover {
-            background: rgba(255,255,255,0.1);
-            color: white;
-        }
+        .filter-chip:hover { background: rgba(255,255,255,0.1); color: white; }
+        .filter-chip.active { background: white; color: black; border-color: white; }
 
-        .filter-chip.active {
-            background: white;
-            color: black;
-            border-color: white;
-        }
-
-        /* ── ARTIST VIEW HEADER ── */
+        /* ── ARTIST HEADER ── */
         .artist-header {
             display: none;
             align-items: center;
@@ -128,9 +115,7 @@
             border-radius: 16px;
         }
 
-        .artist-header.visible {
-            display: flex;
-        }
+        .artist-header.visible { display: flex; }
 
         .artist-header-avatar {
             width: 56px;
@@ -146,17 +131,8 @@
             color: rgba(255,255,255,0.7);
         }
 
-        .artist-header-info h2 {
-            font-size: 20px;
-            font-weight: 600;
-            margin: 0 0 2px 0;
-        }
-
-        .artist-header-info p {
-            font-size: 12px;
-            color: rgba(255,255,255,0.35);
-            margin: 0;
-        }
+        .artist-header-info h2 { font-size: 20px; font-weight: 600; margin: 0 0 2px 0; }
+        .artist-header-info p  { font-size: 12px; color: rgba(255,255,255,0.35); margin: 0; }
 
         .artist-back {
             margin-left: auto;
@@ -171,12 +147,9 @@
             transition: all 0.2s;
         }
 
-        .artist-back:hover {
-            background: rgba(255,255,255,0.08);
-            color: white;
-        }
+        .artist-back:hover { background: rgba(255,255,255,0.08); color: white; }
 
-        /* ── DIVIDER ── */
+        /* ── SECTION LABEL ── */
         .section-label {
             font-size: 11px;
             font-weight: 600;
@@ -201,13 +174,8 @@
             transition: transform 0.2s ease;
         }
 
-        .review-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .review-card:hover .review-thumb {
-            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
-        }
+        .review-card:hover { transform: translateY(-3px); }
+        .review-card:hover .review-thumb { box-shadow: 0 12px 30px rgba(0,0,0,0.6); }
 
         .review-thumb {
             width: 100%;
@@ -226,33 +194,20 @@
             object-fit: cover;
         }
 
-        /* Score badge */
+        /* ── SCORE BADGE (card) — colour-coded, no star ── */
         .review-score {
             position: absolute;
             bottom: 8px;
             right: 8px;
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(6px);
-            border: 1px solid rgba(255,255,255,0.15);
             border-radius: 8px;
             padding: 4px 9px;
             font-size: 13px;
             font-weight: 700;
             color: white;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.5);
         }
 
-        .review-score img {
-            width: 12px;
-            height: 12px;
-            object-fit: contain;
-        }
-
-        .review-info {
-            padding: 0 2px;
-        }
+        .review-info { padding: 0 2px; }
 
         .review-album {
             font-size: 14px;
@@ -272,16 +227,9 @@
             transition: color 0.2s;
         }
 
-        .review-artist:hover {
-            color: rgba(255,255,255,0.9);
-            text-decoration: underline;
-        }
+        .review-artist:hover { color: rgba(255,255,255,0.9); text-decoration: underline; }
 
-        .review-meta {
-            font-size: 11px;
-            color: rgba(255,255,255,0.25);
-            margin-top: 4px;
-        }
+        .review-meta { font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 4px; }
 
         /* ── REVIEW DETAIL MODAL ── */
         .review-modal {
@@ -293,9 +241,7 @@
             justify-content: center;
         }
 
-        .review-modal.open {
-            display: flex;
-        }
+        .review-modal.open { display: flex; }
 
         .review-modal-backdrop {
             position: absolute;
@@ -311,26 +257,28 @@
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 20px;
             width: 90%;
-            max-width: 560px;
-            overflow: hidden;
+            max-width: 580px;
+            max-height: 90vh;
+            overflow-y: auto;
             box-shadow: 0 32px 80px rgba(0,0,0,0.8);
         }
 
-        /* top banner = album art */
+        .review-modal-panel::-webkit-scrollbar { width: 4px; }
+        .review-modal-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
         .modal-art {
             width: 100%;
             height: 200px;
             object-fit: cover;
             display: block;
-            filter: brightness(0.6);
+            filter: brightness(0.55);
         }
 
         .modal-body {
-            padding: 24px 28px 28px;
+            padding: 24px 28px 32px;
             position: relative;
         }
 
-        /* album art thumbnail overlapping banner */
         .modal-thumb {
             width: 90px;
             height: 90px;
@@ -363,15 +311,9 @@
 
         .modal-close:hover { background: rgba(255,255,255,0.18); }
 
-        .modal-titles {
-            margin-top: 52px; /* space for thumb overlap */
-        }
+        .modal-titles { margin-top: 52px; }
 
-        .modal-album {
-            font-size: 20px;
-            font-weight: 600;
-            margin: 0 0 4px 0;
-        }
+        .modal-album { font-size: 20px; font-weight: 600; margin: 0 0 4px 0; }
 
         .modal-artist-link {
             font-size: 13px;
@@ -384,53 +326,100 @@
             padding: 0;
         }
 
-        .modal-artist-link:hover {
-            color: white;
-            text-decoration: underline;
-        }
+        .modal-artist-link:hover { color: white; text-decoration: underline; }
 
+        /* ── SCORE ROW (modal) — big coloured number, no star ── */
         .modal-score-row {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin: 18px 0 14px;
+            gap: 14px;
+            margin: 20px 0 16px;
         }
 
-        .modal-score-big {
-            font-size: 36px;
+        .modal-score-badge {
+            font-size: 28px;
             font-weight: 700;
             line-height: 1;
+            padding: 8px 18px;
+            border-radius: 10px;
+            color: white;
         }
 
         .modal-score-label {
             font-size: 12px;
-            color: rgba(255,255,255,0.35);
+            color: rgba(255,255,255,0.3);
             letter-spacing: 0.06em;
+            line-height: 1.4;
         }
 
-        .modal-star {
-            width: 20px;
-            height: 20px;
-            object-fit: contain;
+        .modal-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 16px 0; }
+
+        .modal-notes { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.6); }
+
+        /* ── TRACK LIST ── */
+        .modal-tracks-title {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.25);
+            margin: 20px 0 12px;
         }
 
-        .modal-divider {
-            height: 1px;
-            background: rgba(255,255,255,0.07);
-            margin: 16px 0;
+        .tracks-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
-        .modal-notes {
+        .track-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .track-num {
+            font-size: 11px;
+            color: rgba(255,255,255,0.25);
+            width: 18px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .track-name {
+            flex: 1;
             font-size: 13px;
-            line-height: 1.7;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255,255,255,0.75);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .track-tile {
+            width: 46px;
+            height: 32px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+        }
+
+        /* unrated track */
+        .track-tile.unrated {
+            background: #222 !important;
+            color: rgba(255,255,255,0.3);
         }
 
         .modal-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-top: 16px;
+            margin-top: 18px;
         }
 
         .modal-tag {
@@ -442,11 +431,7 @@
             color: rgba(255,255,255,0.45);
         }
 
-        .modal-date {
-            font-size: 11px;
-            color: rgba(255,255,255,0.2);
-            margin-top: 18px;
-        }
+        .modal-date { font-size: 11px; color: rgba(255,255,255,0.2); margin-top: 16px; }
 
         /* ── EMPTY STATE ── */
         .empty-state {
@@ -460,18 +445,9 @@
             gap: 10px;
         }
 
-        .empty-state.visible {
-            display: flex;
-        }
-
-        .empty-state span {
-            font-size: 36px;
-        }
-
-        .empty-state p {
-            font-size: 14px;
-            margin: 0;
-        }
+        .empty-state.visible { display: flex; }
+        .empty-state span { font-size: 36px; }
+        .empty-state p { font-size: 14px; margin: 0; }
 
         /* ── RESPONSIVE ── */
         @media (max-width: 860px) {
@@ -505,14 +481,13 @@
 
 <div class="reviews-page">
 
-    <!-- Page header -->
     <div class="reviews-header">
         <div class="reviews-header-left">
             <h1>Album Reviews</h1>
             <p id="reviewCount">— reviews</p>
         </div>
 
-        <div class="filter-bar" id="filterBar">
+        <div class="filter-bar">
             <button class="filter-chip active" onclick="setFilter('all', this)">All</button>
             <button class="filter-chip" onclick="setFilter('recent', this)">Recent</button>
             <button class="filter-chip" onclick="setFilter('top', this)">Highest Rated</button>
@@ -520,7 +495,6 @@
         </div>
     </div>
 
-    <!-- Artist view header (shown when filtering by artist) -->
     <div class="artist-header" id="artistHeader">
         <div class="artist-header-avatar" id="artistAvatar">?</div>
         <div class="artist-header-info">
@@ -531,11 +505,8 @@
     </div>
 
     <div class="section-label" id="sectionLabel">Recent Uploads</div>
-
-    <!-- Grid -->
     <div class="reviews-grid" id="reviewsGrid"></div>
 
-    <!-- Empty state -->
     <div class="empty-state" id="emptyState">
         <span>🎵</span>
         <p>No reviews found.</p>
@@ -556,12 +527,12 @@
                 <button class="modal-artist-link" id="modalArtist" onclick="filterByArtistFromModal()"></button>
             </div>
             <div class="modal-score-row">
-                <img class="modal-star" id="modalStar" src="yellowstar.png" alt="">
-                <span class="modal-score-big" id="modalScore"></span>
-                <span class="modal-score-label">/ 10</span>
+                <div class="modal-score-badge" id="modalScoreBadge"></div>
+                <div class="modal-score-label">out of 10</div>
             </div>
             <div class="modal-divider"></div>
             <p class="modal-notes" id="modalNotes"></p>
+            <div id="modalTracksSection"></div>
             <div class="modal-tags" id="modalTags"></div>
             <p class="modal-date" id="modalDate"></p>
         </div>
@@ -570,20 +541,33 @@
 
 <script>
 
-/* ═══════════════════════════════════════════
-   REVIEW DATA — add your reviews here
+/* ═══════════════════════════════════════════════════════
+   COLOUR SYSTEM — matches your watch.html tiles exactly
+═══════════════════════════════════════════════════════ */
+function scoreColor(score) {
+    if (score === null || score === undefined) return null;
+    if (score < 3)   return "#351e4f";
+    if (score < 5)   return "#8e0808";
+    if (score < 7)   return "#cea502";
+    if (score < 8)   return "#1abf2d";
+    if (score < 9.5) return "#008236";
+    return "#02d2f7";
+}
+
+/* ═══════════════════════════════════════════════════════
+   REVIEW DATA
    Fields:
-     id         unique string
-     album      album title
-     artist     artist name
-     cover      image filename (put in your repo)
-     score      number out of 10
-     date       "Month YYYY"
-     notes      your short review text
-     tags       array of genre/vibe tags
-     scoreType  "yellow" | "red" | "green" | "blue"
-               (controls star colour; yellow=default)
-═══════════════════════════════════════════ */
+     id       — unique string
+     album    — album title
+     artist   — artist name
+     cover    — image URL or filename
+     score    — overall score (number, 1–10)
+     date     — "Month YYYY"
+     notes    — your review text
+     tags     — array of genre/vibe strings
+     tracks   — array of { title, score } objects
+               set score to null for unrated tracks
+═══════════════════════════════════════════════════════ */
 const reviews = [
     {
         id: "drake-iceman",
@@ -594,7 +578,16 @@ const reviews = [
         date: "May 2026",
         notes: "A confident return. The production leans icy and minimal throughout, and Drake sounds more focused than he has in years. A few tracks overstay their welcome but the highs are genuinely great.",
         tags: ["Hip-Hop", "Rap", "2026"],
-        scoreType: "yellow"
+        tracks: [
+            { title: "ICEMAN",         score: 8.1 },
+            { title: "Nokia",          score: 7.4 },
+            { title: "Red Button",     score: 6.8 },
+            { title: "Tightrope",      score: 7.9 },
+            { title: "Murda",          score: 5.5 },
+            { title: "Duppy",          score: 8.3 },
+            { title: "Still Here",     score: 6.2 },
+            { title: "Outro",          score: null }
+        ]
     },
     {
         id: "weeknd-hut",
@@ -605,43 +598,32 @@ const reviews = [
         date: "Jan 2025",
         notes: "A fittingly dramatic closer to the XO trilogy. The theatrics are earned this time. Some of the best vocal performances of his career.",
         tags: ["R&B", "Pop", "2025"],
-        scoreType: "yellow"
+        tracks: [
+            { title: "São Paulo",               score: 9.1 },
+            { title: "Baptized in Fear",         score: 8.4 },
+            { title: "Open Hearts",              score: 7.6 },
+            { title: "Without a Warning",        score: 8.8 },
+            { title: "Reflections Laughing",     score: 7.2 },
+            { title: "Hurry Up Tomorrow",        score: 9.3 }
+        ]
     }
 ];
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════
    STATE
-═══════════════════════════════════════════ */
-let currentFilter   = "all";
-let currentArtist   = null;
-let activeModalId   = null;
+═══════════════════════════════════════════════════════ */
+let currentFilter = "all";
+let currentArtist = null;
+let activeModalId = null;
 
-/* ═══════════════════════════════════════════
-   SCORE → STAR IMAGE
-═══════════════════════════════════════════ */
-function starImg(type) {
-    const map = { yellow: "yellowstar.png", red: "redstar.png", green: "greenstar.png", blue: "bluestar.png" };
-    return map[type] || "yellowstar.png";
-}
-
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════
    RENDER
-═══════════════════════════════════════════ */
+═══════════════════════════════════════════════════════ */
 function getFiltered() {
     let list = [...reviews];
-
-    if (currentArtist) {
-        list = list.filter(r => r.artist === currentArtist);
-    }
-
-    if (currentFilter === "recent") {
-        // already in insertion order; just keep as-is
-    } else if (currentFilter === "top") {
-        list.sort((a, b) => b.score - a.score);
-    } else if (currentFilter === "lowest") {
-        list.sort((a, b) => a.score - b.score);
-    }
-
+    if (currentArtist) list = list.filter(r => r.artist === currentArtist);
+    if (currentFilter === "top")    list.sort((a, b) => b.score - a.score);
+    if (currentFilter === "lowest") list.sort((a, b) => a.score - b.score);
     return list;
 }
 
@@ -652,50 +634,45 @@ function render() {
 
     grid.innerHTML = "";
 
-    if (list.length === 0) {
-        empty.classList.add("visible");
-        return;
-    }
+    if (list.length === 0) { empty.classList.add("visible"); return; }
     empty.classList.remove("visible");
 
     list.forEach(r => {
         const card = document.createElement("div");
         card.className = "review-card";
+        const bg = scoreColor(r.score);
         card.innerHTML = `
             <div class="review-thumb">
                 <img src="${r.cover}" alt="${r.album}">
-                <div class="review-score">
-                    <img src="${starImg(r.scoreType)}" alt="">
+                <div class="review-score" style="background:${bg}">
                     ${r.score.toFixed(1)}
                 </div>
             </div>
             <div class="review-info">
                 <div class="review-album">${r.album}</div>
-                <span class="review-artist" onclick="filterByArtist('${r.artist}', event)">${r.artist}</span>
+                <span class="review-artist" onclick="filterByArtist('${r.artist.replace(/'/g,"\\'")}', event)">${r.artist}</span>
                 <div class="review-meta">${r.date}</div>
             </div>
         `;
         card.querySelector(".review-thumb").addEventListener("click", () => openReview(r.id));
-        card.querySelector(".review-album").addEventListener("click", () => openReview(r.id));
+        card.querySelector(".review-album").addEventListener("click",  () => openReview(r.id));
         grid.appendChild(card);
     });
 
-    // Update count
     const total = reviews.length;
-    document.getElementById("reviewCount").textContent =
-        currentArtist
-            ? `${list.length} review${list.length !== 1 ? "s" : ""} · ${currentArtist}`
-            : `${total} review${total !== 1 ? "s" : ""}`;
+    document.getElementById("reviewCount").textContent = currentArtist
+        ? `${list.length} review${list.length !== 1 ? "s" : ""} · ${currentArtist}`
+        : `${total} review${total !== 1 ? "s" : ""}`;
 
-    // Section label
     const labelMap = { all: "Recent Uploads", recent: "Recent Uploads", top: "Highest Rated", lowest: "Lowest Rated" };
-    document.getElementById("sectionLabel").textContent =
-        currentArtist ? `${currentArtist} — All Reviews` : labelMap[currentFilter];
+    document.getElementById("sectionLabel").textContent = currentArtist
+        ? `${currentArtist} — All Reviews`
+        : labelMap[currentFilter];
 }
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════
    FILTERS
-═══════════════════════════════════════════ */
+═══════════════════════════════════════════════════════ */
 function setFilter(filter, btn) {
     currentFilter = filter;
     document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
@@ -706,16 +683,11 @@ function setFilter(filter, btn) {
 function filterByArtist(artist, e) {
     if (e) e.stopPropagation();
     currentArtist = artist;
-
-    // Artist header
-    const header = document.getElementById("artistHeader");
-    document.getElementById("artistHeaderName").textContent = artist;
+    document.getElementById("artistHeaderName").textContent  = artist;
     const count = reviews.filter(r => r.artist === artist).length;
-    document.getElementById("artistHeaderCount").textContent =
-        `${count} review${count !== 1 ? "s" : ""}`;
-    document.getElementById("artistAvatar").textContent = artist.charAt(0).toUpperCase();
-    header.classList.add("visible");
-
+    document.getElementById("artistHeaderCount").textContent = `${count} review${count !== 1 ? "s" : ""}`;
+    document.getElementById("artistAvatar").textContent      = artist.charAt(0).toUpperCase();
+    document.getElementById("artistHeader").classList.add("visible");
     render();
 }
 
@@ -725,27 +697,59 @@ function clearArtistFilter() {
     render();
 }
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════
    REVIEW MODAL
-═══════════════════════════════════════════ */
+═══════════════════════════════════════════════════════ */
 function openReview(id) {
     const r = reviews.find(x => x.id === id);
     if (!r) return;
     activeModalId = id;
 
-    document.getElementById("modalArt").src       = r.cover;
-    document.getElementById("modalThumb").src     = r.cover;
-    document.getElementById("modalAlbum").textContent  = r.album;
-    document.getElementById("modalArtist").textContent = r.artist;
-    document.getElementById("modalScore").textContent  = r.score.toFixed(1);
-    document.getElementById("modalStar").src      = starImg(r.scoreType);
-    document.getElementById("modalNotes").textContent  = r.notes;
-    document.getElementById("modalDate").textContent   = `Reviewed ${r.date}`;
+    document.getElementById("modalArt").src                    = r.cover;
+    document.getElementById("modalThumb").src                  = r.cover;
+    document.getElementById("modalAlbum").textContent          = r.album;
+    document.getElementById("modalArtist").textContent         = r.artist;
+    document.getElementById("modalNotes").textContent          = r.notes;
+    document.getElementById("modalDate").textContent           = `Reviewed ${r.date}`;
 
-    const tagsEl = document.getElementById("modalTags");
-    tagsEl.innerHTML = r.tags.map(t => `<span class="modal-tag">${t}</span>`).join("");
+    // Score badge — coloured background, just the number
+    const badge = document.getElementById("modalScoreBadge");
+    badge.textContent        = r.score.toFixed(1);
+    badge.style.background   = scoreColor(r.score);
+
+    // Tags
+    document.getElementById("modalTags").innerHTML =
+        r.tags.map(t => `<span class="modal-tag">${t}</span>`).join("");
+
+    // Track list
+    const tracksSection = document.getElementById("modalTracksSection");
+    if (r.tracks && r.tracks.length > 0) {
+        tracksSection.innerHTML = `
+            <div class="modal-divider"></div>
+            <div class="modal-tracks-title">Tracks</div>
+            <div class="tracks-grid" id="tracksGrid"></div>
+        `;
+        const grid = tracksSection.querySelector("#tracksGrid");
+        r.tracks.forEach((t, i) => {
+            const row = document.createElement("div");
+            row.className = "track-row";
+            const isUnrated = t.score === null || t.score === undefined;
+            const tileClass = isUnrated ? "track-tile unrated" : "track-tile";
+            const tileText  = isUnrated ? "—" : t.score.toFixed(1);
+            const tileBg    = isUnrated ? "" : `style="background:${scoreColor(t.score)}"`;
+            row.innerHTML = `
+                <span class="track-num">${i + 1}</span>
+                <span class="track-name">${t.title}</span>
+                <div class="${tileClass}" ${tileBg}>${tileText}</div>
+            `;
+            grid.appendChild(row);
+        });
+    } else {
+        tracksSection.innerHTML = "";
+    }
 
     document.getElementById("reviewModal").classList.add("open");
+    document.getElementById("reviewModal").scrollTop = 0;
 }
 
 function closeReview() {
@@ -760,9 +764,7 @@ function filterByArtistFromModal() {
     filterByArtist(r.artist);
 }
 
-document.addEventListener("keydown", e => {
-    if (e.key === "Escape") closeReview();
-});
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeReview(); });
 
 /* ── INIT ── */
 render();
