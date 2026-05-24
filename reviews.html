@@ -9,13 +9,12 @@
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
-        /* NAVBAR */
         .navbar {
             position: absolute;
             top: 0;
             width: 100%;
             z-index: 10;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0,0,0,0.3);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
@@ -39,7 +38,6 @@
         }
 
         .nav-center li a:hover { background: rgba(255,255,255,0.2); }
-
         .nav-center li a[href="reviews.html"] { background: rgba(255,255,255,0.3); }
 
         body {
@@ -49,11 +47,28 @@
             color: white;
         }
 
-        /* ── PAGE LAYOUT ── */
         .reviews-page {
             padding: 100px 60px 80px;
             max-width: 1400px;
             margin: 0 auto;
+        }
+
+        /* ── DISCLAIMER ── */
+        .disclaimer {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-left: 3px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-bottom: 28px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            line-height: 1.6;
+        }
+
+        .disclaimer strong {
+            color: rgba(255,255,255,0.65);
+            font-weight: 600;
         }
 
         /* ── PAGE HEADER ── */
@@ -61,22 +76,13 @@
             display: flex;
             align-items: flex-end;
             justify-content: space-between;
-            margin-bottom: 32px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
             gap: 16px;
         }
 
-        .reviews-header-left h1 {
-            font-size: 28px;
-            font-weight: 600;
-            margin: 0 0 4px 0;
-        }
-
-        .reviews-header-left p {
-            font-size: 13px;
-            color: rgba(255,255,255,0.35);
-            margin: 0;
-        }
+        .reviews-header-left h1 { font-size: 28px; font-weight: 600; margin: 0 0 4px 0; }
+        .reviews-header-left p  { font-size: 13px; color: rgba(255,255,255,0.35); margin: 0; }
 
         /* ── FILTER BAR ── */
         .filter-bar {
@@ -100,7 +106,7 @@
             white-space: nowrap;
         }
 
-        .filter-chip:hover { background: rgba(255,255,255,0.1); color: white; }
+        .filter-chip:hover  { background: rgba(255,255,255,0.1); color: white; }
         .filter-chip.active { background: white; color: black; border-color: white; }
 
         /* ── ARTIST HEADER ── */
@@ -121,6 +127,7 @@
             width: 56px;
             height: 56px;
             border-radius: 50%;
+            overflow: hidden;
             background: rgba(255,255,255,0.1);
             display: flex;
             align-items: center;
@@ -129,6 +136,12 @@
             font-weight: 600;
             flex-shrink: 0;
             color: rgba(255,255,255,0.7);
+        }
+
+        .artist-header-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .artist-header-info h2 { font-size: 20px; font-weight: 600; margin: 0 0 2px 0; }
@@ -177,6 +190,10 @@
         .review-card:hover { transform: translateY(-3px); }
         .review-card:hover .review-thumb { box-shadow: 0 12px 30px rgba(0,0,0,0.6); }
 
+        /* Unreviewed card — dimmed */
+        .review-card.unreviewed { opacity: 0.45; }
+        .review-card.unreviewed:hover { opacity: 0.7; transform: translateY(-2px); }
+
         .review-thumb {
             width: 100%;
             aspect-ratio: 1 / 1;
@@ -188,23 +205,28 @@
             transition: box-shadow 0.2s ease;
         }
 
-        .review-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .review-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* ── SCORE BADGE (card) — colour-coded, no star ── */
+        /* ── SCORE BADGE — bottom centre, colour-coded ── */
         .review-score {
             position: absolute;
             bottom: 8px;
-            right: 8px;
+            left: 50%;
+            transform: translateX(-50%);
             border-radius: 8px;
             padding: 4px 9px;
             font-size: 13px;
             font-weight: 700;
             color: white;
             box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+
+        .review-score.no-rating {
+            background: rgba(255,255,255,0.1) !important;
+            color: rgba(255,255,255,0.4);
+            font-size: 16px;
+            font-weight: 400;
         }
 
         .review-info { padding: 0 2px; }
@@ -231,7 +253,7 @@
 
         .review-meta { font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 4px; }
 
-        /* ── REVIEW DETAIL MODAL ── */
+        /* ── REVIEW MODAL ── */
         .review-modal {
             display: none;
             position: fixed;
@@ -260,18 +282,30 @@
             max-width: 580px;
             max-height: 90vh;
             overflow-y: auto;
+            overflow-x: hidden;
             box-shadow: 0 32px 80px rgba(0,0,0,0.8);
         }
 
         .review-modal-panel::-webkit-scrollbar { width: 4px; }
         .review-modal-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
 
-        .modal-art {
+        /* FIX: banner fills full width with no gap */
+        .modal-banner {
             width: 100%;
             height: 200px;
-            object-fit: cover;
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
             display: block;
-            filter: brightness(0.55);
+        }
+
+        .modal-art {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            filter: brightness(0.5);
         }
 
         .modal-body {
@@ -279,6 +313,7 @@
             position: relative;
         }
 
+        /* FIX: border removed, opacity near-zero */
         .modal-thumb {
             width: 90px;
             height: 90px;
@@ -287,7 +322,7 @@
             position: absolute;
             top: -45px;
             left: 28px;
-            border: 3px solid #111;
+            border: 3px solid rgba(17,17,17,0.08);
             box-shadow: 0 6px 20px rgba(0,0,0,0.6);
         }
 
@@ -328,7 +363,6 @@
 
         .modal-artist-link:hover { color: white; text-decoration: underline; }
 
-        /* ── SCORE ROW (modal) — big coloured number, no star ── */
         .modal-score-row {
             display: flex;
             align-items: center;
@@ -343,6 +377,12 @@
             padding: 8px 18px;
             border-radius: 10px;
             color: white;
+        }
+
+        .modal-score-badge.no-rating {
+            background: rgba(255,255,255,0.08) !important;
+            font-size: 22px;
+            color: rgba(255,255,255,0.35);
         }
 
         .modal-score-label {
@@ -366,22 +406,14 @@
             margin: 20px 0 12px;
         }
 
-        .tracks-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
+        .tracks-grid { display: flex; flex-direction: column; gap: 6px; }
 
-        .track-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .track-row { display: flex; align-items: center; gap: 12px; }
 
         .track-num {
             font-size: 11px;
             color: rgba(255,255,255,0.25);
-            width: 18px;
+            width: 22px;
             text-align: right;
             flex-shrink: 0;
         }
@@ -409,18 +441,13 @@
             box-shadow: 0 3px 8px rgba(0,0,0,0.35);
         }
 
-        /* unrated track */
         .track-tile.unrated {
             background: #222 !important;
             color: rgba(255,255,255,0.3);
+            box-shadow: none;
         }
 
-        .modal-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 18px;
-        }
+        .modal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 
         .modal-tag {
             padding: 4px 12px;
@@ -486,7 +513,6 @@
             <h1>Album Reviews</h1>
             <p id="reviewCount">— reviews</p>
         </div>
-
         <div class="filter-bar">
             <button class="filter-chip active" onclick="setFilter('all', this)">All</button>
             <button class="filter-chip" onclick="setFilter('recent', this)">Recent</button>
@@ -495,8 +521,12 @@
         </div>
     </div>
 
+    <div class="disclaimer">
+        <strong>Note on ratings:</strong> Scores reflect the album as an experience — not the song as a standalone track. A 9.0 here means the moment hit hard within the context of the album, not that it's necessarily a better song than a 7.0 from a different record. Think of it like rating an episode within a series.
+    </div>
+
     <div class="artist-header" id="artistHeader">
-        <div class="artist-header-avatar" id="artistAvatar">?</div>
+        <div class="artist-header-avatar" id="artistAvatar"></div>
         <div class="artist-header-info">
             <h2 id="artistHeaderName"></h2>
             <p id="artistHeaderCount"></p>
@@ -514,11 +544,13 @@
 
 </div>
 
-<!-- Review detail modal -->
+<!-- Review modal -->
 <div class="review-modal" id="reviewModal">
     <div class="review-modal-backdrop" onclick="closeReview()"></div>
     <div class="review-modal-panel">
-        <img class="modal-art" id="modalArt" src="" alt="">
+        <div class="modal-banner">
+            <img class="modal-art" id="modalArt" src="" alt="">
+        </div>
         <div class="modal-body">
             <img class="modal-thumb" id="modalThumb" src="" alt="">
             <button class="modal-close" onclick="closeReview()">×</button>
@@ -528,7 +560,7 @@
             </div>
             <div class="modal-score-row">
                 <div class="modal-score-badge" id="modalScoreBadge"></div>
-                <div class="modal-score-label">out of 10</div>
+                <div class="modal-score-label" id="modalScoreLabel">out of 10</div>
             </div>
             <div class="modal-divider"></div>
             <p class="modal-notes" id="modalNotes"></p>
@@ -541,9 +573,7 @@
 
 <script>
 
-/* ═══════════════════════════════════════════════════════
-   COLOUR SYSTEM — matches your watch.html tiles exactly
-═══════════════════════════════════════════════════════ */
+/* ── COLOUR SYSTEM ── */
 function scoreColor(score) {
     if (score === null || score === undefined) return null;
     if (score < 3)   return "#351e4f";
@@ -554,79 +584,437 @@ function scoreColor(score) {
     return "#02d2f7";
 }
 
-/* ═══════════════════════════════════════════════════════
-   REVIEW DATA
-   Fields:
-     id       — unique string
-     album    — album title
-     artist   — artist name
-     cover    — image URL or filename
-     score    — overall score (number, 1–10)
-     date     — "Month YYYY"
-     notes    — your review text
-     tags     — array of genre/vibe strings
-     tracks   — array of { title, score } objects
-               set score to null for unrated tracks
-═══════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════
+   ARTIST DISCOGRAPHIES
+   Albums without a review entry still show in artist view.
+   score: null = not yet reviewed
+══════════════════════════════════════════════════════════ */
+const artistMeta = {
+    "The Weeknd": {
+        pfp: "https://i.pinimg.com/736x/4b/26/fd/4b26fd91233950f2d596aaecad757786.jpg",
+        discography: [
+            "weeknd-hob", "weeknd-thursday", "weeknd-eos",
+            "weeknd-kissland", "weeknd-bbtm", "weeknd-starboy",
+            "weeknd-mdm", "weeknd-afterhours", "weeknd-dawnfm", "weeknd-hut"
+        ]
+    },
+    "Drake": {
+        pfp: "https://i.pinimg.com/736x/83/43/8a/83438a7870e1c8035d5481666d0b2351.jpg",
+        discography: ["drake-iceman"]
+    },
+    "A$AP Rocky": {
+        pfp: "https://i.scdn.co/image/ab6761610000e5ebad160b333f9a240f84aff7d7",
+        discography: ["rocky-dbd"]
+    },
+    "Ariana Grande": {
+        pfp: "https://i.scdn.co/image/ab6761610000101f766397ec42a573a53eb5fb87",
+        discography: ["ariana-sweetener"]
+    }
+};
+
+/* ══════════════════════════════════════════════════════════
+   REVIEW DATA — newest first
+══════════════════════════════════════════════════════════ */
 const reviews = [
+
+    /* ── DRAKE ── */
     {
         id: "drake-iceman",
         album: "ICEMAN",
         artist: "Drake",
-        cover: "white.png",
-        score: 7.2,
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c6/Drake_-_Iceman.jpg/250px-Drake_-_Iceman.jpg",
+        banner: "https://consequence.net/wp-content/uploads/2026/05/drake-cn-tower-iceman.jpg?quality=80",
+        score: 5.9,
         date: "May 2026",
-        notes: "A confident return. The production leans icy and minimal throughout, and Drake sounds more focused than he has in years. A few tracks overstay their welcome but the highs are genuinely great.",
+        notes: "",
         tags: ["Hip-Hop", "Rap", "2026"],
         tracks: [
-            { title: "ICEMAN",         score: 8.1 },
-            { title: "Nokia",          score: 7.4 },
-            { title: "Red Button",     score: 6.8 },
-            { title: "Tightrope",      score: 7.9 },
-            { title: "Murda",          score: 5.5 },
-            { title: "Duppy",          score: 8.3 },
-            { title: "Still Here",     score: 6.2 },
-            { title: "Outro",          score: null }
+            { title: "Make Them Cry", score: 6.4 },
+            { title: "Dust", score: 5.7 },
+            { title: "Whisper My Name", score: 5.8 },
+            { title: "Janice STFU", score: 7.0 },
+            { title: "Ran To Atlanta (feat. Future & Molly Santana)", score: 8.4 },
+            { title: "Shabang", score: 5.0 },
+            { title: "Make Them Pay", score: 6.2 },
+            { title: "Burning Bridges", score: 5.3 },
+            { title: "National Treasures", score: 7.6 },
+            { title: "B's On The Table (feat. 21 Savage)", score: 3.4 },
+            { title: "What Did I Miss?", score: 7.6 },
+            { title: "Plot Twist", score: 5.4 },
+            { title: "2 Hard 4 The Radio", score: 6.8 },
+            { title: "Make Them Remember", score: 6.5 },
+            { title: "Little Birdie", score: 2.9 },
+            { title: "Don't Worry", score: 4.2 },
+            { title: "Firm Friends", score: 5.3 },
+            { title: "Make Them Know", score: 6.7 }
         ]
     },
+
+    /* ── A$AP ROCKY ── */
+    {
+        id: "rocky-dbd",
+        album: "Don't Be Dumb",
+        artist: "A$AP Rocky",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d6/A%24AP_Rocky_-_Don%27t_Be_Dumb.png/250px-A%24AP_Rocky_-_Don%27t_Be_Dumb.png",
+        banner: "https://i.pinimg.com/1200x/e2/20/33/e22033ae007be7953cc3191af3b50379.jpg",
+        score: 7.3,
+        date: "2024",
+        notes: "",
+        tags: ["Hip-Hop", "Rap", "2024"],
+        tracks: [
+            { title: "ORDER OF PROTECTION", score: 7.1 },
+            { title: "HELICOPTER", score: 7.4 },
+            { title: "INTERROGATION (SKIT)", score: null },
+            { title: "STOLE YA FLOW", score: 7.6 },
+            { title: "STAY HERE 4 LIFE (feat. Brent Faiyaz)", score: 8.1 },
+            { title: "PLAYA", score: 7.0 },
+            { title: "NO TRESPASSING", score: 7.4 },
+            { title: "STOP SNITCHING (feat. BossMan Dlow & Sauce Walka)", score: 7.4 },
+            { title: "STFU (feat. Slay Squad)", score: 6.5 },
+            { title: "PUNK ROCKY", score: 7.7 },
+            { title: "AIR FORCE (BLACK DEMARCO)", score: 7.9 },
+            { title: "WHISKEY (RELEASE ME) (feat. Gorillaz & Westside Gunn)", score: 7.1 },
+            { title: "ROBBERY (feat. Doechii)", score: 6.9 },
+            { title: "DON'T BE DUMB", score: 7.8 },
+            { title: "TRIP BABY", score: 4.1 },
+            { title: "THE END (feat. will.i.am & Jessica Pratt)", score: 7.7 },
+            { title: "SWAT TEAM", score: 6.6 },
+            { title: "FISH N STEAK (WHAT IT IS) (feat. Tyler, The Creator)", score: 7.3 },
+            { title: "FLACKITO JODYE (feat. Tokischa)", score: 6.8 },
+            { title: "I Smoked Away My Brain (feat. Imogen Heap & Clams Casino)", score: null }
+        ]
+    },
+
+    /* ── ARIANA GRANDE ── */
+    {
+        id: "ariana-sweetener",
+        album: "Sweetener",
+        artist: "Ariana Grande",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Ariana_Grande_-_Sweetener_%28Official_Album_Cover%29.png/250px-Ariana_Grande_-_Sweetener_%28Official_Album_Cover%29.png",
+        banner: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Ariana_Grande_-_Sweetener_%28Official_Album_Cover%29.png/250px-Ariana_Grande_-_Sweetener_%28Official_Album_Cover%29.png",
+        score: 7.6,
+        date: "2018",
+        notes: "",
+        tags: ["Pop", "R&B", "2018"],
+        tracks: [
+            { title: "raindrops (an angel cried)", score: null },
+            { title: "blazed (feat. Pharrell Williams)", score: 7.0 },
+            { title: "the light is coming (feat. Nicki Minaj)", score: 5.4 },
+            { title: "R.E.M", score: 6.6 },
+            { title: "God is a woman", score: 7.2 },
+            { title: "sweetener", score: 7.0 },
+            { title: "successful", score: 7.2 },
+            { title: "everytime", score: 8.6 },
+            { title: "breathin", score: 8.8 },
+            { title: "no tears left to cry", score: 8.9 },
+            { title: "borderline (feat. Missy Elliott)", score: 7.7 },
+            { title: "better off", score: 8.6 },
+            { title: "goodnight n go", score: 8.9 },
+            { title: "pete davidson", score: 4.1 },
+            { title: "get well soon", score: 6.9 }
+        ]
+    },
+
+    /* ── THE WEEKND ── */
     {
         id: "weeknd-hut",
         album: "Hurry Up Tomorrow",
         artist: "The Weeknd",
-        cover: "white.png",
-        score: 8.1,
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/7/75/The_Weeknd_-_Hurry_Up_Tomorrow_%28alternative_cover%29.png/250px-The_Weeknd_-_Hurry_Up_Tomorrow_%28alternative_cover%29.png",
+        banner: "https://i.pinimg.com/736x/79/6e/72/796e72d6708730fc40efc4e3192f3094.jpg",
+        score: 8.6,
         date: "Jan 2025",
-        notes: "A fittingly dramatic closer to the XO trilogy. The theatrics are earned this time. Some of the best vocal performances of his career.",
+        notes: "",
         tags: ["R&B", "Pop", "2025"],
         tracks: [
-            { title: "São Paulo",               score: 9.1 },
-            { title: "Baptized in Fear",         score: 8.4 },
-            { title: "Open Hearts",              score: 7.6 },
-            { title: "Without a Warning",        score: 8.8 },
-            { title: "Reflections Laughing",     score: 7.2 },
-            { title: "Hurry Up Tomorrow",        score: 9.3 }
+            { title: "Wake Me Up (feat. Justice)", score: 8.9 },
+            { title: "Cry For Me", score: 8.3 },
+            { title: "I Can't Fucking Sing", score: null },
+            { title: "São Paulo (feat. Anitta)", score: 7.0 },
+            { title: "Until We're Skin & Bones", score: null },
+            { title: "Baptized In Fear", score: 8.7 },
+            { title: "Open Hearts", score: 7.9 },
+            { title: "Opening Night", score: 7.8 },
+            { title: "Reflections Laughing (feat. Travis Scott & Florence + The Machine)", score: 6.6 },
+            { title: "Enjoy The Show (feat. Future)", score: 9.2 },
+            { title: "Given Up On Me", score: 8.4 },
+            { title: "I Can't Wait To Get There", score: 8.7 },
+            { title: "Timeless (feat. Playboi Carti)", score: 8.7 },
+            { title: "Niagara Falls", score: 9.4 },
+            { title: "Take Me Back To LA", score: 8.8 },
+            { title: "Big Sleep", score: 9.3 },
+            { title: "Give Me Mercy", score: 7.4 },
+            { title: "Drive", score: 8.4 },
+            { title: "The Abyss (feat. Lana Del Rey)", score: 9.5 },
+            { title: "Red Terror", score: 9.0 },
+            { title: "Without a Warning", score: 8.8 },
+            { title: "Hurry Up Tomorrow", score: 8.9 }
+        ]
+    },
+    {
+        id: "weeknd-dawnfm",
+        album: "Dawn FM",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/The_Weeknd_-_Dawn_FM.png/250px-The_Weeknd_-_Dawn_FM.png",
+        banner: "https://i.pinimg.com/1200x/5d/72/18/5d72188d72826eedb6bc998dafdeecb6.jpg",
+        score: 8.1,
+        date: "Jan 2022",
+        notes: "",
+        tags: ["R&B", "Synth-Pop", "2022"],
+        tracks: [
+            { title: "Dawn FM", score: 7.8 },
+            { title: "Gasoline", score: 8.4 },
+            { title: "How Do I Make You Love Me?", score: 8.0 },
+            { title: "Take My Breath", score: 8.1 },
+            { title: "Sacrifice", score: 8.5 },
+            { title: "A Tale By Quincy", score: null },
+            { title: "Out of Time", score: 8.9 },
+            { title: "Here We Go... Again (feat. Tyler, The Creator)", score: 8.3 },
+            { title: "Best Friends", score: 6.4 },
+            { title: "Is There Someone Else?", score: 8.6 },
+            { title: "Starry Eyes", score: 8.0 },
+            { title: "Every Angel Is Terrifying", score: null },
+            { title: "Don't Break My Heart", score: 7.7 },
+            { title: "I Heard You're Married (feat. Lil Wayne)", score: 7.6 },
+            { title: "Less Than Zero", score: 8.7 },
+            { title: "Phantom Regret by Jim", score: null }
+        ]
+    },
+    {
+        id: "weeknd-afterhours",
+        album: "After Hours",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/The_Weeknd_-_After_Hours.png/250px-The_Weeknd_-_After_Hours.png",
+        banner: "https://i.pinimg.com/1200x/82/4d/a1/824da1dd743f5f54633fe5645a6bac28.jpg",
+        score: 9.0,
+        date: "Mar 2020",
+        notes: "",
+        tags: ["R&B", "Synth-Pop", "2020"],
+        tracks: [
+            { title: "Alone Again", score: 9.1 },
+            { title: "Too Late", score: 8.7 },
+            { title: "Hardest To Love", score: 8.9 },
+            { title: "Scared To Live", score: 8.6 },
+            { title: "Snowchild", score: 9.3 },
+            { title: "Escape From LA", score: 8.7 },
+            { title: "Heartless", score: 8.9 },
+            { title: "Faith", score: 9.3 },
+            { title: "Blinding Lights", score: 9.4 },
+            { title: "In Your Eyes", score: 8.0 },
+            { title: "Save Your Tears", score: 9.3 },
+            { title: "Repeat After Me (Interlude)", score: 8.7 },
+            { title: "After Hours", score: 9.6 },
+            { title: "Until I Bleed Out", score: 8.6 }
+        ]
+    },
+    {
+        id: "weeknd-mdm",
+        album: "My Dear Melancholy,",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/4/4d/MyDearMelancholy_-_album_by_The_Weeknd.jpg/250px-MyDearMelancholy_-_album_by_The_Weeknd.jpg",
+        banner: "https://i.pinimg.com/736x/90/6f/0f/906f0fca1cfca46b101e2510f4e6fc3f.jpg",
+        score: 8.7,
+        date: "Mar 2018",
+        notes: "",
+        tags: ["R&B", "2018"],
+        tracks: [
+            { title: "Call Out My Name", score: 9.3 },
+            { title: "Try Me", score: 8.9 },
+            { title: "Wasted Times", score: 8.7 },
+            { title: "I Was Never There", score: 8.7 },
+            { title: "Hurt You", score: 8.6 },
+            { title: "Privilege", score: 8.5 },
+            { title: "Call Out My Name - A Cappella", score: null }
+        ]
+    },
+    {
+        id: "weeknd-starboy",
+        album: "Starboy",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/3/39/The_Weeknd_-_Starboy.png/250px-The_Weeknd_-_Starboy.png",
+        banner: "https://i.pinimg.com/1200x/e8/dd/30/e8dd3084fd96a445afed65019cae435e.jpg",
+        score: 7.6,
+        date: "Nov 2016",
+        notes: "",
+        tags: ["R&B", "Pop", "2016"],
+        tracks: [
+            { title: "Starboy", score: 8.6 },
+            { title: "Party Monster", score: 8.2 },
+            { title: "False Alarm", score: 5.6 },
+            { title: "Reminder", score: 8.7 },
+            { title: "Rockin'", score: 7.5 },
+            { title: "Secrets", score: 8.1 },
+            { title: "True Colors", score: 7.7 },
+            { title: "Stargirl Interlude (feat. Lana Del Rey)", score: null },
+            { title: "Sidewalks (feat. Kendrick Lamar)", score: 8.5 },
+            { title: "Six Feet Under", score: 7.8 },
+            { title: "Love To Lay", score: 8.0 },
+            { title: "A Lonely Night", score: 8.7 },
+            { title: "Attention", score: 6.1 },
+            { title: "Ordinary Life", score: 6.4 },
+            { title: "Nothing Without You", score: 5.9 },
+            { title: "All I Know (feat. Future)", score: 7.6 },
+            { title: "Die For You", score: 9.3 },
+            { title: "I Feel It Coming", score: 8.5 }
+        ]
+    },
+    {
+        id: "weeknd-bbtm",
+        album: "Beauty Behind The Madness",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/b/bd/The_Weeknd_-_Beauty_Behind_the_Madness.png/250px-The_Weeknd_-_Beauty_Behind_the_Madness.png",
+        banner: "https://i.pinimg.com/736x/26/25/05/262505ea6dd187530ab3bf3be2a38141.jpg",
+        score: 7.8,
+        date: "Aug 2015",
+        notes: "",
+        tags: ["R&B", "Pop", "2015"],
+        tracks: [
+            { title: "Real Life", score: 7.3 },
+            { title: "Losers", score: 6.9 },
+            { title: "Tell Your Friends", score: 7.6 },
+            { title: "Often", score: 7.9 },
+            { title: "The Hills", score: 8.1 },
+            { title: "Acquainted", score: 8.1 },
+            { title: "Can't Feel My Face", score: 8.7 },
+            { title: "Shameless", score: 8.0 },
+            { title: "Earned It (Fifty Shades Of Grey)", score: 8.2 },
+            { title: "In The Night", score: 8.1 },
+            { title: "As You Are", score: 8.4 },
+            { title: "Dark Times (feat. Ed Sheeran)", score: 6.6 },
+            { title: "Prisoner (feat. Lana Del Rey)", score: 7.9 },
+            { title: "Angel", score: 8.7 }
+        ]
+    },
+    {
+        id: "weeknd-kissland",
+        album: "Kiss Land",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/e/ed/The_Weeknd_-_Kiss_Land.png/250px-The_Weeknd_-_Kiss_Land.png",
+        banner: "https://i.pinimg.com/1200x/25/9a/e3/259ae395c127edc0f7d785f65453f49e.jpg",
+        score: 8.5,
+        date: "Sep 2013",
+        notes: "",
+        tags: ["R&B", "2013"],
+        tracks: [
+            { title: "Professional", score: 8.7 },
+            { title: "The Town", score: 8.6 },
+            { title: "Adaptation", score: 7.8 },
+            { title: "Love In The Sky", score: 8.0 },
+            { title: "Belong To The World", score: 8.7 },
+            { title: "Live For (feat. Drake)", score: 6.9 },
+            { title: "Wanderlust", score: 8.9 },
+            { title: "Kiss Land", score: 9.3 },
+            { title: "Pretty", score: 8.5 },
+            { title: "Tears In The Rain", score: 8.6 }
+        ]
+    },
+    {
+        id: "weeknd-hob",
+        album: "House Of Balloons",
+        artist: "The Weeknd",
+        cover: "https://i.pinimg.com/736x/4c/06/e8/4c06e87e24bca880f89e447daded968e.jpg",
+        banner: "https://i.pinimg.com/1200x/13/05/ab/1305abbb1e22a94f08365cd5db333ca8.jpg",
+        score: 9.0,
+        date: "Mar 2011",
+        notes: "",
+        tags: ["R&B", "Alternative", "2011"],
+        tracks: [
+            { title: "High For This", score: 8.6 },
+            { title: "What You Need", score: 8.4 },
+            { title: "House Of Balloons / Glass Table Girls", score: 9.2 },
+            { title: "The Morning", score: 9.5 },
+            { title: "Wicked Games", score: 9.3 },
+            { title: "The Party & The After Party", score: 8.7 },
+            { title: "Coming Down", score: 9.1 },
+            { title: "Loft Music", score: 9.2 },
+            { title: "The Knowing", score: 9.3 },
+            { title: "Twenty Eight", score: 9.4 }
+        ]
+    },
+    {
+        id: "weeknd-thursday",
+        album: "Thursday",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/d/dd/The_Weeknd_-_Thursday.png/250px-The_Weeknd_-_Thursday.png",
+        banner: "https://i.pinimg.com/736x/a8/fc/5c/a8fc5c60f342a47da2df8cc2e49008ca.jpg",
+        score: 7.8,
+        date: "Aug 2011",
+        notes: "",
+        tags: ["R&B", "Alternative", "2011"],
+        tracks: [
+            { title: "Lonely Star", score: 7.8 },
+            { title: "Life Of The Party", score: 8.1 },
+            { title: "Thursday", score: 7.6 },
+            { title: "The Zone (feat. Drake)", score: 8.7 },
+            { title: "The Birds Pt. 1", score: 8.6 },
+            { title: "The Birds Pt. 2", score: 8.9 },
+            { title: "Gone", score: 8.4 },
+            { title: "Rolling Stone", score: 8.6 },
+            { title: "Heaven Or Las Vegas", score: 7.3 },
+            { title: "Valerie", score: 8.8 }
+        ]
+    },
+    {
+        id: "weeknd-eos",
+        album: "Echoes Of Silence",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/3/34/The_Weeknd_-_Echoes_of_Silence.png/250px-The_Weeknd_-_Echoes_of_Silence.png",
+        banner: "https://i.pinimg.com/736x/69/1b/5b/691b5bd9268d1d285bdf32f11df3737d.jpg",
+        score: null,
+        date: "Dec 2011",
+        notes: "",
+        tags: ["R&B", "Alternative", "2011"],
+        tracks: [
+            { title: "D.D.", score: 9.0 },
+            { title: "Montreal", score: null },
+            { title: "Outside", score: null },
+            { title: "XO/The Host", score: null },
+            { title: "Initiation", score: null },
+            { title: "Same Old Song", score: null },
+            { title: "The Fall", score: null },
+            { title: "Next", score: null },
+            { title: "Echoes Of Silence", score: null },
+            { title: "Till Dawn (Here Comes The Sun)", score: null }
         ]
     }
 ];
 
-/* ═══════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════
    STATE
-═══════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════════ */
 let currentFilter = "all";
 let currentArtist = null;
 let activeModalId = null;
 
-/* ═══════════════════════════════════════════════════════
-   RENDER
-═══════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════════════════════ */
+function getReviewedOnly() {
+    return reviews.filter(r => r.score !== null);
+}
+
 function getFiltered() {
-    let list = [...reviews];
-    if (currentArtist) list = list.filter(r => r.artist === currentArtist);
-    if (currentFilter === "top")    list.sort((a, b) => b.score - a.score);
-    if (currentFilter === "lowest") list.sort((a, b) => a.score - b.score);
+    // In artist view: show full discography in canonical order
+    if (currentArtist) {
+        const meta = artistMeta[currentArtist];
+        if (meta) {
+            return meta.discography
+                .map(id => reviews.find(r => r.id === id))
+                .filter(Boolean);
+        }
+        return reviews.filter(r => r.artist === currentArtist);
+    }
+
+    // Normal view: only reviewed albums
+    let list = getReviewedOnly();
+    if (currentFilter === "top")    list = [...list].sort((a, b) => b.score - a.score);
+    if (currentFilter === "lowest") list = [...list].sort((a, b) => a.score - b.score);
     return list;
 }
 
+/* ══════════════════════════════════════════════════════════
+   RENDER
+══════════════════════════════════════════════════════════ */
 function render() {
     const list  = getFiltered();
     const grid  = document.getElementById("reviewsGrid");
@@ -639,14 +1027,18 @@ function render() {
 
     list.forEach(r => {
         const card = document.createElement("div");
-        card.className = "review-card";
-        const bg = scoreColor(r.score);
+        const isUnreviewed = r.score === null || r.score === undefined;
+        card.className = "review-card" + (isUnreviewed ? " unreviewed" : "");
+
+        const bg = isUnreviewed ? null : scoreColor(r.score);
+        const badgeStyle = isUnreviewed ? "" : `style="background:${bg}"`;
+        const badgeClass = isUnreviewed ? "review-score no-rating" : "review-score";
+        const badgeText  = isUnreviewed ? "—" : r.score.toFixed(1);
+
         card.innerHTML = `
             <div class="review-thumb">
                 <img src="${r.cover}" alt="${r.album}">
-                <div class="review-score" style="background:${bg}">
-                    ${r.score.toFixed(1)}
-                </div>
+                <div class="${badgeClass}" ${badgeStyle}>${badgeText}</div>
             </div>
             <div class="review-info">
                 <div class="review-album">${r.album}</div>
@@ -659,20 +1051,20 @@ function render() {
         grid.appendChild(card);
     });
 
-    const total = reviews.length;
+    const reviewedCount = getReviewedOnly().length;
     document.getElementById("reviewCount").textContent = currentArtist
-        ? `${list.length} review${list.length !== 1 ? "s" : ""} · ${currentArtist}`
-        : `${total} review${total !== 1 ? "s" : ""}`;
+        ? `${list.length} album${list.length !== 1 ? "s" : ""} · ${currentArtist}`
+        : `${reviewedCount} review${reviewedCount !== 1 ? "s" : ""}`;
 
     const labelMap = { all: "Recent Uploads", recent: "Recent Uploads", top: "Highest Rated", lowest: "Lowest Rated" };
     document.getElementById("sectionLabel").textContent = currentArtist
-        ? `${currentArtist} — All Reviews`
+        ? `${currentArtist} — Discography`
         : labelMap[currentFilter];
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════
    FILTERS
-═══════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════════ */
 function setFilter(filter, btn) {
     currentFilter = filter;
     document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
@@ -683,10 +1075,21 @@ function setFilter(filter, btn) {
 function filterByArtist(artist, e) {
     if (e) e.stopPropagation();
     currentArtist = artist;
+
+    const meta = artistMeta[artist];
+    const avatarEl = document.getElementById("artistAvatar");
+
+    if (meta && meta.pfp) {
+        avatarEl.innerHTML = `<img src="${meta.pfp}" alt="${artist}">`;
+    } else {
+        avatarEl.innerHTML = artist.charAt(0).toUpperCase();
+    }
+
+    const discCount  = meta ? meta.discography.length : reviews.filter(r => r.artist === artist).length;
+    const revCount   = reviews.filter(r => r.artist === artist && r.score !== null).length;
+
     document.getElementById("artistHeaderName").textContent  = artist;
-    const count = reviews.filter(r => r.artist === artist).length;
-    document.getElementById("artistHeaderCount").textContent = `${count} review${count !== 1 ? "s" : ""}`;
-    document.getElementById("artistAvatar").textContent      = artist.charAt(0).toUpperCase();
+    document.getElementById("artistHeaderCount").textContent = `${revCount} reviewed · ${discCount} total`;
     document.getElementById("artistHeader").classList.add("visible");
     render();
 }
@@ -697,31 +1100,44 @@ function clearArtistFilter() {
     render();
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════
    REVIEW MODAL
-═══════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════════ */
 function openReview(id) {
     const r = reviews.find(x => x.id === id);
     if (!r) return;
     activeModalId = id;
 
-    document.getElementById("modalArt").src                    = r.cover;
-    document.getElementById("modalThumb").src                  = r.cover;
-    document.getElementById("modalAlbum").textContent          = r.album;
-    document.getElementById("modalArtist").textContent         = r.artist;
-    document.getElementById("modalNotes").textContent          = r.notes;
-    document.getElementById("modalDate").textContent           = `Reviewed ${r.date}`;
+    const isUnreviewed = r.score === null || r.score === undefined;
 
-    // Score badge — coloured background, just the number
+    // Banner — use dedicated banner if available, else cover
+    document.getElementById("modalArt").src   = r.banner || r.cover;
+    document.getElementById("modalThumb").src = r.cover;
+    document.getElementById("modalAlbum").textContent  = r.album;
+    document.getElementById("modalArtist").textContent = r.artist;
+    document.getElementById("modalNotes").textContent  = r.notes || "";
+    document.getElementById("modalDate").textContent   = r.date ? `${r.date}` : "";
+
+    // Score badge
     const badge = document.getElementById("modalScoreBadge");
-    badge.textContent        = r.score.toFixed(1);
-    badge.style.background   = scoreColor(r.score);
+    const label = document.getElementById("modalScoreLabel");
+    if (isUnreviewed) {
+        badge.textContent = "Not Reviewed";
+        badge.className   = "modal-score-badge no-rating";
+        badge.style.background = "";
+        label.style.display = "none";
+    } else {
+        badge.textContent = r.score.toFixed(1);
+        badge.className   = "modal-score-badge";
+        badge.style.background = scoreColor(r.score);
+        label.style.display = "";
+    }
 
     // Tags
     document.getElementById("modalTags").innerHTML =
-        r.tags.map(t => `<span class="modal-tag">${t}</span>`).join("");
+        (r.tags || []).map(t => `<span class="modal-tag">${t}</span>`).join("");
 
-    // Track list
+    // Tracks
     const tracksSection = document.getElementById("modalTracksSection");
     if (r.tracks && r.tracks.length > 0) {
         tracksSection.innerHTML = `
@@ -729,27 +1145,28 @@ function openReview(id) {
             <div class="modal-tracks-title">Tracks</div>
             <div class="tracks-grid" id="tracksGrid"></div>
         `;
-        const grid = tracksSection.querySelector("#tracksGrid");
+        const tGrid = tracksSection.querySelector("#tracksGrid");
         r.tracks.forEach((t, i) => {
             const row = document.createElement("div");
             row.className = "track-row";
-            const isUnrated = t.score === null || t.score === undefined;
-            const tileClass = isUnrated ? "track-tile unrated" : "track-tile";
-            const tileText  = isUnrated ? "—" : t.score.toFixed(1);
-            const tileBg    = isUnrated ? "" : `style="background:${scoreColor(t.score)}"`;
+            const noScore   = t.score === null || t.score === undefined;
+            const tileClass = noScore ? "track-tile unrated" : "track-tile";
+            const tileText  = noScore ? "—" : t.score.toFixed(1);
+            const tileBg    = noScore ? "" : `style="background:${scoreColor(t.score)}"`;
             row.innerHTML = `
                 <span class="track-num">${i + 1}</span>
                 <span class="track-name">${t.title}</span>
                 <div class="${tileClass}" ${tileBg}>${tileText}</div>
             `;
-            grid.appendChild(row);
+            tGrid.appendChild(row);
         });
     } else {
         tracksSection.innerHTML = "";
     }
 
     document.getElementById("reviewModal").classList.add("open");
-    document.getElementById("reviewModal").scrollTop = 0;
+    // scroll panel back to top
+    document.querySelector(".review-modal-panel").scrollTop = 0;
 }
 
 function closeReview() {
@@ -770,6 +1187,5 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") closeReview(
 render();
 
 </script>
-
 </body>
 </html>
