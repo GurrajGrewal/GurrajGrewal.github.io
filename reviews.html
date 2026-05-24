@@ -286,27 +286,45 @@
          * never bleeds into the banner area.
          * A separate inner scroll div handles the body content only.
          */
-<div class="review-modal-panel">
+        .review-modal-panel {
+            position: relative;
+            z-index: 1;
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 580px;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.8);
+        }
 
-    <div class="modal-banner">
-        <img class="modal-art" id="modalArt" src="" alt="">
-    </div>
+        /* Banner — fixed height, never scrolls */
+        .modal-banner {
+            width: 100%;
+            height: 200px;
+            flex-shrink: 0;
+            overflow: hidden;
+            position: relative;
+        }
 
-    <!-- cover now outside scrolling area -->
-    <img class="modal-thumb" id="modalThumb" src="" alt="">
+        .modal-art {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            filter: brightness(0.5);
+        }
 
-    <button class="modal-close" onclick="closeReview()">×</button>
-
-    <div class="modal-scroll">
-        <div class="modal-body">
-
-            <div class="modal-titles">
-                <h2 class="modal-album" id="modalAlbum"></h2>
-
-                <button class="modal-artist-link"
-                        id="modalArtist"
-                        onclick="filterByArtistFromModal()"></button>
-            </div>
+        /* Scrollable body — scrollbar stays here, not on panel */
+        .modal-scroll {
+            overflow-y: auto;
+            overflow-x: hidden;
+            flex: 1;
+        }
 
         .modal-scroll::-webkit-scrollbar { width: 4px; }
         .modal-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
