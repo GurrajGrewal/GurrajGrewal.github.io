@@ -138,11 +138,7 @@
             color: rgba(255,255,255,0.7);
         }
 
-        .artist-header-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .artist-header-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
         .artist-header-info h2 { font-size: 20px; font-weight: 600; margin: 0 0 2px 0; }
         .artist-header-info p  { font-size: 12px; color: rgba(255,255,255,0.35); margin: 0; }
@@ -189,10 +185,22 @@
 
         .review-card:hover { transform: translateY(-3px); }
         .review-card:hover .review-thumb { box-shadow: 0 12px 30px rgba(0,0,0,0.6); }
-
-        /* Unreviewed card — dimmed */
         .review-card.unreviewed { opacity: 0.45; }
         .review-card.unreviewed:hover { opacity: 0.7; transform: translateY(-2px); }
+        .review-card.upcoming .review-thumb::after {
+            content: "UPCOMING";
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(0,0,0,0.7);
+            color: rgba(255,255,255,0.6);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
 
         .review-thumb {
             width: 100%;
@@ -207,7 +215,7 @@
 
         .review-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* ── SCORE BADGE — bottom centre, colour-coded ── */
+        /* score badge — bottom centre */
         .review-score {
             position: absolute;
             bottom: 8px;
@@ -272,6 +280,12 @@
             backdrop-filter: blur(16px);
         }
 
+        /*
+         * FIX: scrollbar removed from panel entirely.
+         * The panel itself is overflow:hidden so the scrollbar
+         * never bleeds into the banner area.
+         * A separate inner scroll div handles the body content only.
+         */
         .review-modal-panel {
             position: relative;
             z-index: 1;
@@ -281,22 +295,19 @@
             width: 90%;
             max-width: 580px;
             max-height: 90vh;
-            overflow-y: auto;
-            overflow-x: hidden;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
             box-shadow: 0 32px 80px rgba(0,0,0,0.8);
         }
 
-        .review-modal-panel::-webkit-scrollbar { width: 4px; }
-        .review-modal-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
-
-        /* FIX: banner fills full width with no gap */
+        /* Banner — fixed height, never scrolls */
         .modal-banner {
             width: 100%;
             height: 200px;
+            flex-shrink: 0;
             overflow: hidden;
             position: relative;
-            flex-shrink: 0;
-            display: block;
         }
 
         .modal-art {
@@ -308,12 +319,22 @@
             filter: brightness(0.5);
         }
 
+        /* Scrollable body — scrollbar stays here, not on panel */
+        .modal-scroll {
+            overflow-y: auto;
+            overflow-x: hidden;
+            flex: 1;
+        }
+
+        .modal-scroll::-webkit-scrollbar { width: 4px; }
+        .modal-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
         .modal-body {
             padding: 24px 28px 32px;
             position: relative;
         }
 
-        /* FIX: border removed, opacity near-zero */
+        /* border near-transparent */
         .modal-thumb {
             width: 90px;
             height: 90px;
@@ -347,7 +368,6 @@
         .modal-close:hover { background: rgba(255,255,255,0.18); }
 
         .modal-titles { margin-top: 52px; }
-
         .modal-album { font-size: 20px; font-weight: 600; margin: 0 0 4px 0; }
 
         .modal-artist-link {
@@ -396,7 +416,6 @@
 
         .modal-notes { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.6); }
 
-        /* ── TRACK LIST ── */
         .modal-tracks-title {
             font-size: 11px;
             font-weight: 600;
@@ -460,7 +479,6 @@
 
         .modal-date { font-size: 11px; color: rgba(255,255,255,0.2); margin-top: 16px; }
 
-        /* ── EMPTY STATE ── */
         .empty-state {
             display: none;
             flex-direction: column;
@@ -476,7 +494,6 @@
         .empty-state span { font-size: 36px; }
         .empty-state p { font-size: 14px; margin: 0; }
 
-        /* ── RESPONSIVE ── */
         @media (max-width: 860px) {
             .reviews-page { padding: 90px 24px 60px; }
             .reviews-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
@@ -496,7 +513,6 @@
             <img src="logo-big-tran.png" alt="Logo">
         </a>
     </div>
-
     <ul class="nav-center">
         <li><a href="home.html">HOME</a></li>
         <li><a href="releases.html">RELEASES</a></li>
@@ -534,7 +550,7 @@
         <button class="artist-back" onclick="clearArtistFilter()">← All Reviews</button>
     </div>
 
-    <div class="section-label" id="sectionLabel">Recent Uploads</div>
+    <div class="section-label" id="sectionLabel">Albums by Release Date</div>
     <div class="reviews-grid" id="reviewsGrid"></div>
 
     <div class="empty-state" id="emptyState">
@@ -551,22 +567,24 @@
         <div class="modal-banner">
             <img class="modal-art" id="modalArt" src="" alt="">
         </div>
-        <div class="modal-body">
-            <img class="modal-thumb" id="modalThumb" src="" alt="">
-            <button class="modal-close" onclick="closeReview()">×</button>
-            <div class="modal-titles">
-                <h2 class="modal-album" id="modalAlbum"></h2>
-                <button class="modal-artist-link" id="modalArtist" onclick="filterByArtistFromModal()"></button>
+        <div class="modal-scroll">
+            <div class="modal-body">
+                <img class="modal-thumb" id="modalThumb" src="" alt="">
+                <button class="modal-close" onclick="closeReview()">×</button>
+                <div class="modal-titles">
+                    <h2 class="modal-album" id="modalAlbum"></h2>
+                    <button class="modal-artist-link" id="modalArtist" onclick="filterByArtistFromModal()"></button>
+                </div>
+                <div class="modal-score-row">
+                    <div class="modal-score-badge" id="modalScoreBadge"></div>
+                    <div class="modal-score-label" id="modalScoreLabel">out of 10</div>
+                </div>
+                <div class="modal-divider"></div>
+                <p class="modal-notes" id="modalNotes"></p>
+                <div id="modalTracksSection"></div>
+                <div class="modal-tags" id="modalTags"></div>
+                <p class="modal-date" id="modalDate"></p>
             </div>
-            <div class="modal-score-row">
-                <div class="modal-score-badge" id="modalScoreBadge"></div>
-                <div class="modal-score-label" id="modalScoreLabel">out of 10</div>
-            </div>
-            <div class="modal-divider"></div>
-            <p class="modal-notes" id="modalNotes"></p>
-            <div id="modalTracksSection"></div>
-            <div class="modal-tags" id="modalTags"></div>
-            <p class="modal-date" id="modalDate"></p>
         </div>
     </div>
 </div>
@@ -585,9 +603,7 @@ function scoreColor(score) {
 }
 
 /* ══════════════════════════════════════════════════════════
-   ARTIST DISCOGRAPHIES
-   Albums without a review entry still show in artist view.
-   score: null = not yet reviewed
+   ARTIST META
 ══════════════════════════════════════════════════════════ */
 const artistMeta = {
     "The Weeknd": {
@@ -608,14 +624,303 @@ const artistMeta = {
     },
     "Ariana Grande": {
         pfp: "https://i.scdn.co/image/ab6761610000101f766397ec42a573a53eb5fb87",
-        discography: ["ariana-sweetener"]
+        discography: [
+            "ariana-yourstruly", "ariana-myeverything", "ariana-dangerouswoman",
+            "ariana-sweetener", "ariana-thankunext", "ariana-positions",
+            "ariana-eternalsunshine", "ariana-petal"
+        ]
+    },
+    "Clipse": {
+        pfp: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8d/Let_God_Sort_Em_Out.jpg/250px-Let_God_Sort_Em_Out.jpg",
+        discography: ["clipse-lgse"]
+    },
+    "Kendrick Lamar": {
+        pfp: "https://upload.wikimedia.org/wikipedia/en/thumb/9/93/Kendrick_Lamar_-_GNX.png/250px-Kendrick_Lamar_-_GNX.png",
+        discography: ["kendrick-gnx"]
+    },
+    "Baby Keem": {
+        pfp: "https://upload.wikimedia.org/wikipedia/en/thumb/1/11/Baby_Keem_-_Casino.png/250px-Baby_Keem_-_Casino.png",
+        discography: ["babykeem-casino"]
     }
 };
 
 /* ══════════════════════════════════════════════════════════
-   REVIEW DATA — newest first
+   REVIEWS — each has a releaseYear (number) for sorting
 ══════════════════════════════════════════════════════════ */
 const reviews = [
+
+    /* ── THE WEEKND ── */
+    {
+        id: "weeknd-hob",
+        album: "House Of Balloons",
+        artist: "The Weeknd",
+        cover: "https://i.pinimg.com/736x/4c/06/e8/4c06e87e24bca880f89e447daded968e.jpg",
+        banner: "https://i.pinimg.com/1200x/13/05/ab/1305abbb1e22a94f08365cd5db333ca8.jpg",
+        score: 9.0,
+        date: "March 2011",
+        releaseYear: 2011,
+        tags: ["R&B", "Alternative", "2011"],
+        notes: "",
+        tracks: [
+            { title: "High For This", score: 8.6 },
+            { title: "What You Need", score: 8.4 },
+            { title: "House Of Balloons / Glass Table Girls", score: 9.2 },
+            { title: "The Morning", score: 9.5 },
+            { title: "Wicked Games", score: 9.3 },
+            { title: "The Party & The After Party", score: 8.7 },
+            { title: "Coming Down", score: 9.1 },
+            { title: "Loft Music", score: 9.2 },
+            { title: "The Knowing", score: 9.3 },
+            { title: "Twenty Eight", score: 9.4 }
+        ]
+    },
+    {
+        id: "weeknd-thursday",
+        album: "Thursday",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/d/dd/The_Weeknd_-_Thursday.png/250px-The_Weeknd_-_Thursday.png",
+        banner: "https://i.pinimg.com/736x/a8/fc/5c/a8fc5c60f342a47da2df8cc2e49008ca.jpg",
+        score: 7.8,
+        date: "August 2011",
+        releaseYear: 2011,
+        tags: ["R&B", "Alternative", "2011"],
+        notes: "",
+        tracks: [
+            { title: "Lonely Star", score: 7.8 },
+            { title: "Life Of The Party", score: 8.1 },
+            { title: "Thursday", score: 7.6 },
+            { title: "The Zone (feat. Drake)", score: 8.7 },
+            { title: "The Birds Pt. 1", score: 8.6 },
+            { title: "The Birds Pt. 2", score: 8.9 },
+            { title: "Gone", score: 8.4 },
+            { title: "Rolling Stone", score: 8.6 },
+            { title: "Heaven Or Las Vegas", score: 7.3 },
+            { title: "Valerie", score: 8.8 }
+        ]
+    },
+    {
+        id: "weeknd-eos",
+        album: "Echoes Of Silence",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/3/34/The_Weeknd_-_Echoes_of_Silence.png/250px-The_Weeknd_-_Echoes_of_Silence.png",
+        banner: "https://i.pinimg.com/736x/69/1b/5b/691b5bd9268d1d285bdf32f11df3737d.jpg",
+        score: 6.9,
+        date: "December 2011",
+        releaseYear: 2011,
+        tags: ["R&B", "Alternative", "2011"],
+        notes: "",
+        tracks: [
+            { title: "D.D.", score: null },
+            { title: "Montreal", score: 7.4 },
+            { title: "Outside", score: 7.0 },
+            { title: "XO/The Host", score: 7.6 },
+            { title: "Initiation", score: 6.8 },
+            { title: "Same Old Song", score: 7.2 },
+            { title: "The Fall", score: 6.6 },
+            { title: "Next", score: 6.5 },
+            { title: "Echoes Of Silence", score: 6.9 },
+            { title: "Till Dawn (Here Comes The Sun)", score: 6.7 }
+        ]
+    },
+    {
+        id: "weeknd-kissland",
+        album: "Kiss Land",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/e/ed/The_Weeknd_-_Kiss_Land.png/250px-The_Weeknd_-_Kiss_Land.png",
+        banner: "https://i.pinimg.com/1200x/25/9a/e3/259ae395c127edc0f7d785f65453f49e.jpg",
+        score: 8.5,
+        date: "September 2013",
+        releaseYear: 2013,
+        tags: ["R&B", "2013"],
+        notes: "",
+        tracks: [
+            { title: "Professional", score: 8.7 },
+            { title: "The Town", score: 8.6 },
+            { title: "Adaptation", score: 7.8 },
+            { title: "Love In The Sky", score: 8.0 },
+            { title: "Belong To The World", score: 8.7 },
+            { title: "Live For (feat. Drake)", score: 6.9 },
+            { title: "Wanderlust", score: 8.9 },
+            { title: "Kiss Land", score: 9.3 },
+            { title: "Pretty", score: 8.5 },
+            { title: "Tears In The Rain", score: 8.6 }
+        ]
+    },
+    {
+        id: "weeknd-bbtm",
+        album: "Beauty Behind The Madness",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/b/bd/The_Weeknd_-_Beauty_Behind_the_Madness.png/250px-The_Weeknd_-_Beauty_Behind_the_Madness.png",
+        banner: "https://i.pinimg.com/736x/26/25/05/262505ea6dd187530ab3bf3be2a38141.jpg",
+        score: 7.8,
+        date: "August 2015",
+        releaseYear: 2015,
+        tags: ["R&B", "Pop", "2015"],
+        notes: "",
+        tracks: [
+            { title: "Real Life", score: 7.3 },
+            { title: "Losers", score: 6.9 },
+            { title: "Tell Your Friends", score: 7.6 },
+            { title: "Often", score: 7.9 },
+            { title: "The Hills", score: 8.1 },
+            { title: "Acquainted", score: 8.1 },
+            { title: "Can't Feel My Face", score: 8.7 },
+            { title: "Shameless", score: 8.0 },
+            { title: "Earned It (Fifty Shades Of Grey)", score: 8.2 },
+            { title: "In The Night", score: 8.1 },
+            { title: "As You Are", score: 8.4 },
+            { title: "Dark Times (feat. Ed Sheeran)", score: 6.6 },
+            { title: "Prisoner (feat. Lana Del Rey)", score: 7.9 },
+            { title: "Angel", score: 8.7 }
+        ]
+    },
+    {
+        id: "weeknd-starboy",
+        album: "Starboy",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/3/39/The_Weeknd_-_Starboy.png/250px-The_Weeknd_-_Starboy.png",
+        banner: "https://i.pinimg.com/1200x/e8/dd/30/e8dd3084fd96a445afed65019cae435e.jpg",
+        score: 7.6,
+        date: "November 2016",
+        releaseYear: 2016,
+        tags: ["R&B", "Pop", "2016"],
+        notes: "",
+        tracks: [
+            { title: "Starboy", score: 8.6 },
+            { title: "Party Monster", score: 8.2 },
+            { title: "False Alarm", score: 5.6 },
+            { title: "Reminder", score: 8.7 },
+            { title: "Rockin'", score: 7.5 },
+            { title: "Secrets", score: 8.1 },
+            { title: "True Colors", score: 7.7 },
+            { title: "Stargirl Interlude (feat. Lana Del Rey)", score: null },
+            { title: "Sidewalks (feat. Kendrick Lamar)", score: 8.5 },
+            { title: "Six Feet Under", score: 7.8 },
+            { title: "Love To Lay", score: 8.0 },
+            { title: "A Lonely Night", score: 8.7 },
+            { title: "Attention", score: 6.1 },
+            { title: "Ordinary Life", score: 6.4 },
+            { title: "Nothing Without You", score: 5.9 },
+            { title: "All I Know (feat. Future)", score: 7.6 },
+            { title: "Die For You", score: 9.3 },
+            { title: "I Feel It Coming", score: 8.5 }
+        ]
+    },
+    {
+        id: "weeknd-mdm",
+        album: "My Dear Melancholy,",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/4/4d/MyDearMelancholy_-_album_by_The_Weeknd.jpg/250px-MyDearMelancholy_-_album_by_The_Weeknd.jpg",
+        banner: "https://i.pinimg.com/736x/90/6f/0f/906f0fca1cfca46b101e2510f4e6fc3f.jpg",
+        score: 8.4,
+        date: "March 2018",
+        releaseYear: 2018,
+        tags: ["R&B", "2018"],
+        notes: "",
+        tracks: [
+            { title: "Call Out My Name", score: 9.3 },
+            { title: "Try Me", score: 8.9 },
+            { title: "Wasted Times", score: 8.7 },
+            { title: "I Was Never There", score: 8.7 },
+            { title: "Hurt You", score: 8.6 },
+            { title: "Privilege", score: 8.5 },
+            { title: "Call Out My Name - A Cappella", score: null }
+        ]
+    },
+    {
+        id: "weeknd-afterhours",
+        album: "After Hours",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/The_Weeknd_-_After_Hours.png/250px-The_Weeknd_-_After_Hours.png",
+        banner: "https://i.pinimg.com/1200x/82/4d/a1/824da1dd743f5f54633fe5645a6bac28.jpg",
+        score: 9.0,
+        date: "March 2020",
+        releaseYear: 2020,
+        tags: ["R&B", "Synth-Pop", "2020"],
+        notes: "",
+        tracks: [
+            { title: "Alone Again", score: 9.5 },
+            { title: "Too Late", score: 8.7 },
+            { title: "Hardest To Love", score: 8.9 },
+            { title: "Scared To Live", score: 8.6 },
+            { title: "Snowchild", score: 9.5 },
+            { title: "Escape From LA", score: 8.1 },
+            { title: "Heartless", score: 8.9 },
+            { title: "Faith", score: 9.5 },
+            { title: "Blinding Lights", score: 9.6 },
+            { title: "In Your Eyes", score: 8.0 },
+            { title: "Save Your Tears", score: 9.3 },
+            { title: "Repeat After Me (Interlude)", score: null },
+            { title: "After Hours", score: 9.6 },
+            { title: "Until I Bleed Out", score: 8.6 }
+        ]
+    },
+    {
+        id: "weeknd-dawnfm",
+        album: "Dawn FM",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/The_Weeknd_-_Dawn_FM.png/250px-The_Weeknd_-_Dawn_FM.png",
+        banner: "https://i.pinimg.com/1200x/5d/72/18/5d72188d72826eedb6bc998dafdeecb6.jpg",
+        score: 8.1,
+        date: "January 2022",
+        releaseYear: 2022,
+        tags: ["R&B", "Synth-Pop", "2022"],
+        notes: "",
+        tracks: [
+            { title: "Dawn FM", score: 7.8 },
+            { title: "Gasoline", score: 8.4 },
+            { title: "How Do I Make You Love Me?", score: 8.0 },
+            { title: "Take My Breath", score: 8.1 },
+            { title: "Sacrifice", score: 8.5 },
+            { title: "A Tale By Quincy", score: null },
+            { title: "Out of Time", score: 8.9 },
+            { title: "Here We Go... Again (feat. Tyler, The Creator)", score: 8.3 },
+            { title: "Best Friends", score: 6.4 },
+            { title: "Is There Someone Else?", score: 8.6 },
+            { title: "Starry Eyes", score: 8.0 },
+            { title: "Every Angel Is Terrifying", score: null },
+            { title: "Don't Break My Heart", score: 7.7 },
+            { title: "I Heard You're Married (feat. Lil Wayne)", score: 7.6 },
+            { title: "Less Than Zero", score: 8.7 },
+            { title: "Phantom Regret by Jim", score: null }
+        ]
+    },
+    {
+        id: "weeknd-hut",
+        album: "Hurry Up Tomorrow",
+        artist: "The Weeknd",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/7/75/The_Weeknd_-_Hurry_Up_Tomorrow_%28alternative_cover%29.png/250px-The_Weeknd_-_Hurry_Up_Tomorrow_%28alternative_cover%29.png",
+        banner: "https://i.pinimg.com/736x/79/6e/72/796e72d6708730fc40efc4e3192f3094.jpg",
+        score: 8.6,
+        date: "January 2025",
+        releaseYear: 2025,
+        tags: ["R&B", "Pop", "2025"],
+        notes: "",
+        tracks: [
+            { title: "Wake Me Up (feat. Justice)", score: 8.9 },
+            { title: "Cry For Me", score: 8.3 },
+            { title: "I Can't Fucking Sing", score: null },
+            { title: "São Paulo (feat. Anitta)", score: 7.0 },
+            { title: "Until We're Skin & Bones", score: null },
+            { title: "Baptized In Fear", score: 8.7 },
+            { title: "Open Hearts", score: 7.9 },
+            { title: "Opening Night", score: 7.8 },
+            { title: "Reflections Laughing (feat. Travis Scott & Florence + The Machine)", score: 6.6 },
+            { title: "Enjoy The Show (feat. Future)", score: 9.2 },
+            { title: "Given Up On Me", score: 8.4 },
+            { title: "I Can't Wait To Get There", score: 8.7 },
+            { title: "Timeless (feat. Playboi Carti)", score: 8.7 },
+            { title: "Niagara Falls", score: 9.4 },
+            { title: "Take Me Back To LA", score: 8.8 },
+            { title: "Big Sleep", score: 9.3 },
+            { title: "Give Me Mercy", score: 7.4 },
+            { title: "Drive", score: 8.4 },
+            { title: "The Abyss (feat. Lana Del Rey)", score: 9.5 },
+            { title: "Red Terror", score: 9.0 },
+            { title: "Without a Warning", score: 8.8 },
+            { title: "Hurry Up Tomorrow", score: 8.9 }
+        ]
+    },
 
     /* ── DRAKE ── */
     {
@@ -624,14 +929,15 @@ const reviews = [
         artist: "Drake",
         cover: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c6/Drake_-_Iceman.jpg/250px-Drake_-_Iceman.jpg",
         banner: "https://consequence.net/wp-content/uploads/2026/05/drake-cn-tower-iceman.jpg?quality=80",
-        score: 6.0,
+        score: 5.9,
         date: "May 2026",
-        notes: "",
+        releaseYear: 2026,
         tags: ["Hip-Hop", "Rap", "2026"],
+        notes: "",
         tracks: [
-            { title: "Make Them Cry", score: 5.7 },
-            { title: "Dust", score: 6.8 },
-            { title: "Whisper My Name", score: 7.1 },
+            { title: "Make Them Cry", score: 6.4 },
+            { title: "Dust", score: 5.7 },
+            { title: "Whisper My Name", score: 5.8 },
             { title: "Janice STFU", score: 7.0 },
             { title: "Ran To Atlanta (feat. Future & Molly Santana)", score: 8.4 },
             { title: "Shabang", score: 5.0 },
@@ -639,28 +945,29 @@ const reviews = [
             { title: "Burning Bridges", score: 5.3 },
             { title: "National Treasures", score: 7.6 },
             { title: "B's On The Table (feat. 21 Savage)", score: 3.4 },
-            { title: "What Did I Miss?", score: 6.9 },
+            { title: "What Did I Miss?", score: 7.6 },
             { title: "Plot Twist", score: 5.4 },
-            { title: "2 Hard 4 The Radio", score: 6.4 },
+            { title: "2 Hard 4 The Radio", score: 6.8 },
             { title: "Make Them Remember", score: 6.5 },
             { title: "Little Birdie", score: 2.9 },
             { title: "Don't Worry", score: 4.2 },
             { title: "Firm Friends", score: 5.3 },
-            { title: "Make Them Know", score: 6.3 }
+            { title: "Make Them Know", score: 6.7 }
         ]
     },
 
     /* ── A$AP ROCKY ── */
     {
         id: "rocky-dbd",
-        album: "DON'T BE DUMB",
+        album: "Don't Be Dumb",
         artist: "A$AP Rocky",
         cover: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d6/A%24AP_Rocky_-_Don%27t_Be_Dumb.png/250px-A%24AP_Rocky_-_Don%27t_Be_Dumb.png",
         banner: "https://i.pinimg.com/1200x/e2/20/33/e22033ae007be7953cc3191af3b50379.jpg",
         score: 7.3,
-        date: "January 2026",
+        date: "2024",
+        releaseYear: 2024,
+        tags: ["Hip-Hop", "Rap", "2024"],
         notes: "",
-        tags: ["Hip-Hop", "Rap", "2026"],
         tracks: [
             { title: "ORDER OF PROTECTION", score: 7.1 },
             { title: "HELICOPTER", score: 7.4 },
@@ -687,15 +994,102 @@ const reviews = [
 
     /* ── ARIANA GRANDE ── */
     {
+        id: "ariana-yourstruly",
+        album: "Yours Truly",
+        artist: "Ariana Grande",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cb/Ariana_Grande_-_Yours_Truly.png/250px-Ariana_Grande_-_Yours_Truly.png",
+        banner: "https://i.pinimg.com/736x/a0/76/21/a0762105e6d7c4afd4946bdadb0ad08c.jpg",
+        score: 8.2,
+        date: "2013",
+        releaseYear: 2013,
+        tags: ["Pop", "R&B", "2013"],
+        notes: "",
+        tracks: [
+            { title: "Honeymoon Avenue", score: 9.2 },
+            { title: "Baby I", score: 8.4 },
+            { title: "Right There (feat. Big Sean)", score: 8.5 },
+            { title: "Tattooed Heart", score: 9.1 },
+            { title: "Lovin' It", score: 8.2 },
+            { title: "Piano", score: 7.3 },
+            { title: "Daydreamin'", score: 8.3 },
+            { title: "The Way (feat. Mac Miller)", score: 8.7 },
+            { title: "You'll Never Know", score: 7.5 },
+            { title: "Almost Is Never Enough (feat. Nathan Sykes)", score: 8.6 },
+            { title: "Popular Song (with MIKA)", score: 7.0 },
+            { title: "Better Left Unsaid", score: 7.9 }
+        ]
+    },
+    {
+        id: "ariana-myeverything",
+        album: "My Everything",
+        artist: "Ariana Grande",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Ariana_Grande_My_Everything_2014_album_artwork.png/250px-Ariana_Grande_My_Everything_2014_album_artwork.png",
+        banner: "https://i.pinimg.com/1200x/de/8d/a6/de8da6264f0b1f947f70975657fa0660.jpg",
+        score: 8.1,
+        date: "2014",
+        releaseYear: 2014,
+        tags: ["Pop", "R&B", "2014"],
+        notes: "",
+        tracks: [
+            { title: "Intro", score: 8.0 },
+            { title: "Problem (feat. Iggy Azalea)", score: 6.4 },
+            { title: "One Last Time", score: 8.7 },
+            { title: "Why Try", score: 8.6 },
+            { title: "Break Free (feat. Zedd)", score: 7.9 },
+            { title: "Best Mistake (feat. Big Sean)", score: 7.3 },
+            { title: "Be My Baby (feat. Cashmere Cat)", score: 8.3 },
+            { title: "Break Your Heart Right Back (feat. Childish Gambino)", score: 8.5 },
+            { title: "Love Me Harder (feat. The Weeknd)", score: 8.9 },
+            { title: "Just A Little Bit Of Your Heart", score: 8.6 },
+            { title: "Hands On Me (feat. A$AP Ferg)", score: 7.2 },
+            { title: "My Everything", score: 9.0 },
+            { title: "Bang Bang (with Jessie J & Nicki Minaj)", score: 6.8 },
+            { title: "Only 1", score: 7.9 },
+            { title: "You Don't Know Me", score: 7.6 }
+        ]
+    },
+    {
+        id: "ariana-dangerouswoman",
+        album: "Dangerous Woman",
+        artist: "Ariana Grande",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/Ariana_Grande_-_Dangerous_Woman_%28Official_Album_Cover%29.png/250px-Ariana_Grande_-_Dangerous_Woman_%28Official_Album_Cover%29.png",
+        banner: "https://i.pinimg.com/1200x/d5/77/df/d577df0498a470ceef3fbe8f8888264c.jpg",
+        score: 8.0,
+        date: "2016",
+        releaseYear: 2016,
+        tags: ["Pop", "R&B", "2016"],
+        notes: "",
+        tracks: [
+            { title: "Moonlight", score: 7.6 },
+            { title: "Dangerous Woman", score: 8.5 },
+            { title: "Be Alright", score: 5.8 },
+            { title: "Into You", score: 9.0 },
+            { title: "Side To Side (feat. Nicki Minaj)", score: 8.8 },
+            { title: "Let Me Love You (feat. Lil Wayne)", score: 8.6 },
+            { title: "Greedy", score: 8.8 },
+            { title: "Leave Me Lonely (feat. Macy Gray)", score: 7.3 },
+            { title: "Everyday (feat. Future)", score: 8.1 },
+            { title: "Sometimes", score: 7.4 },
+            { title: "I Don't Care", score: 7.2 },
+            { title: "Bad Decisions", score: 8.3 },
+            { title: "Touch It", score: 8.2 },
+            { title: "Knew Better / Forever Boy", score: 8.7 },
+            { title: "Thinking Bout You", score: 7.8 },
+            { title: "Step On Up", score: 8.2 },
+            { title: "Jason's Song (Gave It Away)", score: 7.5 }
+        ]
+    },
+    {
         id: "ariana-sweetener",
         album: "Sweetener",
         artist: "Ariana Grande",
-        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Sweetener_album_cover.png/250px-Sweetener_album_cover.png",
-        banner: "https://i.pinimg.com/736x/41/e9/cb/41e9cbfbe1b2660dc3a532256c862f65.jpg",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Ariana_Grande_-_Sweetener_%28Official_Album_Cover%29.png/250px-Ariana_Grande_-_Sweetener_%28Official_Album_Cover%29.png",
+        banner: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Ariana_Grande_-_Sweetener_%28Official_Album_Cover%29.png/250px-Ariana_Grande_-_Sweetener_%28Official_Album_Cover%29.png",
         score: 7.6,
-        date: "August 2018",
-        notes: "",
+        date: "2018",
+        releaseYear: 2018,
         tags: ["Pop", "R&B", "2018"],
+        notes: "",
         tracks: [
             { title: "raindrops (an angel cried)", score: null },
             { title: "blazed (feat. Pharrell Williams)", score: 7.0 },
@@ -714,267 +1108,183 @@ const reviews = [
             { title: "get well soon", score: 6.9 }
         ]
     },
-
-    /* ── THE WEEKND ── */
     {
-        id: "weeknd-hut",
-        album: "Hurry Up Tomorrow",
-        artist: "The Weeknd",
-        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/7/75/The_Weeknd_-_Hurry_Up_Tomorrow_%28alternative_cover%29.png/250px-The_Weeknd_-_Hurry_Up_Tomorrow_%28alternative_cover%29.png",
-        banner: "https://i.pinimg.com/736x/79/6e/72/796e72d6708730fc40efc4e3192f3094.jpg",
-        score: 8.6,
-        date: "January 2025",
+        id: "ariana-thankunext",
+        album: "thank u, next",
+        artist: "Ariana Grande",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/d/dd/Thank_U%2C_Next_album_cover.png/250px-Thank_U%2C_Next_album_cover.png",
+        banner: "https://i.pinimg.com/736x/6c/f1/b9/6cf1b9b4b9c8202fb2a9b10042d964eb.jpg",
+        score: 7.9,
+        date: "2019",
+        releaseYear: 2019,
+        tags: ["Pop", "R&B", "2019"],
         notes: "",
-        tags: ["R&B", "Pop", "2025"],
         tracks: [
-            { title: "Wake Me Up (feat. Justice)", score: 8.9 },
-            { title: "Cry For Me", score: 8.3 },
-            { title: "I Can't Fucking Sing", score: null },
-            { title: "São Paulo (feat. Anitta)", score: 7.0 },
-            { title: "Until We're Skin & Bones", score: null },
-            { title: "Baptized In Fear", score: 8.7 },
-            { title: "Open Hearts", score: 7.9 },
-            { title: "Opening Night", score: 7.8 },
-            { title: "Reflections Laughing (feat. Travis Scott & Florence + The Machine)", score: 6.6 },
-            { title: "Enjoy The Show (feat. Future)", score: 9.2 },
-            { title: "Given Up On Me", score: 8.4 },
-            { title: "I Can't Wait To Get There", score: 8.7 },
-            { title: "Timeless (feat. Playboi Carti)", score: 8.7 },
-            { title: "Niagara Falls", score: 9.4 },
-            { title: "Take Me Back To LA", score: 8.8 },
-            { title: "Big Sleep", score: 9.3 },
-            { title: "Give Me Mercy", score: 7.4 },
-            { title: "Drive", score: 8.4 },
-            { title: "The Abyss (feat. Lana Del Rey)", score: 9.5 },
-            { title: "Red Terror", score: 9.0 },
-            { title: "Without a Warning", score: 8.8 },
-            { title: "Hurry Up Tomorrow", score: 8.9 }
+            { title: "imagine", score: 7.7 },
+            { title: "needy", score: 8.0 },
+            { title: "NASA", score: 7.2 },
+            { title: "bloodline", score: 8.7 },
+            { title: "fake smile", score: 7.8 },
+            { title: "bad idea", score: 7.4 },
+            { title: "make up", score: 7.0 },
+            { title: "ghostin", score: 8.3 },
+            { title: "in my head", score: 8.1 },
+            { title: "7 rings", score: 8.0 },
+            { title: "thank u, next", score: 7.6 },
+            { title: "break up with your girlfriend, i'm bored", score: 8.3 }
         ]
     },
     {
-        id: "weeknd-dawnfm",
-        album: "Dawn FM",
-        artist: "The Weeknd",
-        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/The_Weeknd_-_Dawn_FM.png/250px-The_Weeknd_-_Dawn_FM.png",
-        banner: "https://i.pinimg.com/1200x/5d/72/18/5d72188d72826eedb6bc998dafdeecb6.jpg",
+        id: "ariana-positions",
+        album: "Positions",
+        artist: "Ariana Grande",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a0/Ariana_Grande_-_Positions.png/250px-Ariana_Grande_-_Positions.png",
+        banner: "https://i.pinimg.com/736x/a0/63/71/a06371d7dfd1b3495e8fee55a706cf2b.jpg",
+        score: 7.2,
+        date: "2020",
+        releaseYear: 2020,
+        tags: ["Pop", "R&B", "2020"],
+        notes: "",
+        tracks: [
+            { title: "shut up", score: 6.6 },
+            { title: "34+45", score: 7.4 },
+            { title: "motive (with Doja Cat)", score: 6.9 },
+            { title: "just like magic", score: 6.8 },
+            { title: "off the table (with The Weeknd)", score: 8.0 },
+            { title: "six thirty", score: 6.7 },
+            { title: "safety net (feat. Ty Dolla $ign)", score: 7.0 },
+            { title: "my hair", score: 7.0 },
+            { title: "nasty", score: 7.5 },
+            { title: "west side", score: 7.3 },
+            { title: "love language", score: 7.4 },
+            { title: "positions", score: 7.0 },
+            { title: "obvious", score: 7.4 },
+            { title: "pov", score: 8.9 }
+        ]
+    },
+    {
+        id: "ariana-eternalsunshine",
+        album: "eternal sunshine",
+        artist: "Ariana Grande",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7e/Ariana_Grande_-_Eternal_Sunshine.png/250px-Ariana_Grande_-_Eternal_Sunshine.png",
+        banner: "https://i.pinimg.com/736x/9b/e8/3d/9be83dd25c81e472feded2935f944b97.jpg",
         score: 8.1,
-        date: "January 2022",
+        date: "2024",
+        releaseYear: 2024,
+        tags: ["Pop", "R&B", "2024"],
         notes: "",
-        tags: ["R&B", "Synth-Pop", "2022"],
         tracks: [
-            { title: "Dawn FM", score: 7.8 },
-            { title: "Gasoline", score: 8.4 },
-            { title: "How Do I Make You Love Me?", score: 8.0 },
-            { title: "Take My Breath", score: 8.1 },
-            { title: "Sacrifice", score: 8.5 },
-            { title: "A Tale By Quincy", score: null },
-            { title: "Out of Time", score: 8.9 },
-            { title: "Here We Go... Again (feat. Tyler, The Creator)", score: 8.3 },
-            { title: "Best Friends", score: 6.4 },
-            { title: "Is There Someone Else?", score: 8.6 },
-            { title: "Starry Eyes", score: 8.0 },
-            { title: "Every Angel Is Terrifying", score: null },
-            { title: "Don't Break My Heart", score: 7.7 },
-            { title: "I Heard You're Married (feat. Lil Wayne)", score: 7.6 },
-            { title: "Less Than Zero", score: 8.7 },
-            { title: "Phantom Regret by Jim", score: null }
+            { title: "intro (end of the world)", score: 7.9 },
+            { title: "bye", score: 8.1 },
+            { title: "don't wanna break up again", score: 8.2 },
+            { title: "Saturn Returns (Interlude)", score: null },
+            { title: "eternal sunshine", score: 8.3 },
+            { title: "supernatural", score: 8.0 },
+            { title: "true story", score: 8.3 },
+            { title: "the boy is mine", score: 7.5 },
+            { title: "yes, and?", score: 7.7 },
+            { title: "we can't be friends (wait for your love)", score: 8.4 },
+            { title: "i wish i hated you", score: 8.2 },
+            { title: "imperfect for you", score: 7.9 },
+            { title: "ordinary things (feat. Nonna)", score: 7.3 }
         ]
     },
     {
-        id: "weeknd-afterhours",
-        album: "After Hours",
-        artist: "The Weeknd",
-        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/The_Weeknd_-_After_Hours.png/250px-The_Weeknd_-_After_Hours.png",
-        banner: "https://i.pinimg.com/1200x/82/4d/a1/824da1dd743f5f54633fe5645a6bac28.jpg",
-        score: 9.0,
-        date: "March 2020",
+        id: "ariana-petal",
+        album: "petal",
+        artist: "Ariana Grande",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/3/3e/Ariana_Grande_-_Petal.png/250px-Ariana_Grande_-_Petal.png",
+        banner: "https://i.pinimg.com/736x/90/f9/f1/90f9f18417c0f8a37625f84dcef6b1cb.jpg",
+        score: null,
+        date: "Upcoming",
+        releaseYear: 2099,
+        upcoming: true,
+        tags: ["Pop"],
         notes: "",
-        tags: ["R&B", "Synth-Pop", "2020"],
+        tracks: []
+    },
+
+    /* ── CLIPSE ── */
+    {
+        id: "clipse-lgse",
+        album: "Let God Sort Em Out",
+        artist: "Clipse",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8d/Let_God_Sort_Em_Out.jpg/250px-Let_God_Sort_Em_Out.jpg",
+        banner: "https://i.pinimg.com/736x/1b/df/2f/1bdf2f5d1901f0d2e290d8bba7f9889b.jpg",
+        score: 8.7,
+        date: "2025",
+        releaseYear: 2025,
+        tags: ["Hip-Hop", "Rap", "2025"],
+        notes: "",
         tracks: [
-            { title: "Alone Again", score: 9.5 },
-            { title: "Too Late", score: 8.7 },
-            { title: "Hardest To Love", score: 8.9 },
-            { title: "Scared To Live", score: 8.6 },
-            { title: "Snowchild", score: 9.5 },
-            { title: "Escape From LA", score: 8.1 },
-            { title: "Heartless", score: 8.9 },
-            { title: "Faith", score: 9.5 },
-            { title: "Blinding Lights", score: 9.6 },
-            { title: "In Your Eyes", score: 8.0 },
-            { title: "Save Your Tears", score: 9.3 },
-            { title: "Repeat After Me (Interlude)", score: null },
-            { title: "After Hours", score: 9.6 },
-            { title: "Until I Bleed Out", score: 8.6 }
+            { title: "The Birds Don't Sing (feat. John Legend & Voices of Fire)", score: 8.9 },
+            { title: "Chains & Whips (feat. Kendrick Lamar)", score: 9.3 },
+            { title: "P.O.V. (feat. Tyler, The Creator)", score: 8.7 },
+            { title: "So Be It", score: 8.4 },
+            { title: "Ace Trumpets", score: 8.8 },
+            { title: "All Things Considered (feat. Pharrell Williams & THE-DREAM)", score: 8.5 },
+            { title: "M.T.B.T.T.F.", score: 9.1 },
+            { title: "E.B.I.T.D.A. (feat. Pharrell Williams)", score: 8.0 },
+            { title: "F.I.C.O. (feat. Stove God Cooks)", score: 8.4 },
+            { title: "Inglorious Bastards (feat. Ab Liva)", score: 8.7 },
+            { title: "So Far Ahead (feat. Pharrell Williams)", score: 8.6 },
+            { title: "Let God Sort Em Out/Chandeliers (feat. Nas)", score: 9.1 },
+            { title: "By The Grace Of God (feat. Pharrell Williams)", score: 8.8 }
         ]
     },
+
+    /* ── KENDRICK LAMAR ── */
     {
-        id: "weeknd-mdm",
-        album: "My Dear Melancholy,",
-        artist: "The Weeknd",
-        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/4/4d/MyDearMelancholy_-_album_by_The_Weeknd.jpg/250px-MyDearMelancholy_-_album_by_The_Weeknd.jpg",
-        banner: "https://i.pinimg.com/736x/90/6f/0f/906f0fca1cfca46b101e2510f4e6fc3f.jpg",
+        id: "kendrick-gnx",
+        album: "GNX",
+        artist: "Kendrick Lamar",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/9/93/Kendrick_Lamar_-_GNX.png/250px-Kendrick_Lamar_-_GNX.png",
+        banner: "https://i.pinimg.com/736x/53/f9/95/53f9959ed4a1b22795475e7e575dde5c.jpg",
         score: 8.4,
-        date: "March 2018",
+        date: "2024",
+        releaseYear: 2024,
+        tags: ["Hip-Hop", "Rap", "2024"],
         notes: "",
-        tags: ["R&B", "2018"],
         tracks: [
-            { title: "Call Out My Name", score: 9.3 },
-            { title: "Try Me", score: 8.9 },
-            { title: "Wasted Times", score: 8.7 },
-            { title: "I Was Never There", score: 8.7 },
-            { title: "Hurt You", score: 8.6 },
-            { title: "Privilege", score: 8.5 },
-            { title: "Call Out My Name - A Cappella", score: null }
+            { title: "wacced out murals", score: 8.6 },
+            { title: "squabble up", score: 8.4 },
+            { title: "luther (with sza)", score: 9.5 },
+            { title: "man at the garden", score: 8.7 },
+            { title: "hey now (feat. dody6)", score: 8.5 },
+            { title: "reincarnated", score: 8.4 },
+            { title: "tv off (feat. lefty gunplay)", score: 8.3 },
+            { title: "dodger blue (feat. wallei the sensei, siete7x & roddy ricch)", score: 8.6 },
+            { title: "peekaboo (feat. azchike)", score: 8.1 },
+            { title: "heart pt. 6", score: 9.6 },
+            { title: "gnx (feat. hitta j3, youngthreat & peysoh)", score: 7.1 },
+            { title: "gloria (with sza)", score: 8.2 }
         ]
     },
+
+    /* ── BABY KEEM ── */
     {
-        id: "weeknd-starboy",
-        album: "Starboy",
-        artist: "The Weeknd",
-        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/3/39/The_Weeknd_-_Starboy.png/250px-The_Weeknd_-_Starboy.png",
-        banner: "https://i.pinimg.com/1200x/e8/dd/30/e8dd3084fd96a445afed65019cae435e.jpg",
-        score: 7.6,
-        date: "November 2016",
+        id: "babykeem-casino",
+        album: "Ca$ino",
+        artist: "Baby Keem",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/1/11/Baby_Keem_-_Casino.png/250px-Baby_Keem_-_Casino.png",
+        banner: "https://i.pinimg.com/736x/7d/75/8d/7d758d86e3e95425aa4e645728db6c7a.jpg",
+        score: 7.9,
+        date: "2025",
+        releaseYear: 2025,
+        tags: ["Hip-Hop", "Rap", "2025"],
         notes: "",
-        tags: ["R&B", "Pop", "2016"],
         tracks: [
-            { title: "Starboy", score: 8.6 },
-            { title: "Party Monster", score: 8.2 },
-            { title: "False Alarm", score: 5.6 },
-            { title: "Reminder", score: 8.7 },
-            { title: "Rockin'", score: 7.5 },
-            { title: "Secrets", score: 8.1 },
-            { title: "True Colors", score: 7.7 },
-            { title: "Stargirl Interlude (feat. Lana Del Rey)", score: null },
-            { title: "Sidewalks (feat. Kendrick Lamar)", score: 8.5 },
-            { title: "Six Feet Under", score: 7.8 },
-            { title: "Love To Lay", score: 8.0 },
-            { title: "A Lonely Night", score: 8.7 },
-            { title: "Attention", score: 6.1 },
-            { title: "Ordinary Life", score: 6.4 },
-            { title: "Nothing Without You", score: 5.9 },
-            { title: "All I Know (feat. Future)", score: 7.6 },
-            { title: "Die For You", score: 9.3 },
-            { title: "I Feel It Coming", score: 8.5 }
-        ]
-    },
-    {
-        id: "weeknd-bbtm",
-        album: "Beauty Behind The Madness",
-        artist: "The Weeknd",
-        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/b/bd/The_Weeknd_-_Beauty_Behind_the_Madness.png/250px-The_Weeknd_-_Beauty_Behind_the_Madness.png",
-        banner: "https://i.pinimg.com/736x/26/25/05/262505ea6dd187530ab3bf3be2a38141.jpg",
-        score: 7.8,
-        date: "August 2015",
-        notes: "",
-        tags: ["R&B", "Pop", "2015"],
-        tracks: [
-            { title: "Real Life", score: 7.3 },
-            { title: "Losers", score: 6.9 },
-            { title: "Tell Your Friends", score: 7.6 },
-            { title: "Often", score: 7.9 },
-            { title: "The Hills", score: 8.1 },
-            { title: "Acquainted", score: 8.1 },
-            { title: "Can't Feel My Face", score: 8.7 },
-            { title: "Shameless", score: 8.0 },
-            { title: "Earned It (Fifty Shades Of Grey)", score: 8.2 },
-            { title: "In The Night", score: 8.1 },
-            { title: "As You Are", score: 8.4 },
-            { title: "Dark Times (feat. Ed Sheeran)", score: 6.6 },
-            { title: "Prisoner (feat. Lana Del Rey)", score: 7.9 },
-            { title: "Angel", score: 8.7 }
-        ]
-    },
-    {
-        id: "weeknd-kissland",
-        album: "Kiss Land",
-        artist: "The Weeknd",
-        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/e/ed/The_Weeknd_-_Kiss_Land.png/250px-The_Weeknd_-_Kiss_Land.png",
-        banner: "https://i.pinimg.com/1200x/25/9a/e3/259ae395c127edc0f7d785f65453f49e.jpg",
-        score: 8.5,
-        date: "September 2013",
-        notes: "",
-        tags: ["R&B", "2013"],
-        tracks: [
-            { title: "Professional", score: 8.7 },
-            { title: "The Town", score: 8.6 },
-            { title: "Adaptation", score: 7.8 },
-            { title: "Love In The Sky", score: 8.0 },
-            { title: "Belong To The World", score: 8.7 },
-            { title: "Live For (feat. Drake)", score: 6.9 },
-            { title: "Wanderlust", score: 8.9 },
-            { title: "Kiss Land", score: 9.3 },
-            { title: "Pretty", score: 8.5 },
-            { title: "Tears In The Rain", score: 8.6 }
-        ]
-    },
-    {
-                id: "weeknd-eos",
-        album: "Echoes Of Silence",
-        artist: "The Weeknd",
-        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/3/34/The_Weeknd_-_Echoes_of_Silence.png/250px-The_Weeknd_-_Echoes_of_Silence.png",
-        banner: "https://i.pinimg.com/736x/69/1b/5b/691b5bd9268d1d285bdf32f11df3737d.jpg",
-        score: 6.9,
-        date: "December 2011",
-        notes: "",
-        tags: ["R&B", "Alternative", "2011"],
-        tracks: [
-            { title: "D.D.", score: null },
-            { title: "Montreal", score: 7.4 },
-            { title: "Outside", score: 7.0 },
-            { title: "XO/The Host", score: 7.6 },
-            { title: "Initiation", score: 6.8 },
-            { title: "Same Old Song", score: 7.2 },
-            { title: "The Fall", score: 6.6 },
-            { title: "Next", score: 6.5 },
-            { title: "Echoes Of Silence", score: 6.9 },
-            { title: "Till Dawn (Here Comes The Sun)", score: 6.7 }
-        ]
-    },
-    {
-        id: "weeknd-thursday",
-        album: "Thursday",
-        artist: "The Weeknd",
-        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/d/dd/The_Weeknd_-_Thursday.png/250px-The_Weeknd_-_Thursday.png",
-        banner: "https://i.pinimg.com/736x/a8/fc/5c/a8fc5c60f342a47da2df8cc2e49008ca.jpg",
-        score: 7.8,
-        date: "August 2011",
-        notes: "",
-        tags: ["R&B", "Alternative", "2011"],
-        tracks: [
-            { title: "Lonely Star", score: 7.8 },
-            { title: "Life Of The Party", score: 8.1 },
-            { title: "Thursday", score: 7.6 },
-            { title: "The Zone (feat. Drake)", score: 8.7 },
-            { title: "The Birds Pt. 1", score: 8.6 },
-            { title: "The Birds Pt. 2", score: 8.9 },
-            { title: "Gone", score: 8.4 },
-            { title: "Rolling Stone", score: 8.6 },
-            { title: "Heaven Or Las Vegas", score: 7.3 },
-            { title: "Valerie", score: 8.8 }
-        ]
-    },
-    {
-        id: "weeknd-hob",
-        album: "House Of Balloons",
-        artist: "The Weeknd",
-        cover: "https://i.pinimg.com/736x/4c/06/e8/4c06e87e24bca880f89e447daded968e.jpg",
-        banner: "https://i.pinimg.com/1200x/13/05/ab/1305abbb1e22a94f08365cd5db333ca8.jpg",
-        score: 9.0,
-        date: "March 2011",
-        notes: "",
-        tags: ["R&B", "Alternative", "2011"],
-        tracks: [
-            { title: "High For This", score: 8.6 },
-            { title: "What You Need", score: 8.4 },
-            { title: "House Of Balloons / Glass Table Girls", score: 9.2 },
-            { title: "The Morning", score: 9.5 },
-            { title: "Wicked Games", score: 9.3 },
-            { title: "The Party & The After Party", score: 8.7 },
-            { title: "Coming Down", score: 9.1 },
-            { title: "Loft Music", score: 9.2 },
-            { title: "The Knowing", score: 9.3 },
-            { title: "Twenty Eight", score: 9.4 }
+            { title: "No Security", score: 8.4 },
+            { title: "Ca$ino", score: 8.7 },
+            { title: "Birds & the Bees", score: 7.3 },
+            { title: "Good Flirts (feat. Kendrick Lamar & Momo Boyd)", score: 7.5 },
+            { title: "House Money", score: 8.9 },
+            { title: "I am not a Lyricist", score: 8.6 },
+            { title: "$ex Appeal (feat. Too $hort)", score: 7.2 },
+            { title: "Highway 95 pt. 2", score: 7.8 },
+            { title: "Circus Circus Free$tyle", score: 8.3 },
+            { title: "Dramatic Girl (feat. Che Ecru)", score: 7.9 },
+            { title: "No Blame", score: 8.0 }
         ]
     }
 ];
@@ -990,26 +1300,35 @@ let activeModalId = null;
    HELPERS
 ══════════════════════════════════════════════════════════ */
 function getReviewedOnly() {
-    return reviews.filter(r => r.score !== null);
+    return reviews.filter(r => r.score !== null && !r.upcoming);
+}
+
+function sortByReleaseDate(list) {
+    return [...list].sort((a, b) => (b.releaseYear || 0) - (a.releaseYear || 0));
 }
 
 function getFiltered() {
-    // In artist view: show full discography in canonical order
     if (currentArtist) {
         const meta = artistMeta[currentArtist];
-        if (meta) {
-            return meta.discography
-                .map(id => reviews.find(r => r.id === id))
-                .filter(Boolean);
-        }
-        return reviews.filter(r => r.artist === currentArtist);
+        let list = meta
+            ? meta.discography.map(id => reviews.find(r => r.id === id)).filter(Boolean)
+            : reviews.filter(r => r.artist === currentArtist);
+
+        // Apply filter chips within artist view too
+        const reviewedInList = list.filter(r => r.score !== null && !r.upcoming);
+        if (currentFilter === "top")    return [...reviewedInList].sort((a,b) => b.score - a.score).concat(list.filter(r => r.score === null || r.upcoming));
+        if (currentFilter === "lowest") return [...reviewedInList].sort((a,b) => a.score - b.score).concat(list.filter(r => r.score === null || r.upcoming));
+        if (currentFilter === "recent") return sortByReleaseDate(list);
+        // "all" in artist view = canonical discography order (oldest first)
+        return list;
     }
 
-    // Normal view: only reviewed albums
+    // Global view — only reviewed albums
     let list = getReviewedOnly();
-    if (currentFilter === "top")    list = [...list].sort((a, b) => b.score - a.score);
-    if (currentFilter === "lowest") list = [...list].sort((a, b) => a.score - b.score);
-    return list;
+    if (currentFilter === "top")    return [...list].sort((a, b) => b.score - a.score);
+    if (currentFilter === "lowest") return [...list].sort((a, b) => a.score - b.score);
+    // "all" and "recent" both sort by release date (newest first)
+    return sortByReleaseDate(list);
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -1021,16 +1340,20 @@ function render() {
     const empty = document.getElementById("emptyState");
 
     grid.innerHTML = "";
-
     if (list.length === 0) { empty.classList.add("visible"); return; }
     empty.classList.remove("visible");
 
     list.forEach(r => {
         const card = document.createElement("div");
         const isUnreviewed = r.score === null || r.score === undefined;
-        card.className = "review-card" + (isUnreviewed ? " unreviewed" : "");
+        const isUpcoming   = !!r.upcoming;
 
-        const bg = isUnreviewed ? null : scoreColor(r.score);
+        let cls = "review-card";
+        if (isUpcoming)   cls += " upcoming unreviewed";
+        else if (isUnreviewed) cls += " unreviewed";
+        card.className = cls;
+
+        const bg         = isUnreviewed ? null : scoreColor(r.score);
         const badgeStyle = isUnreviewed ? "" : `style="background:${bg}"`;
         const badgeClass = isUnreviewed ? "review-score no-rating" : "review-score";
         const badgeText  = isUnreviewed ? "—" : r.score.toFixed(1);
@@ -1056,9 +1379,14 @@ function render() {
         ? `${list.length} album${list.length !== 1 ? "s" : ""} · ${currentArtist}`
         : `${reviewedCount} review${reviewedCount !== 1 ? "s" : ""}`;
 
-    const labelMap = { all: "Recent Uploads", recent: "Recent Uploads", top: "Highest Rated", lowest: "Lowest Rated" };
+    const labelMap = {
+        all:    "Albums by Release Date",
+        recent: "Albums by Release Date",
+        top:    "Highest Rated",
+        lowest: "Lowest Rated"
+    };
     document.getElementById("sectionLabel").textContent = currentArtist
-        ? `${currentArtist} — Discography`
+        ? `${currentArtist} — ${currentFilter === "top" ? "Highest Rated" : currentFilter === "lowest" ? "Lowest Rated" : "Discography"}`
         : labelMap[currentFilter];
 }
 
@@ -1076,17 +1404,14 @@ function filterByArtist(artist, e) {
     if (e) e.stopPropagation();
     currentArtist = artist;
 
-    const meta = artistMeta[artist];
+    const meta     = artistMeta[artist];
     const avatarEl = document.getElementById("artistAvatar");
+    avatarEl.innerHTML = (meta && meta.pfp)
+        ? `<img src="${meta.pfp}" alt="${artist}">`
+        : artist.charAt(0).toUpperCase();
 
-    if (meta && meta.pfp) {
-        avatarEl.innerHTML = `<img src="${meta.pfp}" alt="${artist}">`;
-    } else {
-        avatarEl.innerHTML = artist.charAt(0).toUpperCase();
-    }
-
-    const discCount  = meta ? meta.discography.length : reviews.filter(r => r.artist === artist).length;
-    const revCount   = reviews.filter(r => r.artist === artist && r.score !== null).length;
+    const discCount = meta ? meta.discography.length : reviews.filter(r => r.artist === artist).length;
+    const revCount  = reviews.filter(r => r.artist === artist && r.score !== null && !r.upcoming).length;
 
     document.getElementById("artistHeaderName").textContent  = artist;
     document.getElementById("artistHeaderCount").textContent = `${revCount} reviewed · ${discCount} total`;
@@ -1110,34 +1435,30 @@ function openReview(id) {
 
     const isUnreviewed = r.score === null || r.score === undefined;
 
-    // Banner — use dedicated banner if available, else cover
-    document.getElementById("modalArt").src   = r.banner || r.cover;
-    document.getElementById("modalThumb").src = r.cover;
-    document.getElementById("modalAlbum").textContent  = r.album;
-    document.getElementById("modalArtist").textContent = r.artist;
-    document.getElementById("modalNotes").textContent  = r.notes || "";
-    document.getElementById("modalDate").textContent   = r.date ? `${r.date}` : "";
+    document.getElementById("modalArt").src                   = r.banner || r.cover;
+    document.getElementById("modalThumb").src                 = r.cover;
+    document.getElementById("modalAlbum").textContent         = r.album;
+    document.getElementById("modalArtist").textContent        = r.artist;
+    document.getElementById("modalNotes").textContent         = r.notes || "";
+    document.getElementById("modalDate").textContent          = r.date || "";
 
-    // Score badge
     const badge = document.getElementById("modalScoreBadge");
     const label = document.getElementById("modalScoreLabel");
     if (isUnreviewed) {
-        badge.textContent = "Not Reviewed";
-        badge.className   = "modal-score-badge no-rating";
+        badge.textContent      = r.upcoming ? "Upcoming" : "Not Reviewed";
+        badge.className        = "modal-score-badge no-rating";
         badge.style.background = "";
-        label.style.display = "none";
+        label.style.display    = "none";
     } else {
-        badge.textContent = r.score.toFixed(1);
-        badge.className   = "modal-score-badge";
+        badge.textContent      = r.score.toFixed(1);
+        badge.className        = "modal-score-badge";
         badge.style.background = scoreColor(r.score);
-        label.style.display = "";
+        label.style.display    = "";
     }
 
-    // Tags
     document.getElementById("modalTags").innerHTML =
         (r.tags || []).map(t => `<span class="modal-tag">${t}</span>`).join("");
 
-    // Tracks
     const tracksSection = document.getElementById("modalTracksSection");
     if (r.tracks && r.tracks.length > 0) {
         tracksSection.innerHTML = `
@@ -1147,13 +1468,13 @@ function openReview(id) {
         `;
         const tGrid = tracksSection.querySelector("#tracksGrid");
         r.tracks.forEach((t, i) => {
-            const row = document.createElement("div");
-            row.className = "track-row";
+            const row       = document.createElement("div");
+            row.className   = "track-row";
             const noScore   = t.score === null || t.score === undefined;
             const tileClass = noScore ? "track-tile unrated" : "track-tile";
             const tileText  = noScore ? "—" : t.score.toFixed(1);
             const tileBg    = noScore ? "" : `style="background:${scoreColor(t.score)}"`;
-            row.innerHTML = `
+            row.innerHTML   = `
                 <span class="track-num">${i + 1}</span>
                 <span class="track-name">${t.title}</span>
                 <div class="${tileClass}" ${tileBg}>${tileText}</div>
@@ -1165,8 +1486,7 @@ function openReview(id) {
     }
 
     document.getElementById("reviewModal").classList.add("open");
-    // scroll panel back to top
-    document.querySelector(".review-modal-panel").scrollTop = 0;
+    document.querySelector(".modal-scroll").scrollTop = 0;
 }
 
 function closeReview() {
