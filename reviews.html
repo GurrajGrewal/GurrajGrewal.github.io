@@ -280,12 +280,7 @@
             backdrop-filter: blur(16px);
         }
 
-        /*
-         * FIX: scrollbar removed from panel entirely.
-         * The panel itself is overflow:hidden so the scrollbar
-         * never bleeds into the banner area.
-         * A separate inner scroll div handles the body content only.
-         */
+        /* Panel: flex column, overflow hidden so nothing bleeds out */
         .review-modal-panel {
             position: relative;
             z-index: 1;
@@ -301,7 +296,7 @@
             box-shadow: 0 32px 80px rgba(0,0,0,0.8);
         }
 
-        /* Banner — fixed height, never scrolls */
+        /* Banner — fixed height, never scrolls, stays at top of panel */
         .modal-banner {
             width: 100%;
             height: 200px;
@@ -319,35 +314,27 @@
             filter: brightness(0.5);
         }
 
-        /* Scrollable body — scrollbar stays here, not on panel */
-        .modal-scroll {
-            overflow-y: auto;
-            overflow-x: hidden;
-            flex: 1;
+        /*
+         * Thumbnail sits OUTSIDE the scroll div, as a sibling to the banner.
+         * It is absolutely positioned relative to the panel, straddling
+         * the banner / scroll boundary.  z-index keeps it above both.
+         */
+        .modal-thumb {
+            position: absolute;
+            /* 200px banner height minus half the thumb height (90/2=45) = 155px */
+            top: 155px;
+            left: 28px;
+            width: 90px;
+            height: 90px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 3px solid #111;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+            z-index: 10;
+            flex-shrink: 0;
         }
 
-        .modal-scroll::-webkit-scrollbar { width: 4px; }
-        .modal-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
-
-.modal-body {
-    padding: 24px 28px 32px;
-    position: relative;
-    z-index: 2;
-}
-
-.modal-thumb {
-    width: 90px;
-    height: 90px;
-    border-radius: 10px;
-    object-fit: cover;
-    position: absolute;
-    top: -45px;
-    left: 28px;
-    border: 3px solid rgba(17,17,17,0.08);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-    z-index: 5;
-}
-
+        /* Close button — anchored to panel top-right, always visible */
         .modal-close {
             position: absolute;
             top: 14px;
@@ -364,11 +351,27 @@
             align-items: center;
             justify-content: center;
             transition: background 0.2s;
+            z-index: 20;
         }
 
         .modal-close:hover { background: rgba(255,255,255,0.18); }
 
-        .modal-titles { margin-top: 52px; }
+        /* Scrollable body — only this div scrolls */
+        .modal-scroll {
+            overflow-y: auto;
+            overflow-x: hidden;
+            flex: 1;
+        }
+
+        .modal-scroll::-webkit-scrollbar { width: 4px; }
+        .modal-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
+        .modal-body {
+            /* top padding = thumb half that hangs below banner (45px) + gap (16px) */
+            padding: 61px 28px 32px;
+        }
+
+        .modal-titles { margin-bottom: 0; }
         .modal-album { font-size: 20px; font-weight: 600; margin: 0 0 4px 0; }
 
         .modal-artist-link {
@@ -565,13 +568,21 @@
 <div class="review-modal" id="reviewModal">
     <div class="review-modal-backdrop" onclick="closeReview()"></div>
     <div class="review-modal-panel">
+
+        <!-- Banner: stays fixed at top, never scrolls -->
         <div class="modal-banner">
             <img class="modal-art" id="modalArt" src="" alt="">
         </div>
+
+        <!-- Thumbnail: absolutely positioned on the panel, straddles banner/scroll boundary -->
+        <img class="modal-thumb" id="modalThumb" src="" alt="">
+
+        <!-- Close button: anchored to panel, always visible -->
+        <button class="modal-close" onclick="closeReview()">×</button>
+
+        <!-- Only this div scrolls -->
         <div class="modal-scroll">
             <div class="modal-body">
-                <img class="modal-thumb" id="modalThumb" src="" alt="">
-                <button class="modal-close" onclick="closeReview()">×</button>
                 <div class="modal-titles">
                     <h2 class="modal-album" id="modalAlbum"></h2>
                     <button class="modal-artist-link" id="modalArtist" onclick="filterByArtistFromModal()"></button>
@@ -587,6 +598,7 @@
                 <p class="modal-date" id="modalDate"></p>
             </div>
         </div>
+
     </div>
 </div>
 
@@ -646,7 +658,7 @@ const artistMeta = {
 };
 
 /* ══════════════════════════════════════════════════════════
-   REVIEWS — each has a releaseYear (number) for sorting
+   REVIEWS
 ══════════════════════════════════════════════════════════ */
 const reviews = [
 
@@ -1315,20 +1327,16 @@ function getFiltered() {
             ? meta.discography.map(id => reviews.find(r => r.id === id)).filter(Boolean)
             : reviews.filter(r => r.artist === currentArtist);
 
-        // Apply filter chips within artist view too
         const reviewedInList = list.filter(r => r.score !== null && !r.upcoming);
         if (currentFilter === "top")    return [...reviewedInList].sort((a,b) => b.score - a.score).concat(list.filter(r => r.score === null || r.upcoming));
         if (currentFilter === "lowest") return [...reviewedInList].sort((a,b) => a.score - b.score).concat(list.filter(r => r.score === null || r.upcoming));
         if (currentFilter === "recent") return sortByReleaseDate(list);
-        // "all" in artist view = canonical discography order (oldest first)
         return list;
     }
 
-    // Global view — only reviewed albums
     let list = getReviewedOnly();
     if (currentFilter === "top")    return [...list].sort((a, b) => b.score - a.score);
     if (currentFilter === "lowest") return [...list].sort((a, b) => a.score - b.score);
-    // "all" and "recent" both sort by release date (newest first)
     return sortByReleaseDate(list);
 }
 
@@ -1350,7 +1358,7 @@ function render() {
         const isUpcoming   = !!r.upcoming;
 
         let cls = "review-card";
-        if (isUpcoming)   cls += " upcoming unreviewed";
+        if (isUpcoming)        cls += " upcoming unreviewed";
         else if (isUnreviewed) cls += " unreviewed";
         card.className = cls;
 
@@ -1436,12 +1444,12 @@ function openReview(id) {
 
     const isUnreviewed = r.score === null || r.score === undefined;
 
-    document.getElementById("modalArt").src                   = r.banner || r.cover;
-    document.getElementById("modalThumb").src                 = r.cover;
-    document.getElementById("modalAlbum").textContent         = r.album;
-    document.getElementById("modalArtist").textContent        = r.artist;
-    document.getElementById("modalNotes").textContent         = r.notes || "";
-    document.getElementById("modalDate").textContent          = r.date || "";
+    document.getElementById("modalArt").src            = r.banner || r.cover;
+    document.getElementById("modalThumb").src          = r.cover;
+    document.getElementById("modalAlbum").textContent  = r.album;
+    document.getElementById("modalArtist").textContent = r.artist;
+    document.getElementById("modalNotes").textContent  = r.notes || "";
+    document.getElementById("modalDate").textContent   = r.date || "";
 
     const badge = document.getElementById("modalScoreBadge");
     const label = document.getElementById("modalScoreLabel");
