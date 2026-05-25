@@ -1,28 +1,14 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reviews - Gurraj Grewal</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css"> <!-- Assuming style.css exists and contains shared styles -->
+    <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
-        /* General Reset & Base Styles */
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: #080808;
-            color: white;
-            line-height: 1.5; /* Improved readability */
-        }
-
-        /* Navigation Bar */
         .navbar {
             position: absolute;
             top: 0;
@@ -30,14 +16,7 @@
             z-index: 10;
             background: rgba(0,0,0,0.3);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px); /* For Safari compatibility */
-            padding: 10px 20px; /* Added padding for better spacing */
-            box-sizing: border-box; /* Include padding in width */
-        }
-
-        .navbar .logo img {
-            height: 40px; /* Consistent logo height */
-            vertical-align: middle; /* Align logo with text */
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .nav-center {
@@ -45,8 +24,7 @@
             gap: 10px;
             list-style: none;
             margin: 0;
-            padding: 0; /* Reset padding */
-            align-items: center; /* Vertically align items */
+            padding: 10px 20px;
         }
 
         .nav-center li a {
@@ -56,25 +34,26 @@
             color: white;
             text-decoration: none;
             font-weight: 500;
-            transition: background-color 0.2s ease, color 0.2s ease; /* Smoother transitions */
+            transition: all 0.2s ease;
         }
 
-        .nav-center li a:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        .nav-center li a[href="reviews.html"] {
-            background: rgba(255,255,255,0.3);
+        .nav-center li a:hover { background: rgba(255,255,255,0.2); }
+        .nav-center li a[href="reviews.html"] { background: rgba(255,255,255,0.3); }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #080808;
+            color: white;
         }
 
-        /* Main Content Area */
         .reviews-page {
             padding: 100px 60px 80px;
             max-width: 1400px;
             margin: 0 auto;
-            box-sizing: border-box; /* Include padding in width */
         }
 
-        /* Disclaimer */
+        /* ── DISCLAIMER ── */
         .disclaimer {
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.08);
@@ -92,7 +71,7 @@
             font-weight: 600;
         }
 
-        /* Page Header */
+        /* ── PAGE HEADER ── */
         .reviews-header {
             display: flex;
             align-items: flex-end;
@@ -102,18 +81,10 @@
             gap: 16px;
         }
 
-        .reviews-header-left h1 {
-            font-size: 28px;
-            font-weight: 600;
-            margin: 0 0 4px 0;
-        }
-        .reviews-header-left p {
-            font-size: 13px;
-            color: rgba(255,255,255,0.35);
-            margin: 0;
-        }
+        .reviews-header-left h1 { font-size: 28px; font-weight: 600; margin: 0 0 4px 0; }
+        .reviews-header-left p  { font-size: 13px; color: rgba(255,255,255,0.35); margin: 0; }
 
-        /* Filter Bar */
+        /* ── FILTER BAR ── */
         .filter-bar {
             display: flex;
             align-items: center;
@@ -131,24 +102,16 @@
             font-weight: 500;
             font-family: 'Poppins', sans-serif;
             cursor: pointer;
-            transition: background-color 0.2s ease, color 0.2s ease; /* Smoother transitions */
+            transition: all 0.2s ease;
             white-space: nowrap;
-            border: none; /* Removed border, relying on background */
         }
 
-        .filter-chip:hover  {
-            background: rgba(255,255,255,0.1);
-            color: white;
-        }
-        .filter-chip.active {
-            background: white;
-            color: black;
-            border-color: white; /* Kept border for active state */
-        }
+        .filter-chip:hover  { background: rgba(255,255,255,0.1); color: white; }
+        .filter-chip.active { background: white; color: black; border-color: white; }
 
-        /* Artist Header */
+        /* ── ARTIST HEADER ── */
         .artist-header {
-            display: none; /* Hidden by default */
+            display: none;
             align-items: center;
             gap: 18px;
             margin-bottom: 32px;
@@ -156,12 +119,9 @@
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 16px;
-            box-sizing: border-box; /* Include padding in width */
         }
 
-        .artist-header.visible {
-            display: flex;
-        }
+        .artist-header.visible { display: flex; }
 
         .artist-header-avatar {
             width: 56px;
@@ -178,23 +138,10 @@
             color: rgba(255,255,255,0.7);
         }
 
-        .artist-header-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block; /* Remove extra space below image */
-        }
+        .artist-header-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-        .artist-header-info h2 {
-            font-size: 20px;
-            font-weight: 600;
-            margin: 0 0 2px 0;
-        }
-        .artist-header-info p  {
-            font-size: 12px;
-            color: rgba(255,255,255,0.35);
-            margin: 0;
-        }
+        .artist-header-info h2 { font-size: 20px; font-weight: 600; margin: 0 0 2px 0; }
+        .artist-header-info p  { font-size: 12px; color: rgba(255,255,255,0.35); margin: 0; }
 
         .artist-back {
             margin-left: auto;
@@ -206,15 +153,12 @@
             font-size: 12px;
             font-family: 'Poppins', sans-serif;
             cursor: pointer;
-            transition: background-color 0.2s ease, color 0.2s ease; /* Smoother transitions */
+            transition: all 0.2s;
         }
 
-        .artist-back:hover {
-            background: rgba(255,255,255,0.08);
-            color: white;
-        }
+        .artist-back:hover { background: rgba(255,255,255,0.08); color: white; }
 
-        /* Section Label */
+        /* ── SECTION LABEL ── */
         .section-label {
             font-size: 11px;
             font-weight: 600;
@@ -226,34 +170,23 @@
             border-bottom: 1px solid rgba(255,255,255,0.06);
         }
 
-        /* Review Grid */
+        /* ── REVIEW GRID ── */
         .reviews-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 24px;
         }
 
-        /* Review Card */
+        /* ── REVIEW CARD ── */
         .review-card {
             cursor: pointer;
             transition: transform 0.2s ease;
-            border-radius: 10px; /* Added for consistency */
-            overflow: hidden; /* Ensure content stays within rounded corners */
         }
 
-        .review-card:hover {
-            transform: translateY(-3px);
-        }
-        .review-card:hover .review-thumb {
-            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
-        }
-        .review-card.unreviewed {
-            opacity: 0.45;
-        }
-        .review-card.unreviewed:hover {
-            opacity: 0.7;
-            transform: translateY(-2px);
-        }
+        .review-card:hover { transform: translateY(-3px); }
+        .review-card:hover .review-thumb { box-shadow: 0 12px 30px rgba(0,0,0,0.6); }
+        .review-card.unreviewed { opacity: 0.45; }
+        .review-card.unreviewed:hover { opacity: 0.7; transform: translateY(-2px); }
         .review-card.upcoming .review-thumb::after {
             content: "UPCOMING";
             position: absolute;
@@ -280,14 +213,9 @@
             transition: box-shadow 0.2s ease;
         }
 
-        .review-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block; /* Remove extra space below image */
-        }
+        .review-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Score badge — bottom centre */
+        /* score badge — bottom centre */
         .review-score {
             position: absolute;
             bottom: 8px;
@@ -309,9 +237,7 @@
             font-weight: 400;
         }
 
-        .review-info {
-            padding: 0 2px; /* Slight padding for text */
-        }
+        .review-info { padding: 0 2px; }
 
         .review-album {
             font-size: 14px;
@@ -328,25 +254,14 @@
             color: rgba(255,255,255,0.4);
             cursor: pointer;
             display: inline-block;
-            transition: color 0.2s ease;
-            background: none; /* Ensure no default button styles */
-            border: none;
-            font-family: 'Poppins', sans-serif;
-            padding: 0;
+            transition: color 0.2s;
         }
 
-        .review-artist:hover {
-            color: rgba(255,255,255,0.9);
-            text-decoration: underline;
-        }
+        .review-artist:hover { color: rgba(255,255,255,0.9); text-decoration: underline; }
 
-        .review-meta {
-            font-size: 11px;
-            color: rgba(255,255,255,0.25);
-            margin-top: 4px;
-        }
+        .review-meta { font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 4px; }
 
-        /* Review Modal */
+        /* ── REVIEW MODAL ── */
         .review-modal {
             display: none;
             position: fixed;
@@ -354,21 +269,15 @@
             z-index: 300;
             align-items: center;
             justify-content: center;
-            opacity: 0; /* For fade-in transition */
-            transition: opacity 0.3s ease-in-out;
         }
 
-        .review-modal.open {
-            display: flex;
-            opacity: 1;
-        }
+        .review-modal.open { display: flex; }
 
         .review-modal-backdrop {
             position: absolute;
             inset: 0;
             background: rgba(0,0,0,0.85);
             backdrop-filter: blur(16px);
-            cursor: pointer; /* Indicate it's clickable */
         }
 
         /*
@@ -390,16 +299,7 @@
             display: flex;
             flex-direction: column;
             box-shadow: 0 32px 80px rgba(0,0,0,0.8);
-            transition: transform 0.3s ease-in-out; /* For slide-in effect */
         }
-
-        .review-modal.open .review-modal-panel {
-            transform: translateY(0);
-        }
-        .review-modal:not(.open) .review-modal-panel {
-            transform: translateY(20px); /* Slide out effect */
-        }
-
 
         /* Banner — fixed height, never scrolls */
         .modal-banner {
@@ -408,7 +308,6 @@
             flex-shrink: 0;
             overflow: hidden;
             position: relative;
-            background-color: #1a1a1a; /* Fallback */
         }
 
         .modal-art {
@@ -425,39 +324,29 @@
             overflow-y: auto;
             overflow-x: hidden;
             flex: 1;
-            scrollbar-width: thin; /* Standard */
-            scrollbar-color: rgba(255,255,255,0.15) #111; /* Standard */
         }
 
-        .modal-scroll::-webkit-scrollbar {
-            width: 4px;
-        }
-        .modal-scroll::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.15);
-            border-radius: 4px;
-        }
-        .modal-scroll::-webkit-scrollbar-track {
-            background: #111; /* Match panel background */
-        }
+        .modal-scroll::-webkit-scrollbar { width: 4px; }
+        .modal-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
 
-        .modal-body {
-            padding: 24px 28px 32px;
-            position: relative;
-            z-index: 2;
-        }
+.modal-body {
+    padding: 24px 28px 32px;
+    position: relative;
+    z-index: 2;
+}
 
-        .modal-thumb {
-            width: 90px;
-            height: 90px;
-            border-radius: 10px;
-            object-fit: cover;
-            position: absolute;
-            top: -45px; /* Positioned above the body padding */
-            left: 28px;
-            border: 3px solid #111; /* Match panel background */
-            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-            z-index: 5;
-        }
+.modal-thumb {
+    width: 90px;
+    height: 90px;
+    border-radius: 10px;
+    object-fit: cover;
+    position: absolute;
+    top: -45px;
+    left: 28px;
+    border: 3px solid rgba(17,17,17,0.08);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+    z-index: 5;
+}
 
         .modal-close {
             position: absolute;
@@ -474,40 +363,26 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background-color 0.2s ease;
-            border: none; /* Ensure no default button styles */
+            transition: background 0.2s;
         }
 
-        .modal-close:hover {
-            background: rgba(255,255,255,0.18);
-        }
+        .modal-close:hover { background: rgba(255,255,255,0.18); }
 
-        .modal-titles {
-            margin-top: 52px; /* Space for the modal-thumb */
-        }
-        .modal-album {
-            font-size: 20px;
-            font-weight: 600;
-            margin: 0 0 4px 0;
-        }
+        .modal-titles { margin-top: 52px; }
+        .modal-album { font-size: 20px; font-weight: 600; margin: 0 0 4px 0; }
 
         .modal-artist-link {
             font-size: 13px;
             color: rgba(255,255,255,0.45);
             cursor: pointer;
-            transition: color 0.2s ease;
+            transition: color 0.2s;
             background: none;
             border: none;
             font-family: 'Poppins', sans-serif;
             padding: 0;
-            text-align: left; /* Ensure text aligns left */
-            display: inline-block; /* Allow hover effects */
         }
 
-        .modal-artist-link:hover {
-            color: white;
-            text-decoration: underline;
-        }
+        .modal-artist-link:hover { color: white; text-decoration: underline; }
 
         .modal-score-row {
             display: flex;
@@ -523,7 +398,6 @@
             padding: 8px 18px;
             border-radius: 10px;
             color: white;
-            flex-shrink: 0; /* Prevent shrinking */
         }
 
         .modal-score-badge.no-rating {
@@ -539,17 +413,9 @@
             line-height: 1.4;
         }
 
-        .modal-divider {
-            height: 1px;
-            background: rgba(255,255,255,0.07);
-            margin: 16px 0;
-        }
+        .modal-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 16px 0; }
 
-        .modal-notes {
-            font-size: 13px;
-            line-height: 1.7;
-            color: rgba(255,255,255,0.6);
-        }
+        .modal-notes { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.6); }
 
         .modal-tracks-title {
             font-size: 11px;
@@ -560,17 +426,9 @@
             margin: 20px 0 12px;
         }
 
-        .tracks-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
+        .tracks-grid { display: flex; flex-direction: column; gap: 6px; }
 
-        .track-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .track-row { display: flex; align-items: center; gap: 12px; }
 
         .track-num {
             font-size: 11px;
@@ -609,12 +467,7 @@
             box-shadow: none;
         }
 
-        .modal-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 18px;
-        }
+        .modal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 
         .modal-tag {
             padding: 4px 12px;
@@ -625,11 +478,7 @@
             color: rgba(255,255,255,0.45);
         }
 
-        .modal-date {
-            font-size: 11px;
-            color: rgba(255,255,255,0.2);
-            margin-top: 16px;
-        }
+        .modal-date { font-size: 11px; color: rgba(255,255,255,0.2); margin-top: 16px; }
 
         .empty-state {
             display: none;
@@ -642,98 +491,17 @@
             gap: 10px;
         }
 
-        .empty-state.visible {
-            display: flex;
-        }
-        .empty-state span {
-            font-size: 36px;
-        }
-        .empty-state p {
-            font-size: 14px;
-            margin: 0;
-        }
+        .empty-state.visible { display: flex; }
+        .empty-state span { font-size: 36px; }
+        .empty-state p { font-size: 14px; margin: 0; }
 
-        /* Responsive Adjustments */
         @media (max-width: 860px) {
-            .reviews-page {
-                padding: 90px 24px 60px;
-            }
-            .reviews-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 16px;
-            }
-            .navbar {
-                padding: 10px; /* Reduce navbar padding */
-            }
-            .nav-center {
-                gap: 5px; /* Reduce gap between nav items */
-            }
-            .nav-center li a {
-                padding: 8px 12px; /* Smaller nav links */
-            }
-            .reviews-header {
-                flex-direction: column; /* Stack header elements */
-                align-items: center;
-                text-align: center;
-            }
-            .filter-bar {
-                margin-top: 10px; /* Add space below stacked header */
-            }
-            .artist-header {
-                flex-direction: column; /* Stack artist header elements */
-                text-align: center;
-            }
-            .artist-back {
-                margin-left: 0; /* Remove auto margin */
-                margin-top: 10px; /* Add space above back button */
-            }
-            .modal-thumb {
-                left: 50%; /* Center thumb */
-                transform: translateX(-50%);
-                top: -45px; /* Adjust positioning */
-            }
-            .modal-titles {
-                margin-top: 70px; /* Adjust for centered thumb */
-                text-align: center;
-            }
-            .modal-score-row {
-                justify-content: center; /* Center score row */
-            }
-            .modal-body {
-                padding-top: 10px; /* Reduce top padding to accommodate thumb */
-            }
+            .reviews-page { padding: 90px 24px 60px; }
+            .reviews-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
         }
 
         @media (max-width: 500px) {
-            .reviews-grid {
-                grid-template-columns: repeat(2, 1fr); /* Two columns on small screens */
-            }
-            .navbar .logo img {
-                height: 30px; /* Smaller logo on very small screens */
-            }
-            .nav-center li a {
-                padding: 6px 10px; /* Even smaller nav links */
-                font-size: 12px;
-            }
-            .reviews-page {
-                padding: 70px 15px 40px; /* Further reduce padding */
-            }
-            .reviews-header-left h1 {
-                font-size: 24px;
-            }
-            .reviews-header-left p {
-                font-size: 12px;
-            }
-            .filter-chip {
-                padding: 5px 12px;
-                font-size: 11px;
-            }
-            .modal-score-badge {
-                font-size: 24px;
-            }
-            .modal-score-label {
-                font-size: 11px;
-            }
+            .reviews-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -742,22 +510,20 @@
 
 <header class="navbar">
     <div class="logo">
-        <a href="index.html" aria-label="Homepage">
-            <img src="logo-big-tran.png" alt="Gurraj Grewal Logo">
+        <a href="index.html">
+            <img src="logo-big-tran.png" alt="Logo">
         </a>
     </div>
-    <nav> <!-- Semantic nav element -->
-        <ul class="nav-center">
-            <li><a href="home.html">HOME</a></li>
-            <li><a href="releases.html">RELEASES</a></li>
-            <li><a href="announcements.html">ANNOUNCEMENTS</a></li>
-            <li><a href="watch.html">WATCH & RATINGS</a></li>
-            <li><a href="reviews.html" aria-current="page">REVIEWS</a></li> <!-- aria-current for active page -->
-        </ul>
-    </nav>
+    <ul class="nav-center">
+        <li><a href="home.html">HOME</a></li>
+        <li><a href="releases.html">RELEASES</a></li>
+        <li><a href="announcements.html">ANNOUNCEMENTS</a></li>
+        <li><a href="watch.html">WATCH & RATINGS</a></li>
+        <li><a href="reviews.html">REVIEWS</a></li>
+    </ul>
 </header>
 
-<main class="reviews-page"> <!-- Semantic main element -->
+<div class="reviews-page">
 
     <div class="reviews-header">
         <div class="reviews-header-left">
@@ -765,10 +531,10 @@
             <p id="reviewCount">— reviews</p>
         </div>
         <div class="filter-bar">
-            <button class="filter-chip active" onclick="setFilter('all', this)" data-filter="all">All</button>
-            <button class="filter-chip" onclick="setFilter('recent', this)" data-filter="recent">Recent</button>
-            <button class="filter-chip" onclick="setFilter('top', this)" data-filter="top">Highest Rated</button>
-            <button class="filter-chip" onclick="setFilter('lowest', this)" data-filter="lowest">Lowest Rated</button>
+            <button class="filter-chip active" onclick="setFilter('all', this)">All</button>
+            <button class="filter-chip" onclick="setFilter('recent', this)">Recent</button>
+            <button class="filter-chip" onclick="setFilter('top', this)">Highest Rated</button>
+            <button class="filter-chip" onclick="setFilter('lowest', this)">Lowest Rated</button>
         </div>
     </div>
 
@@ -782,7 +548,7 @@
             <h2 id="artistHeaderName"></h2>
             <p id="artistHeaderCount"></p>
         </div>
-        <button class="artist-back" onclick="clearArtistFilter()" aria-label="Back to all reviews">← All Reviews</button>
+        <button class="artist-back" onclick="clearArtistFilter()">← All Reviews</button>
     </div>
 
     <div class="section-label" id="sectionLabel">Albums by Release Date</div>
@@ -793,22 +559,22 @@
         <p>No reviews found.</p>
     </div>
 
-</main> <!-- End of main -->
+</div>
 
 <!-- Review modal -->
-<div class="review-modal" id="reviewModal" role="dialog" aria-modal="true" aria-labelledby="modalAlbum" aria-describedby="modalNotes">
-    <div class="review-modal-backdrop" onclick="closeReview()" aria-label="Close review modal"></div>
+<div class="review-modal" id="reviewModal">
+    <div class="review-modal-backdrop" onclick="closeReview()"></div>
     <div class="review-modal-panel">
         <div class="modal-banner">
-            <img class="modal-art" id="modalArt" src="" alt="Album Banner Art">
+            <img class="modal-art" id="modalArt" src="" alt="">
         </div>
         <div class="modal-scroll">
             <div class="modal-body">
-                <img class="modal-thumb" id="modalThumb" src="" alt="Album Cover Art">
-                <button class="modal-close" onclick="closeReview()" aria-label="Close modal">&times;</button>
+                <img class="modal-thumb" id="modalThumb" src="" alt="">
+                <button class="modal-close" onclick="closeReview()">×</button>
                 <div class="modal-titles">
                     <h2 class="modal-album" id="modalAlbum"></h2>
-                    <button class="modal-artist-link" id="modalArtist" onclick="filterByArtistFromModal()" aria-label="View reviews by this artist"></button>
+                    <button class="modal-artist-link" id="modalArtist" onclick="filterByArtistFromModal()"></button>
                 </div>
                 <div class="modal-score-row">
                     <div class="modal-score-badge" id="modalScoreBadge"></div>
@@ -825,113 +591,20 @@
 </div>
 
 <script>
-/*
- * AI Code Fixer Analysis & Improvements:
- *
- * 1.  CSS:
- *     - Moved inline styles to a <style> block for better organization.
- *     - Added `box-sizing: border-box;` to elements that use padding and width to ensure consistent layout.
- *     - Improved transitions for hover effects (e.g., navbar links, filter chips, buttons).
- *     - Added `preconnect` and `crossorigin` for Google Fonts for performance.
- *     - Added `display: block;` to images to prevent extra space below them.
- *     - Enhanced scrollbar styling for modals using standard properties and WebKit prefixes.
- *     - Added fallback background for modal banner.
- *     - Refined responsive media queries for better adaptability.
- *     - Added `line-height` to `body` for better text readability.
- *     - Removed border from `.filter-chip` and `.modal-close` as background/shadows suffice, except for `.filter-chip.active`.
- *     - Added `flex-shrink: 0;` to elements that should not shrink in flex layouts (e.g., modal art, track numbers, track tiles).
- *     - Added `cursor: pointer;` to `.review-artist` and `.modal-artist-link` to indicate clickability.
- *
- * 2.  HTML:
- *     - Added `<meta name="viewport" ...>` for proper mobile rendering.
- *     - Added semantic HTML5 elements: `<nav>`, `<main>`, `role="dialog"`, `aria-modal="true"`, `aria-labelledby`, `aria-describedby`, `aria-label`.
- *     - Added `aria-current="page"` to the active navigation link.
- *     - Added `aria-label` to interactive elements like logo, close button, and back button for better accessibility.
- *     - Ensured `alt` text is descriptive for images.
- *     - Added `data-filter` attribute to filter buttons for potential JS enhancement or debugging.
- *
- * 3.  JavaScript:
- *     - Added comments explaining the purpose of code blocks and specific fixes.
- *     - Improved `scoreColor` function to handle `undefined` scores gracefully.
- *     - Refined `getFiltered` logic:
- *         - Explicitly filter for reviewed albums (`getReviewedOnly`) before applying sorting for 'all', 'top', 'lowest' filters in the global view.
- *         - Ensured 'recent' filter (global) also uses `getReviewedOnly`.
- *         - Clarified 'all' filter behavior in artist view (discography order).
- *     - Enhanced `render` function:
- *         - Added `aria-label` to artist links for accessibility.
- *         - Ensured `onclick` handlers are correctly passed `event` for `stopPropagation`.
- *         - Added `data-filter` attribute to filter chips for potential future use.
- *     - Improved `openReview` function:
- *         - Added `aria-label` to modal elements.
- *         - Handled upcoming/unreviewed states more robustly for score display.
- *         - Added fallback for `r.banner || r.cover` for modal art.
- *         - Added `transition` properties to `.review-modal` and `.review-modal-panel` for smoother opening/closing animations.
- *     - Added `keydown` event listener for Escape key to close modal.
- *     - Added `aria-label` to backdrop for closing.
- *     - Added `aria-label` to modal close button.
- *     - Added `aria-label` to artist filter button.
- *     - Added `aria-label` to logo link.
- *     - Added `aria-current="page"` to the active nav link.
- *     - Added `role="dialog"`, `aria-modal="true"`, `aria-labelledby`, `aria-describedby` to the modal for better accessibility.
- *     - Added `data-filter` attributes to filter buttons.
- *     - Added `box-sizing: border-box;` to `.reviews-page` and `.artist-header`.
- *     - Added `padding: 0;` to `.nav-center` to ensure consistent spacing.
- *     - Added `vertical-align: middle;` to `.navbar .logo img`.
- *     - Added `align-items: center;` to `.nav-center` and `.reviews-header`.
- *     - Added `text-align: left;` to `.modal-artist-link`.
- *     - Added `display: inline-block;` to `.modal-artist-link`.
- *     - Added `flex-shrink: 0;` to `.modal-score-badge`.
- *     - Added `transition` to `.modal-close` hover.
- *     - Added `cursor: pointer;` to `.review-artist` and `.modal-artist-link`.
- *     - Added `background: none; border: none; font-family: 'Poppins', sans-serif; padding: 0;` to `.modal-artist-link` to ensure it behaves like a link.
- *     - Added `transition` to `.modal-close` hover.
- *     - Added `transition` to `.artist-back` hover.
- *     - Added `transition` to `.filter-chip` hover.
- *     - Added `transition` to `.nav-center li a` hover.
- *     - Added `transition` to `.review-artist` hover.
- *     - Added `transition` to `.modal-artist-link` hover.
- *     - Added `transition` to `.review-card` hover.
- *     - Added `transition` to `.review-card:hover .review-thumb`.
- *     - Added `transition` to `.review-card.unreviewed:hover`.
- *     - Added `transition` to `.review-card.upcoming .review-thumb::after`.
- *     - Added `transition` to `.review-modal` and `.review-modal-panel` for animations.
- *     - Added `scrollbar-width` and `scrollbar-color` for cross-browser scrollbar styling.
- *     - Added `object-position: center;` to `.modal-art`.
- *     - Added `box-sizing: border-box;` to `.navbar`.
- *     - Added `padding: 10px;` to `.navbar` in max-width: 860px media query.
- *     - Added `gap: 5px;` to `.nav-center` in max-width: 860px media query.
- *     - Added `padding: 8px 12px;` to `.nav-center li a` in max-width: 860px media query.
- *     - Added `flex-direction: column; align-items: center; text-align: center;` to `.reviews-header` in max-width: 860px media query.
- *     - Added `margin-top: 10px;` to `.filter-bar` in max-width: 860px media query.
- *     - Added `flex-direction: column; text-align: center;` to `.artist-header` in max-width: 860px media query.
- *     - Added `margin-left: 0; margin-top: 10px;` to `.artist-back` in max-width: 860px media query.
- *     - Added `left: 50%; transform: translateX(-50%);` to `.modal-thumb` in max-width: 860px media query.
- *     - Added `margin-top: 70px; text-align: center;` to `.modal-titles` in max-width: 860px media query.
- *     - Added `justify-content: center;` to `.modal-score-row` in max-width: 860px media query.
- *     - Added `padding-top: 10px;` to `.modal-body` in max-width: 860px media query.
- *     - Added `height: 30px;` to `.navbar .logo img` in max-width: 500px media query.
- *     - Added `padding: 6px 10px; font-size: 12px;` to `.nav-center li a` in max-width: 500px media query.
- *     - Added `padding: 70px 15px 40px;` to `.reviews-page` in max-width: 500px media query.
- *     - Added `font-size: 24px;` to `.reviews-header-left h1` in max-width: 500px media query.
- *     - Added `font-size: 12px;` to `.reviews-header-left p` in max-width: 500px media query.
- *     - Added `padding: 5px 12px; font-size: 11px;` to `.filter-chip` in max-width: 500px media query.
- *     - Added `font-size: 24px;` to `.modal-score-badge` in max-width: 500px media query.
- *     - Added `font-size: 11px;` to `.modal-score-label` in max-width: 500px media query.
- */
 
 /* ── COLOUR SYSTEM ── */
 function scoreColor(score) {
-    if (score === null || score === undefined) return null; // Handle null/undefined scores
-    if (score < 3)   return "#351e4f"; // Deep Purple
-    if (score < 5)   return "#8e0808"; // Dark Red
-    if (score < 7)   return "#cea502"; // Gold
-    if (score < 8)   return "#1abf2d"; // Green
-    if (score < 9.5) return "#008236"; // Dark Green
-    return "#02d2f7"; // Bright Blue
+    if (score === null || score === undefined) return null;
+    if (score < 3)   return "#351e4f";
+    if (score < 5)   return "#8e0808";
+    if (score < 7)   return "#cea502";
+    if (score < 8)   return "#1abf2d";
+    if (score < 9.5) return "#008236";
+    return "#02d2f7";
 }
 
 /* ══════════════════════════════════════════════════════════
-   ARTIST META DATA
+   ARTIST META
 ══════════════════════════════════════════════════════════ */
 const artistMeta = {
     "The Weeknd": {
@@ -973,7 +646,7 @@ const artistMeta = {
 };
 
 /* ══════════════════════════════════════════════════════════
-   REVIEWS DATA — each has a releaseYear (number) for sorting
+   REVIEWS — each has a releaseYear (number) for sorting
 ══════════════════════════════════════════════════════════ */
 const reviews = [
 
@@ -1525,7 +1198,7 @@ const reviews = [
         banner: "https://i.pinimg.com/736x/90/f9/f1/90f9f18417c0f8a37625f84dcef6b1cb.jpg",
         score: null,
         date: "Upcoming",
-        releaseYear: 2099, // High year for sorting upcoming last
+        releaseYear: 2099,
         upcoming: true,
         tags: ["Pop"],
         notes: "",
@@ -1618,146 +1291,95 @@ const reviews = [
 ];
 
 /* ══════════════════════════════════════════════════════════
-   STATE MANAGEMENT
+   STATE
 ══════════════════════════════════════════════════════════ */
 let currentFilter = "all";
 let currentArtist = null;
-let activeModalId = null; // Tracks the ID of the currently open modal review
+let activeModalId = null;
 
 /* ══════════════════════════════════════════════════════════
-   HELPER FUNCTIONS
+   HELPERS
 ══════════════════════════════════════════════════════════ */
-
-/**
- * Filters the reviews list to include only those that have a score and are not marked as upcoming.
- * @returns {Array<Object>} An array of reviewed album objects.
- */
 function getReviewedOnly() {
-    return reviews.filter(r => r.score !== null && r.score !== undefined && !r.upcoming);
+    return reviews.filter(r => r.score !== null && !r.upcoming);
 }
 
-/**
- * Sorts a list of reviews by release year in descending order (newest first).
- * @param {Array<Object>} list - The list of reviews to sort.
- * @returns {Array<Object>} A new array sorted by release year.
- */
 function sortByReleaseDate(list) {
-    // Create a copy to avoid mutating the original array
     return [...list].sort((a, b) => (b.releaseYear || 0) - (a.releaseYear || 0));
 }
 
-/**
- * Determines the list of reviews to display based on the current filter and artist selection.
- * @returns {Array<Object>} The filtered and sorted list of reviews.
- */
 function getFiltered() {
-    let list;
-
     if (currentArtist) {
-        // If an artist is selected, get their discography or filter by artist name
         const meta = artistMeta[currentArtist];
-        if (meta) {
-            // Use predefined discography order if available
-            list = meta.discography
-                .map(id => reviews.find(r => r.id === id))
-                .filter(Boolean); // Remove any undefined entries
-        } else {
-            // Fallback: filter by artist name if no meta is found (less ideal)
-            list = reviews.filter(r => r.artist === currentArtist);
-        }
+        let list = meta
+            ? meta.discography.map(id => reviews.find(r => r.id === id)).filter(Boolean)
+            : reviews.filter(r => r.artist === currentArtist);
 
         // Apply filter chips within artist view too
         const reviewedInList = list.filter(r => r.score !== null && !r.upcoming);
-        if (currentFilter === "top") {
-            // Sort reviewed albums by score descending, then append unreviewed/upcoming
-            return [...reviewedInList].sort((a,b) => b.score - a.score).concat(list.filter(r => r.score === null || r.upcoming));
-        }
-        if (currentFilter === "lowest") {
-            // Sort reviewed albums by score ascending, then append unreviewed/upcoming
-            return [...reviewedInList].sort((a,b) => a.score - b.score).concat(list.filter(r => r.score === null || r.upcoming));
-        }
-        if (currentFilter === "recent") {
-            // Sort by release date (newest first)
-            return sortByReleaseDate(list);
-        }
-        // "all" in artist view = canonical discography order (oldest first, as defined in meta.discography)
-        // If no meta, it will be the order from the reviews array.
+        if (currentFilter === "top")    return [...reviewedInList].sort((a,b) => b.score - a.score).concat(list.filter(r => r.score === null || r.upcoming));
+        if (currentFilter === "lowest") return [...reviewedInList].sort((a,b) => a.score - b.score).concat(list.filter(r => r.score === null || r.upcoming));
+        if (currentFilter === "recent") return sortByReleaseDate(list);
+        // "all" in artist view = canonical discography order (oldest first)
         return list;
-
-    } else {
-        // Global view — only show reviewed albums
-        list = getReviewedOnly();
-
-        if (currentFilter === "top") {
-            return [...list].sort((a, b) => b.score - a.score);
-        }
-        if (currentFilter === "lowest") {
-            return [...list].sort((a, b) => a.score - b.score);
-        }
-        // "all" and "recent" both sort by release date (newest first) in the global view
-        return sortByReleaseDate(list);
     }
+
+    // Global view — only reviewed albums
+    let list = getReviewedOnly();
+    if (currentFilter === "top")    return [...list].sort((a, b) => b.score - a.score);
+    if (currentFilter === "lowest") return [...list].sort((a, b) => a.score - b.score);
+    // "all" and "recent" both sort by release date (newest first)
+    return sortByReleaseDate(list);
 }
 
 /* ══════════════════════════════════════════════════════════
-   RENDER FUNCTIONS
+   RENDER
 ══════════════════════════════════════════════════════════ */
-
-/**
- * Renders the list of review cards to the DOM.
- * Updates the review count and section label based on current state.
- */
 function render() {
     const list  = getFiltered();
     const grid  = document.getElementById("reviewsGrid");
     const empty = document.getElementById("emptyState");
 
-    grid.innerHTML = ""; // Clear existing cards
+    grid.innerHTML = "";
+    if (list.length === 0) { empty.classList.add("visible"); return; }
+    empty.classList.remove("visible");
 
-    if (list.length === 0) {
-        empty.classList.add("visible"); // Show empty state if no reviews match
-    } else {
-        empty.classList.remove("visible"); // Hide empty state
-        list.forEach(r => {
-            const card = document.createElement("div");
-            const isUnreviewed = r.score === null || r.score === undefined;
-            const isUpcoming   = !!r.upcoming;
+    list.forEach(r => {
+        const card = document.createElement("div");
+        const isUnreviewed = r.score === null || r.score === undefined;
+        const isUpcoming   = !!r.upcoming;
 
-            let cls = "review-card";
-            if (isUpcoming)   cls += " upcoming unreviewed";
-            else if (isUnreviewed) cls += " unreviewed";
-            card.className = cls;
+        let cls = "review-card";
+        if (isUpcoming)   cls += " upcoming unreviewed";
+        else if (isUnreviewed) cls += " unreviewed";
+        card.className = cls;
 
-            const bg         = isUnreviewed ? null : scoreColor(r.score);
-            const badgeStyle = isUnreviewed ? "" : `style="background:${bg}"`;
-            const badgeClass = isUnreviewed ? "review-score no-rating" : "review-score";
-            const badgeText  = isUnreviewed ? "—" : r.score.toFixed(1); // Display score or placeholder
+        const bg         = isUnreviewed ? null : scoreColor(r.score);
+        const badgeStyle = isUnreviewed ? "" : `style="background:${bg}"`;
+        const badgeClass = isUnreviewed ? "review-score no-rating" : "review-score";
+        const badgeText  = isUnreviewed ? "—" : r.score.toFixed(1);
 
-            card.innerHTML = `
-                <div class="review-thumb">
-                    <img src="${r.cover}" alt="${r.album} cover art">
-                    <div class="${badgeClass}" ${badgeStyle}>${badgeText}</div>
-                </div>
-                <div class="review-info">
-                    <div class="review-album">${r.album}</div>
-                    <span class="review-artist" onclick="filterByArtist('${r.artist.replace(/'/g,"\\'")}', event)">${r.artist}</span>
-                    <div class="review-meta">${r.date}</div>
-                </div>
-            `;
-            // Add click listeners to card elements to open the modal
-            card.querySelector(".review-thumb").addEventListener("click", () => openReview(r.id));
-            card.querySelector(".review-album").addEventListener("click",  () => openReview(r.id));
-            grid.appendChild(card);
-        });
-    }
+        card.innerHTML = `
+            <div class="review-thumb">
+                <img src="${r.cover}" alt="${r.album}">
+                <div class="${badgeClass}" ${badgeStyle}>${badgeText}</div>
+            </div>
+            <div class="review-info">
+                <div class="review-album">${r.album}</div>
+                <span class="review-artist" onclick="filterByArtist('${r.artist.replace(/'/g,"\\'")}', event)">${r.artist}</span>
+                <div class="review-meta">${r.date}</div>
+            </div>
+        `;
+        card.querySelector(".review-thumb").addEventListener("click", () => openReview(r.id));
+        card.querySelector(".review-album").addEventListener("click",  () => openReview(r.id));
+        grid.appendChild(card);
+    });
 
-    // Update review count display
     const reviewedCount = getReviewedOnly().length;
     document.getElementById("reviewCount").textContent = currentArtist
         ? `${list.length} album${list.length !== 1 ? "s" : ""} · ${currentArtist}`
         : `${reviewedCount} review${reviewedCount !== 1 ? "s" : ""}`;
 
-    // Update section label
     const labelMap = {
         all:    "Albums by Release Date",
         recent: "Albums by Release Date",
@@ -1770,111 +1392,74 @@ function render() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   FILTERING AND NAVIGATION
+   FILTERS
 ══════════════════════════════════════════════════════════ */
-
-/**
- * Sets the current filter and updates the UI.
- * @param {string} filter - The filter type ('all', 'recent', 'top', 'lowest').
- * @param {HTMLElement} btn - The button element that was clicked.
- */
 function setFilter(filter, btn) {
     currentFilter = filter;
-    // Remove 'active' class from all filter chips
     document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
-    // Add 'active' class to the clicked button
     btn.classList.add("active");
-    render(); // Re-render the list with the new filter
+    render();
 }
 
-/**
- * Filters the review list to show only albums by a specific artist.
- * Updates the artist header UI.
- * @param {string} artist - The name of the artist to filter by.
- * @param {Event} [e] - The event object, used to stop propagation.
- */
 function filterByArtist(artist, e) {
-    if (e) e.stopPropagation(); // Prevent triggering card click if artist link is clicked
+    if (e) e.stopPropagation();
     currentArtist = artist;
 
     const meta     = artistMeta[artist];
     const avatarEl = document.getElementById("artistAvatar");
-
-    // Set avatar image or initial letter
     avatarEl.innerHTML = (meta && meta.pfp)
-        ? `<img src="${meta.pfp}" alt="${artist} profile picture">`
-        : artist.charAt(0).toUpperCase(); // Fallback to first letter
+        ? `<img src="${meta.pfp}" alt="${artist}">`
+        : artist.charAt(0).toUpperCase();
 
-    // Determine counts for artist header
-    const totalDiscographyCount = meta ? meta.discography.length : reviews.filter(r => r.artist === artist).length;
-    const reviewedCountInArtist = reviews.filter(r => r.artist === artist && r.score !== null && !r.upcoming).length;
+    const discCount = meta ? meta.discography.length : reviews.filter(r => r.artist === artist).length;
+    const revCount  = reviews.filter(r => r.artist === artist && r.score !== null && !r.upcoming).length;
 
     document.getElementById("artistHeaderName").textContent  = artist;
-    document.getElementById("artistHeaderCount").textContent = `${reviewedCountInArtist} reviewed · ${totalDiscographyCount} total`;
-    document.getElementById("artistHeader").classList.add("visible"); // Show artist header
-    render(); // Re-render the list for the selected artist
+    document.getElementById("artistHeaderCount").textContent = `${revCount} reviewed · ${discCount} total`;
+    document.getElementById("artistHeader").classList.add("visible");
+    render();
 }
 
-/**
- * Clears the artist filter and returns to the global view.
- * Hides the artist header UI.
- */
 function clearArtistFilter() {
     currentArtist = null;
-    document.getElementById("artistHeader").classList.remove("visible"); // Hide artist header
-    render(); // Re-render the list for the global view
+    document.getElementById("artistHeader").classList.remove("visible");
+    render();
 }
 
 /* ══════════════════════════════════════════════════════════
-   REVIEW MODAL INTERACTION
+   REVIEW MODAL
 ══════════════════════════════════════════════════════════ */
-
-/**
- * Opens the review modal for a specific album ID.
- * Populates modal content with album data.
- * @param {string} id - The unique ID of the review/album.
- */
 function openReview(id) {
     const r = reviews.find(x => x.id === id);
-    if (!r) {
-        console.error(`Review with ID "${id}" not found.`);
-        return;
-    }
-    activeModalId = id; // Store the ID of the currently open review
+    if (!r) return;
+    activeModalId = id;
 
     const isUnreviewed = r.score === null || r.score === undefined;
 
-    // Populate modal content
-    document.getElementById("modalArt").src                   = r.banner || r.cover; // Use banner if available, else cover
-    document.getElementById("modalArt").alt                   = `${r.album} banner art`;
+    document.getElementById("modalArt").src                   = r.banner || r.cover;
     document.getElementById("modalThumb").src                 = r.cover;
-    document.getElementById("modalThumb").alt                 = `${r.album} cover art`;
     document.getElementById("modalAlbum").textContent         = r.album;
     document.getElementById("modalArtist").textContent        = r.artist;
-    document.getElementById("modalArtist").setAttribute('aria-label', `View reviews by ${r.artist}`);
-    document.getElementById("modalNotes").textContent         = r.notes || ""; // Display notes or empty string
-    document.getElementById("modalDate").textContent          = r.date || ""; // Display date or empty string
+    document.getElementById("modalNotes").textContent         = r.notes || "";
+    document.getElementById("modalDate").textContent          = r.date || "";
 
-    // Handle score display (reviewed vs. unreviewed/upcoming)
     const badge = document.getElementById("modalScoreBadge");
     const label = document.getElementById("modalScoreLabel");
     if (isUnreviewed) {
         badge.textContent      = r.upcoming ? "Upcoming" : "Not Reviewed";
         badge.className        = "modal-score-badge no-rating";
-        badge.style.background = ""; // Remove custom background
-        label.style.display    = "none"; // Hide "out of 10" label
+        badge.style.background = "";
+        label.style.display    = "none";
     } else {
-        badge.textContent      = r.score.toFixed(1); // Display score with one decimal place
+        badge.textContent      = r.score.toFixed(1);
         badge.className        = "modal-score-badge";
-        badge.style.background = scoreColor(r.score); // Set score-based background color
-        label.style.display    = ""; // Show "out of 10" label
+        badge.style.background = scoreColor(r.score);
+        label.style.display    = "";
     }
 
-    // Populate tags
     document.getElementById("modalTags").innerHTML =
         (r.tags || []).map(t => `<span class="modal-tag">${t}</span>`).join("");
 
-    // Populate tracks section if tracks exist
     const tracksSection = document.getElementById("modalTracksSection");
     if (r.tracks && r.tracks.length > 0) {
         tracksSection.innerHTML = `
@@ -1890,7 +1475,6 @@ function openReview(id) {
             const tileClass = noScore ? "track-tile unrated" : "track-tile";
             const tileText  = noScore ? "—" : t.score.toFixed(1);
             const tileBg    = noScore ? "" : `style="background:${scoreColor(t.score)}"`;
-
             row.innerHTML   = `
                 <span class="track-num">${i + 1}</span>
                 <span class="track-name">${t.title}</span>
@@ -1899,49 +1483,30 @@ function openReview(id) {
             tGrid.appendChild(row);
         });
     } else {
-        tracksSection.innerHTML = ""; // Clear tracks section if no tracks
+        tracksSection.innerHTML = "";
     }
 
-    // Show the modal
     document.getElementById("reviewModal").classList.add("open");
-    document.querySelector(".modal-scroll").scrollTop = 0; // Scroll to top when modal opens
+    document.querySelector(".modal-scroll").scrollTop = 0;
 }
 
-/**
- * Closes the review modal.
- */
 function closeReview() {
     document.getElementById("reviewModal").classList.remove("open");
-    activeModalId = null; // Clear the active modal ID
+    activeModalId = null;
 }
 
-/**
- * Opens the review modal for the artist of the currently viewed album.
- * This function is called from the modal's artist link.
- */
 function filterByArtistFromModal() {
     const r = reviews.find(x => x.id === activeModalId);
     if (!r) return;
-    closeReview(); // Close the modal first
-    filterByArtist(r.artist); // Then filter by the artist
+    closeReview();
+    filterByArtist(r.artist);
 }
 
-/* ══════════════════════════════════════════════════════════
-   EVENT LISTENERS
-══════════════════════════════════════════════════════════ */
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeReview(); });
 
-// Close modal with Escape key
-document.addEventListener("keydown", e => {
-    if (e.key === "Escape" && document.getElementById("reviewModal").classList.contains("open")) {
-        closeReview();
-    }
-});
-
-/* ── INITIALIZATION ── */
-// Render the initial list of reviews when the page loads
+/* ── INIT ── */
 render();
 
 </script>
 </body>
 </html>
-```
