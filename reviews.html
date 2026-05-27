@@ -289,6 +289,7 @@
             border-radius: 20px;
             width: 90%;
             max-width: 580px;
+            height: 90vh;
             max-height: 90vh;
             overflow: hidden;
             display: flex;
@@ -303,7 +304,10 @@
             flex-shrink: 0;
             overflow: hidden;
             position: relative;
+            z-index: 2;
+            transition: box-shadow 0.3s ease;
         }
+        .modal-banner.scrolled { box-shadow: 0 8px 24px rgba(0,0,0,0.85); }
 
         .modal-art {
             width: 100%;
@@ -358,9 +362,10 @@
 
         /* Scrollable body — only this div scrolls */
         .modal-scroll {
+            flex: 1;
+            min-height: 0;
             overflow-y: auto;
             overflow-x: hidden;
-            flex: 1;
         }
 
         .modal-scroll::-webkit-scrollbar { width: 4px; }
@@ -386,6 +391,18 @@
         }
 
         .modal-artist-link:hover { color: white; text-decoration: underline; }
+
+        .modal-artists {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .modal-artists .sep {
+            font-size: 13px;
+            color: rgba(255,255,255,0.2);
+        }
 
         .modal-score-row {
             display: flex;
@@ -585,7 +602,7 @@
             <div class="modal-body">
                 <div class="modal-titles">
                     <h2 class="modal-album" id="modalAlbum"></h2>
-                    <button class="modal-artist-link" id="modalArtist" onclick="filterByArtistFromModal()"></button>
+                    <div class="modal-artists" id="modalArtists"></div>
                 </div>
                 <div class="modal-score-row">
                     <div class="modal-score-badge" id="modalScoreBadge"></div>
@@ -613,6 +630,12 @@ function scoreColor(score) {
     if (score < 8)   return "#1abf2d";
     if (score < 9.5) return "#008236";
     return "#02d2f7";
+}
+
+function scoreTextColor(score) {
+    if (score === null || score === undefined) return "white";
+    if (score >= 5 && score < 7) return "black";
+    return "white";
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -654,6 +677,14 @@ const artistMeta = {
     "Baby Keem": {
         pfp: "https://i.scdn.co/image/ab6761610000101fe45a6e4cee2ef5f4c0fec713",
         discography: ["babykeem-casino"]
+    },
+    "Future": {
+        pfp: "https://i.scdn.co/image/ab6761610000101f7565b356bc9d9394eefa2ccb",
+        discography: ["future-metro-wdty", "future-metro-wsdty"]
+    },
+    "Metro Boomin": {
+        pfp: "https://i.scdn.co/image/ab6761610000101f28f1e72b31e756ea3f3a51e7",
+        discography: ["future-metro-wdty", "future-metro-wsdty"]
     }
 };
 
@@ -825,7 +856,7 @@ const reviews = [
         artist: "The Weeknd",
         cover: "https://upload.wikimedia.org/wikipedia/en/thumb/4/4d/MyDearMelancholy_-_album_by_The_Weeknd.jpg/250px-MyDearMelancholy_-_album_by_The_Weeknd.jpg",
         banner: "https://i.pinimg.com/736x/90/6f/0f/906f0fca1cfca46b101e2510f4e6fc3f.jpg",
-        score: 8.1,
+        score: 8.4,
         date: "March 2018",
         releaseYear: 2018,
         tags: ["R&B", "2018"],
@@ -1281,7 +1312,7 @@ const reviews = [
         artist: "Baby Keem",
         cover: "https://upload.wikimedia.org/wikipedia/en/thumb/1/11/Baby_Keem_-_Casino.png/250px-Baby_Keem_-_Casino.png",
         banner: "https://i.pinimg.com/736x/7d/75/8d/7d758d86e3e95425aa4e645728db6c7a.jpg",
-        score: 7.8,
+        score: 7.9,
         date: "February 2026",
         releaseYear: 2026,
         tags: ["Hip-Hop", "Rap", "2026"],
@@ -1294,10 +1325,84 @@ const reviews = [
             { title: "House Money", score: 8.9 },
             { title: "I am not a Lyricist", score: 8.6 },
             { title: "$ex Appeal (feat. Too $hort)", score: 7.2 },
-            { title: "Highway 95 pt. 2", score: 6.9 },
+            { title: "Highway 95 pt. 2", score: 7.8 },
             { title: "Circus Circus Free$tyle", score: 8.3 },
-            { title: "Dramatic Girl (feat. Che Ecru)", score: 7.4 },
+            { title: "Dramatic Girl (feat. Che Ecru)", score: 7.9 },
             { title: "No Blame", score: 8.0 }
+        ]
+    }
+    /* ── FUTURE & METRO BOOMIN ── */
+    {
+        id: "future-metro-wdty",
+        album: "WE DON'T TRUST YOU",
+        artist: "Future & Metro Boomin",
+        artists: ["Future", "Metro Boomin"],
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8a/Future_and_Metro_Boomin_-_We_Don%27t_Trust_You.png/250px-Future_and_Metro_Boomin_-_We_Don%27t_Trust_You.png",
+        banner: "https://i.pinimg.com/1200x/6e/67/d0/6e67d0dc119a624881f74d32cb15fbca.jpg",
+        score: 7.8,
+        date: "2024",
+        releaseYear: 2024,
+        tags: ["Hip-Hop", "Trap", "2024"],
+        notes: "",
+        tracks: [
+            { title: "We Don't Trust You", score: 8.6 },
+            { title: "Young Metro (feat. The Weeknd)", score: 8.8 },
+            { title: "Ice Attack", score: 7.7 },
+            { title: "Type Shit (feat. Travis Scott & Playboi Carti)", score: 8.9 },
+            { title: "Claustrophobic", score: 7.1 },
+            { title: "Like That (feat. Kendrick Lamar)", score: 9.0 },
+            { title: "Slimed In", score: 8.3 },
+            { title: "Magic Don Juan (Princess Diana)", score: 6.8 },
+            { title: "Cinderella (feat. Travis Scott)", score: 9.0 },
+            { title: "Runnin Outta Time", score: 7.1 },
+            { title: "Fried (She a Vibe)", score: 7.5 },
+            { title: "Ain't No Love", score: 6.5 },
+            { title: "Everyday Hustle (feat. Rick Ross)", score: 8.8 },
+            { title: "GTA", score: 7.4 },
+            { title: "Seen It All", score: 6.7 },
+            { title: "WTFYM", score: 6.9 },
+            { title: "Where My Twin @ - Bonus", score: 7.2 }
+        ]
+    },
+    {
+        id: "future-metro-wsdty",
+        album: "WE STILL DON'T TRUST YOU",
+        artist: "Future & Metro Boomin",
+        artists: ["Future", "Metro Boomin"],
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/We_Still_Don%27t_Trust_You.png/250px-We_Still_Don%27t_Trust_You.png",
+        banner: "https://i.pinimg.com/736x/1f/4a/f9/1f4af95f964588469932ea9948d1f75f.jpg",
+        score: 8.4,
+        date: "2024",
+        releaseYear: 2024,
+        tags: ["Hip-Hop", "Trap", "2024"],
+        notes: "",
+        tracks: [
+            { title: "We Still Don't Trust You (feat. The Weeknd)", score: 9.0 },
+            { title: "Drink N Dance", score: 8.6 },
+            { title: "Out Of My Hands", score: 8.1 },
+            { title: "Jealous", score: 8.7 },
+            { title: "This Sunday", score: 8.5 },
+            { title: "Luv Bad Bitches (feat. Brownstone)", score: 8.9 },
+            { title: "Amazing (Interlude)", score: null },
+            { title: "All To Myself (feat. The Weeknd)", score: 9.0 },
+            { title: "Nights Like This", score: 9.1 },
+            { title: "Came To The Party", score: 7.3 },
+            { title: "Right 4 You", score: 6.8 },
+            { title: "Mile High Memories", score: 8.8 },
+            { title: "Overload", score: 7.4 },
+            { title: "Gracious (feat. Ty Dolla $ign)", score: 6.7 },
+            { title: "Beat It", score: 7.6 },
+            { title: "Always Be My Fault (feat. The Weeknd)", score: 7.5 },
+            { title: "One Big Family", score: 7.5 },
+            { title: "Red Leather (feat. J. Cole)", score: 8.9 },
+            { disc2Header: true },
+            { title: "#1 (Intro)", score: null },
+            { title: "Nobody Knows My Struggle", score: 8.5 },
+            { title: "All My Life (feat. Lil Baby)", score: 8.6 },
+            { title: "Crossed Out", score: 8.4 },
+            { title: "Crazy Clientele", score: 8.4 },
+            { title: "Show Of Hands (feat. A$AP Rocky)", score: 8.8 },
+            { title: "Streets Made Me A King", score: 8.5 }
         ]
     }
 ];
@@ -1363,7 +1468,7 @@ function render() {
         card.className = cls;
 
         const bg         = isUnreviewed ? null : scoreColor(r.score);
-        const badgeStyle = isUnreviewed ? "" : `style="background:${bg}"`;
+        const badgeStyle = isUnreviewed ? "" : `style="background:${bg};color:${scoreTextColor(r.score)}"`;
         const badgeClass = isUnreviewed ? "review-score no-rating" : "review-score";
         const badgeText  = isUnreviewed ? "—" : r.score.toFixed(1);
 
@@ -1374,7 +1479,8 @@ function render() {
             </div>
             <div class="review-info">
                 <div class="review-album">${r.album}</div>
-                <span class="review-artist" onclick="filterByArtist('${r.artist.replace(/'/g,"\\'")}', event)">${r.artist}</span>
+                <span class="review-artist" onclick="filterByArtist('${(Array.isArray(r.artists)?r.artists[0]:r.artist).replace(/'/g,"\\'")}'">${r.artist}</span>
+                <span style="display:none" onclick="filterByArtist('${r.artist.replace(/'/g,"\\'")}', event)">${r.artist}</span>
                 <div class="review-meta">${r.date}</div>
             </div>
         `;
@@ -1447,7 +1553,13 @@ function openReview(id) {
     document.getElementById("modalArt").src            = r.banner || r.cover;
     document.getElementById("modalThumb").src          = r.cover;
     document.getElementById("modalAlbum").textContent  = r.album;
-    document.getElementById("modalArtist").textContent = r.artist;
+    // Artist links — supports single string or array
+    const artistsEl = document.getElementById("modalArtists");
+    const artistList = Array.isArray(r.artists) ? r.artists : [r.artist];
+    artistsEl.innerHTML = artistList.map((a, i) =>
+        `<button class="modal-artist-link" onclick="filterByArtistFromModalName('${a.replace(/'/g,"\\'")}')">` + a + `</button>` +
+        (i < artistList.length - 1 ? `<span class="sep">•</span>` : "")
+    ).join("");
     document.getElementById("modalNotes").textContent  = r.notes || "";
     document.getElementById("modalDate").textContent   = r.date || "";
 
@@ -1462,6 +1574,7 @@ function openReview(id) {
         badge.textContent      = r.score.toFixed(1);
         badge.className        = "modal-score-badge";
         badge.style.background = scoreColor(r.score);
+        badge.style.color      = scoreTextColor(r.score);
         label.style.display    = "";
     }
 
@@ -1476,15 +1589,25 @@ function openReview(id) {
             <div class="tracks-grid" id="tracksGrid"></div>
         `;
         const tGrid = tracksSection.querySelector("#tracksGrid");
-        r.tracks.forEach((t, i) => {
-            const row       = document.createElement("div");
-            row.className   = "track-row";
+        let disc1Num = 0; let disc2Num = 0; let inDisc2 = false;
+        r.tracks.forEach((t) => {
+            if (t.disc2Header) {
+                inDisc2 = true;
+                const sep = document.createElement("div");
+                sep.style.cssText = "padding:10px 0 4px;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.25);";
+                sep.textContent = "Disc 2";
+                tGrid.appendChild(sep);
+                return;
+            }
+            const row = document.createElement("div");
+            row.className = "track-row";
             const noScore   = t.score === null || t.score === undefined;
             const tileClass = noScore ? "track-tile unrated" : "track-tile";
             const tileText  = noScore ? "—" : t.score.toFixed(1);
-            const tileBg    = noScore ? "" : `style="background:${scoreColor(t.score)}"`;
-            row.innerHTML   = `
-                <span class="track-num">${i + 1}</span>
+            const tileBg    = noScore ? "" : `style="background:${scoreColor(t.score)};color:${scoreTextColor(t.score)}"`;
+            const num = inDisc2 ? ++disc2Num : ++disc1Num;
+            row.innerHTML = `
+                <span class="track-num">${num}</span>
                 <span class="track-name">${t.title}</span>
                 <div class="${tileClass}" ${tileBg}>${tileText}</div>
             `;
@@ -1495,7 +1618,11 @@ function openReview(id) {
     }
 
     document.getElementById("reviewModal").classList.add("open");
-    document.querySelector(".modal-scroll").scrollTop = 0;
+    const scrollEl = document.querySelector(".modal-scroll");
+    scrollEl.scrollTop = 0;
+    scrollEl.onscroll = () => {
+        document.querySelector(".modal-banner").classList.toggle("scrolled", scrollEl.scrollTop > 10);
+    };
 }
 
 function closeReview() {
@@ -1508,6 +1635,11 @@ function filterByArtistFromModal() {
     if (!r) return;
     closeReview();
     filterByArtist(r.artist);
+}
+
+function filterByArtistFromModalName(artist) {
+    closeReview();
+    filterByArtist(artist);
 }
 
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeReview(); });
