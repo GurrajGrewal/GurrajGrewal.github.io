@@ -280,7 +280,6 @@
             backdrop-filter: blur(16px);
         }
 
-        /* Panel: flex column, overflow hidden so nothing bleeds out */
         .review-modal-panel {
             position: relative;
             z-index: 1;
@@ -296,13 +295,11 @@
             box-shadow: 0 32px 80px rgba(0,0,0,0.8);
         }
 
-        /* Banner — fixed height, never scrolls, stays at top of panel */
+        /* Flex child 1 — rigid 200px, never scrolls */
         .modal-banner {
-            width: 100%;
-            height: 200px;
-            flex-shrink: 0;
-            overflow: hidden;
+            flex: 0 0 200px;
             position: relative;
+            overflow: hidden;
         }
 
         .modal-art {
@@ -314,27 +311,7 @@
             filter: brightness(0.5);
         }
 
-        /*
-         * Thumbnail sits OUTSIDE the scroll div, as a sibling to the banner.
-         * It is absolutely positioned relative to the panel, straddling
-         * the banner / scroll boundary.  z-index keeps it above both.
-         */
-        .modal-thumb {
-            position: absolute;
-            /* 200px banner height minus half the thumb height (90/2=45) = 155px */
-            top: 155px;
-            left: 28px;
-            width: 90px;
-            height: 90px;
-            border-radius: 10px;
-            object-fit: cover;
-            border: 3px solid #111;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-            z-index: 10;
-            flex-shrink: 0;
-        }
-
-        /* Close button — anchored to panel top-right, always visible */
+        /* Close lives inside the banner — physically cannot scroll */
         .modal-close {
             position: absolute;
             top: 14px;
@@ -351,24 +328,46 @@
             align-items: center;
             justify-content: center;
             transition: background 0.2s;
-            z-index: 20;
+            z-index: 5;
         }
 
         .modal-close:hover { background: rgba(255,255,255,0.18); }
 
-        /* Scrollable body — only this div scrolls */
+        /*
+         * Flex child 2 — thumb as a REAL flex child, not position:absolute.
+         * margin-top:-45px pulls it up to overlap the banner by 45px.
+         * Being in the flex flow means it cannot scroll.
+         */
+        .modal-thumb {
+            flex: 0 0 auto;
+            display: block;
+            width: 90px;
+            height: 90px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 3px solid #111;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+            margin-top: -45px;
+            margin-left: 28px;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* Flex child 3 — the ONLY scrolling element.
+           min-height:0 is critical: without it flex items can't shrink
+           below content height, so the panel expands instead of scrolling. */
         .modal-scroll {
+            flex: 1;
+            min-height: 0;
             overflow-y: auto;
             overflow-x: hidden;
-            flex: 1;
         }
 
         .modal-scroll::-webkit-scrollbar { width: 4px; }
         .modal-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
 
         .modal-body {
-            /* top padding = thumb half that hangs below banner (45px) + gap (16px) */
-            padding: 61px 28px 32px;
+            padding: 16px 28px 32px;
         }
 
         .modal-titles { margin-bottom: 0; }
@@ -430,6 +429,17 @@
         }
 
         .tracks-grid { display: flex; flex-direction: column; gap: 6px; }
+
+        .disc-marker {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.25);
+            padding: 14px 0 6px;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            margin-top: 6px;
+        }
 
         .track-row { display: flex; align-items: center; gap: 12px; }
 
@@ -569,23 +579,21 @@
     <div class="review-modal-backdrop" onclick="closeReview()"></div>
     <div class="review-modal-panel">
 
-        <!-- Banner: stays fixed at top, never scrolls -->
+        <!-- Flex child 1: banner (rigid 200px). Close lives inside it. -->
         <div class="modal-banner">
             <img class="modal-art" id="modalArt" src="" alt="">
+            <button class="modal-close" onclick="closeReview()">×</button>
         </div>
 
-        <!-- Thumbnail: absolutely positioned on the panel, straddles banner/scroll boundary -->
+        <!-- Flex child 2: thumb as a real flex item, margin-top:-45px creates the overlap. -->
         <img class="modal-thumb" id="modalThumb" src="" alt="">
 
-        <!-- Close button: anchored to panel, always visible -->
-        <button class="modal-close" onclick="closeReview()">×</button>
-
-        <!-- Only this div scrolls -->
+        <!-- Flex child 3: the only thing that scrolls. -->
         <div class="modal-scroll">
             <div class="modal-body">
                 <div class="modal-titles">
                     <h2 class="modal-album" id="modalAlbum"></h2>
-                    <button class="modal-artist-link" id="modalArtist" onclick="filterByArtistFromModal()"></button>
+                    <div class="modal-artist-links" id="modalArtistLinks"></div>
                 </div>
                 <div class="modal-score-row">
                     <div class="modal-score-badge" id="modalScoreBadge"></div>
@@ -656,9 +664,16 @@ const artistMeta = {
         pfp: "https://i.scdn.co/image/ab6761610000101f39ba6dcd4355c03de0b50918",
         discography: ["kendrick-gnx"]
     },
+    "Future": {
+        pfp: "https://i.scdn.co/image/ab6761610000101f7565b356bc9d9394eefa2ccb",
+        discography: ["futuremetro-wdty", "futuremetro-wsdty"]
+    },
+    "Metro Boomin": {
+        pfp: "https://i.scdn.co/image/ab6761610000101f28f1e72b31e756ea3f3a51e7",
+        discography: ["futuremetro-wdty", "futuremetro-wsdty"]
+    },
     "Future & Metro Boomin": {
         pfp: "https://i.scdn.co/image/ab6761610000101f7565b356bc9d9394eefa2ccb",
-        pfp2: "https://i.scdn.co/image/ab6761610000101f28f1e72b31e756ea3f3a51e7",
         discography: ["futuremetro-wdty", "futuremetro-wsdty"]
     },
     "Baby Keem": {
@@ -1346,7 +1361,8 @@ const reviews = [
             { title: "Always Be My Fault (feat. The Weeknd)", score: 7.5 },
             { title: "One Big Family", score: 7.5 },
             { title: "Red Leather (feat. J. Cole)", score: 8.9 },
-            { title: "Disc 2 — #1 (Intro)", score: null },
+            { isDiscMarker: true, label: "DISC 2" },
+            { title: "#1 (Intro)", score: null },
             { title: "Nobody Knows My Struggle", score: 8.5 },
             { title: "All My Life (feat. Lil Baby)", score: 8.6 },
             { title: "Crossed Out", score: 8.4 },
@@ -1422,6 +1438,18 @@ function getFiltered() {
     return sortByReleaseDate(list);
 }
 
+/* ── ARTIST LINKS HELPER ── */
+function artistLinksHTML(artist, inModal = false) {
+    const parts = artist.split(' & ');
+    return parts.map((p, idx) => {
+        const safe = p.replace(/'/g, "\\'");
+        const action = inModal
+            ? `onclick="closeReview();filterByArtist('${safe}')"`
+            : `onclick="filterByArtist('${safe}', event)"`;
+        return `<span class="review-artist" ${action}>${p}</span>`;
+    }).join('<span style="color:rgba(255,255,255,0.25);font-size:12px;"> &amp; </span>');
+}
+
 /* ══════════════════════════════════════════════════════════
    RENDER
 ══════════════════════════════════════════════════════════ */
@@ -1457,7 +1485,7 @@ function render() {
             </div>
             <div class="review-info">
                 <div class="review-album">${r.album}</div>
-                <span class="review-artist" onclick="filterByArtist('${r.artist.replace(/'/g,"\\'")}', event)">${r.artist}</span>
+                <span class="review-artist-display">${artistLinksHTML(r.artist)}</span>
                 <div class="review-meta">${r.date}</div>
             </div>
         `;
@@ -1498,19 +1526,16 @@ function filterByArtist(artist, e) {
 
     const meta     = artistMeta[artist];
     const avatarEl = document.getElementById("artistAvatar");
-    if (meta && meta.pfp2) {
-        avatarEl.innerHTML = `<img src="${meta.pfp}" alt="${artist}" style="width:50%;height:100%;object-fit:cover;"><img src="${meta.pfp2}" alt="${artist}" style="width:50%;height:100%;object-fit:cover;">`;
-        avatarEl.style.borderRadius = "50%";
-        avatarEl.style.overflow = "hidden";
-        avatarEl.style.display = "flex";
-    } else {
-        avatarEl.innerHTML = (meta && meta.pfp)
-            ? `<img src="${meta.pfp}" alt="${artist}">`
-            : artist.charAt(0).toUpperCase();
-    }
+    avatarEl.innerHTML = (meta && meta.pfp)
+        ? `<img src="${meta.pfp}" alt="${artist}">`
+        : artist.charAt(0).toUpperCase();
 
+    const discIds   = meta ? meta.discography : [];
+    const discAlbums = discIds.map(id => reviews.find(r => r.id === id)).filter(Boolean);
     const discCount = meta ? meta.discography.length : reviews.filter(r => r.artist === artist).length;
-    const revCount  = reviews.filter(r => r.artist === artist && r.score !== null && !r.upcoming).length;
+    const revCount  = meta
+        ? discAlbums.filter(r => r.score !== null && !r.upcoming).length
+        : reviews.filter(r => r.artist === artist && r.score !== null && !r.upcoming).length;
 
     document.getElementById("artistHeaderName").textContent  = artist;
     document.getElementById("artistHeaderCount").textContent = `${revCount} reviewed · ${discCount} total`;
@@ -1534,12 +1559,14 @@ function openReview(id) {
 
     const isUnreviewed = r.score === null || r.score === undefined;
 
-    document.getElementById("modalArt").src            = r.banner || r.cover;
-    document.getElementById("modalThumb").src          = r.cover;
-    document.getElementById("modalAlbum").textContent  = r.album;
-    document.getElementById("modalArtist").textContent = r.artist;
-    document.getElementById("modalNotes").textContent  = r.notes || "";
-    document.getElementById("modalDate").textContent   = r.date || "";
+    document.getElementById("modalArt").src           = r.banner || r.cover;
+    document.getElementById("modalThumb").src         = r.cover;
+    document.getElementById("modalAlbum").textContent = r.album;
+    document.getElementById("modalNotes").textContent = r.notes || "";
+    document.getElementById("modalDate").textContent  = r.date || "";
+
+    // Artist links — individual clickable names
+    document.getElementById("modalArtistLinks").innerHTML = artistLinksHTML(r.artist, true);
 
     const badge = document.getElementById("modalScoreBadge");
     const label = document.getElementById("modalScoreLabel");
@@ -1567,7 +1594,17 @@ function openReview(id) {
             <div class="tracks-grid" id="tracksGrid"></div>
         `;
         const tGrid = tracksSection.querySelector("#tracksGrid");
-        r.tracks.forEach((t, i) => {
+        let trackNum = 0;
+        r.tracks.forEach((t) => {
+            if (t.isDiscMarker) {
+                trackNum = 0;
+                const marker = document.createElement("div");
+                marker.className = "disc-marker";
+                marker.textContent = t.label;
+                tGrid.appendChild(marker);
+                return;
+            }
+            trackNum++;
             const row       = document.createElement("div");
             row.className   = "track-row";
             const noScore   = t.score === null || t.score === undefined;
@@ -1575,7 +1612,7 @@ function openReview(id) {
             const tileText  = noScore ? "—" : t.score.toFixed(1);
             const tileBg    = noScore ? "" : `style="background:${scoreColor(t.score)};color:${scoreTextColor(t.score)}"`;
             row.innerHTML   = `
-                <span class="track-num">${i + 1}</span>
+                <span class="track-num">${trackNum}</span>
                 <span class="track-name">${t.title}</span>
                 <div class="${tileClass}" ${tileBg}>${tileText}</div>
             `;
