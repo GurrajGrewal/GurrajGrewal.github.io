@@ -577,33 +577,44 @@
 <!-- Review modal -->
 <div class="review-modal" id="reviewModal">
     <div class="review-modal-backdrop" onclick="closeReview()"></div>
+
     <div class="review-modal-panel">
 
-        <!-- Flex child 1: banner (rigid 200px). Close lives inside it. -->
+        <!-- Banner -->
         <div class="modal-banner">
             <img class="modal-art" id="modalArt" src="" alt="">
             <button class="modal-close" onclick="closeReview()">×</button>
         </div>
 
-        <!-- Flex child 2: thumb as a real flex item, margin-top:-45px creates the overlap. -->
+        <!-- Floating thumbnail -->
         <img class="modal-thumb" id="modalThumb" src="" alt="">
 
-        <!-- Flex child 3: the only thing that scrolls. -->
+        <!-- ONLY THIS SCROLLS -->
         <div class="modal-scroll">
             <div class="modal-body">
+
                 <div class="modal-titles">
                     <h2 class="modal-album" id="modalAlbum"></h2>
                     <div class="modal-artist-links" id="modalArtistLinks"></div>
                 </div>
+
                 <div class="modal-score-row">
                     <div class="modal-score-badge" id="modalScoreBadge"></div>
-                    <div class="modal-score-label" id="modalScoreLabel">out of 10</div>
+                    <div class="modal-score-label">
+                        out of 10
+                    </div>
                 </div>
+
                 <div class="modal-divider"></div>
+
                 <p class="modal-notes" id="modalNotes"></p>
+
                 <div id="modalTracksSection"></div>
+
                 <div class="modal-tags" id="modalTags"></div>
+
                 <p class="modal-date" id="modalDate"></p>
+
             </div>
         </div>
 
