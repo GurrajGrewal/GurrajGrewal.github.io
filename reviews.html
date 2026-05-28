@@ -614,6 +614,11 @@ function scoreColor(score) {
     if (score < 9.5) return "#008236";
     return "#02d2f7";
 }
+function scoreTextColor(score) {
+    if (score === null || score === undefined) return "white";
+    if (score >= 5 && score < 7) return "#000";
+    return "white";
+}
 
 /* ══════════════════════════════════════════════════════════
    ARTIST META
@@ -650,6 +655,11 @@ const artistMeta = {
     "Kendrick Lamar": {
         pfp: "https://i.scdn.co/image/ab6761610000101f39ba6dcd4355c03de0b50918",
         discography: ["kendrick-gnx"]
+    },
+    "Future & Metro Boomin": {
+        pfp: "https://i.scdn.co/image/ab6761610000101f7565b356bc9d9394eefa2ccb",
+        pfp2: "https://i.scdn.co/image/ab6761610000101f28f1e72b31e756ea3f3a51e7",
+        discography: ["futuremetro-wdty", "futuremetro-wsdty"]
     },
     "Baby Keem": {
         pfp: "https://i.scdn.co/image/ab6761610000101fe45a6e4cee2ef5f4c0fec713",
@@ -1274,6 +1284,78 @@ const reviews = [
         ]
     },
 
+    /* ── FUTURE & METRO BOOMIN ── */
+    {
+        id: "futuremetro-wdty",
+        album: "WE DON'T TRUST YOU",
+        artist: "Future & Metro Boomin",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8a/Future_and_Metro_Boomin_-_We_Don%27t_Trust_You.png/250px-Future_and_Metro_Boomin_-_We_Don%27t_Trust_You.png",
+        banner: "https://i.pinimg.com/1200x/6e/67/d0/6e67d0dc119a624881f74d32cb15fbca.jpg",
+        score: 7.8,
+        date: "March 2024",
+        releaseYear: 2024,
+        tags: ["Hip-Hop", "Rap", "2024"],
+        notes: "",
+        tracks: [
+            { title: "We Don't Trust You", score: 8.6 },
+            { title: "Young Metro (feat. The Weeknd)", score: 8.8 },
+            { title: "Ice Attack", score: 7.7 },
+            { title: "Type Shit (feat. Travis Scott & Playboi Carti)", score: 8.9 },
+            { title: "Claustrophobic", score: 7.1 },
+            { title: "Like That (feat. Kendrick Lamar)", score: 9.0 },
+            { title: "Slimed In", score: 8.3 },
+            { title: "Magic Don Juan (Princess Diana)", score: 6.8 },
+            { title: "Cinderella (feat. Travis Scott)", score: 9.0 },
+            { title: "Runnin Outta Time", score: 7.1 },
+            { title: "Fried (She a Vibe)", score: 7.5 },
+            { title: "Ain't No Love", score: 6.5 },
+            { title: "Everyday Hustle (feat. Rick Ross)", score: 8.8 },
+            { title: "GTA", score: 7.4 },
+            { title: "Seen It All", score: 6.7 },
+            { title: "WTFYM", score: 6.9 },
+            { title: "Where My Twin @ - Bonus", score: 7.2 }
+        ]
+    },
+    {
+        id: "futuremetro-wsdty",
+        album: "WE STILL DON'T TRUST YOU",
+        artist: "Future & Metro Boomin",
+        cover: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/We_Still_Don%27t_Trust_You.png/250px-We_Still_Don%27t_Trust_You.png",
+        banner: "https://i.pinimg.com/736x/1f/4a/f9/1f4af95f964588469932ea9948d1f75f.jpg",
+        score: 8.4,
+        date: "April 2024",
+        releaseYear: 2024,
+        tags: ["Hip-Hop", "Rap", "2024"],
+        notes: "",
+        tracks: [
+            { title: "We Still Don't Trust You (feat. The Weeknd)", score: 9.0 },
+            { title: "Drink N Dance", score: 8.6 },
+            { title: "Out Of My Hands", score: 8.1 },
+            { title: "Jealous", score: 8.7 },
+            { title: "This Sunday", score: 8.5 },
+            { title: "Luv Bad Bitches (feat. Brownstone)", score: 8.9 },
+            { title: "Amazing (Interlude)", score: null },
+            { title: "All To Myself (feat. The Weeknd)", score: 9.0 },
+            { title: "Nights Like This", score: 9.1 },
+            { title: "Came To The Party", score: 7.3 },
+            { title: "Right 4 You", score: 6.8 },
+            { title: "Mile High Memories", score: 8.8 },
+            { title: "Overload", score: 7.4 },
+            { title: "Gracious (feat. Ty Dolla $ign)", score: 6.7 },
+            { title: "Beat It", score: 7.6 },
+            { title: "Always Be My Fault (feat. The Weeknd)", score: 7.5 },
+            { title: "One Big Family", score: 7.5 },
+            { title: "Red Leather (feat. J. Cole)", score: 8.9 },
+            { title: "Disc 2 — #1 (Intro)", score: null },
+            { title: "Nobody Knows My Struggle", score: 8.5 },
+            { title: "All My Life (feat. Lil Baby)", score: 8.6 },
+            { title: "Crossed Out", score: 8.4 },
+            { title: "Crazy Clientele", score: 8.4 },
+            { title: "Show Of Hands (feat. A$AP Rocky)", score: 8.8 },
+            { title: "Streets Made Me A King", score: 8.5 }
+        ]
+    },
+
     /* ── BABY KEEM ── */
     {
         id: "babykeem-casino",
@@ -1363,7 +1445,8 @@ function render() {
         card.className = cls;
 
         const bg         = isUnreviewed ? null : scoreColor(r.score);
-        const badgeStyle = isUnreviewed ? "" : `style="background:${bg}"`;
+        const tc         = isUnreviewed ? "white" : scoreTextColor(r.score);
+        const badgeStyle = isUnreviewed ? "" : `style="background:${bg};color:${tc}"`;
         const badgeClass = isUnreviewed ? "review-score no-rating" : "review-score";
         const badgeText  = isUnreviewed ? "—" : r.score.toFixed(1);
 
@@ -1415,9 +1498,16 @@ function filterByArtist(artist, e) {
 
     const meta     = artistMeta[artist];
     const avatarEl = document.getElementById("artistAvatar");
-    avatarEl.innerHTML = (meta && meta.pfp)
-        ? `<img src="${meta.pfp}" alt="${artist}">`
-        : artist.charAt(0).toUpperCase();
+    if (meta && meta.pfp2) {
+        avatarEl.innerHTML = `<img src="${meta.pfp}" alt="${artist}" style="width:50%;height:100%;object-fit:cover;"><img src="${meta.pfp2}" alt="${artist}" style="width:50%;height:100%;object-fit:cover;">`;
+        avatarEl.style.borderRadius = "50%";
+        avatarEl.style.overflow = "hidden";
+        avatarEl.style.display = "flex";
+    } else {
+        avatarEl.innerHTML = (meta && meta.pfp)
+            ? `<img src="${meta.pfp}" alt="${artist}">`
+            : artist.charAt(0).toUpperCase();
+    }
 
     const discCount = meta ? meta.discography.length : reviews.filter(r => r.artist === artist).length;
     const revCount  = reviews.filter(r => r.artist === artist && r.score !== null && !r.upcoming).length;
@@ -1462,6 +1552,7 @@ function openReview(id) {
         badge.textContent      = r.score.toFixed(1);
         badge.className        = "modal-score-badge";
         badge.style.background = scoreColor(r.score);
+        badge.style.color      = scoreTextColor(r.score);
         label.style.display    = "";
     }
 
@@ -1482,7 +1573,7 @@ function openReview(id) {
             const noScore   = t.score === null || t.score === undefined;
             const tileClass = noScore ? "track-tile unrated" : "track-tile";
             const tileText  = noScore ? "—" : t.score.toFixed(1);
-            const tileBg    = noScore ? "" : `style="background:${scoreColor(t.score)}"`;
+            const tileBg    = noScore ? "" : `style="background:${scoreColor(t.score)};color:${scoreTextColor(t.score)}"`;
             row.innerHTML   = `
                 <span class="track-num">${i + 1}</span>
                 <span class="track-name">${t.title}</span>
