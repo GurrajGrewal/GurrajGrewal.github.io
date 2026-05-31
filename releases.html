@@ -9,13 +9,14 @@
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
-        /* NAVBAR */
+
+        /* ── NAVBAR ── */
         .navbar {
             position: absolute;
             top: 0;
             width: 100%;
             z-index: 10;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0,0,0,0.3);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
@@ -38,22 +39,402 @@
             transition: all 0.2s ease;
         }
 
-        .nav-center li a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .nav-center li a[href="releases.html"] {
-            background: rgba(255, 255, 255, 0.3);
-        }
+        .nav-center li a:hover { background: rgba(255,255,255,0.2); }
+        .nav-center li a[href="releases.html"] { background: rgba(255,255,255,0.3); }
 
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            background: black;
+            background: #080808;
             color: white;
         }
 
-        /* ── SEASONS MODAL (shared) ── */
+        /* ══════════════════════════════════════
+           HERO SLIDER
+        ══════════════════════════════════════ */
+        .release-feature {
+            position: relative;
+            height: 72vh;
+            min-height: 520px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .release-slider {
+            display: flex;
+            height: 100%;
+            transition: transform 0.75s cubic-bezier(0.77,0,0.18,1);
+        }
+
+        .release-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .release-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+            transform: scale(1.04);
+            transition: transform 6s ease;
+        }
+
+        .release-slide.active .release-bg {
+            transform: scale(1);
+        }
+
+        /* Rich cinematic gradient — dark left, fade to nothing right */
+        .release-bg::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(to right, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.55) 45%, rgba(8,8,8,0.05) 75%),
+                linear-gradient(to top, rgba(8,8,8,0.8) 0%, transparent 40%);
+        }
+
+        .release-overlay {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            padding: 0 72px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-bottom: 56px;
+        }
+
+        .release-left { max-width: 560px; }
+
+        /* Rating / year / seasons row */
+        .release-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            font-weight: 500;
+            margin-bottom: 16px;
+            letter-spacing: 0.01em;
+        }
+
+        .release-meta .dot { opacity: 0.4; }
+
+        /* Inline coloured rating badge */
+        .release-rating-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 0.02em;
+        }
+
+        /* Logo */
+        .release-logo img {
+            max-width: 300px;
+            max-height: 100px;
+            width: auto;
+            object-fit: contain;
+            margin-bottom: 18px;
+            filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
+        }
+
+        .release-description {
+            font-size: 14px;
+            line-height: 1.65;
+            color: rgba(255,255,255,0.55);
+            max-width: 460px;
+            margin-bottom: 28px;
+        }
+
+        /* Buttons */
+        .release-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .play-btn {
+            background: white;
+            color: black;
+            border: none;
+            padding: 11px 28px;
+            font-weight: 700;
+            font-size: 13px;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            border-radius: 999px;
+            letter-spacing: 0.02em;
+            transition: all 0.2s ease;
+        }
+
+        .play-btn:hover {
+            background: rgba(255,255,255,0.88);
+            transform: scale(1.03);
+        }
+
+        .info-btn, .season-btn {
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.8);
+            border: 1px solid rgba(255,255,255,0.14);
+            padding: 10px 22px;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            border-radius: 999px;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .info-btn:hover, .season-btn:hover {
+            background: rgba(255,255,255,0.16);
+            color: white;
+            border-color: rgba(255,255,255,0.28);
+        }
+
+        /* Slide indicator dots */
+        .slide-dots {
+            position: absolute;
+            bottom: 24px;
+            right: 72px;
+            display: flex;
+            gap: 7px;
+            z-index: 6;
+        }
+
+        .slide-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: none;
+            padding: 0;
+        }
+
+        .slide-dot.active {
+            background: white;
+            width: 20px;
+            border-radius: 3px;
+        }
+
+        /* Arrow controls — bottom right */
+        .arrow-controls {
+            position: absolute;
+            bottom: 56px;
+            right: 72px;
+            display: flex;
+            gap: 8px;
+            z-index: 6;
+        }
+
+        .arrow {
+            background: rgba(255,255,255,0.08);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.14);
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            border-radius: 999px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .arrow:hover {
+            background: rgba(255,255,255,0.18);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        /* ══════════════════════════════════════
+           EPISODE SECTION
+        ══════════════════════════════════════ */
+        .episodes-section {
+            padding: 36px 72px 56px;
+            background: #080808;
+        }
+
+        .episodes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        /* Season title — matches reviews section-label */
+        .episodes-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            margin: 0;
+        }
+
+        .episodes-title::before {
+            content: "";
+            display: inline-block;
+            width: 3px;
+            height: 13px;
+            background: white;
+            border-radius: 2px;
+            opacity: 0.3;
+        }
+
+        /* Episode navigation arrows — pill style */
+        .episode-arrows {
+            display: flex;
+            gap: 8px;
+        }
+
+        .ep-arrow {
+            width: 34px;
+            height: 34px;
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .ep-arrow:hover {
+            background: rgba(255,255,255,0.14);
+            color: white;
+            border-color: rgba(255,255,255,0.22);
+        }
+
+        .episodes-wrapper {
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Fade out right edge */
+        .episodes-wrapper::after {
+            content: "";
+            position: absolute;
+            top: 0; right: 0;
+            width: 100px; height: 100%;
+            pointer-events: none;
+            background: linear-gradient(to right, transparent, #080808);
+        }
+
+        .episodes-track {
+            display: flex;
+            gap: 18px;
+            transition: transform 0.5s ease, opacity 0.3s ease;
+        }
+
+        .episodes-track.fade-out { opacity: 0; }
+        .episodes-track.fade-in  { opacity: 1; }
+
+        /* Episode card */
+        .episode-card {
+            width: 240px;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .episode-card:hover { transform: translateY(-3px); }
+        .episode-card:hover .episode-thumb { box-shadow: 0 12px 28px rgba(0,0,0,0.6); }
+
+        .episode-thumb {
+            width: 100%;
+            height: 135px;
+            background: #1a1a1a;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 10px;
+            transition: box-shadow 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .episode-thumb img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+
+        /* Play overlay circle */
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-overlay::before {
+            content: "";
+            position: absolute;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.18);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.28);
+            transition: all 0.25s ease;
+        }
+
+        .play-overlay::after {
+            content: "";
+            position: relative;
+            z-index: 2;
+            border-left: 9px solid white;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            margin-left: 3px;
+        }
+
+        .episode-card:hover .play-overlay::before {
+            background: rgba(255,255,255,0.32);
+            transform: scale(1.1);
+        }
+
+        .episode-info { padding: 0 2px; }
+
+        .episode-number {
+            font-size: 11px;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 2px;
+            letter-spacing: 0.03em;
+        }
+
+        .episode-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.85);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ══════════════════════════════════════
+           SEASONS MODAL
+        ══════════════════════════════════════ */
         .seasons-modal {
             display: none;
             position: fixed;
@@ -63,55 +444,56 @@
             justify-content: center;
         }
 
-        .seasons-modal.open {
-            display: flex;
-        }
+        .seasons-modal.open { display: flex; }
 
         .seasons-backdrop {
             position: absolute;
             inset: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(6px);
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(8px);
         }
 
         .seasons-panel {
             position: relative;
             z-index: 1;
-            background: rgba(20, 20, 20, 0.95);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 16px;
+            background: rgba(14,14,14,0.98);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 18px;
             padding: 32px;
             min-width: 340px;
             max-width: 480px;
             width: 90%;
-            box-shadow: 0 24px 64px rgba(0,0,0,0.7);
+            box-shadow: 0 28px 70px rgba(0,0,0,0.8);
         }
 
         .seasons-panel h3 {
             margin: 0 0 20px 0;
-            font-size: 1.1rem;
+            font-size: 11px;
             font-weight: 600;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
+            color: rgba(255,255,255,0.35);
         }
 
         .seasons-close {
             position: absolute;
             top: 16px;
-            right: 20px;
-            background: none;
-            border: none;
+            right: 18px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
             color: rgba(255,255,255,0.5);
-            font-size: 1.6rem;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 1rem;
             cursor: pointer;
-            line-height: 1;
-            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
         }
 
-        .seasons-close:hover {
-            color: white;
-        }
+        .seasons-close:hover { background: rgba(255,255,255,0.15); color: white; }
 
         .season-option {
             display: flex;
@@ -122,85 +504,113 @@
             cursor: pointer;
             transition: background 0.2s;
             border: 1px solid transparent;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
-        .season-option:hover {
-            background: rgba(255,255,255,0.08);
-        }
-
-        .season-option.active {
-            background: rgba(255,255,255,0.12);
-            border-color: rgba(255,255,255,0.2);
-        }
+        .season-option:hover  { background: rgba(255,255,255,0.06); }
+        .season-option.active { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.18); }
 
         .season-option img {
-            width: 80px;
-            height: 50px;
+            width: 76px; height: 48px;
             object-fit: cover;
             border-radius: 8px;
             flex-shrink: 0;
         }
 
-        .season-option-info {
-            flex: 1;
-        }
+        .season-option-info { flex: 1; }
 
         .season-option-label {
-            font-size: 0.75rem;
+            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: rgba(255,255,255,0.45);
-            margin-bottom: 2px;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 3px;
         }
 
-        .season-option-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: white;
-        }
+        .season-option-title { font-size: 14px; font-weight: 600; color: white; }
 
         .season-option-ep {
-            font-size: 0.78rem;
-            color: rgba(255,255,255,0.4);
+            font-size: 11px;
+            color: rgba(255,255,255,0.35);
             margin-top: 2px;
         }
 
         .season-option-check {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: white;
             opacity: 0;
             transition: opacity 0.2s;
         }
 
-        .season-option.active .season-option-check {
-            opacity: 1;
+        .season-option.active .season-option-check { opacity: 1; }
+
+        /* ══════════════════════════════════════
+           VIDEO MODAL
+        ══════════════════════════════════════ */
+        .glass-modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
         }
 
-        /* ── SEASON TITLE BADGE ── */
-        .episodes-title {
+        .glass-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(16px);
+        }
+
+        .glass-wrapper {
+            position: relative;
+            width: 92%;
+            max-width: 1400px;
+        }
+
+        .glass-close {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
-            margin: 0;
+            justify-content: center;
+            transition: all 0.2s;
         }
 
-        .episodes-title::before {
-            content: "";
-            display: inline-block;
-            width: 3px;
-            height: 14px;
-            background: white;
-            border-radius: 2px;
-            opacity: 0.4;
+        .glass-close:hover { background: rgba(255,255,255,0.22); }
+
+        .glass-player {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+            animation: popIn 0.25s ease-out;
         }
 
-        /* ── GALLERY MODAL ── */
+        .glass-player iframe { width: 100%; height: 100%; border: none; }
+
+        @keyframes popIn {
+            from { transform: scale(0.97); opacity: 0; }
+            to   { transform: scale(1);    opacity: 1; }
+        }
+
+        /* ══════════════════════════════════════
+           GALLERY MODAL
+        ══════════════════════════════════════ */
         .gallery-modal {
             display: none;
             position: fixed;
@@ -210,15 +620,13 @@
             justify-content: center;
         }
 
-        .gallery-modal.open {
-            display: flex;
-        }
+        .gallery-modal.open { display: flex; }
 
         .gallery-backdrop {
             position: absolute;
             inset: 0;
             background: rgba(0,0,0,0.92);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(14px);
         }
 
         .gallery-panel {
@@ -235,68 +643,60 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .gallery-title {
-            font-size: 0.75rem;
+            font-size: 11px;
             font-weight: 600;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.45);
+            color: rgba(255,255,255,0.35);
         }
 
         .gallery-close {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
             color: white;
-            width: 36px;
-            height: 36px;
+            width: 34px; height: 34px;
             border-radius: 50%;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: background 0.2s;
-            line-height: 1;
         }
 
-        .gallery-close:hover {
-            background: rgba(255,255,255,0.2);
-        }
+        .gallery-close:hover { background: rgba(255,255,255,0.18); }
 
         .gallery-main {
             position: relative;
             width: 100%;
             aspect-ratio: 16/9;
-            border-radius: 14px;
+            border-radius: 12px;
             overflow: hidden;
             background: #111;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             flex-shrink: 0;
         }
 
         .gallery-main img {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             object-fit: cover;
             transition: opacity 0.25s ease;
         }
 
-        .gallery-main img.fade {
-            opacity: 0;
-        }
+        .gallery-main img.fade { opacity: 0; }
 
         .gallery-arrow {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             background: rgba(0,0,0,0.55);
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.14);
             color: white;
-            width: 44px;
-            height: 44px;
+            width: 42px; height: 42px;
             border-radius: 50%;
             font-size: 1.4rem;
             cursor: pointer;
@@ -307,68 +707,55 @@
             z-index: 2;
         }
 
-        .gallery-arrow:hover {
-            background: rgba(255,255,255,0.15);
-        }
-
+        .gallery-arrow:hover { background: rgba(255,255,255,0.15); }
         .gallery-arrow.left  { left: 14px; }
         .gallery-arrow.right { right: 14px; }
 
         .gallery-counter {
             position: absolute;
-            bottom: 12px;
-            right: 16px;
-            font-size: 12px;
+            bottom: 12px; right: 14px;
+            font-size: 11px;
             font-weight: 600;
             color: rgba(255,255,255,0.5);
-            letter-spacing: 0.08em;
-            background: rgba(0,0,0,0.4);
-            padding: 4px 10px;
+            background: rgba(0,0,0,0.45);
+            padding: 3px 10px;
             border-radius: 999px;
+            letter-spacing: 0.06em;
         }
 
         .gallery-thumbs {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             overflow-x: auto;
             padding-bottom: 4px;
         }
 
-        .gallery-thumbs::-webkit-scrollbar {
-            height: 4px;
-        }
-
-        .gallery-thumbs::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.2);
-            border-radius: 10px;
-        }
+        .gallery-thumbs::-webkit-scrollbar { height: 3px; }
+        .gallery-thumbs::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
 
         .gallery-thumb {
             flex-shrink: 0;
-            width: 100px;
-            height: 62px;
+            width: 96px; height: 60px;
             border-radius: 8px;
             overflow: hidden;
             cursor: pointer;
             border: 2px solid transparent;
             transition: border-color 0.2s, opacity 0.2s;
-            opacity: 0.5;
+            opacity: 0.45;
         }
 
-        .gallery-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-thumb.active { border-color: white; opacity: 1; }
+        .gallery-thumb:hover  { opacity: 0.8; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .release-overlay { padding: 0 32px 40px; }
+            .arrow-controls  { right: 32px; }
+            .slide-dots      { right: 32px; }
+            .episodes-section { padding: 28px 24px 48px; }
         }
 
-        .gallery-thumb.active {
-            border-color: white;
-            opacity: 1;
-        }
-
-        .gallery-thumb:hover {
-            opacity: 0.85;
-        }
     </style>
 </head>
 
@@ -386,6 +773,7 @@
         <li><a href="releases.html">RELEASES</a></li>
         <li><a href="announcements.html">ANNOUNCEMENTS</a></li>
         <li><a href="watch.html">WATCH & RATINGS</a></li>
+        <li><a href="reviews.html">REVIEWS</a></li>
     </ul>
 </header>
 
@@ -394,7 +782,7 @@
 
     <div class="release-slider" id="slider">
 
-        <!-- SLIDE 1 — HCM Beginnings  -->
+        <!-- SLIDE 1 — HCM -->
         <div class="release-slide" id="slide-hcm">
             <div class="release-bg" id="hcmBg" style="background-image: url('HCMArt.png');"></div>
 
@@ -402,8 +790,7 @@
                 <div class="release-left">
 
                     <div class="release-meta">
-                        <img src="yellowstar.png" class="star-icon">
-                        <span id="hcmRating">6.2</span>
+                        <span class="release-rating-badge" id="hcmRatingBadge">6.2</span>
                         <span class="dot">•</span>
                         <span id="hcmYear">2022</span>
                         <span class="dot">•</span>
@@ -439,8 +826,7 @@
                 <div class="release-left">
 
                     <div class="release-meta">
-                        <img src="yellowstar.png" class="star-icon">
-                        <span>5.2</span>
+                        <span class="release-rating-badge" style="background:#1abf2d">5.2</span>
                         <span class="dot">•</span>
                         <span>2025</span>
                         <span class="dot">•</span>
@@ -476,8 +862,7 @@
                 <div class="release-left">
 
                     <div class="release-meta">
-                        <img src="redstar.png" class="star-icon">
-                        <span>Not rated yet</span>
+                        <span class="release-rating-badge" style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.45)">—</span>
                         <span class="dot">•</span>
                         <span>2026</span>
                         <span class="dot">•</span>
@@ -507,11 +892,14 @@
 
     </div>
 
-    <!-- GLOBAL ARROWS -->
+    <!-- Prev / Next arrows -->
     <div class="arrow-controls">
         <button class="arrow prev">‹</button>
         <button class="arrow next">›</button>
     </div>
+
+    <!-- Slide indicator dots -->
+    <div class="slide-dots" id="slideDots"></div>
 
 </section>
 
@@ -520,7 +908,6 @@
 
     <div class="episodes-header">
         <h2 class="episodes-title" id="seasonTitle">Season 1</h2>
-
         <div class="episode-arrows">
             <button class="ep-arrow left">‹</button>
             <button class="ep-arrow right">›</button>
@@ -544,7 +931,7 @@
     </div>
 </div>
 
-<!-- ================= HCM SEASONS MODAL ================= -->
+<!-- HCM SEASONS MODAL -->
 <div class="seasons-modal" id="seasonsModal-hcm">
     <div class="seasons-backdrop" onclick="closeSeasonsModal('hcm')"></div>
     <div class="seasons-panel">
@@ -573,7 +960,7 @@
     </div>
 </div>
 
-<!-- ================= PRE-PARTY SEASONS MODAL ================= -->
+<!-- PRE-PARTY SEASONS MODAL -->
 <div class="seasons-modal" id="seasonsModal-pre">
     <div class="seasons-backdrop" onclick="closeSeasonsModal('pre')"></div>
     <div class="seasons-panel">
@@ -592,7 +979,7 @@
     </div>
 </div>
 
-<!-- ================= DAYTONA SEASONS MODAL ================= -->
+<!-- DAYTONA SEASONS MODAL -->
 <div class="seasons-modal" id="seasonsModal-daytona">
     <div class="seasons-backdrop" onclick="closeSeasonsModal('daytona')"></div>
     <div class="seasons-panel">
@@ -611,7 +998,7 @@
     </div>
 </div>
 
-<!-- ================= GALLERY MODAL ================= -->
+<!-- GALLERY MODAL -->
 <div class="gallery-modal" id="galleryModal">
     <div class="gallery-backdrop" onclick="closeGallery()"></div>
     <div class="gallery-panel">
@@ -635,6 +1022,24 @@
 
 <script>
 
+/* ── COLOUR SYSTEM (matches reviews) ── */
+function scoreColor(score) {
+    if (!score || score === '—') return 'rgba(255,255,255,0.12)';
+    const n = parseFloat(score);
+    if (n < 3)   return "#351e4f";
+    if (n < 5)   return "#8e0808";
+    if (n < 7)   return "#cea502";
+    if (n < 8)   return "#1abf2d";
+    if (n < 9.5) return "#008236";
+    return "#02d2f7";
+}
+
+function scoreTextColor(score) {
+    const n = parseFloat(score);
+    if (n >= 5 && n < 7) return "black";
+    return "white";
+}
+
 /* ── SLIDER ── */
 const slider = document.getElementById("slider");
 const slides = document.querySelectorAll(".release-slide");
@@ -650,7 +1055,25 @@ const startSeason = parseInt(params.get("season"));
 
 if (!isNaN(startSlide)) currentIndex = startSlide;
 
-/* ── SEASON STATE for HCM (slide 0) ── */
+/* ── Build slide dots ── */
+const dotsContainer = document.getElementById("slideDots");
+slides.forEach((_, i) => {
+    const dot = document.createElement("button");
+    dot.className = "slide-dot" + (i === 0 ? " active" : "");
+    dot.onclick = () => { currentIndex = i; updateSlider(); };
+    dotsContainer.appendChild(dot);
+});
+
+function updateDots() {
+    document.querySelectorAll(".slide-dot").forEach((d, i) => {
+        d.classList.toggle("active", i === currentIndex);
+    });
+    slides.forEach((s, i) => {
+        s.classList.toggle("active", i === currentIndex);
+    });
+}
+
+/* ── SEASON STATE for HCM ── */
 const hcmSeasonData = {
     1: {
         rating: "6.2",
@@ -676,13 +1099,19 @@ const hcmSeasonData = {
 
 function applyHcmSeason(season) {
     const d = hcmSeasonData[season];
-    document.getElementById("hcmRating").textContent = d.rating;
+    const badge = document.getElementById("hcmRatingBadge");
+    badge.textContent = d.rating;
+    badge.style.background = scoreColor(d.rating);
+    badge.style.color = scoreTextColor(d.rating);
     document.getElementById("hcmYear").textContent = d.year;
     document.getElementById("hcmSeasonCount").textContent = d.seasonCount;
     document.getElementById("hcmLogo").src = d.logo;
     document.getElementById("hcmBg").style.backgroundImage = `url('${d.bg}')`;
     document.getElementById("hcmDesc").textContent = d.desc;
 }
+
+/* initialise HCM badge colour */
+applyHcmSeason(1);
 
 /* ── SEASONS MODAL ── */
 function openSeasonsModal(series) {
@@ -753,7 +1182,6 @@ const episodeData = {
     ]
 };
 
-/* Slide index → episode key mapping */
 const slideEpisodeKey = {
     0: () => hcmSeasonData[hcmSeason].episodeKey,
     1: () => "pre",
@@ -790,7 +1218,7 @@ const videoLinks = {
         "https://www.youtube.com/embed/BV6weMlOTNw"
     ],
     daytona: [
-        "https://www.youtube.com/embed/u7msMYh8Yyk", // trailer plays for all placeholder episodes
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
         "https://www.youtube.com/embed/u7msMYh8Yyk",
         "https://www.youtube.com/embed/u7msMYh8Yyk",
         "https://www.youtube.com/embed/u7msMYh8Yyk",
@@ -807,50 +1235,27 @@ const galleryData = {
     hcm: {
         title: "Hypixel Cinematic Montages: Beginnings & Anniversary — Gallery",
         images: [
-            "HCMGallery1.png",
-            "HCMGallery2.png",
-            "HCMGallery3.png",
-            "HCMGallery4.png",
-            "HCMGallery5.png",
-            "HCMGallery6.png",
-            "HCMGallery7.png",
-            "HCMGallery8.png",
-            "HCMGallery9.png",
-            "HCMGallery10.png",
-            "HCMGallery11.png",
-            "HCMGallery12.png"
+            "HCMGallery1.png","HCMGallery2.png","HCMGallery3.png","HCMGallery4.png",
+            "HCMGallery5.png","HCMGallery6.png","HCMGallery7.png","HCMGallery8.png",
+            "HCMGallery9.png","HCMGallery10.png","HCMGallery11.png","HCMGallery12.png"
         ]
     },
     pre: {
         title: "Pre-Party — Gallery",
         images: [
-            "PrePartyGallery1.png",
-            "PrePartyGallery2.png",
-            "PrePartyGallery3.png",
-            "PrePartyGallery4.png",
-            "PrePartyGallery5.png",
-            "PrePartyGallery6.png",
-            "PrePartyGallery7.png",
-            "PrePartyGallery8.png",
-            "PrePartyGallery9.png",
+            "PrePartyGallery1.png","PrePartyGallery2.png","PrePartyGallery3.png",
+            "PrePartyGallery4.png","PrePartyGallery5.png","PrePartyGallery6.png",
+            "PrePartyGallery7.png","PrePartyGallery8.png","PrePartyGallery9.png",
             "PrePartyGallery10.png"
         ]
     },
-daytona: {
-    title: "Daytona — Gallery",
-    images: [
-        "DaytonaGallery1.png",
-        "DaytonaGallery2.png",
-        "DaytonaGallery3.png",
-        "DaytonaGallery4.png",
-        "DaytonaGallery5.png",
-        "DaytonaGallery6.png",
-        "DaytonaGallery7.png",
-        "DaytonaGallery8.png",
-        "DaytonaGallery9.png",
-        "DaytonaGallery10.png",
-        "DaytonaGallery11.png",
-        "DaytonaGallery12.png"
+    daytona: {
+        title: "Daytona — Gallery",
+        images: [
+            "DaytonaGallery1.png","DaytonaGallery2.png","DaytonaGallery3.png",
+            "DaytonaGallery4.png","DaytonaGallery5.png","DaytonaGallery6.png",
+            "DaytonaGallery7.png","DaytonaGallery8.png","DaytonaGallery9.png",
+            "DaytonaGallery10.png","DaytonaGallery11.png","DaytonaGallery12.png"
         ]
     }
 };
@@ -923,7 +1328,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 const episodesTrack = document.getElementById("episodesTrack");
-const leftArrow = document.querySelector(".ep-arrow.left");
+const leftArrow  = document.querySelector(".ep-arrow.left");
 const rightArrow = document.querySelector(".ep-arrow.right");
 
 let episodeScrollIndex = 0;
@@ -948,7 +1353,7 @@ function generateEpisodes(key) {
 
             const numLabel = (isPrologue && i === 0)
                 ? "Prologue:"
-                : (key === "hcm_s2" ? `Episode ${i + 1}:` : `Episode ${i + 1}:`);
+                : `Episode ${i + 1}:`;
 
             card.innerHTML = `
                 <div class="episode-thumb">
@@ -967,7 +1372,6 @@ function generateEpisodes(key) {
 
         episodesTrack.classList.remove("fade-out");
         episodesTrack.classList.add("fade-in");
-
         setTimeout(() => episodesTrack.classList.remove("fade-in"), 350);
 
     }, 300);
@@ -975,7 +1379,7 @@ function generateEpisodes(key) {
 
 /* ── SCROLL ── */
 function getMaxScrollIndex() {
-    const cardWidth = 262;
+    const cardWidth = 258;
     const totalCards = episodesTrack.children.length;
     const visibleWidth = document.querySelector(".episodes-wrapper").offsetWidth;
     return Math.max(0, Math.ceil((totalCards * cardWidth - visibleWidth) / cardWidth));
@@ -984,14 +1388,14 @@ function getMaxScrollIndex() {
 rightArrow.addEventListener("click", () => {
     if (episodeScrollIndex < getMaxScrollIndex()) {
         episodeScrollIndex++;
-        episodesTrack.style.transform = `translateX(-${episodeScrollIndex * 262}px)`;
+        episodesTrack.style.transform = `translateX(-${episodeScrollIndex * 258}px)`;
     }
 });
 
 leftArrow.addEventListener("click", () => {
     if (episodeScrollIndex > 0) {
         episodeScrollIndex--;
-        episodesTrack.style.transform = `translateX(-${episodeScrollIndex * 262}px)`;
+        episodesTrack.style.transform = `translateX(-${episodeScrollIndex * 258}px)`;
     }
 });
 
@@ -1003,10 +1407,11 @@ function onSlideChange(index) {
     const titleMap = {
         hcm_s1: "Season 1",
         hcm_s2: "Season 2",
-        pre: "Season 1",
-        daytona: "Season 1"
+        pre:    "Season 1",
+        daytona:"Season 1"
     };
     document.getElementById("seasonTitle").textContent = titleMap[key] || "Season 1";
+    updateDots();
 }
 
 /* ── VIDEO MODAL ── */
@@ -1021,8 +1426,7 @@ function closeVideo() {
 }
 
 function playCurrentSeries() {
-    const key = currentEpisodeKey;
-    openVideo(videoLinks[key][0]);
+    openVideo(videoLinks[currentEpisodeKey][0]);
 }
 
 /* ── SLIDER CONTROLS ── */
@@ -1051,6 +1455,5 @@ if (!isNaN(startSeason) && startSeason === 2) {
 }
 
 </script>
-
 </body>
 </html>
