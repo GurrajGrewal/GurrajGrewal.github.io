@@ -417,17 +417,19 @@ body {
 <script>
 /* ── COLOUR SYSTEM (matches reviews.html exactly) ── */
 function getRatingColor(score) {
-    if (score === null || score === undefined) return null;
+    if (score === null || score === undefined) {
+        return { bg: "#1a1a1a", text: "rgba(255,255,255,0.2)" };
+    }
 
-    if (score < 4.0) return "#351e4f";
-    if (score < 5.0) return "#8e0808";
-    if (score < 6.0) return "#bf6205";
-    if (score < 7.6) return "#cea502";
-    if (score < 8.0) return "#0aad1d";
-    if (score < 9.0) return "#0b911b";
-    if (score < 9.5) return "#008430";
+    if (score < 4.0) return { bg: "#351e4f", text: "white" };
+    if (score < 5.0) return { bg: "#8e0808", text: "white" };
+    if (score < 6.0) return { bg: "#bf6205", text: "white" };
+    if (score < 7.6) return { bg: "#cea502", text: "#0f0f0f" };
+    if (score < 8.0) return { bg: "#0aad1d", text: "#0f0f0f" };
+    if (score < 9.0) return { bg: "#0b911b", text: "white" };
+    if (score < 9.5) return { bg: "#008430", text: "white" };
 
-    return "#00b1d1";
+    return { bg: "#00b1d1", text: "white" };
 }
 
 function scoreTextColor(score) {
