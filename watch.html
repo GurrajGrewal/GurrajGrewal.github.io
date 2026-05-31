@@ -3,31 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Watch & Ratings - Gurraj Grewal</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/png" href="favicon.png">
-
 <style>
+
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: black;
+    background: #080808;
     color: white;
+    min-height: 100vh;
 }
 
-/* NAVBAR */
+/* ── NAVBAR (matches reviews.html exactly) ── */
 .navbar {
-    position: absolute;
+    position: fixed;
     top: 0;
     width: 100%;
-    z-index: 10;
-    background: rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    background: rgba(0,0,0,0.4);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 }
-
 .nav-center {
     display: flex;
     gap: 10px;
@@ -35,7 +35,6 @@ body {
     margin: 0;
     padding: 10px 20px;
 }
-
 .nav-center li a {
     display: inline-block;
     padding: 10px 16px;
@@ -43,348 +42,474 @@ body {
     color: white;
     text-decoration: none;
     font-weight: 500;
-    transition: 0.2s;
+    transition: all 0.2s ease;
+}
+.nav-center li a:hover { background: rgba(255,255,255,0.2); }
+.nav-center li a[href="watch.html"] { background: rgba(255,255,255,0.3); }
+
+/* ── PAGE WRAPPER ── */
+.watch-page {
+    padding: 100px 60px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.nav-center li a:hover {
-    background: rgba(255,255,255,0.2);
+/* ── PAGE HEADER ── */
+.page-header {
+    margin-bottom: 48px;
+}
+.page-header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0 0 4px;
+}
+.page-header p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    margin: 0;
 }
 
-.nav-center li a[href="watch.html"] {
-    background: rgba(255,255,255,0.3);
-}
-
-/* PAGE */
-.ratings-section {
-    padding: 120px 80px 80px;
-}
-
-/* PROJECT BLOCK */
-.project-block {
-    margin-bottom: 90px;
-    border-radius: 22px;
-    overflow: hidden;
+/* ── DISCLAIMER ── */
+.disclaimer {
     background: rgba(255,255,255,0.04);
-    backdrop-filter: blur(16px);
     border: 1px solid rgba(255,255,255,0.08);
+    border-left: 3px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 48px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.6;
+}
+.disclaimer strong { color: rgba(255,255,255,0.65); font-weight: 600; }
+
+/* ── PROJECT CARD ── */
+.project-card {
+    margin-bottom: 56px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.6);
 }
 
-/* HEADER IMAGE */
-.project-header {
+/* ── CINEMATIC BANNER ── */
+.project-banner {
     position: relative;
-    height: 320px;
+    height: 340px;
     overflow: hidden;
 }
-
-.project-header img {
+.project-banner-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.55) contrast(1.15);
-    transform: scale(1.03);
+    object-position: center;
+    display: block;
+    filter: brightness(0.5) contrast(1.1) saturate(1.1);
+    transform: scale(1.04);
+    transition: transform 6s ease;
+}
+.project-card:hover .project-banner-img {
+    transform: scale(1.0);
 }
 
-.project-info {
+/* Gradient fades banner into card body */
+.project-banner::after {
+    content: '';
     position: absolute;
-    bottom: 25px;
-    left: 35px;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 30%,
+        rgba(8,8,8,0.2) 60%,
+        #111 100%
+    );
+    pointer-events: none;
 }
 
-.project-info h2 {
-    margin: 0;
-    font-weight: 500;
-    opacity: 0.9;
-}
-
-.project-info h1 {
-    margin: 6px 0 0;
-    font-size: 48px;
-}
-
-/* AVG RATING */
-.overall-rating {
-    padding: 35px 35px 10px;
-}
-
-.overall-rating h3 {
-    font-size: 18px;
-    opacity: 0.8;
-    margin-bottom: 10px;
-}
-
-.rating-box {
+/* ── BANNER META (overlaid on image) ── */
+.project-banner-meta {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 28px 32px;
+    z-index: 2;
     display: flex;
-    align-items: baseline;
-    gap: 12px;
-    font-size: 42px;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+}
+.project-titles { flex: 1; }
+.project-series-label {
+    font-size: 11px;
     font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 6px;
+}
+.project-name {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0;
+    letter-spacing: -0.02em;
 }
 
-.rating-box img {
-    width: 28px;
-    height: 28px;
-}
-
-/* EPISODE SECTION */
-.episode-ratings {
-    padding: 10px 35px 35px;
-}
-
-.episode-ratings h3 {
-    font-size: 18px;
-    opacity: 0.85;
-    margin-bottom: 18px;
-}
-
-/* TABLE */
-.ratings-table {
-    margin-top: 10px;
-}
-
-.ratings-row {
+/* ── SCORE BADGE (on banner) ── */
+.banner-score-badge {
+    flex-shrink: 0;
     display: flex;
-    gap: 12px;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 14px;
+    gap: 2px;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    padding: 12px 18px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    min-width: 80px;
+    text-align: center;
+}
+.banner-score-value {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+}
+.banner-score-sub {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 2px;
 }
 
+/* ── CARD BODY ── */
+.project-body {
+    padding: 28px 32px 32px;
+}
+
+/* ── SECTION LABEL ── */
+.section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ── RATINGS TABLE ── */
+.ratings-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+}
+.ratings-wrap::-webkit-scrollbar { height: 3px; }
+.ratings-wrap::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+.ratings-table { display: inline-flex; flex-direction: column; gap: 0; min-width: max-content; }
+
+/* Header row */
 .ratings-header-row {
     display: flex;
-    gap: 12px;
+    gap: 8px;
+    margin-bottom: 8px;
+    margin-left: calc(44px + 8px); /* align with tiles, past the season label */
+}
+.ratings-header-row .ep-label {
+    width: 52px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.25);
+}
+
+/* Season row */
+.ratings-row {
+    display: flex;
     align-items: center;
+    gap: 8px;
     margin-bottom: 10px;
-    margin-left: 70px; /* 58px season-label + 12px gap */
 }
-
-.ratings-header-row div {
-    width: 58px;
-    text-align: center;
-    font-size: 13px;
-    opacity: 0.6;
-}
-
-/* SEASON LABEL */
 .season-label {
-    width: 58px;
-    opacity: 0.6;
+    width: 44px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.3);
     text-align: center;
     flex-shrink: 0;
+    text-transform: uppercase;
 }
 
-/* RATING TILES */
+/* ── RATING TILE ── */
 .rating-tile {
-    width: 58px;
-    height: 58px;
-    border-radius: 12px;
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
     flex-shrink: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     color: white;
-
-    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-    transition: transform 0.15s ease, filter 0.15s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    cursor: default;
+    position: relative;
+}
+.rating-tile:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.5);
+    z-index: 2;
+}
+.rating-tile.unreleased {
+    background: #1a1a1a !important;
+    color: rgba(255,255,255,0.2);
+    box-shadow: none;
+    border: 1px solid rgba(255,255,255,0.06);
 }
 
-.rating-tile:hover {
-    transform: scale(1.07);
-    filter: brightness(1.1);
+/* Upcoming badge overlaid on the whole card */
+.upcoming-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 20px;
+}
+.upcoming-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    animation: pulse 2s ease infinite;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 860px) {
+    .watch-page { padding: 90px 24px 60px; }
+    .project-name { font-size: 26px; }
+    .project-banner { height: 260px; }
 }
 
 </style>
 </head>
-
 <body>
 
 <header class="navbar">
     <div class="logo">
-        <a href="index.html">
-            <img src="logo-big-tran.png" alt="Logo">
-        </a>
+        <a href="index.html"><img src="logo-big-tran.png" alt="Logo"></a>
     </div>
-
     <ul class="nav-center">
         <li><a href="home.html">HOME</a></li>
         <li><a href="releases.html">RELEASES</a></li>
         <li><a href="announcements.html">ANNOUNCEMENTS</a></li>
         <li><a href="watch.html">WATCH & RATINGS</a></li>
+        <li><a href="reviews.html">REVIEWS</a></li>
     </ul>
 </header>
 
-<section class="ratings-section">
+<div class="watch-page">
 
-    <!-- HCM (S1 + S2) -->
-    <div class="project-block">
-
-        <div class="project-header">
-            <img src="HCMRatings.png">
-            <div class="project-info">
-                <h2>Hypixel Cinematic Montages</h2>
-                <h1>Ratings</h1>
-            </div>
-        </div>
-
-        <div class="overall-rating">
-            <h3>Avg. Rating</h3>
-            <div class="rating-box">
-                <img src="yellowstar.png">
-                <span>6.0</span>/10
-            </div>
-        </div>
-
-        <div class="episode-ratings">
-            <h3>Ratings by episode & prologue</h3>
-            <div class="ratings-table" id="hcmTable"></div>
-        </div>
-
+    <div class="page-header">
+        <h1>Series Ratings</h1>
+        <p>Episode-by-episode ratings for every Minecraft project.</p>
     </div>
 
-    <!-- PRE-PARTY -->
-    <div class="project-block">
-
-        <div class="project-header">
-            <img src="PrePartyRatings.png">
-            <div class="project-info">
-                <h2>Pre-Party</h2>
-                <h1>Ratings</h1>
-            </div>
-        </div>
-
-        <div class="overall-rating">
-            <h3>Avg. Rating</h3>
-            <div class="rating-box">
-                <img src="yellowstar.png">
-                <span>5.2</span>/10
-            </div>
-        </div>
-
-        <div class="episode-ratings">
-            <h3>Ratings by episode & prologue</h3>
-            <div class="ratings-table" id="preTable"></div>
-        </div>
-
+    <div class="disclaimer">
+        <strong>Note on ratings:</strong> Scores rate each episode as a standalone piece of content — production, pacing, storytelling, and overall impact. A 9.0 means the episode genuinely stood out. Unreleased episodes are shown as blank tiles.
     </div>
 
-    <!-- DAYTONA -->
-    <div class="project-block">
-
-        <div class="project-header">
-            <img src="DaytonaRatings.png">
-            <div class="project-info">
-                <h2>Daytona</h2>
-                <h1>Ratings</h1>
+    <!-- ── HCM ── -->
+    <div class="project-card" id="card-hcm">
+        <div class="project-banner">
+            <img class="project-banner-img" src="HCMRatings.png" alt="HCM">
+            <div class="project-banner-meta">
+                <div class="project-titles">
+                    <div class="project-series-label">Minecraft Series</div>
+                    <h2 class="project-name">Hypixel Cinematic Montages</h2>
+                </div>
+                <div class="banner-score-badge" id="hcm-badge">
+                    <span class="banner-score-value" id="hcm-score">6.0</span>
+                    <span class="banner-score-sub">Avg / 10</span>
+                </div>
             </div>
         </div>
-
-        <div class="overall-rating">
-            <h3>Avg. Rating</h3>
-            <div class="rating-box">
-                <img src="redstar.png">
-                <span>-</span>/10
+        <div class="project-body">
+            <div class="section-label">Ratings by Season & Episode</div>
+            <div class="ratings-wrap">
+                <div class="ratings-table" id="hcmTable"></div>
             </div>
         </div>
-
-        <div class="episode-ratings">
-            <h3>Ratings by episode</h3>
-            <div class="ratings-table" id="daytonaTable"></div>
-        </div>
-
     </div>
 
-</section>
+    <!-- ── PRE-PARTY ── -->
+    <div class="project-card" id="card-pre">
+        <div class="project-banner">
+            <img class="project-banner-img" src="PrePartyRatings.png" alt="Pre-Party">
+            <div class="project-banner-meta">
+                <div class="project-titles">
+                    <div class="project-series-label">Minecraft Series</div>
+                    <h2 class="project-name">Pre-Party</h2>
+                </div>
+                <div class="banner-score-badge" id="pre-badge">
+                    <span class="banner-score-value" id="pre-score">5.2</span>
+                    <span class="banner-score-sub">Avg / 10</span>
+                </div>
+            </div>
+        </div>
+        <div class="project-body">
+            <div class="section-label">Ratings by Season & Episode</div>
+            <div class="ratings-wrap">
+                <div class="ratings-table" id="preTable"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── DAYTONA ── -->
+    <div class="project-card" id="card-daytona">
+        <div class="project-banner">
+            <img class="project-banner-img" src="DaytonaRatings.png" alt="Daytona">
+            <div class="project-banner-meta">
+                <div class="project-titles">
+                    <div class="project-series-label">Minecraft Series · Upcoming</div>
+                    <h2 class="project-name">Daytona</h2>
+                </div>
+                <div class="banner-score-badge">
+                    <span class="banner-score-value" style="color:rgba(255,255,255,0.3)">—</span>
+                    <span class="banner-score-sub">Avg / 10</span>
+                </div>
+            </div>
+        </div>
+        <div class="project-body">
+            <div class="upcoming-badge">Upcoming — ratings pending release</div>
+            <div class="section-label">Ratings by Season & Episode</div>
+            <div class="ratings-wrap">
+                <div class="ratings-table" id="daytonaTable"></div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- end .watch-page -->
 
 <script>
+/* ── COLOUR SYSTEM (matches reviews.html exactly) ── */
 function getRatingColor(score) {
-    if (score < 3)   return "#351e4f";
-    if (score < 5)   return "#8e0808";
-    if (score < 7)   return "#cea502";
-    if (score < 8)   return "#1abf2d";
-    if (score < 9.5) return "#008236";
-    return "#02d2f7";
+    if (score < 3)   return { bg: "#351e4f", color: "white" };
+    if (score < 5)   return { bg: "#8e0808", color: "white" };
+    if (score < 7)   return { bg: "#cea502", color: "#000"  };  /* yellow → black text */
+    if (score < 8)   return { bg: "#1abf2d", color: "white" };
+    if (score < 9.5) return { bg: "#008236", color: "white" };
+    return             { bg: "#02d2f7", color: "white" };
 }
 
 /**
- * Renders one or more seasons into a table container.
- *
- * @param {string} containerId  - ID of the .ratings-table div
- * @param {Array}  seasons      - Array of { label, scores, prologue } objects
+ * @param {string} containerId
+ * @param {Array}  seasons  — { label, scores, prologue }
+ * @param {string} badgeScoreId — optional: id of score span to colour
  */
-function generateMultiSeasonTable(containerId, seasons) {
+function generateTable(containerId, seasons, badgeScoreId) {
     const container = document.getElementById(containerId);
 
-    // Build the widest header (longest season)
     const maxEps = Math.max(...seasons.map(s => s.scores.length));
-    const headerRow = document.createElement("div");
-    headerRow.className = "ratings-header-row";
+    const tableHasPrologue = seasons[0].prologue;
 
+    /* ── HEADER ROW ── */
+    const header = document.createElement("div");
+    header.className = "ratings-header-row";
     for (let i = 0; i < maxEps; i++) {
         const cell = document.createElement("div");
-        // Use the first season's prologue setting for header labels
-        const usePrologue = seasons[0].prologue;
-        cell.textContent = (usePrologue && i === 0) ? "P" : "E" + (usePrologue ? i : i + 1);
-        headerRow.appendChild(cell);
+        cell.className = "ep-label";
+        cell.textContent = (tableHasPrologue && i === 0) ? "P" : "E" + (tableHasPrologue ? i : i + 1);
+        header.appendChild(cell);
     }
-    container.appendChild(headerRow);
+    container.appendChild(header);
 
-    // Build each season row
+    /* ── SEASON ROWS ── */
     seasons.forEach(({ label, scores, prologue }) => {
         const row = document.createElement("div");
         row.className = "ratings-row";
 
-        const seasonLabel = document.createElement("div");
-        seasonLabel.className = "season-label";
-        seasonLabel.textContent = label;
-        row.appendChild(seasonLabel);
+        const lbl = document.createElement("div");
+        lbl.className = "season-label";
+        lbl.textContent = label;
+        row.appendChild(lbl);
 
-        // If the table has a prologue column but this season doesn't, add a blank spacer
-        const tableHasPrologue = seasons[0].prologue;
+        /* spacer if table has prologue but this season doesn't */
         if (tableHasPrologue && !prologue) {
-            const spacer = document.createElement("div");
-            spacer.style.width = "58px";
-            spacer.style.height = "58px";
-            spacer.style.flexShrink = "0";
-            row.appendChild(spacer);
+            const sp = document.createElement("div");
+            sp.style.cssText = "width:52px;height:52px;flex-shrink:0;";
+            row.appendChild(sp);
         }
 
-        scores.forEach((score, i) => {
+        scores.forEach(score => {
             const tile = document.createElement("div");
             tile.className = "rating-tile";
-
             if (score === 0) {
-                tile.textContent = "-";
-                tile.style.background = "#222";
+                tile.classList.add("unreleased");
+                tile.textContent = "—";
             } else {
+                const { bg, color } = getRatingColor(score);
+                tile.style.background = bg;
+                tile.style.color = color;
                 tile.textContent = score.toFixed(1);
-                tile.style.background = getRatingColor(score);
             }
-
             row.appendChild(tile);
         });
 
         container.appendChild(row);
     });
+
+    /* ── COLOUR THE AVG BADGE if id provided ── */
+    if (badgeScoreId) {
+        const scoreEl = document.getElementById(badgeScoreId);
+        if (scoreEl) {
+            const val = parseFloat(scoreEl.textContent);
+            if (!isNaN(val)) {
+                const { bg, color } = getRatingColor(val);
+                scoreEl.style.color = color;
+                scoreEl.closest(".banner-score-badge").style.background = bg;
+                scoreEl.closest(".banner-score-badge").style.border = "none";
+            }
+        }
+    }
 }
 
-// HCM — Season 1 + Season 2
-generateMultiSeasonTable("hcmTable", [
-    { label: "S1", scores: [5.0, 4.6, 8.6, 4.8, 6.9, 6.7, 7.0, 4.7, 6.9, 6.6], prologue: true },
-    { label: "S2", scores: [6.7, 4.0, 7.4, 5.6],                                prologue: false }
-]);
+/* ── DATA ── */
+generateTable("hcmTable", [
+    { label: "S1", scores: [5.0, 4.6, 8.6, 4.8, 6.9, 6.7, 7.0, 4.7, 6.9, 6.6], prologue: true  },
+    { label: "S2", scores: [6.7, 4.0, 7.4, 5.6],                                 prologue: false }
+], "hcm-score");
 
-// Pre-Party — Season 1
-generateMultiSeasonTable("preTable", [
+generateTable("preTable", [
     { label: "S1", scores: [2.3, 6.6, 5.5, 4.6, 5.7, 7.1, 7.0], prologue: true }
-]);
+], "pre-score");
 
-// Daytona — Season 1 (unreleased)
-generateMultiSeasonTable("daytonaTable", [
+generateTable("daytonaTable", [
     { label: "S1", scores: [0, 0, 0, 0, 0, 0, 0, 0, 0], prologue: false }
 ]);
 </script>
-
 </body>
 </html>
