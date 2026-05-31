@@ -416,13 +416,28 @@ body {
 
 <script>
 /* ── COLOUR SYSTEM (matches reviews.html exactly) ── */
-function getRatingColor(score) {
-    if (score < 3)   return { bg: "#351e4f", color: "white" };
-    if (score < 5)   return { bg: "#8e0808", color: "white" };
-    if (score < 7)   return { bg: "#cea502", color: "#000"  };  /* yellow → black text */
-    if (score < 8)   return { bg: "#1abf2d", color: "white" };
-    if (score < 9.5) return { bg: "#008236", color: "white" };
-    return             { bg: "#02d2f7", color: "white" };
+function scoreColor(score) {
+    if (score === null || score === undefined) return null;
+
+    if (score < 4.0) return "#351e4f";
+    if (score < 5.0) return "#8e0808";
+    if (score < 6.0) return "#bf6205";
+    if (score < 7.6) return "#cea502";
+    if (score < 8.0) return "#0aad1d";
+    if (score < 9.0) return "#0b911b";
+    if (score < 9.5) return "#008430";
+
+    return "#00b1d1";
+}
+
+function scoreTextColor(score) {
+    if (score === null || score === undefined) return "white";
+
+    if (score >= 5.0 && score < 9.0) {
+        return "#0f0f0f";
+    }
+
+    return "white";
 }
 
 /**
