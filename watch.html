@@ -416,7 +416,7 @@ body {
 
 <script>
 /* ── COLOUR SYSTEM (matches reviews.html exactly) ── */
-function scoreColor(score) {
+function getRatingColor(score) {
     if (score === null || score === undefined) return null;
 
     if (score < 4.0) return "#351e4f";
