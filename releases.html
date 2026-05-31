@@ -1360,10 +1360,16 @@ function generateEpisodes(key) {
             const card = document.createElement("div");
             card.className = "episode-card";
 
-            const numLabel = (isPrologue && i === 0)
-                ? "Prologue:"
-                : `Episode ${i + 1}:`;
+            // NOTE: I messed up my png, my prologue thumbnail is called episode 1, so now the real episode 1 is called episode 2 and so on.
+        let numLabel;
 
+        if (isPrologue && i === 0) {
+        numLabel = "Prologue:";
+        } else {
+        const episodeNum = isPrologue ? i : i + 1;
+        numLabel = `Episode ${episodeNum}:`;
+        }
+            
             card.innerHTML = `
                 <div class="episode-thumb">
                     <img src="${ep.img}">
