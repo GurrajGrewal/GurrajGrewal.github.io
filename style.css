@@ -43,6 +43,28 @@ body {
     display: block;
 }
 
+/* ── RESPONSIVE NAVBAR ── */
+/* When viewport gets narrow, shrink the logo so it doesn't walk into the nav pills */
+@media (max-width: 1100px) {
+    .logo { left: 32px; }
+    .logo img { height: 72px; }
+    .nav-center { gap: 40px; }
+}
+
+@media (max-width: 860px) {
+    .logo { left: 20px; }
+    .logo img { height: 56px; }
+    .nav-center { gap: 16px; }
+    .nav-center a { font-size: 12px; letter-spacing: 2px; }
+}
+
+@media (max-width: 640px) {
+    /* Logo hidden at very small widths — nav takes full bar */
+    .logo { display: none; }
+    .nav-center { gap: 6px; }
+    .nav-center a { font-size: 11px; letter-spacing: 1px; padding: 8px 10px; }
+}
+
 /* Center Navigation */
 .nav-center {
     list-style: none;
@@ -1215,4 +1237,63 @@ body {
 
 .release-slide {
     min-width: 100%;
+}
+
+
+/* ================================================================
+   RESPONSIVE BREAKPOINTS
+================================================================ */
+
+@media (max-width: 1100px) {
+    .home-grid {
+        grid-template-columns: 240px 1fr 280px;
+        gap: 28px;
+        padding: 32px 40px;
+    }
+
+    .hero-banner { height: 340px; }
+
+    .poster { width: 220px; }
+    .poster-row { gap: 36px; }
+}
+
+@media (max-width: 860px) {
+    body { padding-top: 64px; }
+    .navbar { height: 64px; }
+
+    .home-grid {
+        grid-template-columns: 1fr;
+        padding: 24px;
+    }
+
+    .popular-column,
+    .community-column { display: none; }
+
+    .home-hero { padding-left: 32px; margin-top: 80px; }
+
+    .poster-row {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .poster { width: calc(50% - 10px); max-width: 240px; }
+
+    .hero-banner { height: 260px; }
+    .hero-text { bottom: 20px; left: 28px; }
+    .hero-text h1 { font-size: 32px; }
+
+    .episodes-section { padding: 28px 28px 40px; }
+    .ratings-section  { padding: 40px; }
+}
+
+@media (max-width: 640px) {
+    .home-hero { padding-left: 20px; }
+
+    .poster-row { gap: 12px; }
+    .poster { width: 100%; max-width: 300px; }
+
+    .hero-banner { height: 200px; }
+
+    .page-hero h1 { font-size: 32px; letter-spacing: 3px; }
+
+    .episodes-section { padding: 20px 16px 32px; }
 }
