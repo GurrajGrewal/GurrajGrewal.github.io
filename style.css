@@ -759,10 +759,11 @@ body {
 
 .arrow-controls {
     position: absolute;
-    bottom: 40px;
-    left: 80px;
+    bottom: 56px;
+    right: 72px;
+    left: auto;
     display: flex;
-    gap: 10px;
+    gap: 8px;
     z-index: 6;
 }
 
