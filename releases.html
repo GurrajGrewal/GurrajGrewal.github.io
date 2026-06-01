@@ -21,6 +21,20 @@
             -webkit-backdrop-filter: blur(10px);
         }
 
+        /* Keep logo from walking into nav pills at narrow widths */
+        @media (max-width: 1100px) {
+            .logo { left: 20px; }
+            .logo img { height: 68px; }
+        }
+        @media (max-width: 760px) {
+            .logo img { height: 50px; }
+            .nav-center { gap: 4px; }
+            .nav-center li a { padding: 8px 10px; font-size: 12px; }
+        }
+        @media (max-width: 540px) {
+            .logo { display: none; }
+        }
+
         .nav-center {
             display: flex;
             gap: 10px;
@@ -238,7 +252,7 @@
             border-radius: 3px;
         }
 
-        /* Arrow controls — bottom right */
+        /* Arrow controls — bottom RIGHT, above the dots */
         .arrow-controls {
             position: absolute;
             bottom: 56px;
@@ -246,6 +260,41 @@
             display: flex;
             gap: 8px;
             z-index: 6;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .release-overlay { padding: 0 48px; padding-bottom: 48px; }
+            .arrow-controls  { right: 48px; bottom: 48px; }
+            .slide-dots      { right: 48px; }
+            .release-logo img { max-width: 340px; max-height: 130px; }
+        }
+
+        @media (max-width: 768px) {
+            .release-feature { height: 60vh; min-height: 420px; }
+            .release-overlay { padding: 0 28px; padding-bottom: 80px; }
+            /* Push arrows below the play button row by moving them to bottom-left,
+               safely separated from the content by extra bottom padding */
+            .arrow-controls  { bottom: 28px; right: 28px; }
+            .slide-dots      { bottom: 10px; right: 28px; }
+            .release-left    { max-width: 100%; }
+            .release-logo img { max-width: 260px; max-height: 100px; }
+            .release-description { display: none; } /* reclaim space on small screens */
+            .episodes-section { padding: 28px 28px 40px; }
+        }
+
+        @media (max-width: 540px) {
+            .release-feature { height: 55vh; min-height: 360px; }
+            .release-overlay { padding: 0 20px; padding-bottom: 72px; }
+            .arrow-controls  { bottom: 20px; right: 20px; }
+            .slide-dots      { bottom: 6px; right: 20px; }
+            .release-logo img { max-width: 200px; max-height: 80px; }
+            .release-meta    { font-size: 11px; gap: 6px; }
+            .play-btn        { padding: 9px 20px; font-size: 12px; }
+            .info-btn, .season-btn { padding: 8px 14px; font-size: 12px; }
+            .episodes-section { padding: 20px 16px 32px; }
+            .episode-card    { width: 180px; }
+            .episode-thumb   { height: 100px; }
         }
 
         .arrow {
