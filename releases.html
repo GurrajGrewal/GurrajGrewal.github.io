@@ -852,7 +852,7 @@
                         <span class="dot">•</span>
                         <span id="hcmYear">2022</span>
                         <span class="dot">•</span>
-                        <span id="hcmSeasonCount">2 Seasons</span>
+                        <span id="hcmSeasonCount">3 Seasons</span>
                     </div>
 
                     <div class="release-logo">
@@ -876,45 +876,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 2 — PRE-PARTY -->
-        <div class="release-slide">
-            <div class="release-bg" style="background-image: url('PRE-PARTYART.png');"></div>
-
-            <div class="release-overlay">
-                <div class="release-left">
-
-                    <div class="release-meta">
-                        <span class="release-rating-badge" style="background:#bf6205; color:#0f0f0f;">
-                        5.2
-                        </span>
-                        <span class="dot">•</span>
-                        <span>2025</span>
-                        <span class="dot">•</span>
-                        <span>1 Season</span>
-                    </div>
-
-                    <div class="release-logo">
-                        <img src="PRE-PARTYLOGO.png">
-                    </div>
-
-                    <div class="release-description">
-                        <p>
-                            A Hypixel Cinematic Montages Spinoff centered on Viouth, a variant of Violethyst.
-                            Introducing tracks from The Weeknd's Hurry Up Tomorrow album turned into montages.
-                        </p>
-                    </div>
-
-                    <div class="release-buttons">
-                        <button class="play-btn" onclick="playCurrentSeries()">▶ Play</button>
-                        <button class="info-btn" onclick="openSeasonsModal('pre')">Seasons</button>
-                        <button class="season-btn" onclick="openGallery('pre')">Gallery</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 3 — DAYTONA -->
+        <!-- SLIDE 2 — DAYTONA -->
         <div class="release-slide">
             <div class="release-bg" style="background-image: url('DaytonaArt.png');"></div>
 
@@ -1009,30 +971,21 @@
         </div>
 
         <div class="season-option" id="seasonOpt2" onclick="selectSeason(2)">
-            <img src="HCMAArt.png" alt="Season 2">
+            <img src="PRE-PARTYART.png" alt="Season 2">
             <div class="season-option-info">
                 <div class="season-option-label">Season 2</div>
-                <div class="season-option-title">Hypixel Cinematic Montages: Anniversary</div>
-                <div class="season-option-ep">4 Episodes · 2025</div>
+                <div class="season-option-title">Pre-Party</div>
+                <div class="season-option-ep">7 Episodes · 2025</div>
             </div>
             <span class="season-option-check">✓</span>
         </div>
-    </div>
-</div>
 
-<!-- PRE-PARTY SEASONS MODAL -->
-<div class="seasons-modal" id="seasonsModal-pre">
-    <div class="seasons-backdrop" onclick="closeSeasonsModal('pre')"></div>
-    <div class="seasons-panel">
-        <h3>Select a Season</h3>
-        <button class="seasons-close" onclick="closeSeasonsModal('pre')">×</button>
-
-        <div class="season-option active">
-            <img src="PRE-PARTYART.png" alt="Season 1">
+        <div class="season-option" id="seasonOpt3" onclick="selectSeason(3)">
+            <img src="HCMAArt.png" alt="Season 3">
             <div class="season-option-info">
-                <div class="season-option-label">Season 1</div>
-                <div class="season-option-title">Pre-Party</div>
-                <div class="season-option-ep">6 Episodes · 2025</div>
+                <div class="season-option-label">Season 3</div>
+                <div class="season-option-title">Hypixel Cinematic Montages: Anniversary</div>
+                <div class="season-option-ep">4 Episodes · 2025</div>
             </div>
             <span class="season-option-check">✓</span>
         </div>
@@ -1140,20 +1093,30 @@ const hcmSeasonData = {
         year: "2022",
         logo: "HCMLogo.png",
         bg: "HCMArt.png",
-        seasonCount: "2 Seasons",
+        seasonCount: "3 Seasons",
         desc: "Violethyst and Sibashi enter each match with one goal: survive. In a world where a single mistake ends the game, teamwork is the only way out.",
         episodeKey: "hcm_s1",
         seasonTitle: "Season 1"
     },
     2: {
+        rating: "5.2",
+        year: "2025",
+        logo: "PRE-PARTYLOGO.png",
+        bg: "PRE-PARTYART.png",
+        seasonCount: "3 Seasons",
+        desc: "A spinoff centered on Viouth, a variant of Violethyst. Introducing tracks from The Weeknd's Hurry Up Tomorrow album turned into montages.",
+        episodeKey: "pre",
+        seasonTitle: "Season 2"
+    },
+    3: {
         rating: "5.9",
         year: "2025",
         logo: "HCMALogo.png",
         bg: "HCMAArt.png",
-        seasonCount: "2 Seasons",
+        seasonCount: "3 Seasons",
         desc: "Three years later, Violethyst returns to the games. Revisiting the rivalry, the matches, and the momentum that started it all.",
         episodeKey: "hcm_s2",
-        seasonTitle: "Season 2"
+        seasonTitle: "Season 3"
     }
 };
 
@@ -1178,6 +1141,7 @@ function openSeasonsModal(series) {
     if (series === 'hcm') {
         document.getElementById("seasonOpt1").classList.toggle("active", hcmSeason === 1);
         document.getElementById("seasonOpt2").classList.toggle("active", hcmSeason === 2);
+        document.getElementById("seasonOpt3").classList.toggle("active", hcmSeason === 3);
     }
     document.getElementById(`seasonsModal-${series}`).classList.add("open");
 }
@@ -1196,6 +1160,7 @@ function selectSeason(season) {
 
     document.getElementById("seasonOpt1").classList.toggle("active", season === 1);
     document.getElementById("seasonOpt2").classList.toggle("active", season === 2);
+    document.getElementById("seasonOpt3").classList.toggle("active", season === 3);
 
     closeSeasonsModal('hcm');
 }
@@ -1244,8 +1209,7 @@ const episodeData = {
 
 const slideEpisodeKey = {
     0: () => hcmSeasonData[hcmSeason].episodeKey,
-    1: () => "pre",
-    2: () => "daytona"
+    1: () => "daytona"
 };
 
 /* ── VIDEO LINKS ── */
@@ -1472,8 +1436,8 @@ function onSlideChange(index) {
 
     const titleMap = {
         hcm_s1: "Season 1",
-        hcm_s2: "Season 2",
-        pre:    "Season 1",
+        pre:    "Season 2",
+        hcm_s2: "Season 3",
         daytona:"Season 1"
     };
     document.getElementById("seasonTitle").textContent = titleMap[key] || "Season 1";
@@ -1516,7 +1480,7 @@ window.addEventListener("resize", updateSlider);
 /* ── INIT ── */
 updateSlider();
 
-if (!isNaN(startSeason) && startSeason === 2) {
+if (!isNaN(startSeason) && startSeason >= 2 && startSeason <= 3) {
     selectSeason(startSeason);
 }
 
