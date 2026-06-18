@@ -408,28 +408,14 @@ body {
 /* ── COLOUR SYSTEM (matches reviews.html exactly) ── */
 function getRatingColor(score) {
     if (score === null || score === undefined) {
-        return { bg: "#1a1a1a", text: "rgba(255,255,255,0.2)" };
+        return { bg: "#1a1a1a", color: "rgba(255,255,255,0.2)" };
     }
-
-    if (score < 4.0) return { bg: "#351e4f", text: "white" };
-    if (score < 5.0) return { bg: "#8e0808", text: "white" };
-    if (score < 6.0) return { bg: "#bf6205", text: "white" };
-    if (score < 7.6) return { bg: "#cea502", text: "#0f0f0f" };
-    if (score < 8.0) return { bg: "#0aad1d", text: "#0f0f0f" };
-    if (score < 9.0) return { bg: "#0b911b", text: "white" };
-    if (score < 9.5) return { bg: "#008430", text: "white" };
-
-    return { bg: "#00b1d1", text: "white" };
-}
-
-function scoreTextColor(score) {
-    if (score === null || score === undefined) return "white";
-
-    if (score >= 5.0 && score < 9.0) {
-        return "#0f0f0f";
-    }
-
-    return "white";
+    if (score < 3)   return { bg: "#351e4f", color: "white" };
+    if (score < 5)   return { bg: "#8e0808", color: "white" };
+    if (score < 7)   return { bg: "#cea502", color: "#000"   };
+    if (score < 8)   return { bg: "#1abf2d", color: "white"  };
+    if (score < 9.5) return { bg: "#008236", color: "white"  };
+    return             { bg: "#02d2f7", color: "white"  };
 }
 
 /**
