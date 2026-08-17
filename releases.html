@@ -225,6 +225,33 @@
             border-color: rgba(255,255,255,0.28);
         }
 
+        /* ── SERIES FINALE TREATMENT (Daytona) ── */
+        .finale-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: #e8c874;
+            margin-bottom: 16px;
+        }
+
+        .finale-tag::before,
+        .finale-tag::after {
+            content: "";
+            width: 22px;
+            height: 1px;
+            background: #e8c874;
+            opacity: 0.6;
+        }
+
+        .finale-highlight {
+            color: #e8c874;
+            font-weight: 700;
+        }
+
         /* Slide indicator dots */
         .slide-dots {
             position: absolute;
@@ -357,6 +384,9 @@
             border-radius: 2px;
             opacity: 0.3;
         }
+
+        .episodes-title.finale-active { color: #e8c874; }
+        .episodes-title.finale-active::before { background: #e8c874; opacity: 0.8; }
 
         /* Episode navigation arrows — pill style */
         .episode-arrows {
@@ -888,8 +918,10 @@
                         <span class="dot">•</span>
                         <span>2026</span>
                         <span class="dot">•</span>
-                        <span>The Finale</span>
+                        <span class="finale-highlight">The Finale</span>
                     </div>
+
+                    <div class="finale-tag">Series Finale</div>
 
                     <div class="release-logo">
                         <img src="DAYTONALogo.png">
@@ -897,7 +929,7 @@
 
                     <div class="release-description">
                         <p>
-                            Four players from Shasta take part in the Hypixel Games in Los Angeles.
+                            The final chapter of Hypixel Cinematic Montages. Four players from Shasta take part in the Hypixel Games in Los Angeles.
                             While the matches play out as expected, some things don't seem to follow the same rules.
                         </p>
                     </div>
@@ -1002,7 +1034,7 @@
         <div class="season-option active">
             <img src="DaytonaArt.png" alt="Season 1">
             <div class="season-option-info">
-                <div class="season-option-label">The Finale</div>
+                <div class="season-option-label finale-highlight">The Finale</div>
                 <div class="season-option-title">Daytona</div>
                 <div class="season-option-ep">9 Episodes · 2026</div>
             </div>
@@ -1438,9 +1470,10 @@ function onSlideChange(index) {
         hcm_s1: "Season 1",
         pre:    "Season 2",
         hcm_s2: "Season 3",
-        daytona:"Season 1"
+        daytona:"The Finale"
     };
     document.getElementById("seasonTitle").textContent = titleMap[key] || "Season 1";
+    document.getElementById("seasonTitle").classList.toggle("finale-active", key === "daytona");
     updateDots();
 }
 
