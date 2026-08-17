@@ -109,6 +109,24 @@
         .filter-chip:hover  { background: rgba(255,255,255,0.1); color: white; }
         .filter-chip.active { background: white; color: black; border-color: white; }
 
+        .search-input {
+            padding: 7px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.05);
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            width: 220px;
+            transition: all 0.2s ease;
+        }
+
+        .search-input::placeholder { color: rgba(255,255,255,0.35); }
+        .search-input:hover  { background: rgba(255,255,255,0.1); }
+        .search-input:focus  { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); width: 260px; }
+
         /* ── ARTIST HEADER ── */
         .artist-header {
             display: none;
@@ -544,8 +562,8 @@
             <p id="reviewCount">— reviews</p>
         </div>
         <div class="filter-bar">
-            <button class="filter-chip active" onclick="setFilter('all', this)">All</button>
-            <button class="filter-chip" onclick="setFilter('recent', this)">Recent</button>
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍  Search albums or artists…" oninput="handleSearch(this.value)">
+            <button class="filter-chip active" onclick="setFilter('recent', this)">Recent</button>
             <button class="filter-chip" onclick="setFilter('top', this)">Highest Rated</button>
             <button class="filter-chip" onclick="setFilter('lowest', this)">Lowest Rated</button>
         </div>
@@ -1871,9 +1889,10 @@ const reviews = [
 /* ══════════════════════════════════════════════════════════
    STATE
 ══════════════════════════════════════════════════════════ */
-let currentFilter = "all";
+let currentFilter = "recent";
 let currentArtist = null;
 let activeModalId = null;
+let searchQuery = "";
 
 /* ══════════════════════════════════════════════════════════
    HELPERS
@@ -1882,8 +1901,31 @@ function getReviewedOnly() {
     return reviews.filter(r => r.score !== null && !r.upcoming);
 }
 
+const MONTH_INDEX = {
+    January: 0, February: 1, March: 2, April: 3, May: 4, June: 5,
+    July: 6, August: 7, September: 8, October: 9, November: 10, December: 11
+};
+
+/* Turns "August 2011" + releaseYear 2011 into a single sortable number
+   (year * 12 + month) so albums from the same year still sort by month,
+   not just by their order in the array. */
+function releaseDateValue(r) {
+    if (r.date) {
+        const [monthName, yearStr] = r.date.split(" ");
+        const month = MONTH_INDEX[monthName];
+        const year  = parseInt(yearStr, 10);
+        if (month !== undefined && !isNaN(year)) return year * 12 + month;
+    }
+    return (r.releaseYear || 0) * 12;
+}
+
 function sortByReleaseDate(list) {
-    return [...list].sort((a, b) => (b.releaseYear || 0) - (a.releaseYear || 0));
+    return [...list].sort((a, b) => releaseDateValue(b) - releaseDateValue(a));
+}
+
+function matchesSearch(r) {
+    if (!searchQuery) return true;
+    return r.album.toLowerCase().includes(searchQuery) || r.artist.toLowerCase().includes(searchQuery);
 }
 
 function getFiltered() {
@@ -1892,15 +1934,15 @@ function getFiltered() {
         let list = meta
             ? meta.discography.map(id => reviews.find(r => r.id === id)).filter(Boolean)
             : reviews.filter(r => r.artist === currentArtist);
+        list = list.filter(matchesSearch);
 
         const reviewedInList = list.filter(r => r.score !== null && !r.upcoming);
         if (currentFilter === "top")    return [...reviewedInList].sort((a,b) => b.score - a.score).concat(list.filter(r => r.score === null || r.upcoming));
         if (currentFilter === "lowest") return [...reviewedInList].sort((a,b) => a.score - b.score).concat(list.filter(r => r.score === null || r.upcoming));
-        if (currentFilter === "recent") return sortByReleaseDate(list);
-        return list;
+        return sortByReleaseDate(list);
     }
 
-    let list = getReviewedOnly();
+    let list = getReviewedOnly().filter(matchesSearch);
     if (currentFilter === "top")    return [...list].sort((a, b) => b.score - a.score);
     if (currentFilter === "lowest") return [...list].sort((a, b) => a.score - b.score);
     return sortByReleaseDate(list);
@@ -1927,7 +1969,11 @@ function render() {
     const empty = document.getElementById("emptyState");
 
     grid.innerHTML = "";
-    if (list.length === 0) { empty.classList.add("visible"); return; }
+    if (list.length === 0) {
+        empty.querySelector("p").textContent = searchQuery ? `No albums found for "${searchQuery}".` : "No reviews found.";
+        empty.classList.add("visible");
+        return;
+    }
     empty.classList.remove("visible");
 
     list.forEach(r => {
@@ -1963,19 +2009,24 @@ function render() {
     });
 
     const reviewedCount = getReviewedOnly().length;
-    document.getElementById("reviewCount").textContent = currentArtist
-        ? `${list.length} album${list.length !== 1 ? "s" : ""} · ${currentArtist}`
-        : `${reviewedCount} review${reviewedCount !== 1 ? "s" : ""}`;
+    if (searchQuery) {
+        document.getElementById("reviewCount").textContent = `${list.length} result${list.length !== 1 ? "s" : ""} for "${searchQuery}"`;
+    } else if (currentArtist) {
+        document.getElementById("reviewCount").textContent = `${list.length} album${list.length !== 1 ? "s" : ""} · ${currentArtist}`;
+    } else {
+        document.getElementById("reviewCount").textContent = `${reviewedCount} review${reviewedCount !== 1 ? "s" : ""}`;
+    }
 
     const labelMap = {
-        all:    "Albums by Release Date",
-        recent: "Latest Reviews",
+        recent: "Albums by Release Date",
         top:    "Highest Rated",
         lowest: "Lowest Rated"
     };
-    document.getElementById("sectionLabel").textContent = currentArtist
-        ? `${currentArtist} — ${currentFilter === "top" ? "Highest Rated" : currentFilter === "lowest" ? "Lowest Rated" : "Discography"}`
-        : labelMap[currentFilter];
+    document.getElementById("sectionLabel").textContent = searchQuery
+        ? "Search Results"
+        : (currentArtist
+            ? `${currentArtist} — ${currentFilter === "top" ? "Highest Rated" : currentFilter === "lowest" ? "Lowest Rated" : "Discography"}`
+            : labelMap[currentFilter]);
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -1988,9 +2039,21 @@ function setFilter(filter, btn) {
     render();
 }
 
+function handleSearch(value) {
+    searchQuery = value.trim().toLowerCase();
+    if (searchQuery && currentArtist) {
+        currentArtist = null;
+        document.getElementById("artistHeader").classList.remove("visible");
+    }
+    render();
+}
+
 function filterByArtist(artist, e) {
     if (e) e.stopPropagation();
     currentArtist = artist;
+    searchQuery = "";
+    const searchEl = document.getElementById("searchInput");
+    if (searchEl) searchEl.value = "";
 
     const meta     = artistMeta[artist];
     const avatarEl = document.getElementById("artistAvatar");
