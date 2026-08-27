@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title id="pageTitle">Releases - Gurraj Grewal</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
 
@@ -83,10 +83,12 @@
         .profile-avatar {
             width: 26px; height: 26px;
             border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 10px; font-weight: 700; color: white;
+            overflow: hidden;
             flex-shrink: 0;
+            background: #111;
         }
+
+        .profile-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         @media (max-width: 1100px) {
             .logo { left: 20px; }
@@ -397,13 +399,29 @@
             margin-bottom: 14px;
         }
 
+        .violethyst-wordmark-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+
         .violethyst-wordmark {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-weight: 600;
-            font-size: 56px;
-            margin: 0 0 14px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 48px;
+            letter-spacing: 0.08em;
+            text-transform: lowercase;
+            margin: 0;
             color: white;
+        }
+
+        .violethyst-mark {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            opacity: 0.92;
         }
 
         .violethyst-tagline {
@@ -488,6 +506,12 @@
         }
 
         .title-modal.open { display: flex; }
+
+        .title-modal { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent; }
+        .title-modal::-webkit-scrollbar { width: 6px; }
+        .title-modal::-webkit-scrollbar-track { background: transparent; }
+        .title-modal::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 10px; }
+        .title-modal::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.32); }
 
         .title-modal-backdrop {
             position: fixed;
@@ -575,7 +599,12 @@
             grid-template-columns: 1.6fr 1fr;
         }
 
-        .title-modal-main { padding: 28px 36px 36px; }
+        .title-modal-main {
+            padding: 28px 36px 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
         .title-modal-desc {
             font-size: 14px;
@@ -601,7 +630,14 @@
             max-height: 520px;
             overflow-y: auto;
             background: rgba(255,255,255,0.015);
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.2) transparent;
         }
+
+        .title-modal-side::-webkit-scrollbar { width: 6px; }
+        .title-modal-side::-webkit-scrollbar-track { background: transparent; }
+        .title-modal-side::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 10px; }
+        .title-modal-side::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.32); }
 
         .tm-side-title {
             font-size: 11px;
@@ -854,11 +890,11 @@
 
     <div class="profile-switcher">
         <button class="profile-pill active" id="pillGurraj" onclick="switchProfile('gurraj')">
-            <span class="profile-avatar" style="background:#3b82f6">GG</span>
+            <span class="profile-avatar"><img src="GurrajGrewalV5.png" alt=""></span>
             <span class="profile-name">Gurraj Grewal</span>
         </button>
         <button class="profile-pill" id="pillViolethyst" onclick="switchProfile('violethyst')">
-            <span class="profile-avatar" style="background:#a855f7">V</span>
+            <span class="profile-avatar"><img src="ViolethystPfp.png" alt=""></span>
             <span class="profile-name">Violethyst</span>
         </button>
     </div>
@@ -924,9 +960,12 @@
     <section class="violethyst-hero">
         <div class="violethyst-hero-content">
             <div class="violethyst-kicker">YouTube Channel</div>
-            <h1 class="violethyst-wordmark">Violethyst</h1>
-            <p class="violethyst-tagline">Edits, mashups, and everything in between.</p>
-            <a class="vy-btn" href="#" target="_blank" rel="noopener">Visit Channel ↗</a>
+            <div class="violethyst-wordmark-row">
+                <h1 class="violethyst-wordmark">violethyst</h1>
+                <img class="violethyst-mark" src="ViolethystPfp.png" alt="">
+            </div>
+            <p class="violethyst-tagline">A cinematic visual channel by Gurraj Grewal.</p>
+            <a class="vy-btn" href="https://www.youtube.com/@Violethyst/videos" target="_blank" rel="noopener">Visit Channel ↗</a>
         </div>
     </section>
 
@@ -1310,10 +1349,8 @@ function renderRecentRow() {
     track.innerHTML = "";
 
     const items = [
-        { img: "DaytonaArt.png",   label: "Daytona",  sub: "The Finale · 2026",  badge: "FINALE", id: "daytona", season: 1 },
-        { img: "HCMAArt.png",      label: "Season 3", sub: "Anniversary · 2025", badge: null,      id: "hcm",     season: 3 },
-        { img: "PRE-PARTYART.png", label: "Season 2", sub: "Pre-Party · 2025",   badge: null,      id: "hcm",     season: 2 },
-        { img: "HCMArt.png",       label: "Season 1", sub: "Beginnings · 2022",  badge: null,      id: "hcm",     season: 1 }
+        { img: "DaytonaArt.png", label: "Daytona",                      sub: "The Finale · 2026", badge: "FINALE", id: "daytona", season: 1 },
+        { img: "HCMAArt.png",    label: "Hypixel Cinematic Montages",   sub: "Season 3 · 2025",   badge: null,      id: "hcm",     season: 3 }
     ];
 
     items.forEach(it => {
