@@ -2,15 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Releases - Gurraj Grewal</title>
+    <title id="pageTitle">Releases - Gurraj Grewal</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
 
-        /* ── NAVBAR ── */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #080808;
+            color: white;
+        }
+
+        /* ══════════════════════════════════════
+           NAVBAR + PROFILE SWITCHER
+        ══════════════════════════════════════ */
         .navbar {
             position: absolute;
             top: 0;
@@ -19,20 +28,6 @@
             background: rgba(0,0,0,0.3);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-        }
-
-        /* Keep logo from walking into nav pills at narrow widths */
-        @media (max-width: 1100px) {
-            .logo { left: 20px; }
-            .logo img { height: 68px; }
-        }
-        @media (max-width: 760px) {
-            .logo img { height: 50px; }
-            .nav-center { gap: 4px; }
-            .nav-center li a { padding: 8px 10px; font-size: 12px; }
-        }
-        @media (max-width: 540px) {
-            .logo { display: none; }
         }
 
         .nav-center {
@@ -56,44 +51,70 @@
         .nav-center li a:hover { background: rgba(255,255,255,0.2); }
         .nav-center li a[href="releases.html"] { background: rgba(255,255,255,0.3); }
 
-        body {
-            margin: 0;
+        .profile-switcher {
+            position: absolute;
+            top: 50%;
+            right: 28px;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 11;
+        }
+
+        .profile-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px 6px 6px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
             font-family: 'Poppins', sans-serif;
-            background: #080808;
-            color: white;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .profile-pill:hover  { background: rgba(255,255,255,0.12); color: white; }
+        .profile-pill.active { background: rgba(255,255,255,0.16); color: white; border-color: rgba(255,255,255,0.25); }
+
+        .profile-avatar {
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px; font-weight: 700; color: white;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 1100px) {
+            .logo { left: 20px; }
+            .logo img { height: 68px; }
+        }
+        @media (max-width: 900px) {
+            .profile-name { display: none; }
+            .profile-pill { padding: 6px; }
+        }
+        @media (max-width: 760px) {
+            .logo img { height: 50px; }
+            .nav-center { gap: 4px; }
+            .nav-center li a { padding: 8px 10px; font-size: 12px; }
+        }
+        @media (max-width: 540px) {
+            .logo { display: none; }
+            .profile-switcher { right: 16px; gap: 6px; }
         }
 
         /* ══════════════════════════════════════
-           HERO SLIDER
+           HERO (static — no more slider)
         ══════════════════════════════════════ */
-
-        .release-feature {
-    overflow: hidden;
-}
-
-.release-slide {
-    overflow: hidden;
-    transform: translateZ(0);
-}
         .release-feature {
             position: relative;
             height: 72vh;
             min-height: 520px;
             width: 100%;
             overflow: hidden;
-        }
-
-        .release-slider {
-            display: flex;
-            height: 100%;
-            transition: transform 0.75s cubic-bezier(0.77,0,0.18,1);
-        }
-
-        .release-slide {
-            min-width: 100%;
-            height: 100%;
-            position: relative;
-            flex-shrink: 0;
         }
 
         .release-bg {
@@ -103,22 +124,15 @@
             background-position: center;
             background-repeat: no-repeat;
             z-index: 1;
-            transform: scale(1.04);
-            transition: transform 6s ease;
         }
 
-        .release-slide.active .release-bg {
-            transform: scale(1);
-        }
-
-        /* Rich cinematic gradient — dark left, fade to nothing right */
         .release-bg::after {
             content: "";
             position: absolute;
             inset: 0;
             background:
                 linear-gradient(to right, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.55) 45%, rgba(8,8,8,0.05) 75%),
-                linear-gradient(to top, rgba(8,8,8,0.8) 0%, transparent 40%);
+                linear-gradient(to top, rgba(8,8,8,0.9) 0%, transparent 40%);
         }
 
         .release-overlay {
@@ -134,7 +148,6 @@
 
         .release-left { max-width: 560px; }
 
-        /* Rating / year / seasons row */
         .release-meta {
             display: flex;
             align-items: center;
@@ -148,7 +161,6 @@
 
         .release-meta .dot { opacity: 0.4; }
 
-        /* Inline coloured rating badge */
         .release-rating-badge {
             display: inline-flex;
             align-items: center;
@@ -160,7 +172,6 @@
             letter-spacing: 0.02em;
         }
 
-        /* Logo */
         .release-logo img {
             max-width: 450px;
             max-height: 160px;
@@ -178,7 +189,6 @@
             margin-bottom: 28px;
         }
 
-        /* Buttons */
         .release-buttons {
             display: flex;
             align-items: center;
@@ -200,10 +210,8 @@
             transition: all 0.2s ease;
         }
 
-        .play-btn:hover {
-            background: rgba(255,255,255,0.88);
-            transform: scale(1.03);
-        }
+        .play-btn:hover { background: rgba(255,255,255,0.88); transform: scale(1.03); }
+        .play-btn.disabled { opacity: 0.45; cursor: default; pointer-events: none; }
 
         .info-btn, .season-btn {
             background: rgba(255,255,255,0.08);
@@ -247,123 +255,15 @@
             opacity: 0.6;
         }
 
-        .finale-highlight {
-            color: #e8c874;
-            font-weight: 700;
-        }
-
-        /* Slide indicator dots */
-        .slide-dots {
-            position: absolute;
-            bottom: 24px;
-            right: 72px;
-            display: flex;
-            gap: 7px;
-            z-index: 6;
-        }
-
-        .slide-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            cursor: pointer;
-            transition: all 0.25s ease;
-            border: none;
-            padding: 0;
-        }
-
-        .slide-dot.active {
-            background: white;
-            width: 20px;
-            border-radius: 3px;
-        }
-
-        /* Arrow controls — bottom right, above the dots */
-        .arrow-controls {
-            position: absolute;
-            bottom: 56px;
-            right: 72px;
-            display: flex;
-            gap: 8px;
-            z-index: 6;
-        }
-
-        /* ── RESPONSIVE ── */
-        @media (max-width: 1024px) {
-            .release-overlay { padding: 0 48px; padding-bottom: 48px; }
-            .arrow-controls  { right: 48px; bottom: 48px; }
-            .slide-dots      { right: 48px; }
-            .release-logo img { max-width: 340px; max-height: 130px; }
-        }
-
-        @media (max-width: 768px) {
-            .release-feature { height: 60vh; min-height: 420px; }
-            .release-overlay { padding: 0 28px; padding-bottom: 80px; }
-            /* Push arrows below the play button row by moving them to bottom-left,
-               safely separated from the content by extra bottom padding */
-            .arrow-controls  { bottom: 28px; right: 28px; }
-            .slide-dots      { bottom: 10px; right: 28px; }
-            .release-left    { max-width: 100%; }
-            .release-logo img { max-width: 260px; max-height: 100px; }
-            .release-description { display: none; } /* reclaim space on small screens */
-            .episodes-section { padding: 28px 28px 40px; }
-        }
-
-        @media (max-width: 540px) {
-            .release-feature { height: 55vh; min-height: 360px; }
-            .release-overlay { padding: 0 20px; padding-bottom: 72px; }
-            .arrow-controls  { bottom: 20px; right: 20px; }
-            .slide-dots      { bottom: 6px; right: 20px; }
-            .release-logo img { max-width: 200px; max-height: 80px; }
-            .release-meta    { font-size: 11px; gap: 6px; }
-            .play-btn        { padding: 9px 20px; font-size: 12px; }
-            .info-btn, .season-btn { padding: 8px 14px; font-size: 12px; }
-            .episodes-section { padding: 20px 16px 32px; }
-            .episode-card    { width: 180px; }
-            .episode-thumb   { height: 100px; }
-        }
-
-        .arrow {
-            background: rgba(255,255,255,0.08);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.14);
-            width: 38px;
-            height: 38px;
-            cursor: pointer;
-            border-radius: 999px;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            backdrop-filter: blur(8px);
-        }
-
-        .arrow:hover {
-            background: rgba(255,255,255,0.18);
-            border-color: rgba(255,255,255,0.3);
-        }
+        .finale-highlight { color: #e8c874; font-weight: 700; }
 
         /* ══════════════════════════════════════
-           EPISODE SECTION
+           CONTENT ROWS
         ══════════════════════════════════════ */
-        .episodes-section {
-            padding: 36px 72px 56px;
-            background: #080808;
-        }
+        .content-rows { padding: 44px 72px 64px; background: #080808; }
+        .content-row   { margin-bottom: 40px; }
 
-        .episodes-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 22px;
-            padding-bottom: 14px;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-        }
-
-        /* Season title — matches reviews section-label */
-        .episodes-title {
+        .row-title {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -372,10 +272,10 @@
             letter-spacing: 0.14em;
             text-transform: uppercase;
             color: rgba(255,255,255,0.35);
-            margin: 0;
+            margin: 0 0 4px;
         }
 
-        .episodes-title::before {
+        .row-title::before {
             content: "";
             display: inline-block;
             width: 3px;
@@ -385,415 +285,481 @@
             opacity: 0.3;
         }
 
-        .episodes-title.finale-active { color: #e8c874; }
-        .episodes-title.finale-active::before { background: #e8c874; opacity: 0.8; }
-
-        /* Episode navigation arrows — pill style */
-        .episode-arrows {
+        .row-track {
             display: flex;
-            gap: 8px;
+            gap: 16px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 24px 4px 28px;
+            scrollbar-width: none;
         }
 
-        .ep-arrow {
-            width: 34px;
-            height: 34px;
-            background: rgba(255,255,255,0.06);
-            color: rgba(255,255,255,0.6);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 999px;
+        .row-track::-webkit-scrollbar { display: none; }
+
+        .title-card {
+            position: relative;
+            flex-shrink: 0;
+            width: 230px;
+            border-radius: 10px;
+            overflow: hidden;
             cursor: pointer;
-            font-size: 15px;
+            border: 1px solid rgba(255,255,255,0.06);
+            background: #111;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .title-card.wide { width: 340px; }
+
+        .title-card img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .title-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 22px 50px rgba(0,0,0,0.7);
+            border-color: rgba(255,255,255,0.2);
+            z-index: 3;
+        }
+
+        .title-card:hover img { transform: scale(1.06); }
+
+        .title-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 12px;
+        }
+
+        .title-card:hover .title-card-overlay { opacity: 1; }
+        .title-card-label { font-size: 13px; font-weight: 600; color: white; line-height: 1.3; }
+        .title-card-sub    { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 3px; }
+
+        .title-card-badge {
+            position: absolute;
+            top: 8px; left: 8px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            padding: 3px 9px;
+            border-radius: 999px;
+            background: #e8c874;
+            color: #2a1f04;
+            z-index: 2;
+        }
+
+        .trending-row { align-items: flex-end; }
+        .trending-item { display: flex; align-items: flex-end; flex-shrink: 0; }
+
+        .trending-num {
+            font-size: 100px;
+            font-weight: 800;
+            line-height: 0.8;
+            color: #141414;
+            -webkit-text-stroke: 2px rgba(255,255,255,0.18);
+            margin-right: -20px;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        /* ══════════════════════════════════════
+           VIOLETHYST PROFILE
+        ══════════════════════════════════════ */
+        .violethyst-hero {
+            position: relative;
+            min-height: 340px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            padding: 96px 72px 48px;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 15% 30%, rgba(168,85,247,0.35), transparent 55%),
+                radial-gradient(circle at 85% 75%, rgba(236,72,153,0.28), transparent 55%),
+                radial-gradient(circle at 50% 110%, rgba(88,28,135,0.4), transparent 60%),
+                #0d0512;
+        }
+
+        .violethyst-hero-content { position: relative; z-index: 1; max-width: 600px; }
+
+        .violethyst-kicker {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #c084fc;
+            margin-bottom: 14px;
+        }
+
+        .violethyst-wordmark {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 56px;
+            margin: 0 0 14px;
+            color: white;
+        }
+
+        .violethyst-tagline {
+            font-size: 15px;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 26px;
+            max-width: 420px;
+        }
+
+        .vy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 11px 26px;
+            border-radius: 999px;
+            background: #c084fc;
+            color: #1a0b2e;
+            font-weight: 700;
+            font-size: 13px;
+            text-decoration: none;
             transition: all 0.2s ease;
         }
 
-        .ep-arrow:hover {
-            background: rgba(255,255,255,0.14);
-            color: white;
-            border-color: rgba(255,255,255,0.22);
+        .vy-btn:hover { background: #d8b4fe; transform: scale(1.03); }
+
+        .violethyst-title      { color: rgba(192,132,252,0.7); }
+        .violethyst-title::before { background: #c084fc; opacity: 0.7; }
+
+        .violethyst-note {
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+            font-style: italic;
+            margin: -6px 0 18px;
         }
 
-        .episodes-wrapper {
+        .vy-grid { column-count: 3; column-gap: 16px; }
+
+        .vy-card {
+            break-inside: avoid;
+            margin-bottom: 16px;
+            border-radius: 14px;
             overflow: hidden;
-            position: relative;
-            padding: 20px 4px 24px;
-        }
-
-        /* Fade out right edge */
-        .episodes-wrapper::after {
-            content: "";
-            position: absolute;
-            top: 0; right: 0;
-            width: 100px; height: 100%;
-            pointer-events: none;
-            background: linear-gradient(to right, transparent, #080808);
-        }
-
-        .episodes-track {
-            display: flex;
-            gap: 18px;
-            transition: transform 0.5s ease, opacity 0.3s ease;
-        }
-
-        .episodes-track.fade-out { opacity: 0; }
-        .episodes-track.fade-in  { opacity: 1; }
-
-        /* Episode card */
-        .episode-card {
-            width: 240px;
-            flex-shrink: 0;
             cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .episode-card:hover { transform: translateY(-3px); }
-        .episode-card:hover .episode-thumb { box-shadow: 0 12px 28px rgba(0,0,0,0.6); }
-
-        .episode-thumb {
-            width: 100%;
-            height: 135px;
-            background: #1a1a1a;
-            border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 10px;
-            transition: box-shadow 0.2s ease;
             border: 1px solid rgba(255,255,255,0.06);
+            background: #150a1f;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
-        .episode-thumb img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-        }
+        .vy-card:hover { transform: translateY(-6px); box-shadow: 0 20px 45px rgba(88,28,135,0.45); }
 
-        /* Play overlay circle */
-        .play-overlay {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .vy-thumb-img { width: 100%; height: auto; display: block; }
 
-        .play-overlay::before {
-            content: "";
-            position: absolute;
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.18);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255,255,255,0.28);
-            transition: all 0.25s ease;
-        }
+        .vy-card-info  { padding: 12px 14px 14px; }
+        .vy-card-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); }
 
-        .play-overlay::after {
-            content: "";
-            position: relative;
-            z-index: 2;
-            border-left: 9px solid white;
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            margin-left: 3px;
-        }
-
-        .episode-card:hover .play-overlay::before {
-            background: rgba(255,255,255,0.32);
-            transform: scale(1.1);
-        }
-
-        .episode-info { padding: 0 2px; }
-
-        .episode-number {
-            font-size: 11px;
-            color: rgba(255,255,255,0.35);
-            margin-bottom: 2px;
-            letter-spacing: 0.03em;
-        }
-
-        .episode-title {
-            font-size: 13px;
-            font-weight: 500;
-            color: rgba(255,255,255,0.85);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* ══════════════════════════════════════
-           SEASONS MODAL
-        ══════════════════════════════════════ */
-        .seasons-modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .seasons-modal.open { display: flex; }
-
-        .seasons-backdrop {
-            position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(8px);
-        }
-
-        .seasons-panel {
-            position: relative;
-            z-index: 1;
-            background: rgba(14,14,14,0.98);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 18px;
-            padding: 32px;
-            min-width: 340px;
-            max-width: 480px;
-            width: 90%;
-            box-shadow: 0 28px 70px rgba(0,0,0,0.8);
-        }
-
-        .seasons-panel h3 {
-            margin: 0 0 20px 0;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.14em;
+        .vy-card-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.35);
-        }
-
-        .seasons-close {
-            position: absolute;
-            top: 16px;
-            right: 18px;
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.5);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .seasons-close:hover { background: rgba(255,255,255,0.15); color: white; }
-
-        .season-option {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 14px 16px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: background 0.2s;
-            border: 1px solid transparent;
+            color: #c084fc;
+            background: rgba(192,132,252,0.12);
+            padding: 3px 9px;
+            border-radius: 999px;
             margin-bottom: 8px;
         }
 
-        .season-option:hover  { background: rgba(255,255,255,0.06); }
-        .season-option.active { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.18); }
-
-        .season-option img {
-            width: 76px; height: 48px;
-            object-fit: cover;
-            border-radius: 8px;
-            flex-shrink: 0;
-        }
-
-        .season-option-info { flex: 1; }
-
-        .season-option-label {
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: rgba(255,255,255,0.35);
-            margin-bottom: 3px;
-        }
-
-        .season-option-title { font-size: 14px; font-weight: 600; color: white; }
-
-        .season-option-ep {
-            font-size: 11px;
-            color: rgba(255,255,255,0.35);
-            margin-top: 2px;
-        }
-
-        .season-option-check {
-            font-size: 1rem;
-            color: white;
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-
-        .season-option.active .season-option-check { opacity: 1; }
-
         /* ══════════════════════════════════════
-           VIDEO MODAL
+           TITLE DETAIL MODAL (pop-up)
         ══════════════════════════════════════ */
-        .glass-modal {
+        .title-modal {
             position: fixed;
             inset: 0;
+            z-index: 300;
             display: none;
+            align-items: flex-start;
             justify-content: center;
-            align-items: center;
-            z-index: 9999;
+            overflow-y: auto;
+            padding: 48px 20px;
         }
 
-        .glass-backdrop {
-            position: absolute;
+        .title-modal.open { display: flex; }
+
+        .title-modal-backdrop {
+            position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(16px);
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
         }
 
-        .glass-wrapper {
+        .title-modal-panel {
             position: relative;
-            width: 92%;
-            max-width: 1400px;
-        }
-
-        .glass-close {
-            position: absolute;
-            top: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.15);
-            background: rgba(255,255,255,0.1);
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .glass-close:hover { background: rgba(255,255,255,0.22); }
-
-        .glass-player {
+            z-index: 1;
             width: 100%;
-            aspect-ratio: 16/9;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 18px;
+            max-width: 1000px;
+            margin: auto;
+            background: #0e0e0e;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.8);
             animation: popIn 0.25s ease-out;
         }
 
-        .glass-player iframe { width: 100%; height: 100%; border: none; }
+        .title-modal-panel.theme-finale     { border-color: rgba(232,200,116,0.28); }
+        .title-modal-panel.theme-violethyst { border-color: rgba(192,132,252,0.3); box-shadow: 0 30px 90px rgba(88,28,135,0.4); }
 
         @keyframes popIn {
             from { transform: scale(0.97); opacity: 0; }
             to   { transform: scale(1);    opacity: 1; }
         }
 
-        /* ══════════════════════════════════════
-           GALLERY MODAL
-        ══════════════════════════════════════ */
-        .gallery-modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 200;
-            align-items: center;
-            justify-content: center;
+        .title-modal-close {
+            position: absolute;
+            top: 16px; right: 16px;
+            z-index: 5;
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.18);
+            background: rgba(0,0,0,0.4);
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
         }
 
-        .gallery-modal.open { display: flex; }
+        .title-modal-close:hover { background: rgba(0,0,0,0.65); }
 
-        .gallery-backdrop {
+        .title-modal-banner {
+            position: relative;
+            height: 340px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .title-modal-banner.no-image {
+            background: linear-gradient(135deg, #3b1560, #7c3aed 45%, #db2777);
+        }
+
+        .title-modal-banner-gradient {
             position: absolute;
             inset: 0;
-            background: rgba(0,0,0,0.92);
-            backdrop-filter: blur(14px);
+            background: linear-gradient(to top, #0e0e0e 0%, rgba(14,14,14,0.45) 55%, rgba(14,14,14,0.05) 100%);
         }
 
-        .gallery-panel {
-            position: relative;
-            z-index: 1;
-            width: 92%;
-            max-width: 1100px;
-            max-height: 88vh;
-            display: flex;
-            flex-direction: column;
+        .title-modal-banner-content {
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            padding: 28px 36px;
         }
 
-        .gallery-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 18px;
+        .title-modal-logo {
+            max-width: 320px;
+            max-height: 110px;
+            object-fit: contain;
+            margin-bottom: 14px;
+            filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
         }
 
-        .gallery-title {
+        .title-modal-name { font-size: 28px; font-weight: 700; margin: 0 0 14px; color: white; }
+
+        .title-modal-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+
+        .title-modal-body {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+        }
+
+        .title-modal-main { padding: 28px 36px 36px; }
+
+        .title-modal-desc {
+            font-size: 14px;
+            line-height: 1.65;
+            color: rgba(255,255,255,0.65);
+            margin: 0 0 18px;
+        }
+
+        .title-modal-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .tm-tag {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.55);
+        }
+
+        .title-modal-side {
+            border-left: 1px solid rgba(255,255,255,0.06);
+            padding: 28px 24px 36px;
+            max-height: 520px;
+            overflow-y: auto;
+            background: rgba(255,255,255,0.015);
+        }
+
+        .tm-side-title {
             font-size: 11px;
             font-weight: 600;
             letter-spacing: 0.14em;
             text-transform: uppercase;
             color: rgba(255,255,255,0.35);
+            margin-bottom: 14px;
+        }
+
+        .theme-violethyst .tm-side-title { color: #c084fc; }
+
+        .tm-season-tabs { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+
+        .tm-season-tab {
+            padding: 7px 14px;
+            font-size: 12px;
+            font-weight: 500;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .tm-season-tab:hover  { background: rgba(255,255,255,0.12); color: white; }
+        .tm-season-tab.active { background: white; color: black; border-color: white; }
+
+        .tm-episode-row {
+            display: flex;
+            gap: 12px;
+            padding: 10px 6px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 4px;
+        }
+
+        .tm-episode-row:hover { background: rgba(255,255,255,0.06); }
+
+        .tm-episode-thumb {
+            width: 100px; height: 58px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: #1a1a1a;
+        }
+
+        .tm-episode-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+        .tm-episode-info { flex: 1; min-width: 0; }
+        .tm-episode-num  { font-size: 10px; color: rgba(255,255,255,0.35); margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.04em; }
+        .tm-episode-title {
+            font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+
+        .tm-details-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; }
+        .tm-details-row .label { color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.08em; font-size: 10px; margin-bottom: 3px; }
+        .tm-details-row .value { color: rgba(255,255,255,0.8); font-weight: 500; font-size: 13px; }
+
+        .tm-stills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .tm-stills-grid img {
+            width: 100%; aspect-ratio: 16/9; object-fit: cover;
+            border-radius: 8px; cursor: pointer; transition: opacity 0.2s;
+        }
+        .tm-stills-grid img:hover { opacity: 0.8; }
+
+        /* ══════════════════════════════════════
+           VIDEO MODAL
+        ══════════════════════════════════════ */
+        .glass-modal {
+            position: fixed; inset: 0;
+            display: none;
+            justify-content: center; align-items: center;
+            z-index: 9999;
+        }
+
+        .glass-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(16px); }
+
+        .glass-wrapper { position: relative; width: 92%; max-width: 1400px; }
+
+        .glass-close {
+            position: absolute; top: -50px; left: 50%; transform: translateX(-50%);
+            width: 40px; height: 40px; border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.1); color: white; font-size: 20px;
+            cursor: pointer; backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .glass-close:hover { background: rgba(255,255,255,0.22); }
+
+        .glass-player {
+            width: 100%; aspect-ratio: 16/9;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 18px; overflow: hidden;
+            box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+            animation: popIn 0.25s ease-out;
+        }
+
+        .glass-player iframe { width: 100%; height: 100%; border: none; }
+
+        /* ══════════════════════════════════════
+           GALLERY MODAL
+        ══════════════════════════════════════ */
+        .gallery-modal {
+            display: none; position: fixed; inset: 0; z-index: 400;
+            align-items: center; justify-content: center;
+        }
+
+        .gallery-modal.open { display: flex; }
+
+        .gallery-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.92); backdrop-filter: blur(14px); }
+
+        .gallery-panel {
+            position: relative; z-index: 1;
+            width: 92%; max-width: 1100px; max-height: 88vh;
+            display: flex; flex-direction: column;
+        }
+
+        .gallery-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+
+        .gallery-title {
+            font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+            text-transform: uppercase; color: rgba(255,255,255,0.35);
         }
 
         .gallery-close {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.12);
-            color: white;
-            width: 34px; height: 34px;
-            border-radius: 50%;
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+            color: white; width: 34px; height: 34px; border-radius: 50%;
+            font-size: 1.1rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
             transition: background 0.2s;
         }
 
         .gallery-close:hover { background: rgba(255,255,255,0.18); }
 
         .gallery-main {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16/9;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #111;
-            margin-bottom: 14px;
-            flex-shrink: 0;
+            position: relative; width: 100%; aspect-ratio: 16/9;
+            border-radius: 12px; overflow: hidden; background: #111;
+            margin-bottom: 14px; flex-shrink: 0;
         }
 
-        .gallery-main img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            transition: opacity 0.25s ease;
-        }
-
+        .gallery-main img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.25s ease; }
         .gallery-main img.fade { opacity: 0; }
 
         .gallery-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.55);
-            border: 1px solid rgba(255,255,255,0.14);
-            color: white;
-            width: 42px; height: 42px;
-            border-radius: 50%;
-            font-size: 1.4rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-            z-index: 2;
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.14);
+            color: white; width: 42px; height: 42px; border-radius: 50%;
+            font-size: 1.4rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s; z-index: 2;
         }
 
         .gallery-arrow:hover { background: rgba(255,255,255,0.15); }
@@ -801,48 +767,69 @@
         .gallery-arrow.right { right: 14px; }
 
         .gallery-counter {
-            position: absolute;
-            bottom: 12px; right: 14px;
-            font-size: 11px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.5);
-            background: rgba(0,0,0,0.45);
-            padding: 3px 10px;
-            border-radius: 999px;
+            position: absolute; bottom: 12px; right: 14px;
+            font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.5);
+            background: rgba(0,0,0,0.45); padding: 3px 10px; border-radius: 999px;
             letter-spacing: 0.06em;
         }
 
-        .gallery-thumbs {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-        }
-
+        .gallery-thumbs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
         .gallery-thumbs::-webkit-scrollbar { height: 3px; }
         .gallery-thumbs::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
 
         .gallery-thumb {
-            flex-shrink: 0;
-            width: 96px; height: 60px;
-            border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: border-color 0.2s, opacity 0.2s;
-            opacity: 0.45;
+            flex-shrink: 0; width: 96px; height: 60px; border-radius: 8px;
+            overflow: hidden; cursor: pointer; border: 2px solid transparent;
+            transition: border-color 0.2s, opacity 0.2s; opacity: 0.45;
         }
 
         .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
         .gallery-thumb.active { border-color: white; opacity: 1; }
         .gallery-thumb:hover  { opacity: 0.8; }
 
-        /* ── RESPONSIVE ── */
+        /* ══════════════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .release-overlay  { padding: 0 48px; padding-bottom: 48px; }
+            .content-rows     { padding: 36px 48px 56px; }
+            .release-logo img { max-width: 340px; max-height: 130px; }
+        }
+
         @media (max-width: 900px) {
-            .release-overlay { padding: 0 32px 40px; }
-            .arrow-controls  { right: 32px; }
-            .slide-dots      { right: 32px; }
-            .episodes-section { padding: 28px 24px 48px; }
+            .title-modal-body  { grid-template-columns: 1fr; }
+            .title-modal-side  { border-left: none; border-top: 1px solid rgba(255,255,255,0.06); max-height: none; }
+            .vy-grid { column-count: 2; }
+        }
+
+        @media (max-width: 768px) {
+            .release-feature { height: 60vh; min-height: 420px; }
+            .release-overlay { padding: 0 28px; padding-bottom: 64px; }
+            .release-left    { max-width: 100%; }
+            .release-logo img { max-width: 260px; max-height: 100px; }
+            .release-description { display: none; }
+            .content-rows { padding: 28px 28px 48px; }
+            .violethyst-hero { padding: 88px 28px 40px; }
+            .violethyst-wordmark { font-size: 40px; }
+        }
+
+        @media (max-width: 540px) {
+            .release-feature { height: 55vh; min-height: 360px; }
+            .release-overlay { padding: 0 20px; padding-bottom: 56px; }
+            .release-logo img { max-width: 200px; max-height: 80px; }
+            .release-meta    { font-size: 11px; gap: 6px; }
+            .play-btn        { padding: 9px 20px; font-size: 12px; }
+            .info-btn, .season-btn { padding: 8px 14px; font-size: 12px; }
+            .content-rows    { padding: 22px 16px 40px; }
+            .title-card       { width: 175px; }
+            .title-card.wide  { width: 230px; }
+            .trending-num     { font-size: 60px; margin-right: -12px; }
+            .violethyst-hero  { padding: 80px 20px 36px; }
+            .violethyst-wordmark { font-size: 32px; }
+            .vy-grid { column-count: 1; }
+            .title-modal-banner { height: 220px; }
+            .title-modal-logo   { max-width: 220px; max-height: 80px; }
+            .title-modal-main, .title-modal-side { padding: 22px; }
         }
 
     </style>
@@ -864,116 +851,94 @@
         <li><a href="watch.html">WATCH & RATINGS</a></li>
         <li><a href="reviews.html">REVIEWS</a></li>
     </ul>
+
+    <div class="profile-switcher">
+        <button class="profile-pill active" id="pillGurraj" onclick="switchProfile('gurraj')">
+            <span class="profile-avatar" style="background:#3b82f6">GG</span>
+            <span class="profile-name">Gurraj Grewal</span>
+        </button>
+        <button class="profile-pill" id="pillViolethyst" onclick="switchProfile('violethyst')">
+            <span class="profile-avatar" style="background:#a855f7">V</span>
+            <span class="profile-name">Violethyst</span>
+        </button>
+    </div>
 </header>
 
-<!-- ================= HERO SLIDER ================= -->
-<section class="release-feature">
+<!-- ================= GURRAJ GREWAL PROFILE ================= -->
+<main id="gurrajView">
 
-    <div class="release-slider" id="slider">
+    <section class="release-feature">
+        <div class="release-bg" style="background-image: url('DaytonaArt.png');"></div>
 
-        <!-- SLIDE 1 — HCM -->
-        <div class="release-slide" id="slide-hcm">
-            <div class="release-bg" id="hcmBg" style="background-image: url('HCMArt.png');"></div>
+        <div class="release-overlay">
+            <div class="release-left">
 
-            <div class="release-overlay">
-                <div class="release-left">
-
-                    <div class="release-meta">
-                        <span class="release-rating-badge" id="hcmRatingBadge">6.2</span>
-                        <span class="dot">•</span>
-                        <span id="hcmYear">2022</span>
-                        <span class="dot">•</span>
-                        <span id="hcmSeasonCount">3 Seasons</span>
-                    </div>
-
-                    <div class="release-logo">
-                        <img id="hcmLogo" src="HCMLogo.png">
-                    </div>
-
-                    <div class="release-description">
-                        <p id="hcmDesc">
-                            Violethyst and Sibashi enter each match with one goal: survive.
-                            In a world where a single mistake ends the game, teamwork is the only way out.
-                        </p>
-                    </div>
-
-                    <div class="release-buttons">
-                        <button class="play-btn" onclick="playCurrentSeries()">▶ Play</button>
-                        <button class="info-btn" onclick="openSeasonsModal('hcm')">Seasons</button>
-                        <button class="season-btn" onclick="openGallery('hcm')">Gallery</button>
-                    </div>
-
+                <div class="release-meta">
+                    <span class="release-rating-badge" style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.45)">—</span>
+                    <span class="dot">•</span>
+                    <span>2026</span>
+                    <span class="dot">•</span>
+                    <span class="finale-highlight">9 Episodes</span>
                 </div>
+
+                <div class="finale-tag">Series Finale</div>
+
+                <div class="release-logo">
+                    <img src="DAYTONALogo.png">
+                </div>
+
+                <div class="release-description">
+                    <p>
+                        Four players from Shasta take part in the Hypixel Games in Los Angeles.
+                        What follows is not another game. It is the end of one.
+                    </p>
+                </div>
+
+                <div class="release-buttons">
+                    <button class="play-btn" onclick="openVideo(videoLinks.daytona[0])">▶ Watch Trailer</button>
+                    <button class="info-btn" onclick="openTitleModal(titleData('daytona'))">More Info</button>
+                    <button class="season-btn" onclick="openGallery('daytona')">Gallery</button>
+                </div>
+
             </div>
         </div>
+    </section>
 
-        <!-- SLIDE 2 — DAYTONA -->
-        <div class="release-slide">
-            <div class="release-bg" style="background-image: url('DaytonaArt.png');"></div>
-
-            <div class="release-overlay">
-                <div class="release-left">
-
-                    <div class="release-meta">
-                        <span class="release-rating-badge" style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.45)">—</span>
-                        <span class="dot">•</span>
-                        <span>2026</span>
-                        <span class="dot">•</span>
-                        <span class="finale-highlight">9 Episodes</span>
-                    </div>
-
-                    <div class="finale-tag">Series Finale</div>
-
-                    <div class="release-logo">
-                        <img src="DAYTONALogo.png">
-                    </div>
-
-                    <div class="release-description">
-                        <p>
-                            Four players from Shasta take part in the Hypixel Games in Los Angeles.
-                            What follows is not another game. It is the end of one.
-                        </p>
-                    </div>
-
-                    <div class="release-buttons">
-                        <button class="play-btn" onclick="playCurrentSeries()">▶ Watch Trailer</button>
-                        <button class="info-btn" onclick="openSeasonsModal('daytona')">Seasons</button>
-                        <button class="season-btn" onclick="openGallery('daytona')">Gallery</button>
-                    </div>
-
-                </div>
-            </div>
+    <section class="content-rows">
+        <div class="content-row">
+            <div class="row-title">Trending Now</div>
+            <div class="row-track trending-row" id="trendingRow"></div>
         </div>
 
-    </div>
-
-    <!-- Prev / Next arrows -->
-    <div class="arrow-controls">
-        <button class="arrow prev">‹</button>
-        <button class="arrow next">›</button>
-    </div>
-
-    <!-- Slide indicator dots -->
-    <div class="slide-dots" id="slideDots"></div>
-
-</section>
-
-<!-- ================= EPISODE SECTION ================= -->
-<section class="episodes-section">
-
-    <div class="episodes-header">
-        <h2 class="episodes-title" id="seasonTitle">Season 1</h2>
-        <div class="episode-arrows">
-            <button class="ep-arrow left">‹</button>
-            <button class="ep-arrow right">›</button>
+        <div class="content-row">
+            <div class="row-title">Most Recently Released</div>
+            <div class="row-track" id="recentRow"></div>
         </div>
-    </div>
+    </section>
 
-    <div class="episodes-wrapper">
-        <div class="episodes-track" id="episodesTrack"></div>
-    </div>
+</main>
 
-</section>
+<!-- ================= VIOLETHYST PROFILE ================= -->
+<main id="violethystView" style="display:none">
+
+    <section class="violethyst-hero">
+        <div class="violethyst-hero-content">
+            <div class="violethyst-kicker">YouTube Channel</div>
+            <h1 class="violethyst-wordmark">Violethyst</h1>
+            <p class="violethyst-tagline">Edits, mashups, and everything in between.</p>
+            <a class="vy-btn" href="#" target="_blank" rel="noopener">Visit Channel ↗</a>
+        </div>
+    </section>
+
+    <section class="content-rows">
+        <div class="content-row">
+            <div class="row-title violethyst-title">Latest Uploads</div>
+            <p class="violethyst-note">A rotating reel of fan edits — movies, music, and games.</p>
+            <div class="vy-grid" id="violethystGrid"></div>
+        </div>
+    </section>
+
+</main>
 
 <!-- VIDEO MODAL -->
 <div id="videoModal" class="glass-modal">
@@ -986,60 +951,32 @@
     </div>
 </div>
 
-<!-- HCM SEASONS MODAL -->
-<div class="seasons-modal" id="seasonsModal-hcm">
-    <div class="seasons-backdrop" onclick="closeSeasonsModal('hcm')"></div>
-    <div class="seasons-panel">
-        <h3>Select a Season</h3>
-        <button class="seasons-close" onclick="closeSeasonsModal('hcm')">×</button>
+<!-- TITLE DETAIL MODAL -->
+<div class="title-modal" id="titleModal">
+    <div class="title-modal-backdrop" onclick="closeTitleModal()"></div>
+    <div class="title-modal-panel">
+        <button class="title-modal-close" onclick="closeTitleModal()">×</button>
 
-        <div class="season-option active" id="seasonOpt1" onclick="selectSeason(1)">
-            <img src="HCMArt.png" alt="Season 1">
-            <div class="season-option-info">
-                <div class="season-option-label">Season 1</div>
-                <div class="season-option-title">Hypixel Cinematic Montages: Beginnings</div>
-                <div class="season-option-ep">9 Episodes · 2022</div>
+        <div class="title-modal-banner" id="tmBanner">
+            <div class="title-modal-banner-gradient"></div>
+            <div class="title-modal-banner-content">
+                <div class="finale-tag" id="tmFinaleTag" style="display:none">Series Finale</div>
+                <img class="title-modal-logo" id="tmLogo" alt="">
+                <h2 class="title-modal-name" id="tmName"></h2>
+                <div class="release-meta" id="tmMeta"></div>
+                <div class="title-modal-buttons">
+                    <button class="play-btn" id="tmPlayBtn" onclick="tmPlay()">▶ Play</button>
+                    <button class="info-btn" id="tmGalleryBtn" onclick="tmGallery()">Gallery</button>
+                </div>
             </div>
-            <span class="season-option-check">✓</span>
         </div>
 
-        <div class="season-option" id="seasonOpt2" onclick="selectSeason(2)">
-            <img src="PRE-PARTYART.png" alt="Season 2">
-            <div class="season-option-info">
-                <div class="season-option-label">Season 2</div>
-                <div class="season-option-title">Pre-Party</div>
-                <div class="season-option-ep">6 Episodes · 2025</div>
+        <div class="title-modal-body">
+            <div class="title-modal-main">
+                <p class="title-modal-desc" id="tmDesc"></p>
+                <div class="title-modal-tags" id="tmTags"></div>
             </div>
-            <span class="season-option-check">✓</span>
-        </div>
-
-        <div class="season-option" id="seasonOpt3" onclick="selectSeason(3)">
-            <img src="HCMAArt.png" alt="Season 3">
-            <div class="season-option-info">
-                <div class="season-option-label">Season 3</div>
-                <div class="season-option-title">Hypixel Cinematic Montages: Anniversary</div>
-                <div class="season-option-ep">4 Episodes · 2025</div>
-            </div>
-            <span class="season-option-check">✓</span>
-        </div>
-    </div>
-</div>
-
-<!-- DAYTONA SEASONS MODAL -->
-<div class="seasons-modal" id="seasonsModal-daytona">
-    <div class="seasons-backdrop" onclick="closeSeasonsModal('daytona')"></div>
-    <div class="seasons-panel">
-        <h3>Select a Season</h3>
-        <button class="seasons-close" onclick="closeSeasonsModal('daytona')">×</button>
-
-        <div class="season-option active">
-            <img src="DaytonaArt.png" alt="Season 1">
-            <div class="season-option-info">
-                <div class="season-option-label finale-highlight">The Finale</div>
-                <div class="season-option-title">Daytona</div>
-                <div class="season-option-ep">9 Episodes · 2026</div>
-            </div>
-            <span class="season-option-check">✓</span>
+            <div class="title-modal-side" id="tmSide"></div>
         </div>
     </div>
 </div>
@@ -1086,116 +1023,92 @@ function scoreTextColor(score) {
     return "white";
 }
 
-/* ── SLIDER ── */
-const slider = document.getElementById("slider");
-const slides = document.querySelectorAll(".release-slide");
-const nextBtn = document.querySelector(".next");
-const prevBtn = document.querySelector(".prev");
+/* ══════════════════════════════════════════════════════════
+   CATALOG DATA — Gurraj Grewal (Minecraft cinematic projects)
+   ══════════════════════════════════════════════════════════
+   HOW TO ADD A NEW PROJECT:
 
-let currentIndex = 0;
-let hcmSeason = 1;
+   • Multi- (or single-) episode SERIES → add an entry to `titles`
+     below, following the Daytona pattern (a `seasons` array).
 
-const params = new URLSearchParams(window.location.search);
-const startSlide = parseInt(params.get("slide"));
-const startSeason = parseInt(params.get("season"));
+   • Standalone MOVIE (no episodes) → just call openTitleModal
+     directly wherever you build its card, e.g.:
 
-if (!isNaN(startSlide)) currentIndex = startSlide;
+        openTitleModal({
+            type: "movie",
+            name: "Project Name",
+            tags: ["Minecraft", "Short Film"],
+            bg: "ProjectArt.png",
+            logo: "ProjectLogo.png",
+            desc: "One or two sentence synopsis.",
+            year: "2027",
+            rating: "7.4",
+            video: "https://www.youtube.com/embed/VIDEO_ID",
+            galleryKey: "project",   // optional — add a matching entry to galleryData
+            details: {
+                Genre: "Drama",
+                Format: "Short Film",
+                Setting: "Hypixel Skyblock"
+            },
+            theme: "default"
+        });
 
-/* ── Build slide dots ── */
-const dotsContainer = document.getElementById("slideDots");
-slides.forEach((_, i) => {
-    const dot = document.createElement("button");
-    dot.className = "slide-dot" + (i === 0 ? " active" : "");
-    dot.onclick = () => { currentIndex = i; updateSlider(); };
-    dotsContainer.appendChild(dot);
-});
-
-function updateDots() {
-    document.querySelectorAll(".slide-dot").forEach((d, i) => {
-        d.classList.toggle("active", i === currentIndex);
-    });
-    slides.forEach((s, i) => {
-        s.classList.toggle("active", i === currentIndex);
-    });
-}
-
-/* ── SEASON STATE for HCM ── */
-const hcmSeasonData = {
-    1: {
-        rating: "6.2",
-        year: "2022",
-        logo: "HCMLogo.png",
-        bg: "HCMArt.png",
-        seasonCount: "3 Seasons",
-        desc: "Violethyst and Sibashi enter each match with one goal: survive. In a world where a single mistake ends the game, teamwork is the only way out.",
-        episodeKey: "hcm_s1",
-        seasonTitle: "Season 1"
+     The side panel automatically swaps the episode list for these
+     details + a stills grid, so a movie never looks empty. The
+     Violethyst videos below are a live example of this exact path.
+   ══════════════════════════════════════════════════════════ */
+const titles = {
+    hcm: {
+        name: "Hypixel Cinematic Montages",
+        tags: ["Minecraft", "Cinematic", "Action"],
+        finale: false,
+        seasons: [
+            {
+                n: 1, label: "Season 1",
+                title: "Hypixel Cinematic Montages: Beginnings",
+                year: "2022", rating: "6.2",
+                logo: "HCMLogo.png", bg: "HCMArt.png",
+                desc: "Violethyst and Sibashi enter each match with one goal: survive. In a world where a single mistake ends the game, teamwork is the only way out.",
+                episodeKey: "hcm_s1", galleryKey: "hcm"
+            },
+            {
+                n: 2, label: "Season 2",
+                title: "Pre-Party",
+                year: "2025", rating: "5.5",
+                logo: "PRE-PARTYLOGO.png", bg: "PRE-PARTYART.png",
+                desc: "A spinoff centered on Viouth, a variant of Violethyst. Introducing tracks from The Weeknd's Hurry Up Tomorrow album turned into montages.",
+                episodeKey: "pre", galleryKey: "pre"
+            },
+            {
+                n: 3, label: "Season 3",
+                title: "Hypixel Cinematic Montages: Anniversary",
+                year: "2025", rating: "5.9",
+                logo: "HCMALogo.png", bg: "HCMAArt.png",
+                desc: "Three years later, Violethyst returns to the games. Revisiting the rivalry, the matches, and the momentum that started it all.",
+                episodeKey: "hcm_s2", galleryKey: "hcm"
+            }
+        ]
     },
-    2: {
-        rating: "5.5",
-        year: "2025",
-        logo: "PRE-PARTYLOGO.png",
-        bg: "PRE-PARTYART.png",
-        seasonCount: "3 Seasons",
-        desc: "A spinoff centered on Viouth, a variant of Violethyst. Introducing tracks from The Weeknd's Hurry Up Tomorrow album turned into montages.",
-        episodeKey: "pre",
-        seasonTitle: "Season 2"
-    },
-    3: {
-        rating: "5.9",
-        year: "2025",
-        logo: "HCMALogo.png",
-        bg: "HCMAArt.png",
-        seasonCount: "3 Seasons",
-        desc: "Three years later, Violethyst returns to the games. Revisiting the rivalry, the matches, and the momentum that started it all.",
-        episodeKey: "hcm_s2",
-        seasonTitle: "Season 3"
+    daytona: {
+        name: "Daytona",
+        tags: ["Minecraft", "Cinematic", "Finale"],
+        finale: true,
+        seasons: [
+            {
+                n: 1, label: "The Finale",
+                title: "Daytona",
+                year: "2026", rating: null,
+                logo: "DAYTONALogo.png", bg: "DaytonaArt.png",
+                desc: "The final chapter of Hypixel Cinematic Montages. Four players from Shasta take part in the Hypixel Games in Los Angeles. While the matches play out as expected, some things don't seem to follow the same rules.",
+                episodeKey: "daytona", galleryKey: "daytona"
+            }
+        ]
     }
 };
 
-function applyHcmSeason(season) {
-    const d = hcmSeasonData[season];
-    const badge = document.getElementById("hcmRatingBadge");
-    badge.textContent = d.rating;
-    badge.style.background = scoreColor(d.rating);
-    badge.style.color = scoreTextColor(d.rating);
-    document.getElementById("hcmYear").textContent = d.year;
-    document.getElementById("hcmSeasonCount").textContent = d.seasonCount;
-    document.getElementById("hcmLogo").src = d.logo;
-    document.getElementById("hcmBg").style.backgroundImage = `url('${d.bg}')`;
-    document.getElementById("hcmDesc").textContent = d.desc;
-}
-
-/* initialise HCM badge colour */
-applyHcmSeason(1);
-
-/* ── SEASONS MODAL ── */
-function openSeasonsModal(series) {
-    if (series === 'hcm') {
-        document.getElementById("seasonOpt1").classList.toggle("active", hcmSeason === 1);
-        document.getElementById("seasonOpt2").classList.toggle("active", hcmSeason === 2);
-        document.getElementById("seasonOpt3").classList.toggle("active", hcmSeason === 3);
-    }
-    document.getElementById(`seasonsModal-${series}`).classList.add("open");
-}
-
-function closeSeasonsModal(series) {
-    document.getElementById(`seasonsModal-${series}`).classList.remove("open");
-}
-
-function selectSeason(season) {
-    hcmSeason = season;
-    applyHcmSeason(season);
-
-    const episodeKey = hcmSeasonData[season].episodeKey;
-    generateEpisodes(episodeKey);
-    document.getElementById("seasonTitle").textContent = hcmSeasonData[season].seasonTitle;
-
-    document.getElementById("seasonOpt1").classList.toggle("active", season === 1);
-    document.getElementById("seasonOpt2").classList.toggle("active", season === 2);
-    document.getElementById("seasonOpt3").classList.toggle("active", season === 3);
-
-    closeSeasonsModal('hcm');
+function titleData(id) {
+    const t = titles[id];
+    return { type: "series", name: t.name, tags: t.tags, finale: !!t.finale, seasons: t.seasons, theme: t.finale ? "finale" : "default" };
 }
 
 /* ── EPISODE DATA ── */
@@ -1238,11 +1151,6 @@ const episodeData = {
         { title: "TBA", img: "black.png" },
         { title: "TBA", img: "black.png" }
     ]
-};
-
-const slideEpisodeKey = {
-    0: () => hcmSeasonData[hcmSeason].episodeKey,
-    1: () => "daytona"
 };
 
 /* ── VIDEO LINKS ── */
@@ -1317,11 +1225,304 @@ const galleryData = {
     }
 };
 
+/* ══════════════════════════════════════════════════════════
+   VIOLETHYST CATALOG — real uploads, latest to oldest.
+   Each is a live example of the "movie" template above:
+   a single video, no episode list, side panel filled with
+   Details instead so it never looks empty.
+   ══════════════════════════════════════════════════════════ */
+const violethystVideos = [
+    { subject: "PLAYBOI CARTI",      title: "RATHER LIE",                                 img: "RatherLie.png",         video: "https://www.youtube.com/embed/HnDmrcyg7Fc" },
+    { subject: "KENDRICK LAMAR",     title: "TV OFF",                                     img: "TVOFF.png",             video: "https://www.youtube.com/embed/HlT9bi13VyY" },
+    { subject: "PLAYBOI CARTI",      title: "TIMELESS",                                   img: "Timeless.png",          video: "https://www.youtube.com/embed/hImKEqjTf60" },
+    { subject: "MOON KNIGHT",        title: "FIELD TRIP",                                 img: "moonknight.png",        video: "https://www.youtube.com/embed/uKRpmThXs8Q" },
+    { subject: "THE BATMAN",         title: "VAMPIRE HOUR",                               img: "VAMPIREHOUR.png",       video: "https://www.youtube.com/embed/ejKw_q44txo" },
+    { subject: "MIGUEL O'HARA",      title: "FLOOR 555",                                  img: "MIGUEL.png",            video: "https://www.youtube.com/embed/GVAyQldzF8k" },
+    { subject: "IRON MAN",           title: "NIGHTCRAWLER",                               img: "NIGHTCRAWLER2.png",     video: "https://www.youtube.com/embed/hNQ0w4JYxlk" },
+    { subject: "MINECRAFT",          title: "MY EYES",                                    img: "MinecraftMyEyes.png",   video: "https://www.youtube.com/embed/7OXH39YJBCw" },
+    { subject: "GODZILLA",           title: "FE!N",                                       img: "GodzillaFE!N.png",      video: "https://www.youtube.com/embed/eymcrK50zng" },
+    { subject: "GODZILLA",           title: "2014-2024 (The Transition Edit)",            img: "Godzilla20142024.png",  video: "https://www.youtube.com/embed/NkTOKZ6co_c" },
+    { subject: "GRAND THEFT AUTO V", title: "PURPOSE IS GLORIOUS x MEMORY REBOOT",        img: "GTAV.png",              video: "https://www.youtube.com/embed/lRQb5q-hCeY" }
+];
+
+/* ══════════════════════════════════════════════════════════
+   PROFILE SWITCHING
+   ══════════════════════════════════════════════════════════ */
+let currentProfile = "gurraj";
+try { currentProfile = localStorage.getItem("activeProfile") || "gurraj"; } catch (e) {}
+
+function switchProfile(p) {
+    currentProfile = p;
+    try { localStorage.setItem("activeProfile", p); } catch (e) {}
+
+    document.getElementById("pillGurraj").classList.toggle("active", p === "gurraj");
+    document.getElementById("pillViolethyst").classList.toggle("active", p === "violethyst");
+    document.getElementById("gurrajView").style.display     = p === "gurraj" ? "" : "none";
+    document.getElementById("violethystView").style.display = p === "violethyst" ? "" : "none";
+    document.getElementById("pageTitle").textContent = p === "gurraj" ? "Releases - Gurraj Grewal" : "Releases - Violethyst";
+}
+
+/* ══════════════════════════════════════════════════════════
+   ROW RENDERING
+   ══════════════════════════════════════════════════════════ */
+function titleCard({ img, label, sub, badge, wide, onClick }) {
+    const div = document.createElement("div");
+    div.className = "title-card" + (wide ? " wide" : "");
+    div.innerHTML = `
+        <img src="${img}" alt="">
+        ${badge ? `<span class="title-card-badge">${badge}</span>` : ""}
+        <div class="title-card-overlay">
+            <div>
+                <div class="title-card-label">${label}</div>
+                ${sub ? `<div class="title-card-sub">${sub}</div>` : ""}
+            </div>
+        </div>
+    `;
+    div.onclick = onClick;
+    return div;
+}
+
+function renderTrendingRow() {
+    const track = document.getElementById("trendingRow");
+    track.innerHTML = "";
+
+    const items = [
+        { n: 1, img: "DaytonaArt.png", label: "Daytona", sub: "The Finale · 2026", badge: "FINALE",
+          onClick: () => openTitleModal(titleData("daytona")) },
+        { n: 2, img: "HCMArt.png", label: "Hypixel Cinematic Montages", sub: "3 Seasons", badge: null,
+          onClick: () => openTitleModal(titleData("hcm")) }
+    ];
+
+    items.forEach(it => {
+        const wrap = document.createElement("div");
+        wrap.className = "trending-item";
+        const num = document.createElement("span");
+        num.className = "trending-num";
+        num.textContent = it.n;
+        wrap.appendChild(num);
+        wrap.appendChild(titleCard({ ...it, wide: true }));
+        track.appendChild(wrap);
+    });
+}
+
+function renderRecentRow() {
+    const track = document.getElementById("recentRow");
+    track.innerHTML = "";
+
+    const items = [
+        { img: "DaytonaArt.png",   label: "Daytona",  sub: "The Finale · 2026",  badge: "FINALE", id: "daytona", season: 1 },
+        { img: "HCMAArt.png",      label: "Season 3", sub: "Anniversary · 2025", badge: null,      id: "hcm",     season: 3 },
+        { img: "PRE-PARTYART.png", label: "Season 2", sub: "Pre-Party · 2025",   badge: null,      id: "hcm",     season: 2 },
+        { img: "HCMArt.png",       label: "Season 1", sub: "Beginnings · 2022",  badge: null,      id: "hcm",     season: 1 }
+    ];
+
+    items.forEach(it => {
+        track.appendChild(titleCard({
+            img: it.img, label: it.label, sub: it.sub, badge: it.badge,
+            onClick: () => openTitleModal(titleData(it.id), it.season)
+        }));
+    });
+}
+
+function renderViolethystGrid() {
+    const grid = document.getElementById("violethystGrid");
+    grid.innerHTML = "";
+
+    violethystVideos.forEach(v => {
+        const card = document.createElement("div");
+        card.className = "vy-card";
+        card.innerHTML = `
+            <img class="vy-thumb-img" src="${v.img}" alt="${v.subject}: ${v.title}">
+            <div class="vy-card-info">
+                <span class="vy-card-tag">${v.subject}</span>
+                <div class="vy-card-title">${v.title}</div>
+            </div>
+        `;
+        card.onclick = () => openTitleModal({
+            type: "movie",
+            name: `${v.subject}: ${v.title}`,
+            tags: [v.subject],
+            bg: v.img, logo: null,
+            desc: `${v.subject} — edited to "${v.title}".`,
+            year: null, rating: null,
+            video: v.video,
+            details: { Subject: v.subject, Type: "Edit" },
+            theme: "violethyst"
+        });
+        grid.appendChild(card);
+    });
+}
+
+/* ══════════════════════════════════════════════════════════
+   TITLE DETAIL MODAL
+   ══════════════════════════════════════════════════════════ */
+let currentModalData   = null;
+let currentModalSeason = null;
+
+function openTitleModal(data, season) {
+    currentModalData   = data;
+    currentModalSeason = data.type === "series" ? (season || data.seasons[0].n) : null;
+
+    renderModal();
+
+    const modal = document.getElementById("titleModal");
+    modal.classList.add("open");
+    modal.querySelector(".title-modal-panel").className =
+        "title-modal-panel" + (data.theme ? " theme-" + data.theme : "");
+    document.body.style.overflow = "hidden";
+}
+
+function selectModalSeason(n) {
+    currentModalSeason = n;
+    renderModal();
+}
+
+function closeTitleModal() {
+    document.getElementById("titleModal").classList.remove("open");
+    document.body.style.overflow = "";
+}
+
+function renderModal() {
+    const d = currentModalData;
+    const season = d.type === "series" ? (d.seasons.find(s => s.n === currentModalSeason) || d.seasons[0]) : null;
+
+    const bg     = d.type === "series" ? season.bg     : d.bg;
+    const logo   = d.type === "series" ? season.logo   : d.logo;
+    const desc   = d.type === "series" ? season.desc   : d.desc;
+    const year   = d.type === "series" ? season.year   : d.year;
+    const rating = d.type === "series" ? season.rating : d.rating;
+
+    const banner = document.getElementById("tmBanner");
+    if (bg) { banner.style.backgroundImage = `url('${bg}')`; banner.classList.remove("no-image"); }
+    else    { banner.style.backgroundImage = "none";         banner.classList.add("no-image"); }
+
+    const logoEl = document.getElementById("tmLogo");
+    if (logo) { logoEl.src = logo; logoEl.style.display = ""; }
+    else      { logoEl.style.display = "none"; }
+    document.getElementById("tmName").style.display = logo ? "none" : "";
+
+    document.getElementById("tmFinaleTag").style.display = d.finale ? "inline-flex" : "none";
+
+    let metaThird = null;
+    if (d.type === "series") {
+        metaThird = d.seasons.length > 1
+            ? `${d.seasons.length} Seasons`
+            : `${(episodeData[season.episodeKey] || []).length} Episodes`;
+    }
+
+    const ratingHtml = rating
+        ? `<span class="release-rating-badge" style="background:${scoreColor(rating)};color:${scoreTextColor(rating)}">${rating}</span>`
+        : `<span class="release-rating-badge" style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.45)">—</span>`;
+
+    document.getElementById("tmMeta").innerHTML = `
+        ${ratingHtml}
+        ${year ? `<span class="dot">•</span><span>${year}</span>` : ""}
+        ${metaThird ? `<span class="dot">•</span><span class="${d.finale ? "finale-highlight" : ""}">${metaThird}</span>` : ""}
+    `;
+
+    document.getElementById("tmName").textContent = d.name;
+    document.getElementById("tmDesc").textContent = desc || "";
+    document.getElementById("tmTags").innerHTML = (d.tags || []).map(t => `<span class="tm-tag">${t}</span>`).join("");
+
+    const playBtn = document.getElementById("tmPlayBtn");
+    const canPlay = d.type === "series" ? true : !!d.video;
+    playBtn.textContent = canPlay ? "▶ Play" : "Coming Soon";
+    playBtn.classList.toggle("disabled", !canPlay);
+
+    const galleryKey = d.type === "series" ? season.galleryKey : d.galleryKey;
+    document.getElementById("tmGalleryBtn").style.display = (galleryKey && galleryData[galleryKey]) ? "" : "none";
+
+    renderSide(season);
+}
+
+function renderSide(season) {
+    const d = currentModalData;
+    const side = document.getElementById("tmSide");
+    let html = "";
+
+    if (d.type === "series") {
+        if (d.seasons.length > 1) {
+            html += `<div class="tm-season-tabs">` + d.seasons.map(s =>
+                `<button class="tm-season-tab${s.n === currentModalSeason ? " active" : ""}" onclick="selectModalSeason(${s.n})">${s.label}</button>`
+            ).join("") + `</div>`;
+        }
+
+        html += `<div class="tm-side-title">Episodes</div><div class="tm-episode-list">`;
+        const eps   = episodeData[season.episodeKey] || [];
+        const links = videoLinks[season.episodeKey]  || [];
+        const isPrologue = (season.episodeKey === "hcm_s1" || season.episodeKey === "pre");
+
+        eps.forEach((ep, i) => {
+            const numLabel = (isPrologue && i === 0) ? "Prologue" : `Episode ${isPrologue ? i : i + 1}`;
+            html += `
+                <div class="tm-episode-row" onclick="tmPlayEpisode('${links[i]}')">
+                    <div class="tm-episode-thumb"><img src="${ep.img}" alt=""></div>
+                    <div class="tm-episode-info">
+                        <div class="tm-episode-num">${numLabel}</div>
+                        <div class="tm-episode-title">${ep.title}</div>
+                    </div>
+                </div>`;
+        });
+        html += `</div>`;
+    } else {
+        html += `<div class="tm-side-title">Details</div><div class="tm-details-grid">` +
+            Object.entries(d.details || {}).map(([k, v]) =>
+                `<div class="tm-details-row"><div class="label">${k}</div><div class="value">${v}</div></div>`
+            ).join("") + `</div>`;
+
+        if (d.galleryKey && galleryData[d.galleryKey]) {
+            const imgs = galleryData[d.galleryKey].images.slice(0, 4);
+            html += `<div class="tm-side-title" style="margin-top:22px;">Stills</div><div class="tm-stills-grid">` +
+                imgs.map(src => `<img src="${src}" onclick="openGallery('${d.galleryKey}')" alt="">`).join("") + `</div>`;
+        }
+    }
+
+    side.innerHTML = html;
+}
+
+function tmPlay() {
+    const d = currentModalData;
+    if (d.type === "series") {
+        const season = d.seasons.find(s => s.n === currentModalSeason) || d.seasons[0];
+        const links = videoLinks[season.episodeKey];
+        if (links && links.length) openVideo(links[0]);
+    } else if (d.video) {
+        openVideo(d.video);
+    }
+}
+
+function tmPlayEpisode(link) { openVideo(link); }
+
+function tmGallery() {
+    const d = currentModalData;
+    const key = d.type === "series"
+        ? (d.seasons.find(s => s.n === currentModalSeason) || d.seasons[0]).galleryKey
+        : d.galleryKey;
+    if (key && galleryData[key]) openGallery(key);
+}
+
+/* ══════════════════════════════════════════════════════════
+   VIDEO MODAL
+   ══════════════════════════════════════════════════════════ */
+function openVideo(url) {
+    document.getElementById("videoFrame").src = url + "?autoplay=1&rel=0&modestbranding=1";
+    document.getElementById("videoModal").style.display = "flex";
+}
+
+function closeVideo() {
+    document.getElementById("videoFrame").src = "";
+    document.getElementById("videoModal").style.display = "none";
+}
+
+/* ══════════════════════════════════════════════════════════
+   GALLERY MODAL
+   ══════════════════════════════════════════════════════════ */
 let galleryImages = [];
 let galleryIndex = 0;
 
-function openGallery(series) {
-    const data = galleryData[series];
+function openGallery(key) {
+    const data = galleryData[key];
+    if (!data) return;
     galleryImages = data.images;
     galleryIndex = 0;
 
@@ -1378,144 +1579,39 @@ function goToGalleryIndex(i) {
 }
 
 document.addEventListener("keydown", (e) => {
-    if (!document.getElementById("galleryModal").classList.contains("open")) return;
-    if (e.key === "ArrowLeft")  galleryStep(-1);
-    if (e.key === "ArrowRight") galleryStep(1);
-    if (e.key === "Escape")     closeGallery();
-});
-
-const episodesTrack = document.getElementById("episodesTrack");
-const leftArrow  = document.querySelector(".ep-arrow.left");
-const rightArrow = document.querySelector(".ep-arrow.right");
-
-let episodeScrollIndex = 0;
-let currentEpisodeKey = "hcm_s1";
-
-/* ── GENERATE EPISODES ── */
-function generateEpisodes(key) {
-    currentEpisodeKey = key;
-    episodesTrack.classList.add("fade-out");
-
-    setTimeout(() => {
-        episodesTrack.innerHTML = "";
-        episodeScrollIndex = 0;
-        episodesTrack.style.transform = "translateX(0px)";
-
-        const episodes = episodeData[key];
-        const isPrologue = (key === "hcm_s1" || key === "pre");
-
-        episodes.forEach((ep, i) => {
-            const card = document.createElement("div");
-            card.className = "episode-card";
-
-            // NOTE: I messed up my png, my prologue thumbnail is called episode 1, so now the real episode 1 is called episode 2 and so on.
-        let numLabel;
-
-        if (isPrologue && i === 0) {
-        numLabel = "Prologue:";
-        } else {
-        const episodeNum = isPrologue ? i : i + 1;
-        numLabel = `Episode ${episodeNum}:`;
-        }
-            
-            card.innerHTML = `
-                <div class="episode-thumb">
-                    <img src="${ep.img}">
-                    <div class="play-overlay"></div>
-                </div>
-                <div class="episode-info">
-                    <div class="episode-number">${numLabel}</div>
-                    <div class="episode-title">${ep.title}</div>
-                </div>
-            `;
-
-            card.onclick = () => openVideo(videoLinks[key][i]);
-            episodesTrack.appendChild(card);
-        });
-
-        episodesTrack.classList.remove("fade-out");
-        episodesTrack.classList.add("fade-in");
-        setTimeout(() => episodesTrack.classList.remove("fade-in"), 350);
-
-    }, 300);
-}
-
-/* ── SCROLL ── */
-function getMaxScrollIndex() {
-    const cardWidth = 258;
-    const totalCards = episodesTrack.children.length;
-    const visibleWidth = document.querySelector(".episodes-wrapper").offsetWidth;
-    return Math.max(0, Math.ceil((totalCards * cardWidth - visibleWidth) / cardWidth));
-}
-
-rightArrow.addEventListener("click", () => {
-    if (episodeScrollIndex < getMaxScrollIndex()) {
-        episodeScrollIndex++;
-        episodesTrack.style.transform = `translateX(-${episodeScrollIndex * 258}px)`;
+    if (document.getElementById("galleryModal").classList.contains("open")) {
+        if (e.key === "ArrowLeft")  galleryStep(-1);
+        if (e.key === "ArrowRight") galleryStep(1);
+        if (e.key === "Escape")     closeGallery();
+        return;
+    }
+    if (e.key === "Escape" && document.getElementById("titleModal").classList.contains("open")) {
+        closeTitleModal();
     }
 });
 
-leftArrow.addEventListener("click", () => {
-    if (episodeScrollIndex > 0) {
-        episodeScrollIndex--;
-        episodesTrack.style.transform = `translateX(-${episodeScrollIndex * 258}px)`;
-    }
-});
+/* ══════════════════════════════════════════════════════════
+   INIT
+   ══════════════════════════════════════════════════════════ */
+renderTrendingRow();
+renderRecentRow();
+renderViolethystGrid();
+switchProfile(currentProfile);
 
-/* ── SLIDE CHANGE ── */
-function onSlideChange(index) {
-    const key = slideEpisodeKey[index]?.() ?? "hcm_s1";
-    generateEpisodes(key);
+/* Deep-link support: ?title=daytona&season=1 (new), or the legacy
+   ?slide=1 scheme still used by the Daytona card on home.html. */
+const params      = new URLSearchParams(window.location.search);
+const paramTitle  = params.get("title");
+const paramSeason = parseInt(params.get("season"));
+const paramSlide  = parseInt(params.get("slide"));
 
-    const titleMap = {
-        hcm_s1: "Season 1",
-        pre:    "Season 2",
-        hcm_s2: "Season 3",
-        daytona:"The Finale"
-    };
-    document.getElementById("seasonTitle").textContent = titleMap[key] || "Season 1";
-    document.getElementById("seasonTitle").classList.toggle("finale-active", key === "daytona");
-    updateDots();
-}
-
-/* ── VIDEO MODAL ── */
-function openVideo(url) {
-    document.getElementById("videoFrame").src = url + "?autoplay=1&rel=0&modestbranding=1";
-    document.getElementById("videoModal").style.display = "flex";
-}
-
-function closeVideo() {
-    document.getElementById("videoFrame").src = "";
-    document.getElementById("videoModal").style.display = "none";
-}
-
-function playCurrentSeries() {
-    openVideo(videoLinks[currentEpisodeKey][0]);
-}
-
-/* ── SLIDER CONTROLS ── */
-function updateSlider() {
-    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-    onSlideChange(currentIndex);
-}
-
-nextBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex + 1) % slides.length;
-    updateSlider();
-});
-
-prevBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    updateSlider();
-});
-
-window.addEventListener("resize", updateSlider);
-
-/* ── INIT ── */
-updateSlider();
-
-if (!isNaN(startSeason) && startSeason >= 2 && startSeason <= 3) {
-    selectSeason(startSeason);
+if (paramTitle && titles[paramTitle]) {
+    switchProfile("gurraj");
+    openTitleModal(titleData(paramTitle), isNaN(paramSeason) ? undefined : paramSeason);
+} else if (!isNaN(paramSlide)) {
+    switchProfile("gurraj");
+    if (paramSlide === 1) openTitleModal(titleData("daytona"));
+    else openTitleModal(titleData("hcm"), isNaN(paramSeason) ? undefined : paramSeason);
 }
 
 </script>
