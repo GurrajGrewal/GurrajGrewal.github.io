@@ -402,26 +402,24 @@
         .violethyst-wordmark-row {
             display: flex;
             align-items: center;
-            gap: 16px;
             margin-bottom: 14px;
         }
 
         .violethyst-wordmark {
             font-family: 'Poppins', sans-serif;
-            font-weight: 300;
-            font-size: 48px;
-            letter-spacing: 0.08em;
-            text-transform: lowercase;
+            font-weight: 600;
+            font-size: 52px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
             margin: 0;
             color: white;
+            line-height: 1;
+            text-shadow: 0 4px 30px rgba(192,132,252,0.25);
         }
 
+        /* Remove the profile-picture mark from the Violethyst branding */
         .violethyst-mark {
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            object-fit: cover;
-            flex-shrink: 0;
-            opacity: 0.92;
+            display: none;
         }
 
         .violethyst-tagline {
@@ -583,11 +581,24 @@
         }
 
         .title-modal-logo {
+            display: block;
             max-width: 320px;
             max-height: 110px;
+            width: auto;
+            height: auto;
             object-fit: contain;
-            margin-bottom: 14px;
+            object-position: left center;
+            margin: 0 0 14px;
             filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
+        }
+
+        /* Keep the Daytona logo anchored cleanly inside the pop-up */
+        .title-modal-panel.theme-finale .title-modal-logo {
+            display: block;
+            max-width: 360px;
+            max-height: 120px;
+            object-position: left center;
+            margin-left: 0;
         }
 
         .title-modal-name { font-size: 28px; font-weight: 700; margin: 0 0 14px; color: white; }
@@ -961,8 +972,7 @@
         <div class="violethyst-hero-content">
             <div class="violethyst-kicker">YouTube Channel</div>
             <div class="violethyst-wordmark-row">
-                <h1 class="violethyst-wordmark">violethyst</h1>
-                <img class="violethyst-mark" src="ViolethystPfp.png" alt="">
+                <h1 class="violethyst-wordmark">VIOLETHYST</h1>
             </div>
             <p class="violethyst-tagline">A cinematic visual channel by Gurraj Grewal.</p>
             <a class="vy-btn" href="https://www.youtube.com/@Violethyst/videos" target="_blank" rel="noopener">Visit Channel ↗</a>
