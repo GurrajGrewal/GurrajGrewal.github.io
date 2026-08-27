@@ -930,6 +930,50 @@
             .title-modal-main, .title-modal-side { padding: 22px; }
         }
 
+
+        /* ── FINAL VIOLETHYST BANNER OVERRIDES ── */
+        .violethyst-hero {
+            min-height: 420px;
+            height: 58vh;
+            padding: 0;
+            display: block;
+            background: #0d0512;
+        }
+        .violethyst-banner-wrap {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+        .violethyst-banner {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+        .violethyst-hero-content {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            width: 100%;
+            max-width: none;
+            min-height: 0;
+            box-sizing: border-box;
+            padding: 0 72px 48px;
+            margin: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+        }
+        @media (max-width: 768px) {
+            .violethyst-hero { min-height: 340px; height: 52vh; }
+            .violethyst-hero-content { padding: 0 28px 36px; }
+        }
+        @media (max-width: 540px) {
+            .violethyst-hero { min-height: 280px; height: 46vh; }
+            .violethyst-hero-content { padding: 0 20px 28px; }
+        }
+
     </style>
 </head>
 
@@ -1686,7 +1730,6 @@ document.addEventListener("keydown", (e) => {
    INIT
    ══════════════════════════════════════════════════════════ */
 renderTrendingRow();
-renderRecentRow();
 renderViolethystGrid();
 switchProfile(currentProfile);
 
