@@ -371,6 +371,57 @@
             pointer-events: none;
         }
 
+        /* ── VIOLETHYST BANNER TREATMENT ── */
+        .violethyst-hero {
+            min-height: 420px;
+            padding: 0;
+            background: #0d0512;
+        }
+
+        .violethyst-banner-wrap {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .violethyst-banner {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .violethyst-banner-fade {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(to top, #0d0512 0%, rgba(13,5,18,0.5) 28%, rgba(13,5,18,0.08) 65%, rgba(13,5,18,0.22) 100%),
+                linear-gradient(to right, rgba(13,5,18,0.25), transparent 45%, rgba(13,5,18,0.18));
+        }
+
+        .violethyst-hero-content {
+            min-height: 420px;
+            width: 100%;
+            max-width: none;
+            box-sizing: border-box;
+            padding: 0 72px 56px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+        }
+
+        @media (max-width: 768px) {
+            .violethyst-hero { min-height: 340px; }
+            .violethyst-hero-content { min-height: 340px; padding: 0 28px 40px; }
+        }
+
+        @media (max-width: 540px) {
+            .violethyst-hero { min-height: 280px; }
+            .violethyst-hero-content { min-height: 280px; padding: 0 20px 32px; }
+            .violethyst-banner { object-position: center; }
+        }
+
         /* ══════════════════════════════════════
            VIOLETHYST PROFILE
         ══════════════════════════════════════ */
@@ -956,11 +1007,6 @@
             <div class="row-title">Trending Now</div>
             <div class="row-track trending-row" id="trendingRow"></div>
         </div>
-
-        <div class="content-row">
-            <div class="row-title">Most Recently Released</div>
-            <div class="row-track" id="recentRow"></div>
-        </div>
     </section>
 
 </main>
@@ -969,12 +1015,11 @@
 <main id="violethystView" style="display:none">
 
     <section class="violethyst-hero">
+        <div class="violethyst-banner-wrap">
+            <img src="ViolethystBanner.png" alt="Violethyst" class="violethyst-banner">
+            <div class="violethyst-banner-fade"></div>
+        </div>
         <div class="violethyst-hero-content">
-            <div class="violethyst-kicker">YouTube Channel</div>
-            <div class="violethyst-wordmark-row">
-                <h1 class="violethyst-wordmark">VIOLETHYST</h1>
-            </div>
-            <p class="violethyst-tagline">A cinematic visual channel by Gurraj Grewal.</p>
             <a class="vy-btn" href="https://www.youtube.com/@Violethyst/videos" target="_blank" rel="noopener">Visit Channel ↗</a>
         </div>
     </section>
