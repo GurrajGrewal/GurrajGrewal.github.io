@@ -383,72 +383,67 @@
         }
 
         /* ══════════════════════════════════════
-           VIOLETHYST PROFILE
+           VIOLETHYST PROFILE — COMPACT CINEMATIC HEADER
         ══════════════════════════════════════ */
         .violethyst-hero {
             position: relative;
             width: 100%;
-            height: 90vh;
-            min-height: 600px;
+            height: clamp(260px, 34vw, 480px);
+            min-height: 0;
             overflow: hidden;
             background: #080808;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .violethyst-banner {
-            position: absolute;
-            inset: 0;
             width: 100%;
             height: 100%;
             display: block;
             object-fit: cover;
             object-position: center;
-            transform: scale(1.05);
-            animation: violethystHeroZoom 12s ease-out forwards;
         }
 
+        /* Keep the banner clean — only a very subtle edge fade into the page. */
         .violethyst-hero::after {
             content: "";
             position: absolute;
             inset: 0;
             pointer-events: none;
-            background:
-                linear-gradient(to top, #080808 0%, rgba(8,8,8,0.65) 30%, transparent 65%),
-                linear-gradient(to right, rgba(8,8,8,0.28) 0%, transparent 50%);
-        }
-
-        @keyframes violethystHeroZoom {
-            to { transform: scale(1); }
+            background: linear-gradient(to bottom, transparent 72%, rgba(8,8,8,0.32) 100%);
         }
 
         .violethyst-title { color: rgba(255,255,255,0.95); }
 
-        .vy-grid { column-count: 3; column-gap: 16px; }
+        /* Smaller, tighter content tiles for a streaming-style browsing row. */
+        .vy-grid {
+            column-count: 4;
+            column-gap: 12px;
+        }
 
         .vy-card {
             display: block;
             break-inside: avoid;
-            margin-bottom: 16px;
-            border-radius: 12px;
+            margin-bottom: 12px;
+            border-radius: 7px;
             overflow: hidden;
             cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: none;
             background: #111;
             text-decoration: none;
             color: inherit;
-            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1),
-                        box-shadow 0.3s cubic-bezier(0.4,0,0.2,1),
-                        border-color 0.3s ease;
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
         }
 
         .vy-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 45px rgba(0,0,0,0.55);
-            border-color: rgba(255,255,255,0.2);
+            transform: scale(1.025);
+            box-shadow: 0 14px 32px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 2;
         }
 
         .vy-thumb-wrap { position: relative; }
-        .vy-thumb-img { width: 100%; height: auto; display: block; transition: transform 0.45s ease; }
-        .vy-card:hover .vy-thumb-img { transform: scale(1.035); }
+        .vy-thumb-img { width: 100%; height: auto; display: block; transition: transform 0.3s ease; }
+        .vy-card:hover .vy-thumb-img { transform: scale(1.02); }
 
         .vy-play-overlay {
             position: absolute;
@@ -456,289 +451,40 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0,0,0,0.28);
+            background: rgba(0,0,0,0.18);
             opacity: 0;
-            transition: opacity 0.25s ease;
+            transition: opacity 0.2s ease;
         }
 
         .vy-card:hover .vy-play-overlay { opacity: 1; }
 
         .vy-play-icon {
-            width: 46px; height: 46px;
+            width: 42px; height: 42px;
             border-radius: 50%;
             background: rgba(255,255,255,0.96);
             display: flex; align-items: center; justify-content: center;
             color: #111;
-            font-size: 15px;
-            padding-left: 2px;
-        }
-
-        .vy-card-info  { padding: 12px 14px 14px; }
-        .vy-card-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.88); }
-
-        .vy-card-tag {
-            display: inline-block;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
-            padding: 0;
-            margin-bottom: 8px;
-        }
-
-        /* ══════════════════════════════════════
-           TITLE DETAIL MODAL (pop-up)
-        ══════════════════════════════════════ */
-        .title-modal {
-            position: fixed;
-            inset: 0;
-            z-index: 300;
-            display: none;
-            align-items: flex-start;
-            justify-content: center;
-            overflow-y: auto;
-            padding: 48px 20px;
-        }
-
-        .title-modal.open { display: flex; }
-
-        .title-modal { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent; }
-        .title-modal::-webkit-scrollbar { width: 6px; }
-        .title-modal::-webkit-scrollbar-track { background: transparent; }
-        .title-modal::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 10px; }
-        .title-modal::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.32); }
-
-        .title-modal-backdrop {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
-        }
-
-        .title-modal-panel {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            max-width: 1000px;
-            margin: auto;
-            background: #0e0e0e;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.8);
-            animation: popIn 0.25s ease-out;
-        }
-
-        .title-modal-panel.theme-finale     { border-color: rgba(232,200,116,0.28); }
-        .title-modal-panel.theme-violethyst { border-color: rgba(192,132,252,0.3); box-shadow: 0 30px 90px rgba(88,28,135,0.4); }
-
-        @keyframes popIn {
-            from { transform: scale(0.97); opacity: 0; }
-            to   { transform: scale(1);    opacity: 1; }
-        }
-
-        .title-modal-close {
-            position: absolute;
-            top: 16px; right: 16px;
-            z-index: 5;
-            width: 34px; height: 34px;
-            border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.18);
-            background: rgba(0,0,0,0.4);
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: background 0.2s;
-        }
-
-        .title-modal-close:hover { background: rgba(0,0,0,0.65); }
-
-        .title-modal-banner {
-            position: relative;
-            height: 340px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .title-modal-banner.no-image {
-            background: linear-gradient(135deg, #3b1560, #7c3aed 45%, #db2777);
-        }
-
-        .title-modal-banner-gradient {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, #0e0e0e 0%, rgba(14,14,14,0.45) 55%, rgba(14,14,14,0.05) 100%);
-        }
-
-        .title-modal-banner-content {
-            position: absolute;
-            left: 0; right: 0; bottom: 0;
-            padding: 28px 36px;
-        }
-
-        .title-modal-logo {
-            display: block;
-            width: auto;
-            height: auto;
-            max-width: 320px;
-            max-height: 110px;
-            object-fit: contain;
-            margin: 0 0 14px;
-            filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
-        }
-
-        .title-modal-name { font-size: 28px; font-weight: 700; margin: 0 0 14px; color: white; }
-
-        .title-modal-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
-
-        .title-modal-body {
-            display: grid;
-            grid-template-columns: 1.6fr 1fr;
-        }
-
-        .title-modal-main {
-            padding: 28px 36px 36px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .title-modal-desc {
             font-size: 14px;
-            line-height: 1.65;
-            color: rgba(255,255,255,0.65);
-            margin: 0 0 18px;
+            padding-left: 2px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.35);
         }
 
-        .title-modal-tags {
-            font-size: 13px;
-            color: rgba(255,255,255,0.5);
-            letter-spacing: 0.01em;
+        .vy-card-info {
+            padding: 10px 2px 4px;
         }
 
-        .tm-tag-sep { color: rgba(255,255,255,0.25); margin: 0 8px; }
-
-        .title-modal-side {
-            border-left: 1px solid rgba(255,255,255,0.06);
-            padding: 28px 24px 36px;
-            max-height: 520px;
-            overflow-y: auto;
-            background: rgba(255,255,255,0.015);
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255,255,255,0.2) transparent;
-        }
-
-        .title-modal-side::-webkit-scrollbar { width: 6px; }
-        .title-modal-side::-webkit-scrollbar-track { background: transparent; }
-        .title-modal-side::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 10px; }
-        .title-modal-side::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.32); }
-
-        .tm-side-title {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.35);
-            margin-bottom: 14px;
-        }
-
-
-        .tm-season-tabs { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
-
-        .tm-season-tab {
-            padding: 7px 14px;
+        .vy-card-title {
             font-size: 12px;
-            font-weight: 500;
-            border-radius: 999px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.6);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.35;
+            color: rgba(255,255,255,0.88);
         }
 
-        .tm-season-tab:hover  { background: rgba(255,255,255,0.12); color: white; }
-        .tm-season-tab.active { background: white; color: black; border-color: white; }
-
-        .tm-episode-row {
-            display: flex;
-            gap: 12px;
-            padding: 10px 6px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-bottom: 4px;
+        .vy-card-date {
+            margin-top: 3px;
+            font-size: 10px;
+            color: rgba(255,255,255,0.4);
         }
-
-        .tm-episode-row:hover { background: rgba(255,255,255,0.06); }
-
-        .tm-episode-thumb {
-            width: 100px; height: 58px;
-            border-radius: 8px;
-            overflow: hidden;
-            flex-shrink: 0;
-            background: #1a1a1a;
-        }
-
-        .tm-episode-thumb img { width: 100%; height: 100%; object-fit: cover; }
-
-        .tm-episode-info { flex: 1; min-width: 0; }
-        .tm-episode-num  { font-size: 10px; color: rgba(255,255,255,0.35); margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.04em; }
-        .tm-episode-title {
-            font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85);
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-
-        .tm-details-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; }
-        .tm-details-row .label { color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.08em; font-size: 10px; margin-bottom: 3px; }
-        .tm-details-row .value { color: rgba(255,255,255,0.8); font-weight: 500; font-size: 13px; }
-
-        .tm-stills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .tm-stills-grid img {
-            width: 100%; aspect-ratio: 16/9; object-fit: cover;
-            border-radius: 8px; cursor: pointer; transition: opacity 0.2s;
-        }
-        .tm-stills-grid img:hover { opacity: 0.8; }
-
-        /* ══════════════════════════════════════
-           VIDEO MODAL
-        ══════════════════════════════════════ */
-        .glass-modal {
-            position: fixed; inset: 0;
-            display: none;
-            justify-content: center; align-items: center;
-            z-index: 9999;
-        }
-
-        .glass-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(16px); }
-
-        .glass-wrapper { position: relative; width: 92%; max-width: 1400px; }
-
-        .glass-close {
-            position: absolute; top: -50px; left: 50%; transform: translateX(-50%);
-            width: 40px; height: 40px; border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.15);
-            background: rgba(255,255,255,0.1); color: white; font-size: 20px;
-            cursor: pointer; backdrop-filter: blur(8px);
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .glass-close:hover { background: rgba(255,255,255,0.22); }
-
-        .glass-player {
-            width: 100%; aspect-ratio: 16/9;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 18px; overflow: hidden;
-            box-shadow: 0 24px 80px rgba(0,0,0,0.8);
-            animation: popIn 0.25s ease-out;
-        }
-
-        .glass-player iframe { width: 100%; height: 100%; border: none; }
 
         /* ══════════════════════════════════════
            GALLERY MODAL
@@ -817,6 +563,17 @@
         .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
         .gallery-thumb.active { border-color: white; opacity: 1; }
         .gallery-thumb:hover  { opacity: 0.8; }
+
+        @media (max-width: 900px) {
+            .violethyst-hero { height: clamp(220px, 42vw, 380px); }
+            .vy-grid { column-count: 3; column-gap: 10px; }
+        }
+
+        @media (max-width: 600px) {
+            .violethyst-hero { height: 210px; }
+            .vy-grid { column-count: 2; column-gap: 8px; }
+            .vy-card { margin-bottom: 10px; }
+        }
 
         /* ══════════════════════════════════════
            RESPONSIVE
