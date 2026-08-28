@@ -387,21 +387,19 @@
         ══════════════════════════════════════ */
         .violethyst-hero {
             position: relative;
-            min-height: 280px;
-            padding: 78px 72px 36px;
+            width: 100%;
+            padding: 92px 72px 24px;
             display: flex;
-            align-items: center;
             justify-content: center;
-            overflow: hidden;
             background: #080808;
             border-bottom: 1px solid rgba(255,255,255,0.08);
         }
 
         .violethyst-banner {
-            width: min(100%, 1100px);
-            max-height: 240px;
-            object-fit: contain;
+            width: min(100%, 1200px);
+            height: auto;
             display: block;
+            object-fit: contain;
             filter: drop-shadow(0 12px 32px rgba(0,0,0,0.45));
         }
 
@@ -826,7 +824,6 @@
             .release-description { display: none; }
             .content-rows { padding: 28px 28px 48px; }
             .violethyst-hero { padding: 88px 28px 40px; }
-            .violethyst-wordmark { font-size: 40px; }
         }
 
         @media (max-width: 540px) {
@@ -841,7 +838,6 @@
             .title-card.wide  { width: 230px; }
             .trending-num     { font-size: 60px; margin-right: -12px; }
             .violethyst-hero  { padding: 80px 20px 36px; }
-            .violethyst-wordmark { font-size: 32px; }
             .vy-grid { column-count: 1; }
             .title-modal-banner { height: 220px; }
             .title-modal-logo   { max-width: 220px; max-height: 80px; }
@@ -1599,7 +1595,7 @@ document.addEventListener("keydown", (e) => {
    ══════════════════════════════════════════════════════════ */
 renderTrendingRow();
 renderRecentRow();
-renderViolethystGrid();
+renderViolethyst();
 switchProfile(currentProfile);
 
 /* Deep-link support: ?title=daytona&season=1 (new), or the legacy
