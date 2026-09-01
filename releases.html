@@ -4,17 +4,50 @@
     <meta charset="UTF-8">
     <title id="pageTitle">Releases - Gurraj Grewal</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
+
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
             background: #080808;
             color: white;
+            opacity: 0;
+            animation: pageFade 0.45s ease forwards;
+        }
+
+        @keyframes pageFade { to { opacity: 1; } }
+
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.97); opacity: 0; }
+            to   { transform: scale(1);    opacity: 1; }
+        }
+
+        @keyframes kenburns {
+            0%   { transform: scale(1); }
+            100% { transform: scale(1.09); }
+        }
+
+        a { text-decoration: none; }
+
+        button:focus-visible, a:focus-visible {
+            outline: 2px solid rgba(255,255,255,0.6);
+            outline-offset: 2px;
         }
 
         /* ══════════════════════════════════════
@@ -43,7 +76,6 @@
             padding: 10px 16px;
             border-radius: 999px;
             color: white;
-            text-decoration: none;
             font-weight: 500;
             transition: all 0.2s ease;
         }
@@ -109,12 +141,12 @@
         }
 
         /* ══════════════════════════════════════
-           HERO (static — no more slider)
+           HERO
         ══════════════════════════════════════ */
         .release-feature {
             position: relative;
-            height: 72vh;
-            min-height: 520px;
+            height: 74vh;
+            min-height: 540px;
             width: 100%;
             overflow: hidden;
         }
@@ -126,6 +158,7 @@
             background-position: center;
             background-repeat: no-repeat;
             z-index: 1;
+            animation: kenburns 22s ease-in-out infinite alternate;
         }
 
         .release-bg::after {
@@ -133,8 +166,8 @@
             position: absolute;
             inset: 0;
             background:
-                linear-gradient(to right, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.55) 45%, rgba(8,8,8,0.05) 75%),
-                linear-gradient(to top, rgba(8,8,8,0.9) 0%, transparent 40%);
+                linear-gradient(to right, rgba(8,8,8,0.94) 0%, rgba(8,8,8,0.6) 45%, rgba(8,8,8,0.08) 75%),
+                linear-gradient(to top, rgba(8,8,8,0.95) 0%, transparent 42%);
         }
 
         .release-overlay {
@@ -145,10 +178,17 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding-bottom: 56px;
+            padding-bottom: 60px;
         }
 
         .release-left { max-width: 560px; }
+
+        .release-left > * { animation: fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) both; }
+        .release-left .release-meta        { animation-delay: 0.05s; }
+        .release-left .finale-tag          { animation-delay: 0.1s;  }
+        .release-left .release-logo        { animation-delay: 0.15s; }
+        .release-left .release-description { animation-delay: 0.2s;  }
+        .release-left .release-buttons     { animation-delay: 0.25s; }
 
         .release-meta {
             display: flex;
@@ -175,9 +215,11 @@
         }
 
         .release-logo img {
-            max-width: 450px;
-            max-height: 160px;
+            display: block;
             width: auto;
+            height: auto;
+            max-width: 460px;
+            max-height: 165px;
             object-fit: contain;
             margin-bottom: 18px;
             filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
@@ -186,7 +228,7 @@
         .release-description {
             font-size: 14px;
             line-height: 1.65;
-            color: rgba(255,255,255,0.55);
+            color: rgba(255,255,255,0.58);
             max-width: 460px;
             margin-bottom: 28px;
         }
@@ -202,14 +244,14 @@
             background: white;
             color: black;
             border: none;
-            padding: 11px 28px;
+            padding: 12px 30px;
             font-weight: 700;
             font-size: 13px;
             font-family: 'Poppins', sans-serif;
             cursor: pointer;
             border-radius: 999px;
             letter-spacing: 0.02em;
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
         }
 
         .play-btn:hover { background: rgba(255,255,255,0.88); transform: scale(1.03); }
@@ -217,15 +259,15 @@
 
         .info-btn, .season-btn {
             background: rgba(255,255,255,0.08);
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.85);
             border: 1px solid rgba(255,255,255,0.14);
-            padding: 10px 22px;
+            padding: 11px 24px;
             font-size: 13px;
             font-weight: 500;
             font-family: 'Poppins', sans-serif;
             cursor: pointer;
             border-radius: 999px;
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
             backdrop-filter: blur(8px);
         }
 
@@ -233,9 +275,10 @@
             background: rgba(255,255,255,0.16);
             color: white;
             border-color: rgba(255,255,255,0.28);
+            transform: translateY(-1px);
         }
 
-        /* ── SERIES FINALE TREATMENT (Daytona) ── */
+        /* ── SERIES FINALE TREATMENT ── */
         .finale-tag {
             display: inline-flex;
             align-items: center;
@@ -262,16 +305,34 @@
         /* ══════════════════════════════════════
            CONTENT ROWS
         ══════════════════════════════════════ */
-        .content-rows { padding: 44px 72px 64px; background: #080808; }
-        .content-row   { margin-bottom: 40px; }
+        .content-rows { padding: 46px 72px 64px; background: #080808; }
+        .content-row   { margin-bottom: 42px; }
+
+        .row-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 4px;
+        }
 
         .row-title {
             font-size: 22px;
             font-weight: 700;
             color: rgba(255,255,255,0.95);
             letter-spacing: -0.01em;
-            margin: 0 0 4px;
+            margin: 0;
         }
+
+        .row-header-link {
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.45);
+            white-space: nowrap;
+            transition: color 0.2s ease;
+        }
+
+        .row-header-link:hover { color: white; }
 
         .row-track {
             display: flex;
@@ -294,6 +355,7 @@
             border: 1px solid rgba(255,255,255,0.06);
             background: #111;
             transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1), border-color 0.3s ease;
+            animation: cardIn 0.5s cubic-bezier(0.4,0,0.2,1) both;
         }
 
         .title-card.wide { width: 340px; }
@@ -369,7 +431,15 @@
         }
 
         .trending-row { align-items: flex-end; }
-        .trending-item { display: flex; align-items: flex-end; flex-shrink: 0; }
+
+        .trending-item {
+            display: flex;
+            align-items: flex-end;
+            flex-shrink: 0;
+            animation: cardIn 0.5s cubic-bezier(0.4,0,0.2,1) both;
+        }
+
+        .trending-item .title-card { animation: none; }
 
         .trending-num {
             font-size: 100px;
@@ -388,50 +458,55 @@
         .violethyst-hero {
             position: relative;
             width: 100%;
-            padding: 92px 72px 24px;
-            display: flex;
-            justify-content: center;
-            background: #080808;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            height: clamp(150px, 22vw, 300px);
+            overflow: hidden;
+            background: #0a0a0a;
         }
 
         .violethyst-banner {
-            width: min(100%, 1200px);
-            height: auto;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
             display: block;
-            object-fit: contain;
-            filter: drop-shadow(0 12px 32px rgba(0,0,0,0.45));
         }
 
-        .violethyst-title { color: rgba(255,255,255,0.95); }
+        .violethyst-hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, #080808 0%, transparent 35%);
+            pointer-events: none;
+        }
 
-        .vy-grid { column-count: 3; column-gap: 16px; }
+        .vy-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
 
         .vy-card {
             display: block;
-            break-inside: avoid;
-            margin-bottom: 16px;
-            border-radius: 12px;
+            color: inherit;
+            border-radius: 8px;
             overflow: hidden;
             cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.07);
             background: #111;
-            text-decoration: none;
-            color: inherit;
-            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1),
-                        box-shadow 0.3s cubic-bezier(0.4,0,0.2,1),
-                        border-color 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1), border-color 0.3s ease;
+            animation: cardIn 0.5s cubic-bezier(0.4,0,0.2,1) both;
         }
 
         .vy-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 45px rgba(0,0,0,0.55);
+            transform: translateY(-7px) scale(1.02);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.6);
             border-color: rgba(255,255,255,0.2);
+            z-index: 2;
         }
 
-        .vy-thumb-wrap { position: relative; }
-        .vy-thumb-img { width: 100%; height: auto; display: block; transition: transform 0.45s ease; }
-        .vy-card:hover .vy-thumb-img { transform: scale(1.035); }
+        .vy-thumb-wrap { position: relative; aspect-ratio: 16/9; overflow: hidden; background: #151515; }
+        .vy-thumb-img  { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+        .vy-card:hover .vy-thumb-img { transform: scale(1.06); }
 
         .vy-play-overlay {
             position: absolute;
@@ -439,7 +514,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0,0,0,0.28);
+            background: rgba(0,0,0,0.32);
             opacity: 0;
             transition: opacity 0.25s ease;
         }
@@ -447,28 +522,18 @@
         .vy-card:hover .vy-play-overlay { opacity: 1; }
 
         .vy-play-icon {
-            width: 46px; height: 46px;
+            width: 42px; height: 42px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.96);
+            background: rgba(255,255,255,0.95);
             display: flex; align-items: center; justify-content: center;
             color: #111;
-            font-size: 15px;
+            font-size: 14px;
             padding-left: 2px;
         }
 
-        .vy-card-info  { padding: 12px 14px 14px; }
-        .vy-card-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.88); }
-
-        .vy-card-tag {
-            display: inline-block;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
-            padding: 0;
-            margin-bottom: 8px;
-        }
+        .vy-card-info  { padding: 10px 12px 13px; }
+        .vy-card-tag   { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+        .vy-card-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9); line-height: 1.3; }
 
         /* ══════════════════════════════════════
            TITLE DETAIL MODAL (pop-up)
@@ -482,11 +547,12 @@
             justify-content: center;
             overflow-y: auto;
             padding: 48px 20px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.2) transparent;
         }
 
         .title-modal.open { display: flex; }
 
-        .title-modal { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent; }
         .title-modal::-webkit-scrollbar { width: 6px; }
         .title-modal::-webkit-scrollbar-track { background: transparent; }
         .title-modal::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 10px; }
@@ -513,13 +579,7 @@
             animation: popIn 0.25s ease-out;
         }
 
-        .title-modal-panel.theme-finale     { border-color: rgba(232,200,116,0.28); }
-        .title-modal-panel.theme-violethyst { border-color: rgba(192,132,252,0.3); box-shadow: 0 30px 90px rgba(88,28,135,0.4); }
-
-        @keyframes popIn {
-            from { transform: scale(0.97); opacity: 0; }
-            to   { transform: scale(1);    opacity: 1; }
-        }
+        .title-modal-panel.theme-finale { border-color: rgba(232,200,116,0.28); }
 
         .title-modal-close {
             position: absolute;
@@ -546,7 +606,7 @@
         }
 
         .title-modal-banner.no-image {
-            background: linear-gradient(135deg, #3b1560, #7c3aed 45%, #db2777);
+            background: linear-gradient(135deg, #1c1c1c, #333 60%, #111);
         }
 
         .title-modal-banner-gradient {
@@ -626,7 +686,6 @@
             color: rgba(255,255,255,0.35);
             margin-bottom: 14px;
         }
-
 
         .tm-season-tabs { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
 
@@ -804,158 +863,48 @@
         /* ══════════════════════════════════════
            RESPONSIVE
         ══════════════════════════════════════ */
+        @media (max-width: 1100px) {
+            .vy-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+
         @media (max-width: 1024px) {
             .release-overlay  { padding: 0 48px; padding-bottom: 48px; }
-            .content-rows     { padding: 36px 48px 56px; }
+            .content-rows     { padding: 38px 48px 56px; }
             .release-logo img { max-width: 340px; max-height: 130px; }
         }
 
         @media (max-width: 900px) {
             .title-modal-body  { grid-template-columns: 1fr; }
             .title-modal-side  { border-left: none; border-top: 1px solid rgba(255,255,255,0.06); max-height: none; }
-            .vy-grid { column-count: 2; }
         }
 
         @media (max-width: 768px) {
-            .release-feature { height: 60vh; min-height: 420px; }
+            .release-feature { height: 62vh; min-height: 430px; }
             .release-overlay { padding: 0 28px; padding-bottom: 64px; }
             .release-left    { max-width: 100%; }
             .release-logo img { max-width: 260px; max-height: 100px; }
             .release-description { display: none; }
-            .content-rows { padding: 28px 28px 48px; }
-            .violethyst-hero { padding: 88px 28px 40px; }
+            .content-rows { padding: 30px 28px 48px; }
+        }
+
+        @media (max-width: 700px) {
+            .vy-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
         }
 
         @media (max-width: 540px) {
-            .release-feature { height: 55vh; min-height: 360px; }
+            .release-feature { height: 55vh; min-height: 370px; }
             .release-overlay { padding: 0 20px; padding-bottom: 56px; }
             .release-logo img { max-width: 200px; max-height: 80px; }
             .release-meta    { font-size: 11px; gap: 6px; }
             .play-btn        { padding: 9px 20px; font-size: 12px; }
             .info-btn, .season-btn { padding: 8px 14px; font-size: 12px; }
-            .content-rows    { padding: 22px 16px 40px; }
+            .content-rows    { padding: 24px 16px 40px; }
             .title-card       { width: 175px; }
             .title-card.wide  { width: 230px; }
             .trending-num     { font-size: 60px; margin-right: -12px; }
-            .violethyst-hero  { padding: 80px 20px 36px; }
-            .vy-grid { column-count: 1; }
             .title-modal-banner { height: 220px; }
             .title-modal-logo   { max-width: 220px; max-height: 80px; }
             .title-modal-main, .title-modal-side { padding: 22px; }
-        }
-
-
-        /* ══════════════════════════════════════
-           VIOLETHYST — CLEAN STREAMING LAYOUT
-        ══════════════════════════════════════ */
-        .violethyst-hero {
-            width: 100%;
-            height: clamp(170px, 18vw, 250px);
-            min-height: 0 !important;
-            padding: 0 !important;
-            display: block;
-            overflow: hidden;
-            background: #080808;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .violethyst-banner {
-            width: 100% !important;
-            height: 100% !important;
-            max-width: none !important;
-            display: block;
-            object-fit: cover;
-            object-position: center;
-            filter: none;
-        }
-
-        .violethyst-title {
-            margin-bottom: 16px;
-            color: #f5f5f5;
-            font-size: 18px;
-            font-weight: 650;
-            letter-spacing: -0.01em;
-        }
-
-        .vy-grid {
-            display: grid !important;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 14px;
-            column-count: unset !important;
-        }
-
-        .vy-card {
-            min-width: 0;
-            margin: 0 !important;
-            break-inside: auto;
-            border-radius: 5px;
-            overflow: hidden;
-            background: transparent;
-            border: none;
-            box-shadow: none;
-            transform: none;
-        }
-
-        .vy-card:hover {
-            transform: scale(1.025);
-            box-shadow: 0 14px 30px rgba(0,0,0,0.45);
-            z-index: 2;
-        }
-
-        .vy-thumb-wrap {
-            aspect-ratio: 16 / 9;
-            overflow: hidden;
-            background: #121212;
-        }
-
-        .vy-thumb-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .vy-card-info {
-            padding: 8px 1px 2px;
-        }
-
-        .vy-card-tag,
-        .vy-card-date {
-            margin: 0 0 3px;
-            font-size: 9px;
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.48);
-        }
-
-        .vy-card-title {
-            font-size: 13px;
-            font-weight: 600;
-            line-height: 1.3;
-            letter-spacing: 0;
-            color: rgba(255,255,255,0.92);
-        }
-
-        .vy-play-icon {
-            width: 38px;
-            height: 38px;
-            font-size: 12px;
-        }
-
-        @media (max-width: 1000px) {
-            .vy-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-        }
-
-        @media (max-width: 700px) {
-            .violethyst-hero { height: 150px !important; }
-            .vy-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-        }
-
-        @media (max-width: 420px) {
-            .violethyst-hero { height: 125px !important; }
-            .vy-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-            .vy-card-title { font-size: 12px; }
         }
 
     </style>
@@ -1032,12 +981,12 @@
 
     <section class="content-rows">
         <div class="content-row">
-            <div class="row-title">Trending Now</div>
+            <div class="row-header"><div class="row-title">Trending Now</div></div>
             <div class="row-track trending-row" id="trendingRow"></div>
         </div>
 
         <div class="content-row">
-            <div class="row-title">Most Recently Released</div>
+            <div class="row-header"><div class="row-title">Most Recently Released</div></div>
             <div class="row-track" id="recentRow"></div>
         </div>
     </section>
@@ -1048,12 +997,15 @@
 <main id="violethystView" style="display:none">
 
     <section class="violethyst-hero">
-        <img class="violethyst-banner" src="black.png" alt="Violethyst">
+        <img class="violethyst-banner" src="ViolethystBanner.png" alt="Violethyst">
     </section>
 
     <section class="content-rows">
         <div class="content-row">
-            <div class="row-title violethyst-title">Latest Uploads</div>
+            <div class="row-header">
+                <div class="row-title">Latest Uploads</div>
+                <a class="row-header-link" href="https://www.youtube.com/@Violethyst/videos" target="_blank" rel="noopener">Visit Channel ↗</a>
+            </div>
             <div class="vy-grid" id="violethystGrid"></div>
         </div>
     </section>
@@ -1174,8 +1126,7 @@ function scoreTextColor(score) {
         });
 
      The side panel automatically swaps the episode list for these
-     details + a stills grid, so a movie never looks empty. The
-     Violethyst videos below are a live example of this exact path.
+     details + a stills grid, so a movie never looks empty.
    ══════════════════════════════════════════════════════════ */
 const titles = {
     hcm: {
@@ -1347,22 +1298,21 @@ const galleryData = {
 
 /* ══════════════════════════════════════════════════════════
    VIOLETHYST CATALOG — real uploads, latest to oldest.
-   Each is a live example of the "movie" template above:
-   a single video, no episode list, side panel filled with
-   Details instead so it never looks empty.
+   Clicking a card sends you straight to the real YouTube page —
+   no pop-up, no embedded player.
    ══════════════════════════════════════════════════════════ */
 const violethystVideos = [
-    { subject: "PLAYBOI CARTI",      title: "RATHER LIE",                                 img: "RatherLie.png",         video: "https://www.youtube.com/embed/HnDmrcyg7Fc" },
-    { subject: "KENDRICK LAMAR",     title: "TV OFF",                                     img: "TVOFF.png",             video: "https://www.youtube.com/embed/HlT9bi13VyY" },
-    { subject: "PLAYBOI CARTI",      title: "TIMELESS",                                   img: "Timeless.png",          video: "https://www.youtube.com/embed/hImKEqjTf60" },
-    { subject: "MOON KNIGHT",        title: "FIELD TRIP",                                 img: "moonknight.png",        video: "https://www.youtube.com/embed/uKRpmThXs8Q" },
-    { subject: "THE BATMAN",         title: "VAMPIRE HOUR",                               img: "VAMPIREHOUR.png",       video: "https://www.youtube.com/embed/ejKw_q44txo" },
-    { subject: "MIGUEL O'HARA",      title: "FLOOR 555",                                  img: "MIGUEL.png",            video: "https://www.youtube.com/embed/GVAyQldzF8k" },
-    { subject: "IRON MAN",           title: "NIGHTCRAWLER",                               img: "NIGHTCRAWLER2.png",     video: "https://www.youtube.com/embed/hNQ0w4JYxlk" },
-    { subject: "MINECRAFT",          title: "MY EYES",                                    img: "MinecraftMyEyes.png",   video: "https://www.youtube.com/embed/7OXH39YJBCw" },
-    { subject: "GODZILLA",           title: "FE!N",                                       img: "GodzillaFE!N.png",      video: "https://www.youtube.com/embed/eymcrK50zng" },
-    { subject: "GODZILLA",           title: "2014-2024 (The Transition Edit)",            img: "Godzilla20142024.png",  video: "https://www.youtube.com/embed/NkTOKZ6co_c" },
-    { subject: "GRAND THEFT AUTO V", title: "PURPOSE IS GLORIOUS x MEMORY REBOOT",        img: "GTAV.png",              video: "https://www.youtube.com/embed/lRQb5q-hCeY" }
+    { subject: "PLAYBOI CARTI",      title: "RATHER LIE",                          img: "RatherLie.png",         video: "https://www.youtube.com/embed/HnDmrcyg7Fc" },
+    { subject: "KENDRICK LAMAR",     title: "TV OFF",                              img: "TVOFF.png",             video: "https://www.youtube.com/embed/HlT9bi13VyY" },
+    { subject: "PLAYBOI CARTI",      title: "TIMELESS",                            img: "Timeless.png",          video: "https://www.youtube.com/embed/hImKEqjTf60" },
+    { subject: "MOON KNIGHT",        title: "FIELD TRIP",                          img: "moonknight.png",        video: "https://www.youtube.com/embed/uKRpmThXs8Q" },
+    { subject: "THE BATMAN",         title: "VAMPIRE HOUR",                        img: "VAMPIREHOUR.png",       video: "https://www.youtube.com/embed/ejKw_q44txo" },
+    { subject: "MIGUEL O'HARA",      title: "FLOOR 555",                           img: "MIGUEL.png",            video: "https://www.youtube.com/embed/GVAyQldzF8k" },
+    { subject: "IRON MAN",           title: "NIGHTCRAWLER",                        img: "NIGHTCRAWLER2.png",     video: "https://www.youtube.com/embed/hNQ0w4JYxlk" },
+    { subject: "MINECRAFT",          title: "MY EYES",                             img: "MinecraftMyEyes.png",   video: "https://www.youtube.com/embed/7OXH39YJBCw" },
+    { subject: "GODZILLA",           title: "FE!N",                                img: "GodzillaFE!N.png",      video: "https://www.youtube.com/embed/eymcrK50zng" },
+    { subject: "GODZILLA",           title: "2014-2024 (The Transition Edit)",     img: "Godzilla20142024.png",  video: "https://www.youtube.com/embed/NkTOKZ6co_c" },
+    { subject: "GRAND THEFT AUTO V", title: "PURPOSE IS GLORIOUS x MEMORY REBOOT", img: "GTAV.png",              video: "https://www.youtube.com/embed/lRQb5q-hCeY" }
 ];
 
 /* ══════════════════════════════════════════════════════════
@@ -1418,9 +1368,10 @@ function renderTrendingRow() {
           onClick: () => openTitleModal(titleData("hcm")), onPlay: () => openVideo(videoLinks.hcm_s1[0]) }
     ];
 
-    items.forEach(it => {
+    items.forEach((it, i) => {
         const wrap = document.createElement("div");
         wrap.className = "trending-item";
+        wrap.style.animationDelay = (i * 0.08) + "s";
         const num = document.createElement("span");
         num.className = "trending-num";
         num.textContent = it.n;
@@ -1439,23 +1390,25 @@ function renderRecentRow() {
         { img: "HCMAArt.png",    label: "Hypixel Cinematic Montages",   sub: "Season 3 · 2025",   badge: null,      id: "hcm",     season: 3, playKey: "hcm_s2" }
     ];
 
-    items.forEach(it => {
-        track.appendChild(titleCard({
+    items.forEach((it, i) => {
+        const card = titleCard({
             img: it.img, label: it.label, sub: it.sub, badge: it.badge,
             onClick: () => openTitleModal(titleData(it.id), it.season),
             onPlay: () => openVideo(videoLinks[it.playKey][0])
-        }));
+        });
+        card.style.animationDelay = (i * 0.08) + "s";
+        track.appendChild(card);
     });
 }
 
 function renderViolethyst() {
     const grid = document.getElementById("violethystGrid");
-    grid.innerHTML = violethystVideos.map(v => {
+    grid.innerHTML = violethystVideos.map((v, i) => {
         const watchUrl = v.video.replace("/embed/", "/watch?v=");
         return `
-            <a class="vy-card" href="${watchUrl}" target="_blank" rel="noopener">
+            <a class="vy-card" href="${watchUrl}" target="_blank" rel="noopener" style="animation-delay:${i * 0.05}s">
                 <div class="vy-thumb-wrap">
-                    <img class="vy-thumb-img" src="${v.img}" alt="${v.title}">
+                    <img class="vy-thumb-img" src="${v.img}" alt="${v.subject}: ${v.title}">
                     <div class="vy-play-overlay"><div class="vy-play-icon">▶</div></div>
                 </div>
                 <div class="vy-card-info">
