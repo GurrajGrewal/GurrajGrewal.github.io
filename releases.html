@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Releases - Gurraj Grewal</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
 
@@ -16,9 +16,9 @@
             top: 0;
             width: 100%;
             z-index: 10;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 65%, transparent 100%);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         /* Keep logo from walking into nav pills at narrow widths */
@@ -61,20 +61,6 @@
             font-family: 'Poppins', sans-serif;
             background: #080808;
             color: white;
-            opacity: 0;
-            animation: pageFade 0.45s ease forwards;
-        }
-
-        @keyframes pageFade { to { opacity: 1; } }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        button:focus-visible, a:focus-visible {
-            outline: 2px solid rgba(255,255,255,0.6);
-            outline-offset: 2px;
         }
 
         /* ══════════════════════════════════════
@@ -118,17 +104,11 @@
             background-repeat: no-repeat;
             z-index: 1;
             transform: scale(1.04);
-            animation: kenburns 22s ease-in-out infinite alternate;
-            animation-play-state: paused;
+            transition: transform 6s ease;
         }
 
         .release-slide.active .release-bg {
-            animation-play-state: running;
-        }
-
-        @keyframes kenburns {
-            0%   { transform: scale(1); }
-            100% { transform: scale(1.09); }
+            transform: scale(1);
         }
 
         /* Rich cinematic gradient — dark left, fade to nothing right */
@@ -153,13 +133,6 @@
         }
 
         .release-left { max-width: 560px; }
-
-        .release-left > * { animation: fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) both; }
-        .release-left .release-meta        { animation-delay: 0.05s; }
-        .release-left .finale-tag          { animation-delay: 0.1s;  }
-        .release-left .release-logo        { animation-delay: 0.15s; }
-        .release-left .release-description { animation-delay: 0.2s;  }
-        .release-left .release-buttons     { animation-delay: 0.25s; }
 
         /* Rating / year / seasons row */
         .release-meta {
@@ -217,14 +190,14 @@
             background: white;
             color: black;
             border: none;
-            padding: 12px 30px;
+            padding: 11px 28px;
             font-weight: 700;
             font-size: 13px;
             font-family: 'Poppins', sans-serif;
             cursor: pointer;
             border-radius: 999px;
             letter-spacing: 0.02em;
-            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+            transition: all 0.2s ease;
         }
 
         .play-btn:hover {
@@ -234,15 +207,15 @@
 
         .info-btn, .season-btn {
             background: rgba(255,255,255,0.08);
-            color: rgba(255,255,255,0.85);
+            color: rgba(255,255,255,0.8);
             border: 1px solid rgba(255,255,255,0.14);
-            padding: 11px 24px;
+            padding: 10px 22px;
             font-size: 13px;
             font-weight: 500;
             font-family: 'Poppins', sans-serif;
             cursor: pointer;
             border-radius: 999px;
-            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+            transition: all 0.2s ease;
             backdrop-filter: blur(8px);
         }
 
@@ -250,7 +223,6 @@
             background: rgba(255,255,255,0.16);
             color: white;
             border-color: rgba(255,255,255,0.28);
-            transform: translateY(-1px);
         }
 
         /* ── SERIES FINALE TREATMENT (Daytona) ── */
@@ -364,14 +336,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+            transition: all 0.2s ease;
             backdrop-filter: blur(8px);
         }
 
         .arrow:hover {
             background: rgba(255,255,255,0.18);
             border-color: rgba(255,255,255,0.3);
-            transform: scale(1.08);
         }
 
         /* ══════════════════════════════════════
@@ -391,47 +362,31 @@
             border-bottom: 1px solid rgba(255,255,255,0.06);
         }
 
-        /* Season indicator — clickable pill, opens the season picker */
+        /* Season title — matches reviews section-label */
         .episodes-title {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 13px;
+            gap: 10px;
+            font-size: 11px;
             font-weight: 600;
-            letter-spacing: 0.01em;
-            color: white;
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(255,255,255,0.14);
-            padding: 9px 16px;
-            border-radius: 999px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
             margin: 0;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
         }
 
-        .episodes-title:hover {
-            background: rgba(255,255,255,0.14);
-            border-color: rgba(255,255,255,0.28);
-            transform: translateY(-1px);
+        .episodes-title::before {
+            content: "";
+            display: inline-block;
+            width: 3px;
+            height: 13px;
+            background: white;
+            border-radius: 2px;
+            opacity: 0.3;
         }
 
-        .episodes-title::after {
-            content: "⌄";
-            font-size: 13px;
-            color: rgba(255,255,255,0.45);
-            transition: color 0.2s ease;
-        }
-
-        .episodes-title:hover::after { color: white; }
-
-        .episodes-title.finale-active {
-            background: rgba(232,200,116,0.1);
-            border-color: rgba(232,200,116,0.35);
-            color: #e8c874;
-        }
-
-        .episodes-title.finale-active::after { color: rgba(232,200,116,0.55); }
-        .episodes-title.finale-active:hover::after { color: #e8c874; }
+        .episodes-title.finale-active { color: #e8c874; }
+        .episodes-title.finale-active::before { background: #e8c874; opacity: 0.8; }
 
         /* Episode navigation arrows — pill style */
         .episode-arrows {
@@ -451,14 +406,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+            transition: all 0.2s ease;
         }
 
         .ep-arrow:hover {
             background: rgba(255,255,255,0.14);
             color: white;
             border-color: rgba(255,255,255,0.22);
-            transform: scale(1.08);
         }
 
         .episodes-wrapper {
@@ -491,11 +445,11 @@
             width: 240px;
             flex-shrink: 0;
             cursor: pointer;
-            transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
+            transition: transform 0.2s ease;
         }
 
-        .episode-card:hover { transform: translateY(-4px); }
-        .episode-card:hover .episode-thumb { box-shadow: 0 14px 32px rgba(0,0,0,0.65); border-color: rgba(255,255,255,0.16); }
+        .episode-card:hover { transform: translateY(-3px); }
+        .episode-card:hover .episode-thumb { box-shadow: 0 12px 28px rgba(0,0,0,0.6); }
 
         .episode-thumb {
             width: 100%;
@@ -505,17 +459,14 @@
             position: relative;
             overflow: hidden;
             margin-bottom: 10px;
-            transition: box-shadow 0.25s ease, border-color 0.25s ease;
+            transition: box-shadow 0.2s ease;
             border: 1px solid rgba(255,255,255,0.06);
         }
 
         .episode-thumb img {
             width: 100%; height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
         }
-
-        .episode-card:hover .episode-thumb img { transform: scale(1.07); }
 
         /* Play overlay circle */
         .play-overlay {
@@ -555,18 +506,16 @@
         .episode-info { padding: 0 2px; }
 
         .episode-number {
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: rgba(255,255,255,0.4);
-            margin-bottom: 3px;
+            font-size: 11px;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 2px;
+            letter-spacing: 0.03em;
         }
 
         .episode-title {
             font-size: 13px;
             font-weight: 500;
-            color: rgba(255,255,255,0.88);
+            color: rgba(255,255,255,0.85);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -642,12 +591,12 @@
             padding: 14px 16px;
             border-radius: 12px;
             cursor: pointer;
-            transition: background 0.2s ease, transform 0.2s cubic-bezier(0.4,0,0.2,1), border-color 0.2s ease;
+            transition: background 0.2s;
             border: 1px solid transparent;
             margin-bottom: 8px;
         }
 
-        .season-option:hover  { background: rgba(255,255,255,0.06); transform: translateX(2px); }
+        .season-option:hover  { background: rgba(255,255,255,0.06); }
         .season-option.active { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.18); }
 
         .season-option img {
@@ -1524,10 +1473,8 @@ function onSlideChange(index) {
         hcm_s2: "Season 3",
         daytona:"The Finale"
     };
-    const seasonTitleEl = document.getElementById("seasonTitle");
-    seasonTitleEl.textContent = titleMap[key] || "Season 1";
-    seasonTitleEl.classList.toggle("finale-active", key === "daytona");
-    seasonTitleEl.onclick = () => openSeasonsModal(index === 0 ? "hcm" : "daytona");
+    document.getElementById("seasonTitle").textContent = titleMap[key] || "Season 1";
+    document.getElementById("seasonTitle").classList.toggle("finale-active", key === "daytona");
     updateDots();
 }
 
