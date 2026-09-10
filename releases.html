@@ -335,7 +335,7 @@
             .release-left    { max-width: 100%; }
             .release-logo img { max-width: 260px; max-height: 100px; }
             .release-description { display: none; } /* reclaim space on small screens */
-            .episodes-section { padding: 28px 28px 40px; }
+            .content-rows { padding: 28px 28px 48px; }
         }
 
         @media (max-width: 540px) {
@@ -347,9 +347,10 @@
             .release-meta    { font-size: 11px; gap: 6px; }
             .play-btn        { padding: 9px 20px; font-size: 12px; }
             .info-btn, .season-btn { padding: 8px 14px; font-size: 12px; }
-            .episodes-section { padding: 20px 16px 32px; }
-            .episode-card    { width: 180px; }
-            .episode-thumb   { height: 100px; }
+            .content-rows    { padding: 22px 16px 40px; }
+            .title-card      { width: 175px; }
+            .title-card.wide { width: 230px; }
+            .trending-num    { font-size: 60px; margin-right: -12px; }
         }
 
         .arrow {
@@ -375,230 +376,103 @@
         }
 
         /* ══════════════════════════════════════
-           EPISODE SECTION
+           CONTENT ROWS — Trending Now / Other Releases
         ══════════════════════════════════════ */
-        .episodes-section {
-            padding: 36px 72px 56px;
-            background: #080808;
-        }
+        .content-rows { padding: 46px 72px 64px; background: #080808; }
+        .content-row   { margin-bottom: 42px; }
 
-        .episodes-header {
+        .row-header {
             display: flex;
+            align-items: baseline;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 22px;
-            padding-bottom: 14px;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            gap: 16px;
+            margin-bottom: 4px;
         }
 
-        /* Season indicator — clickable pill, opens the season picker */
-        .episodes-title {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.01em;
-            color: white;
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(255,255,255,0.14);
-            padding: 9px 16px;
-            border-radius: 999px;
+        .row-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.95);
+            letter-spacing: -0.01em;
             margin: 0;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
         }
 
-        .episodes-title:hover {
-            background: rgba(255,255,255,0.14);
-            border-color: rgba(255,255,255,0.28);
-            transform: translateY(-1px);
-        }
-
-        .episodes-title::after {
-            content: "";
-            width: 0;
-            height: 0;
-            border-left: 4px solid transparent;
-            border-right: 4px solid transparent;
-            border-top: 5px solid rgba(255,255,255,0.45);
-            margin-top: 2px;
-            transition: border-top-color 0.2s ease, transform 0.2s ease;
-        }
-
-        .episodes-title:hover::after { border-top-color: white; transform: translateY(1px); }
-
-        .episodes-title.finale-active {
-            background: rgba(232,200,116,0.1);
-            border-color: rgba(232,200,116,0.35);
-            color: #e8c874;
-        }
-
-        .episodes-title.finale-active::after { border-top-color: rgba(232,200,116,0.55); }
-        .episodes-title.finale-active:hover::after { border-top-color: #e8c874; }
-
-        /* Episode navigation arrows — pill style */
-        .episode-arrows {
+        .row-track {
             display: flex;
-            gap: 8px;
+            gap: 16px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 24px 4px 28px;
+            scrollbar-width: none;
         }
 
-        .ep-arrow {
-            width: 34px;
-            height: 34px;
-            background: rgba(255,255,255,0.06);
-            color: rgba(255,255,255,0.6);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 999px;
-            cursor: pointer;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+        .row-track::-webkit-scrollbar { display: none; }
+
+        .row-placeholder {
+            padding: 30px 8px;
+            color: rgba(255,255,255,0.3);
+            font-size: 13px;
+            font-style: italic;
         }
 
-        .ep-arrow:hover {
-            background: rgba(255,255,255,0.14);
-            color: white;
-            border-color: rgba(255,255,255,0.22);
-            transform: scale(1.08);
-        }
-
-        .episodes-wrapper {
-            overflow: hidden;
+        .title-card {
             position: relative;
-            padding: 20px 4px 24px;
-        }
-
-        /* Fade out right edge */
-        .episodes-wrapper::after {
-            content: "";
-            position: absolute;
-            top: 0; right: 0;
-            width: 100px; height: 100%;
-            pointer-events: none;
-            background: linear-gradient(to right, transparent, #080808);
-        }
-
-        .episodes-track {
-            display: flex;
-            gap: 18px;
-            transition: transform 0.5s ease, opacity 0.3s ease;
-        }
-
-        .episodes-track.fade-out { opacity: 0; }
-        .episodes-track.fade-in  { opacity: 1; }
-
-        /* Episode card */
-        .episode-card {
-            width: 240px;
             flex-shrink: 0;
-            cursor: pointer;
-            transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
-        }
-
-        .episode-card:hover { transform: translateY(-4px); }
-        .episode-card:hover .episode-thumb { box-shadow: 0 14px 32px rgba(0,0,0,0.65); border-color: rgba(255,255,255,0.16); }
-
-        .episode-thumb {
-            width: 100%;
-            height: 135px;
-            background: #1a1a1a;
+            width: 230px;
             border-radius: 10px;
-            position: relative;
             overflow: hidden;
-            margin-bottom: 10px;
-            transition: box-shadow 0.25s ease, border-color 0.25s ease;
+            cursor: pointer;
             border: 1px solid rgba(255,255,255,0.06);
+            background: #111;
+            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1), border-color 0.3s ease;
         }
 
-        .episode-thumb img {
-            width: 100%; height: 100%;
+        .title-card.wide { width: 340px; }
+
+        .title-card img {
+            width: 100%;
+            aspect-ratio: 16/9;
             object-fit: cover;
+            display: block;
             transition: transform 0.5s ease;
         }
 
-        .episode-card:hover .episode-thumb img { transform: scale(1.07); }
+        .title-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 22px 50px rgba(0,0,0,0.7);
+            border-color: rgba(255,255,255,0.2);
+            z-index: 3;
+        }
 
-        /* Play overlay circle */
-        .play-overlay {
+        .title-card:hover img { transform: scale(1.06); }
+
+        .title-card-overlay {
             position: absolute;
             inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.92), rgba(0,0,0,0.1) 55%, transparent 75%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: flex-end;
+            padding: 12px;
         }
 
-        .play-overlay::before {
-            content: "";
-            position: absolute;
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.18);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255,255,255,0.28);
-            transition: all 0.25s ease;
-        }
+        .title-card:hover .title-card-overlay { opacity: 1; }
+        .title-card-label { font-size: 13px; font-weight: 600; color: white; line-height: 1.3; }
+        .title-card-sub    { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 3px; }
 
-        .play-overlay::after {
-            content: "";
-            position: relative;
-            z-index: 2;
-            border-left: 9px solid white;
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            margin-left: 3px;
-        }
+        .trending-row { align-items: flex-end; }
+        .trending-item { display: flex; align-items: flex-end; flex-shrink: 0; }
 
-        .episode-card:hover .play-overlay::before {
-            background: rgba(255,255,255,0.32);
-            transform: scale(1.1);
-        }
-
-        .episode-info { padding: 0 2px; }
-
-        .episode-number {
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: rgba(255,255,255,0.4);
-            margin-bottom: 3px;
-        }
-
-        .episode-title {
-            font-size: 13px;
-            font-weight: 500;
-            color: rgba(255,255,255,0.88);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            flex: 1;
-            min-width: 0;
-        }
-
-        .episode-title-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-        }
-
-        .ep-rating-badge {
-            flex-shrink: 0;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 6px;
-            line-height: 1.3;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.35);
-        }
-
-        .ep-rating-badge.unrated {
-            background: #222 !important;
-            color: rgba(255,255,255,0.3);
-            box-shadow: none;
+        .trending-num {
+            font-size: 100px;
+            font-weight: 800;
+            line-height: 0.8;
+            color: #141414;
+            -webkit-text-stroke: 2px rgba(255,255,255,0.18);
+            margin-right: -20px;
+            user-select: none;
+            pointer-events: none;
         }
 
         /* ══════════════════════════════════════
@@ -752,15 +626,8 @@
             line-height: 1.5;
         }
 
-        .details-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .details-stack-item {
-            display: block;
-        }
+        .details-stack { display: flex; flex-direction: column; gap: 5px; }
+        .details-stack span { display: block; }
 
         .details-rating-badge {
             display: inline-flex;
@@ -1114,7 +981,7 @@
             .release-overlay { padding: 0 32px 40px; }
             .arrow-controls  { right: 32px; }
             .slide-dots      { right: 32px; }
-            .episodes-section { padding: 28px 24px 48px; }
+            .content-rows    { padding: 38px 32px 56px; }
         }
 
     </style>
@@ -1170,6 +1037,7 @@
 
                     <div class="release-buttons">
                         <button class="play-btn" onclick="playCurrentSeries()">▶ Play</button>
+                        <button class="info-btn" onclick="openSeasonsModal('hcm')">Seasons</button>
                         <button class="info-btn" onclick="openDetailsModal('hcm')">Description</button>
                         <button class="season-btn" onclick="openGallery(hcmSeasonData[hcmSeason].galleryKey)">Gallery</button>
                     </div>
@@ -1229,19 +1097,17 @@
 
 </section>
 
-<!-- ================= EPISODE SECTION ================= -->
-<section class="episodes-section">
+<!-- ================= TRENDING + OTHER RELEASES ================= -->
+<section class="content-rows">
 
-    <div class="episodes-header">
-        <h2 class="episodes-title" id="seasonTitle">Season 1</h2>
-        <div class="episode-arrows">
-            <button class="ep-arrow left">‹</button>
-            <button class="ep-arrow right">›</button>
-        </div>
+    <div class="content-row">
+        <div class="row-header"><div class="row-title">Trending Now</div></div>
+        <div class="row-track trending-row" id="trendingRow"></div>
     </div>
 
-    <div class="episodes-wrapper">
-        <div class="episodes-track" id="episodesTrack"></div>
+    <div class="content-row">
+        <div class="row-header"><div class="row-title">Other Releases</div></div>
+        <div class="row-track" id="otherReleasesRow"></div>
     </div>
 
 </section>
@@ -1278,7 +1144,7 @@
             <img src="PRE-PARTYART.png" alt="Season 2">
             <div class="season-option-info">
                 <div class="season-option-label">Season 2 <span class="season-option-rating" id="seasonOpt2Rating"></span></div>
-                <div class="season-option-title">Hypixel Cinematic Montages: Pre-Party</div>
+                <div class="season-option-title">Pre-Party</div>
                 <div class="season-option-ep">6 Episodes · 2025</div>
             </div>
             <span class="season-option-check">✓</span>
@@ -1413,7 +1279,7 @@ function updateDots() {
 const hcmSeasonData = {
     1: {
         rating: "6.2",
-        year: "Nov 13th, 2022",
+        year: "November 13th, 2022",
         logo: "HCMLogo.png",
         bg: "HCMArt.png",
         seasonCount: "3 Seasons",
@@ -1423,34 +1289,25 @@ const hcmSeasonData = {
         seasonTitle: "Season 1",
         genres: "Minecraft, Cinematic, Action",
         credits: "Created by Gurraj Grewal",
-        artists: [
-        "Quadeca",
-        "Travis Scott",
-        "Future",
-        "The Weeknd",
-        "Juice WRLD",
-        "Metro Boomin",
-        "Throttle",
-        "Dion Timmer"
-    ],
+        artists: ["Quadeca", "Travis Scott", "Future", "The Weeknd", "Juice WRLD", "Metro Boomin", "Throttle", "Dion Timmer"],
         music: [
-        "Quadeca — Couloir",
-        "Throttle — Japan",
-        "Dion Timmer — Shiawase",
-        "Quadeca — Tell Me A Joke",
-        "Quadeca — Under My Skin",
-        "Travis Scott — My Eyes",
-        "Juice WRLD — Lean Wit Me",
-        "Quadeca — Dustcutter",
-        "Future, Metro Boomin, The Weeknd — Always Be My Fault",
-        "Future, Metro Boomin, Travis Scott — Cinderella",
-        "Travis Scott — Drugs You Should Try It"
-]
+            "Quadeca — Couloir",
+            "Throttle — Japan",
+            "Dion Timmer — Shiawase",
+            "Quadeca — Tell Me A Joke",
+            "Quadeca — Under My Skin",
+            "Travis Scott — My Eyes",
+            "Juice WRLD — Lean Wit Me",
+            "Quadeca — Dustcutter",
+            "Future, Metro Boomin & The Weeknd — Always Be My Fault",
+            "Future, Metro Boomin & Travis Scott — Cinderella",
+            "Travis Scott — Drugs You Should Try It"
+        ]
     },
     2: {
         rating: "5.5",
-        year: "Apr 15th, 2025",
-        logo: "PREPARTYLOGO.png",
+        year: "April 15th, 2025",
+        logo: "PRE-PARTYLOGO.png",
         bg: "PRE-PARTYART.png",
         seasonCount: "3 Seasons",
         desc: "A spinoff centered on Viouth, a variant of Violethyst. Introducing tracks from The Weeknd's Hurry Up Tomorrow album turned into montages.",
@@ -1459,23 +1316,19 @@ const hcmSeasonData = {
         seasonTitle: "Season 2",
         genres: "Minecraft, Cinematic, Action",
         credits: "Created by Gurraj Grewal",
-        artists: [
-        "The Weeknd",
-        "Travis Scott",
-        "Florence + The Machine"
-],
+        artists: ["The Weeknd", "Travis Scott"],
         music: [
-        "The Weeknd — Until We're Skin & Bones",
-        "The Weeknd — Baptized In Fear",
-        "The Weeknd — Open Hearts",
-        "The Weeknd — Opening Night",
-        "The Weeknd, Travis Scott, Florence + The Machine — Reflections Laughing",
-        "The Weeknd — Dancing In The Flames"
-]
+            "The Weeknd — Until We're Skin & Bones",
+            "The Weeknd — Baptized In Fear",
+            "The Weeknd — Open Hearts",
+            "The Weeknd — Opening Night",
+            "The Weeknd & Travis Scott — Reflections Laughing",
+            "The Weeknd — Dancing In The Flames"
+        ]
     },
     3: {
         rating: "5.9",
-        year: "Dec 13th, 2025",
+        year: "December 13th, 2025",
         logo: "HCMALogo.png",
         bg: "HCMAArt.png",
         seasonCount: "3 Seasons",
@@ -1485,19 +1338,13 @@ const hcmSeasonData = {
         seasonTitle: "Season 3",
         genres: "Minecraft, Cinematic, Action",
         credits: "Created by Gurraj Grewal",
-        artists: [
-        "SZA",
-        "Quadeca",
-        "JID",
-        "Kanye West",
-        "Ty Dolla $ign"
-],
+        artists: ["SZA", "Quadeca", "JID", "Kanye West", "Ty Dolla $ign"],
         music: [
-        "SZA — Good Days",
-        "Quadeca — Verglas",
-        "JID — Behold",
-        "Kanye West, Ty Dolla $ign — My Soul"
-]
+            "SZA — Good Days",
+            "Quadeca — Verglas",
+            "JID — Behold",
+            "Kanye West & Ty Dolla $ign — My Soul"
+        ]
     }
 };
 
@@ -1506,8 +1353,8 @@ const daytonaDetails = {
     seasons: "The Finale",
     genres: "Minecraft, Cinematic, Finale",
     credits: "Created by Gurraj Grewal",
-    artists: "TBA",
-    music: "TBA"
+    artists: ["TBA"],
+    music: ["TBA"]
 };
 
 function applyHcmSeason(season) {
@@ -1536,6 +1383,10 @@ applyHcmSeason(1);
 });
 
 /* ── DESCRIPTION MODAL ── */
+function stackList(arr) {
+    return `<div class="details-stack">${arr.map(item => `<span>${item}</span>`).join("")}</div>`;
+}
+
 function openDetailsModal(series) {
     const grid = document.getElementById("detailsGrid");
     let title, episodeKey, rating, rows;
@@ -1543,7 +1394,7 @@ function openDetailsModal(series) {
     if (series === "hcm") {
         const d = hcmSeasonData[hcmSeason];
         title = d.seasonTitle === "Season 1" ? "Hypixel Cinematic Montages: Beginnings"
-              : d.seasonTitle === "Season 2" ? "Hypixel Cinematic Montages: Pre-Party"
+              : d.seasonTitle === "Season 2" ? "Pre-Party"
               : "Hypixel Cinematic Montages: Anniversary";
         episodeKey = d.episodeKey;
         rating = parseFloat(d.rating);
@@ -1552,8 +1403,8 @@ function openDetailsModal(series) {
             ["Seasons", d.seasonCount],
             ["Genres", d.genres],
             ["Credits", d.credits],
-            ["Artists Listed", d.artists],
-            ["Music Used", d.music]
+            ["Artists Listed", stackList(d.artists)],
+            ["Music Used", stackList(d.music)]
         ];
     } else {
         title = "Daytona";
@@ -1564,8 +1415,8 @@ function openDetailsModal(series) {
             ["Seasons", daytonaDetails.seasons],
             ["Genres", daytonaDetails.genres],
             ["Credits", daytonaDetails.credits],
-            ["Artists Listed", daytonaDetails.artists],
-            ["Music Used", daytonaDetails.music]
+            ["Artists Listed", stackList(daytonaDetails.artists)],
+            ["Music Used", stackList(daytonaDetails.music)]
         ];
     }
 
@@ -1579,22 +1430,12 @@ function openDetailsModal(series) {
             <div class="label">Average Rating</div>
             <div class="value">${ratingValue}</div>
         </div>
-` + rows.map(([label, value]) => `
-    <div class="details-row">
-        <div class="label">${label}</div>
-        <div class="value">
-            ${
-                Array.isArray(value)
-                    ? `<div class="details-stack">
-                        ${value.map(item => `
-                            <div class="details-stack-item">${item}</div>
-                        `).join("")}
-                    </div>`
-                    : value
-            }
+    ` + rows.map(([label, value]) => `
+        <div class="details-row">
+            <div class="label">${label}</div>
+            <div class="value">${value}</div>
         </div>
-    </div>
-`).join("");
+    `).join("");
 
     document.getElementById("detailsEpisodesTitle").textContent = "Episode Ratings";
     document.getElementById("detailsEpisodes").innerHTML = renderEpisodeRatingsList(episodeKey);
@@ -1644,10 +1485,7 @@ function closeSeasonsModal(series) {
 function selectSeason(season) {
     hcmSeason = season;
     applyHcmSeason(season);
-
-    const episodeKey = hcmSeasonData[season].episodeKey;
-    generateEpisodes(episodeKey);
-    document.getElementById("seasonTitle").textContent = hcmSeasonData[season].seasonTitle;
+    currentEpisodeKey = hcmSeasonData[season].episodeKey;
 
     document.getElementById("seasonOpt1").classList.toggle("active", season === 1);
     document.getElementById("seasonOpt2").classList.toggle("active", season === 2);
@@ -1862,108 +1700,11 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-const episodesTrack = document.getElementById("episodesTrack");
-const leftArrow  = document.querySelector(".ep-arrow.left");
-const rightArrow = document.querySelector(".ep-arrow.right");
-
-let episodeScrollIndex = 0;
 let currentEpisodeKey = "hcm_s1";
-
-/* ── GENERATE EPISODES ── */
-function generateEpisodes(key) {
-    currentEpisodeKey = key;
-    episodesTrack.classList.add("fade-out");
-
-    setTimeout(() => {
-        episodesTrack.innerHTML = "";
-        episodeScrollIndex = 0;
-        episodesTrack.style.transform = "translateX(0px)";
-
-        const episodes = episodeData[key];
-        const scores = episodeRatings[key] || [];
-        const isPrologue = (key === "hcm_s1" || key === "pre");
-
-        episodes.forEach((ep, i) => {
-            const card = document.createElement("div");
-            card.className = "episode-card";
-
-            // NOTE: I messed up my png, my prologue thumbnail is called episode 1, so now the real episode 1 is called episode 2 and so on.
-        let numLabel;
-
-        if (isPrologue && i === 0) {
-        numLabel = "Prologue:";
-        } else {
-        const episodeNum = isPrologue ? i : i + 1;
-        numLabel = `Episode ${episodeNum}:`;
-        }
-
-            const score = scores[i];
-            const ratingBadge = score
-                ? `<span class="ep-rating-badge" style="background:${scoreColor(score)};color:${scoreTextColor(score)}">${score.toFixed(1)}</span>`
-                : `<span class="ep-rating-badge unrated">—</span>`;
-
-            card.innerHTML = `
-                <div class="episode-thumb">
-                    <img src="${ep.img}">
-                    <div class="play-overlay"></div>
-                </div>
-                <div class="episode-info">
-                    <div class="episode-number">${numLabel}</div>
-                    <div class="episode-title-row">
-                        <div class="episode-title">${ep.title}</div>
-                        ${ratingBadge}
-                    </div>
-                </div>
-            `;
-
-            card.onclick = () => openVideo(videoLinks[key][i]);
-            episodesTrack.appendChild(card);
-        });
-
-        episodesTrack.classList.remove("fade-out");
-        episodesTrack.classList.add("fade-in");
-        setTimeout(() => episodesTrack.classList.remove("fade-in"), 350);
-
-    }, 300);
-}
-
-/* ── SCROLL ── */
-function getMaxScrollIndex() {
-    const cardWidth = 258;
-    const totalCards = episodesTrack.children.length;
-    const visibleWidth = document.querySelector(".episodes-wrapper").offsetWidth;
-    return Math.max(0, Math.ceil((totalCards * cardWidth - visibleWidth) / cardWidth));
-}
-
-rightArrow.addEventListener("click", () => {
-    if (episodeScrollIndex < getMaxScrollIndex()) {
-        episodeScrollIndex++;
-        episodesTrack.style.transform = `translateX(-${episodeScrollIndex * 258}px)`;
-    }
-});
-
-leftArrow.addEventListener("click", () => {
-    if (episodeScrollIndex > 0) {
-        episodeScrollIndex--;
-        episodesTrack.style.transform = `translateX(-${episodeScrollIndex * 258}px)`;
-    }
-});
 
 /* ── SLIDE CHANGE ── */
 function onSlideChange(index) {
-    const key = slideEpisodeKey[index]?.() ?? "hcm_s1";
-    generateEpisodes(key);
-
-    const titleMap = {
-        hcm_s1: "Season 1",
-        pre:    "Season 2",
-        hcm_s2: "Season 3",
-        daytona:"The Finale"
-    };
-    const seasonTitleEl = document.getElementById("seasonTitle");
-    seasonTitleEl.textContent = titleMap[key] || "Season 1";
-    seasonTitleEl.classList.toggle("finale-active", key === "daytona");
-    seasonTitleEl.onclick = () => openSeasonsModal(index === 0 ? "hcm" : "daytona");
+    currentEpisodeKey = slideEpisodeKey[index]?.() ?? "hcm_s1";
     updateDots();
 }
 
@@ -2000,8 +1741,89 @@ prevBtn.addEventListener("click", () => {
 
 window.addEventListener("resize", updateSlider);
 
+/* ══════════════════════════════════════════════════════════
+   TRENDING NOW — jumps the hero slider to that project
+   ══════════════════════════════════════════════════════════ */
+function renderTrendingRow() {
+    const track = document.getElementById("trendingRow");
+    track.innerHTML = "";
+
+    const items = [
+        { n: 1, img: "DaytonaArt.png", label: "Daytona", sub: "The Finale · 2026", slide: 1 },
+        { n: 2, img: "HCMArt.png", label: "Hypixel Cinematic Montages", sub: "3 Seasons", slide: 0 }
+    ];
+
+    items.forEach(it => {
+        const wrap = document.createElement("div");
+        wrap.className = "trending-item";
+
+        const num = document.createElement("span");
+        num.className = "trending-num";
+        num.textContent = it.n;
+        wrap.appendChild(num);
+
+        const card = document.createElement("div");
+        card.className = "title-card wide";
+        card.innerHTML = `
+            <img src="${it.img}" alt="">
+            <div class="title-card-overlay">
+                <div>
+                    <div class="title-card-label">${it.label}</div>
+                    <div class="title-card-sub">${it.sub}</div>
+                </div>
+            </div>
+        `;
+        card.onclick = () => {
+            currentIndex = it.slide;
+            updateSlider();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+        wrap.appendChild(card);
+        track.appendChild(wrap);
+    });
+}
+
+/* ══════════════════════════════════════════════════════════
+   OTHER RELEASES — add playlist cards here once you have them.
+   Example:
+
+   const otherReleases = [
+       { img: "PlaylistThumb.png", label: "Playlist Name", url: "https://www.youtube.com/playlist?list=XXXX" }
+   ];
+
+   Each renders as a card linking straight out to that playlist.
+   ══════════════════════════════════════════════════════════ */
+const otherReleases = [];
+
+function renderOtherReleases() {
+    const track = document.getElementById("otherReleasesRow");
+
+    if (otherReleases.length === 0) {
+        track.innerHTML = `<div class="row-placeholder">More releases coming soon.</div>`;
+        return;
+    }
+
+    track.innerHTML = "";
+    otherReleases.forEach(r => {
+        const a = document.createElement("a");
+        a.className = "title-card";
+        a.href = r.url;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.innerHTML = `
+            <img src="${r.img}" alt="">
+            <div class="title-card-overlay">
+                <div class="title-card-label">${r.label}</div>
+            </div>
+        `;
+        track.appendChild(a);
+    });
+}
+
 /* ── INIT ── */
 updateSlider();
+renderTrendingRow();
+renderOtherReleases();
 
 if (!isNaN(startSeason) && startSeason >= 2 && startSeason <= 3) {
     selectSeason(startSeason);
