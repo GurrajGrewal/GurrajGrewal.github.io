@@ -169,6 +169,188 @@
         }
 
         /* ══════════════════════════════════════
+           POPULAR — ranked list w/ view counts
+        ══════════════════════════════════════ */
+        .popular-list { display: flex; flex-direction: column; margin-bottom: 8px; }
+
+        .popular-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .popular-row:hover { background: rgba(255,255,255,0.05); }
+
+        .popular-rank {
+            width: 22px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.35);
+            flex-shrink: 0;
+        }
+
+        .popular-thumb {
+            width: 46px;
+            height: 46px;
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: #1a1a1a;
+        }
+
+        .popular-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+        .popular-info { flex: 1; min-width: 0; }
+
+        .popular-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .popular-sub {
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .popular-views {
+            font-size: 13px;
+            color: rgba(255,255,255,0.45);
+            flex-shrink: 0;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ══════════════════════════════════════
+           DISCOGRAPHY — tabbed rows (Spotify-style)
+        ══════════════════════════════════════ */
+        .discog-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 4px;
+        }
+
+        .discog-title { font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.95); letter-spacing: -0.01em; margin: 0; }
+
+        .discog-show-all {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.45);
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .discog-show-all:hover { color: white; }
+
+        .discog-tabs {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 18px 0 6px;
+            flex-wrap: wrap;
+        }
+
+        .discog-tab {
+            padding: 8px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.6);
+            font-size: 13px;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .discog-tab:hover  { background: rgba(255,255,255,0.1); color: white; }
+        .discog-tab.active { background: white; color: black; border-color: white; }
+
+        .discog-track {
+            display: flex;
+            gap: 18px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 22px 4px 28px;
+            scrollbar-width: none;
+        }
+
+        .discog-track::-webkit-scrollbar { display: none; }
+
+        /* square cover cards — reviews.html inspired */
+        .discog-card {
+            min-width: 180px;
+            width: 180px;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .discog-card:hover { transform: translateY(-3px); }
+        .discog-card:hover .discog-cover { box-shadow: 0 12px 30px rgba(0,0,0,0.6); }
+
+        .discog-cover {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #1a1a1a;
+            position: relative;
+            margin-bottom: 12px;
+            transition: box-shadow 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .discog-cover img { width: 100%; height: 100%; object-fit: cover; }
+
+        .discog-cover-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(0,0,0,0.7);
+            color: rgba(255,255,255,0.7);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .discog-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .discog-card-sub {
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ══════════════════════════════════════
            MAIN CONTENT AREA
         ══════════════════════════════════════ */
         .main {
@@ -201,266 +383,6 @@
             opacity: 0.3;
         }
 
-        /* ══════════════════════════════════════
-           SPOTLIGHT / FEATURE
-        ══════════════════════════════════════ */
-        .spotlight {
-            padding-top: 56px;
-            margin-bottom: 64px;
-        }
-
-        .spotlight-inner {
-            display: flex;
-            gap: 48px;
-            align-items: center;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.07);
-            border-radius: 20px;
-            padding: 36px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Subtle glow in corner */
-        .spotlight-inner::before {
-            content: "";
-            position: absolute;
-            top: -60px;
-            right: -60px;
-            width: 280px;
-            height: 280px;
-            background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .spotlight-text {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .spotlight-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.4);
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 4px 12px;
-            border-radius: 999px;
-            margin-bottom: 16px;
-        }
-
-        .spotlight-title {
-            font-size: clamp(24px, 3vw, 36px);
-            font-weight: 700;
-            margin: 0 0 8px 0;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-        }
-
-        .spotlight-date {
-            font-size: 13px;
-            color: rgba(255,255,255,0.35);
-            margin-bottom: 24px;
-        }
-
-        .spotlight-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 11px 24px;
-            border-radius: 999px;
-            border: none;
-            background: white;
-            color: black;
-            font-weight: 700;
-            font-size: 13px;
-            font-family: 'Poppins', sans-serif;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            letter-spacing: 0.01em;
-        }
-
-        .spotlight-btn:hover {
-            background: rgba(255,255,255,0.88);
-            transform: scale(1.03);
-        }
-
-        .spotlight-video {
-            flex: 1.2;
-            min-width: 0;
-        }
-
-        .spotlight-video iframe {
-            width: 100%;
-            height: 260px;
-            border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.08);
-            box-shadow: 0 16px 48px rgba(0,0,0,0.6);
-            display: block;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-
-        .spotlight-video iframe:hover {
-            transform: scale(1.015);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.7);
-        }
-
-        @media (max-width: 860px) {
-            .spotlight-inner { flex-direction: column; gap: 28px; }
-            .spotlight-video iframe { height: 220px; }
-        }
-
-        /* ══════════════════════════════════════
-           RELEASES ROW
-        ══════════════════════════════════════ */
-        .releases-row { margin-bottom: 64px; }
-
-        .scroll-track {
-            display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            overflow-y: hidden;
-            padding: 32px 4px 28px;
-            scrollbar-width: none;
-        }
-
-        .scroll-track::-webkit-scrollbar { display: none; }
-
-        /* Release card — portrait style */
-        .release-card {
-            min-width: 220px;
-            height: 320px;
-            position: relative;
-            border-radius: 14px;
-            overflow: hidden;
-            cursor: pointer;
-            flex-shrink: 0;
-            border: 1px solid rgba(255,255,255,0.06);
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
-
-        .release-card:hover {
-            transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-            border-color: rgba(255,255,255,0.16);
-        }
-
-        .release-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .release-card:hover img { transform: scale(1.05); }
-
-        .release-card::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.3) 45%, transparent 75%);
-        }
-
-        .release-card-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 18px 16px;
-            z-index: 2;
-        }
-
-        .release-card-label {
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.4);
-            margin-bottom: 4px;
-        }
-
-        .release-card-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: white;
-            line-height: 1.25;
-        }
-
-        /* ── UPCOMING CARD — wider, landscape ── */
-        .upcoming-card {
-            min-width: 360px;
-            height: 200px;
-            position: relative;
-            border-radius: 14px;
-            overflow: hidden;
-            cursor: pointer;
-            flex-shrink: 0;
-            border: 1px solid rgba(255,255,255,0.06);
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
-
-        .upcoming-card:hover {
-            transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-            border-color: rgba(255,255,255,0.16);
-        }
-
-        .upcoming-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.6);
-            transition: transform 0.5s ease;
-        }
-
-        .upcoming-card:hover img { transform: scale(1.05); }
-
-        .upcoming-card::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(8,8,8,0.8) 0%, transparent 60%);
-        }
-
-        .upcoming-card-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 16px;
-            z-index: 2;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-        }
-
-        .upcoming-badge {
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.12);
-            padding: 4px 10px;
-            border-radius: 999px;
-            position: absolute;
-            top: 14px;
-            left: 14px;
-            z-index: 3;
-        }
-
-        .upcoming-card-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: white;
-        }
-
     </style>
 </head>
 
@@ -477,6 +399,7 @@
         <li><a href="home.html">HOME</a></li>
         <li><a href="releases.html">RELEASES</a></li>
         <li><a href="announcements.html">ANNOUNCEMENTS</a></li>
+        <li><a href="watch.html">WATCH & RATINGS</a></li>
         <li><a href="reviews.html">REVIEWS</a></li>
     </ul>
 </header>
@@ -492,7 +415,7 @@
 
         <div class="hero-stats">
             <div class="hero-stat">
-                <span class="hero-stat-value">639,038</span>
+                <span class="hero-stat-value">637,052</span>
                 <span class="hero-stat-label">Lifetime Views</span>
             </div>
             <div class="hero-stat-divider"></div>
@@ -502,7 +425,7 @@
             </div>
             <div class="hero-stat-divider"></div>
             <div class="hero-stat">
-                <span class="hero-stat-value">2026</span>
+                <span class="hero-stat-value">2025</span>
                 <span class="hero-stat-label">Latest Release</span>
             </div>
         </div>
@@ -512,107 +435,182 @@
 <!-- ══════ MAIN ══════ -->
 <section class="main">
 
-    <!-- SPOTLIGHT -->
-    <div class="spotlight">
-        <div class="section-label">Spotlight Choice</div>
-
-        <div class="spotlight-inner">
-            <div class="spotlight-text">
-                <div class="spotlight-tag">▶ Now Playing</div>
-                <h2 class="spotlight-title">Daytona<br>Official Trailer</h2>
-                <p class="spotlight-date">1st May, 2026</p>
-                <div style="display:flex;gap:12px;flex-wrap:wrap;">
-                    <button class="spotlight-btn" onclick="playSpotlight()">▶ Play</button>
-                    <button class="spotlight-btn" style="background:rgba(255,255,255,0.08);color:white;border:1px solid rgba(255,255,255,0.14);backdrop-filter:blur(8px);"
-                        onclick="window.location.href='announcements.html'">View Cover</button>
-                </div>
-            </div>
-
-            <div class="spotlight-video">
-                <iframe
-                    src="https://www.youtube.com/embed/u7msMYh8Yyk"
-                    frameborder="0"
-                    allowfullscreen>
-                </iframe>
-            </div>
-        </div>
+    <!-- POPULAR -->
+    <div class="popular-section">
+        <div class="section-label">Popular</div>
+        <div class="popular-list" id="popularList"></div>
     </div>
 
-    <!-- RELEASES -->
-    <div class="releases-row">
-        <div class="section-label">Releases</div>
-
-        <div class="scroll-track">
-
-            <div class="release-card" onclick="goToSlide(0, 3)">
-                <img src="HCMAArt.png" alt="">
-                <div class="release-card-info">
-                    <div class="release-card-label">Season 3 · 2025</div>
-                    <div class="release-card-title">Hypixel Cinematic Montages: Anniversary</div>
-                </div>
-            </div>
-
-            <div class="release-card" onclick="goToSlide(0, 2)">
-                <img src="PRE-PARTYART.png" alt="">
-                <div class="release-card-info">
-                    <div class="release-card-label">Season 2: Spinoff · 2025</div>
-                    <div class="release-card-title">Hypixel Cinematic Montages: Pre-Party</div>
-                </div>
-            </div>
-
-            <div class="release-card" onclick="goToSlide(0)">
-                <img src="HCMArt.png" alt="">
-                <div class="release-card-info">
-                    <div class="release-card-label">Season 1 · 2022</div>
-                    <div class="release-card-title">Hypixel Cinematic Montages: Beginnings</div>
-                </div>
-            </div>
-
+    <!-- DISCOGRAPHY -->
+    <div class="discog-section">
+        <div class="discog-header">
+            <h2 class="discog-title">Discography</h2>
+            <span class="discog-show-all" onclick="window.location.href='releases.html'">Show all</span>
         </div>
-    </div>
 
-    <!-- UPCOMING -->
-    <div>
-        <div class="section-label">Upcoming</div>
-
-        <div class="scroll-track">
-            <div class="upcoming-card" onclick="goToSlide(1)">
-                <img src="DaytonaGallery11.png" alt="">
-                <div class="upcoming-badge">Coming Soon</div>
-                <div class="upcoming-card-info">
-                    <div class="upcoming-card-title">Daytona</div>
-                </div>
-            </div>
+        <div class="discog-tabs">
+            <button class="discog-tab active" data-tab="popular" onclick="setDiscogTab('popular')">Popular</button>
+            <button class="discog-tab" data-tab="projects" onclick="setDiscogTab('projects')">Projects</button>
         </div>
+
+        <div class="discog-track" id="discogTrack"></div>
     </div>
 
 </section>
 
-<!-- VIDEO MODAL -->
-<div id="videoModal" class="glass-modal">
-    <div class="glass-backdrop" onclick="closeVideo()"></div>
-    <div class="glass-wrapper">
-        <button class="glass-close" onclick="closeVideo()">×</button>
-        <div class="glass-player">
-            <iframe id="videoFrame" allow="autoplay; fullscreen"></iframe>
-        </div>
-    </div>
-</div>
-
 <script>
-function goToSlide(index, season = 1) {
-    window.location.href = `releases.html?slide=${index}&season=${season}`;
+
+/* ══════════════════════════════════════════════════════════
+   CATALOG — one source of truth for Popular + Discography.
+
+   Update `views` by hand whenever you check YouTube — that's
+   it, no build step, no fetch. Leave `views: null` for anything
+   too new/low to bother showing (renders as "—").
+   ══════════════════════════════════════════════════════════ */
+const catalog = [
+    // ── PROJECTS (Album = Series / Movie) — Daytona excluded until released ──
+    { kind: "project", format: "Series", title: "Hypixel Cinematic Montages: Anniversary",
+      sub: "2025 · Series", cover: "HCMAArt.png",
+      videoId: "v_4zKKeNzm0", link: { title: "hcm", season: 3 } },
+
+    { kind: "project", format: "Series", title: "Hypixel Cinematic Montages: Pre-Party",
+      sub: "2025 · Series", cover: "PRE-PARTYART.png",
+      videoId: "xJQcI7Pm-Dk", link: { title: "hcm", season: 2 } },
+
+    { kind: "project", format: "Series", title: "Hypixel Cinematic Montages: Beginnings",
+      sub: "2022 · Series", cover: "HCMArt.png",
+      videoId: "HmVeA0c8IHI", link: { title: "hcm", season: 1 } },
+
+    // ── VIDEOS — the curated Popular list, in rank order ──
+    { kind: "video", popularRank: 1, title: "FE!N (Godzilla)", subject: "Violethyst, Gurraj Grewal",
+      year: 2024, views: 308204, cover: "GodzillaFE!N.png", videoId: "eymcrK50zng" },
+
+    { kind: "video", popularRank: 2, title: "2014-2024 (The Transition Edit) (Godzilla)", subject: "Violethyst, Gurraj Grewal",
+      year: 2023, views: 91443, cover: "Godzilla20142024.png", videoId: "NkTOKZ6co_c" },
+
+    { kind: "video", popularRank: 3, title: "Rather Lie (Playboi Carti)", subject: "Violethyst, Gurraj Grewal",
+      year: 2025, views: 1831, cover: "RatherLie.png", videoId: "HnDmrcyg7Fc" },
+
+    { kind: "video", popularRank: 4, title: "Timeless (Playboi Carti)", subject: "Violethyst, Gurraj Grewal",
+      year: 2024, views: 29584, cover: "Timeless.png", videoId: "hImKEqjTf60" },
+
+    // NOTE: need the real YouTube video IDs + thumbnail filenames for these two —
+    // placeholders below so the page still runs, but they won't play/link yet.
+    { kind: "video", popularRank: 5, title: "The Daytona Full Cast Showcase", subject: "Gurraj Grewal",
+      year: 2026, views: null, cover: "black.png", videoId: null },
+
+    { kind: "video", popularRank: 6, title: "The Daytona First Look Trailer", subject: "Gurraj Grewal",
+      year: 2026, views: null, cover: "black.png", videoId: null },
+
+    { kind: "video", popularRank: 7, title: "TV Off (Kendrick Lamar)", subject: "Violethyst, Gurraj Grewal",
+      year: 2025, views: 2290, cover: "TVOFF.png", videoId: "HlT9bi13VyY" },
+
+    { kind: "video", popularRank: 8, title: "Floor 555 (Miguel O'Hara)", subject: "Violethyst, Gurraj Grewal",
+      year: 2024, views: 1861, cover: "MIGUEL.png", videoId: "GVAyQldzF8k" },
+
+    { kind: "video", popularRank: 9, title: "My Eyes (Minecraft)", subject: "Violethyst, Gurraj Grewal",
+      year: 2024, views: 2430, cover: "MinecraftMyEyes.png", videoId: "7OXH39YJBCw" },
+
+    { kind: "video", popularRank: 10, title: "Purpose Is Glorious x Memory Reboot (Grand Theft Auto V)", subject: "Violethyst, Gurraj Grewal",
+      year: 2023, views: 4120, cover: "GTAV.png", videoId: "lRQb5q-hCeY" },
+
+    { kind: "video", popularRank: 11, title: "Field Trip (Moon Knight)", subject: "Violethyst, Gurraj Grewal",
+      year: 2024, views: 1505, cover: "moonknight.png", videoId: "uKRpmThXs8Q" },
+
+    // ── Not currently shown anywhere (not in the Popular ranking, and there's
+    // no "Other Releases" tab anymore) — kept here in case you want them back.
+    { kind: "video", popularRank: null, title: "Vampire Hour (The Batman)", subject: "Violethyst, Gurraj Grewal",
+      year: null, views: null, cover: "VAMPIREHOUR.png", videoId: "ejKw_q44txo" },
+
+    { kind: "video", popularRank: null, title: "Nightcrawler (Iron Man)", subject: "Violethyst, Gurraj Grewal",
+      year: null, views: null, cover: "NIGHTCRAWLER2.png", videoId: "hNQ0w4JYxlk" }
+
+    // ── EPs (Playlist) go here once you have one, e.g.:
+    // { kind: "playlist", format: "Playlist", title: "Playlist Name",
+    //   subject: "", cover: "Thumb.png",
+    //   link: { url: "https://www.youtube.com/playlist?list=XXXX" } }
+];
+
+function formatViews(n) {
+    if (n === null || n === undefined) return "—";
+    if (n < 1000) return String(n);
+    if (n < 1000000) return Math.floor(n / 1000) + "K";
+    return Math.floor(n / 1000000) + "M";
 }
 
-function playSpotlight() {
-    document.getElementById("videoFrame").src = "https://www.youtube.com/embed/u7msMYh8Yyk?autoplay=1&rel=0&modestbranding=1";
-    document.getElementById("videoModal").style.display = "flex";
+function goToItem(item) {
+    if (item.kind === "project") {
+        const p = new URLSearchParams({ title: item.link.title });
+        if (item.link.season) p.set("season", item.link.season);
+        window.location.href = `releases.html?${p.toString()}`;
+    } else if (item.kind === "playlist") {
+        window.open(item.link.url, "_blank", "noopener");
+    } else if (item.videoId) {
+        window.open(`https://www.youtube.com/watch?v=${item.videoId}`, "_blank", "noopener");
+    }
 }
 
-function closeVideo() {
-    document.getElementById("videoFrame").src = "";
-    document.getElementById("videoModal").style.display = "none";
+/* ══════════════════════════════════════════════════════════
+   POPULAR — curated ranking, videos only (no series here)
+   ══════════════════════════════════════════════════════════ */
+function renderPopular() {
+    const list = document.getElementById("popularList");
+    const ranked = catalog
+        .filter(i => i.kind === "video" && i.popularRank)
+        .sort((a, b) => a.popularRank - b.popularRank);
+
+    list.innerHTML = ranked.map(item => `
+        <div class="popular-row">
+            <span class="popular-rank">${item.popularRank}</span>
+            <div class="popular-thumb"><img src="${item.cover}" alt=""></div>
+            <div class="popular-info">
+                <div class="popular-title">${item.title}</div>
+                <div class="popular-sub">${item.subject}</div>
+            </div>
+            <span class="popular-views">${formatViews(item.views)}${item.year ? " · " + item.year : ""}</span>
+        </div>
+    `).join("");
+
+    ranked.forEach((item, i) => {
+        list.children[i].onclick = () => goToItem(item);
+    });
 }
+
+/* ══════════════════════════════════════════════════════════
+   DISCOGRAPHY — Popular / Projects
+   ══════════════════════════════════════════════════════════ */
+let currentDiscogTab = "popular";
+
+function setDiscogTab(tab) {
+    currentDiscogTab = tab;
+    document.querySelectorAll(".discog-tab").forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
+    renderDiscography();
+}
+
+function renderDiscography() {
+    const track = document.getElementById("discogTrack");
+    const items = currentDiscogTab === "projects"
+        ? catalog.filter(i => i.kind === "project")
+        : catalog.filter(i => i.kind === "video" && i.popularRank).sort((a, b) => a.popularRank - b.popularRank);
+
+    track.innerHTML = items.map(item => `
+        <div class="discog-card">
+            <div class="discog-cover">
+                <img src="${item.cover}" alt="">
+            </div>
+            <div class="discog-card-title">${item.title}</div>
+            <div class="discog-card-sub">${item.kind === "project" ? item.sub : item.subject}</div>
+        </div>
+    `).join("");
+
+    items.forEach((item, i) => {
+        track.children[i].onclick = () => goToItem(item);
+    });
+}
+
+/* ── INIT ── */
+renderPopular();
+renderDiscography();
 </script>
 
 </body>
