@@ -839,7 +839,8 @@ function projectScoreColor(score) {
 }
 function projectScoreText(score) { return score >= 5 && score < 9 ? '#0f0f0f' : 'white'; }
 function projectEpisodeLabel(key, index) {
-    return index === 0 ? 'P' : `M${index}`;
+    const hasPrologue = key === 'hcm_s1' || key === 'pre';
+    return hasPrologue && index === 0 ? 'P' : `M${hasPrologue ? index : index + 1}`;
 }
 function projectFilmUrl(item) {
     const p = new URLSearchParams({ title: item.link.title });
