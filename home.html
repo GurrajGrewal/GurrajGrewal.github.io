@@ -169,84 +169,96 @@
         }
 
         /* ══════════════════════════════════════
-           POPULAR — ranked list w/ view counts
-        ══════════════════════════════════════ */
-        .popular-list { display: flex; flex-direction: column; margin-bottom: 8px; }
-
-        .popular-row {
+           POPULAR — compact Spotify-style list
+           Placeholder content for now
+           ══════════════════════════════════════ */
+        .popular-section { margin-bottom: 42px; }
+        .popular-list {
             display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-bottom: 8px;
+        }
+        .popular-row {
+            display: grid;
+            grid-template-columns: 32px 48px minmax(0, 1fr) 190px 50px;
             align-items: center;
-            gap: 16px;
-            padding: 8px 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.15s ease;
+            gap: 14px;
+            min-height: 64px;
+            padding: 7px 12px;
+            border-radius: 7px;
+            transition: background .15s ease;
         }
-
-        .popular-row:hover { background: rgba(255,255,255,0.05); }
-
+        .popular-row.placeholder { cursor: default; }
+        .popular-row:not(.placeholder) { cursor: pointer; }
+        .popular-row:not(.placeholder):hover,
+        .popular-row.placeholder:hover { background: rgba(255,255,255,.055); }
         .popular-rank {
-            width: 22px;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.35);
-            flex-shrink: 0;
-        }
-
-        .popular-thumb {
-            width: 46px;
-            height: 46px;
-            border-radius: 6px;
-            overflow: hidden;
-            flex-shrink: 0;
-            background: #1a1a1a;
-        }
-
-        .popular-thumb img { width: 100%; height: 100%; object-fit: cover; }
-
-        .popular-info {
-            flex: 1;
-            min-width: 0;
-            max-width: 380px;
-        }
-
-        .popular-title {
-            font-size: 14px;
-            font-weight: 500;
-            color: white;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .popular-sub {
+            color: rgba(255,255,255,.32);
             font-size: 12px;
-            color: rgba(255,255,255,0.35);
-            margin-top: 2px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+        .popular-thumb {
+            width: 48px;
+            height: 48px;
+            border-radius: 5px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: #181818;
+            border: 1px solid rgba(255,255,255,.05);
+            box-shadow: 0 5px 16px rgba(0,0,0,.25);
+        }
+        .popular-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .popular-info { min-width: 0; }
+        .popular-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255,255,255,.9);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
-        .popular-views-col {
-            width: 60px;
-            text-align: center;
-            margin-left: 40px;
-            font-size: 13px;
-            color: rgba(255,255,255,0.5);
-            flex-shrink: 0;
+        .popular-sub {
+            margin-top: 3px;
+            font-size: 11px;
+            color: rgba(255,255,255,.34);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .popular-artist {
+            color: rgba(255,255,255,.42);
+            font-size: 12px;
+            text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .popular-year-col {
+            color: rgba(255,255,255,.3);
+            font-size: 11px;
+            text-align: right;
             font-variant-numeric: tabular-nums;
         }
-
-        .popular-year-col {
-            width: 44px;
-            text-align: right;
-            margin-left: auto;
-            font-size: 13px;
-            color: rgba(255,255,255,0.35);
-            flex-shrink: 0;
+        .popular-rating {
+            min-width: 42px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
             font-variant-numeric: tabular-nums;
+            box-shadow: 0 3px 8px rgba(0,0,0,.28);
+        }
+
+        .popular-row.placeholder { opacity: .74; }
+        .popular-row.placeholder .popular-thumb { filter: grayscale(1); }
+        .popular-row::after { content: ""; }
+        @media (max-width: 820px) {
+            .popular-row { grid-template-columns: 28px 44px minmax(0,1fr) 48px; gap: 11px; }
+            .popular-artist { display: none; }
+            .popular-thumb { width: 44px; height: 44px; }
         }
 
         /* ══════════════════════════════════════
@@ -309,6 +321,9 @@
 
         .discog-card:hover { transform: translateY(-3px); }
         .discog-card:hover .discog-cover { box-shadow: 0 12px 30px rgba(0,0,0,0.6); }
+        .discog-card.discog-placeholder { cursor: default; opacity: .78; }
+        .discog-card.discog-placeholder:hover { transform: none; }
+        .discog-card.discog-placeholder:hover .discog-cover { box-shadow: none; }
 
         .discog-cover {
             width: 100%;
@@ -504,7 +519,7 @@
             <div class="hero-stat-divider"></div>
             <div class="hero-stat">
                 <span class="hero-stat-value">3</span>
-                <span class="hero-stat-label">Series</span>
+                <span class="hero-stat-label">Projects</span>
             </div>
             <div class="hero-stat-divider"></div>
             <div class="hero-stat">
@@ -520,7 +535,7 @@
 
     <!-- POPULAR -->
     <div class="popular-section">
-        <div class="section-label">Popular</div>
+        <div class="section-label">Ratings</div>
         <div class="popular-list" id="popularList"></div>
     </div>
 
@@ -533,6 +548,7 @@
         <div class="discog-tabs">
             <button class="discog-tab active" data-tab="popular" onclick="setDiscogTab('popular')">Popular</button>
             <button class="discog-tab" data-tab="projects" onclick="setDiscogTab('projects')">Projects</button>
+            <button class="discog-tab" data-tab="compilations" onclick="setDiscogTab('compilations')">Compilations</button>
         </div>
 
         <div class="discog-track" id="discogTrack"></div>
@@ -554,10 +570,10 @@
         <section class="project-overview">
             <img class="project-cover" id="projectCover" src="black.png" alt="">
             <div>
-                <div class="project-eyebrow" id="projectType">Series</div>
+                <div class="project-eyebrow" id="projectType">Montages</div>
                 <h2 class="project-title" id="projectTitle">Project</h2>
                 <div class="project-meta" id="projectMeta"></div>
-                <button class="project-play" id="projectPlay" type="button">▶ Play in order</button>
+                <button class="project-play" id="projectPlay" type="button">▶ Play</button>
             </div>
         </section>
         <div class="project-tabs" id="projectTabs"></div>
@@ -576,66 +592,57 @@
    too new/low to bother showing (renders as "—").
    ══════════════════════════════════════════════════════════ */
 const catalog = [
-    // ── PROJECTS (Album = Series / Movie) — Daytona excluded until released ──
-    { kind: "project", format: "Series", title: "Hypixel Cinematic Montages: Anniversary",
-      sub: "2025 · Series", cover: "HCMS3COVER.png",
+    // ── PROJECTS ──
+    { kind: "project", format: "Montages", popularRank: 1, ratingRank: 2, rating: 5.9, title: "Hypixel Cinematic Montages: Anniversary",
+      sub: "2025 · Montages", cover: "HCMS3COVER.png", subject: "Violethyst Pictures", year: 2025,
       videoId: "v_4zKKeNzm0", link: { title: "hcm", season: 3 } },
 
-    { kind: "project", format: "Series", title: "Hypixel Cinematic Montages: Pre-Party",
-      sub: "2025 · Series", cover: "HCMS2COVER.png",
+    { kind: "project", format: "Montages", popularRank: 2, ratingRank: 3, rating: 5.5, title: "Pre-Party",
+      sub: "2025 · Montages", cover: "HCMS2COVER.png", subject: "Violethyst Pictures", year: 2025,
       videoId: "xJQcI7Pm-Dk", link: { title: "hcm", season: 2 } },
 
-    { kind: "project", format: "Series", title: "Hypixel Cinematic Montages: Beginnings",
-      sub: "2022 · Series", cover: "HCMS1COVER.png",
+    { kind: "project", format: "Montages", popularRank: 3, ratingRank: 1, rating: 6.2, title: "Hypixel Cinematic Montages: Beginnings",
+      sub: "2022 · Montages", cover: "HCMS1COVER.png", subject: "Violethyst Pictures", year: 2022,
       videoId: "HmVeA0c8IHI", link: { title: "hcm", season: 1 } },
 
-    // ── VIDEOS — the curated Popular list, in rank order ──
-    { kind: "video", popularRank: 1, title: "GODZILLA — FE!N", subject: "Violethyst, Gurraj Grewal",
+    // ── COMPILATIONS ──
+    { kind: "compilation", format: "Compilation", title: "Daytona: Teasers & Trailers",
+      subject: "Violethyst Pictures", year: 2026, cover: "black.png", videoId: null, placeholder: true },
+
+
+    // ── OTHER VIDEOS — retained as catalog data, but not currently surfaced in Popular ──
+    { kind: "video", popularRank: null, title: "GODZILLA — FE!N", subject: "Violethyst Pictures",
       year: 2024, views: 308204, cover: "GFE!N.png", videoId: "eymcrK50zng" },
 
-    { kind: "video", popularRank: 2, title: "GODZILLA 2014—2024", subject: "Violethyst, Gurraj Grewal",
+    { kind: "video", popularRank: null, title: "GODZILLA 2014—2024", subject: "Violethyst Pictures",
       year: 2023, views: 91443, cover: "G2014-2024.png", videoId: "NkTOKZ6co_c" },
 
-    { kind: "video", popularRank: 3, title: "PLAYBOI CARTI — RATHER LIE", subject: "Violethyst, Gurraj Grewal",
+    { kind: "video", popularRank: null, title: "PLAYBOI CARTI — RATHER LIE", subject: "Violethyst Pictures",
       year: 2025, views: 1831, cover: "RATHERLIE.png", videoId: "HnDmrcyg7Fc" },
 
-    { kind: "video", popularRank: 4, title: "PLAYBOI CARTI — TIMELESS", subject: "Violethyst, Gurraj Grewal",
+    { kind: "video", popularRank: null, title: "PLAYBOI CARTI — TIMELESS", subject: "Violethyst Pictures",
       year: 2024, views: 29584, cover: "TIMELESS.png", videoId: "hImKEqjTf60" },
 
-    { kind: "video", popularRank: 5, title: "The Daytona Full Cast Showcase", subject: "Gurraj Grewal",
-      year: 2026, views: null, cover: "DCAST.png", videoId: null },
-
-    { kind: "video", popularRank: 7, title: "The Daytona First Look Trailer", subject: "Gurraj Grewal",
-      year: 2026, views: null, cover: "DFIRSTLOOK.png", videoId: null },
-
-    { kind: "video", popularRank: 6, title: "KENDRICK LAMAR — TV OFF", subject: "Violethyst, Gurraj Grewal",
+    { kind: "video", popularRank: null, title: "KENDRICK LAMAR — TV OFF", subject: "Violethyst Pictures",
       year: 2025, views: 2290, cover: "TVOFF.png", videoId: "HlT9bi13VyY" },
 
-    { kind: "video", popularRank: 8, title: "MIGUEL O'HARA — FLOOR 555", subject: "Violethyst, Gurraj Grewal",
+    { kind: "video", popularRank: null, title: "MIGUEL O'HARA — FLOOR 555", subject: "Violethyst Pictures",
       year: 2024, views: 1861, cover: "MFLOOR555.png", videoId: "GVAyQldzF8k" },
 
-    { kind: "video", popularRank: 10, title: "MINECRAFT — MY EYES", subject: "Violethyst, Gurraj Grewal",
+    { kind: "video", popularRank: null, title: "MINECRAFT — MY EYES", subject: "Violethyst Pictures",
       year: 2024, views: 2430, cover: "MMYEYES.png", videoId: "7OXH39YJBCw" },
 
-    { kind: "video", popularRank: 9, title: "GRAND THEFT AUTO V — PURPOSE IS GLORIOUS x MEMORY REBOOT", subject: "Violethyst, Gurraj Grewal",
+    { kind: "video", popularRank: null, title: "GRAND THEFT AUTO V — PURPOSE IS GLORIOUS x MEMORY REBOOT", subject: "Violethyst Pictures",
       year: 2023, views: 4120, cover: "GTAVPIGxMR.png", videoId: "lRQb5q-hCeY" },
 
-    // ── Not currently shown — didn't make the top 10 (Field Trip), or no
-    // ranking data yet (Vampire Hour, Nightcrawler). Kept here in case
-    // you want to swap one in later.
-    { kind: "video", popularRank: null, title: "MOON KNIGHT — FIELD TRIP", subject: "Violethyst, Gurraj Grewal",
+    { kind: "video", popularRank: null, title: "MOON KNIGHT — FIELD TRIP", subject: "Violethyst Pictures",
       year: 2024, views: 1505, cover: "moonknight.png", videoId: "uKRpmThXs8Q" },
 
-    { kind: "video", popularRank: null, title: "THE BATMAN — VAMPIRE HOUR", subject: "Violethyst, Gurraj Grewal",
+    { kind: "video", popularRank: null, title: "THE BATMAN — VAMPIRE HOUR", subject: "Violethyst Pictures",
       year: null, views: null, cover: "VAMPIREHOUR.png", videoId: "ejKw_q44txo" },
 
-    { kind: "video", popularRank: null, title: "IRON MAN — NIGHTCRAWLER", subject: "Violethyst, Gurraj Grewal",
+    { kind: "video", popularRank: null, title: "IRON MAN — NIGHTCRAWLER", subject: "Violethyst Pictures",
       year: null, views: null, cover: "NIGHTCRAWLER2.png", videoId: "hNQ0w4JYxlk" }
-
-    // ── EPs (Playlist) go here once you have one, e.g.:
-    // { kind: "playlist", format: "Playlist", title: "Playlist Name",
-    //   subject: "", cover: "Thumb.png",
-    //   link: { url: "https://www.youtube.com/playlist?list=XXXX" } }
 ];
 
 function formatViews(n) {
@@ -648,8 +655,8 @@ function formatViews(n) {
 function goToItem(item) {
     if (item.kind === "project") {
         openProjectOverlay(item);
-    } else if (item.kind === "playlist") {
-        window.open(item.link.url, "_blank", "noopener");
+    } else if (item.kind === "playlist" || item.kind === "compilation") {
+        if (item.link?.url) window.open(item.link.url, "_blank", "noopener");
     } else if (item.videoId) {
         window.open(`https://www.youtube.com/watch?v=${item.videoId}`, "_blank", "noopener");
     }
@@ -661,29 +668,38 @@ function goToItem(item) {
 function renderPopular() {
     const list = document.getElementById("popularList");
     const ranked = catalog
-        .filter(i => i.kind === "video" && i.popularRank)
-        .sort((a, b) => a.popularRank - b.popularRank);
+        .filter(i => i.kind === "project" && Number.isFinite(i.ratingRank))
+        .sort((a, b) => a.ratingRank - b.ratingRank)
+        .slice(0, 10);
 
     list.innerHTML = ranked.map(item => `
-        <div class="popular-row">
-            <span class="popular-rank">${item.popularRank}</span>
-            <div class="popular-thumb"><img src="${item.cover}" alt=""></div>
+        <div class="popular-row" role="button" tabindex="0">
+            <span class="popular-rank">${item.ratingRank}</span>
+            <div class="popular-thumb"><img src="${item.cover || 'black.png'}" alt=""></div>
             <div class="popular-info">
                 <div class="popular-title">${item.title}</div>
-                <div class="popular-sub">${item.subject}</div>
+                <div class="popular-sub">${item.format || 'Montages'} · ${item.year || '—'}</div>
             </div>
-            <span class="popular-views-col">${formatViews(item.views)}</span>
-            <span class="popular-year-col">${item.year || ""}</span>
-        </div>
-    `).join("");
+            <div class="popular-artist">${item.subject || 'Violethyst Pictures'}</div>
+            <span class="popular-rating" style="background:${projectScoreColor(item.rating)};color:${projectScoreText(item.rating)}">${Number(item.rating).toFixed(1)}</span>
+        </div>`
+    ).join("");
 
     ranked.forEach((item, i) => {
-        list.children[i].onclick = () => goToItem(item);
+        const row = list.children[i];
+        row.onclick = () => goToItem(item);
+        row.onkeydown = e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                goToItem(item);
+            }
+        };
     });
 }
 
+
 /* ══════════════════════════════════════════════════════════
-   DISCOGRAPHY — Popular / Projects
+   DISCOGRAPHY — Popular / Projects / Compilations
    ══════════════════════════════════════════════════════════ */
 let currentDiscogTab = "popular";
 
@@ -695,21 +711,30 @@ function setDiscogTab(tab) {
 
 function renderDiscography() {
     const track = document.getElementById("discogTrack");
-    const items = currentDiscogTab === "projects"
-        ? catalog.filter(i => i.kind === "project")
-        : catalog.filter(i => i.kind === "video" && i.popularRank).sort((a, b) => a.popularRank - b.popularRank);
+    let items;
+
+    if (currentDiscogTab === "projects") {
+        items = catalog.filter(i => i.kind === "project");
+    } else if (currentDiscogTab === "compilations") {
+        items = catalog.filter(i => i.kind === "compilation");
+    } else {
+        items = catalog.filter(i => Number.isFinite(i.popularRank))
+            .sort((a, b) => a.popularRank - b.popularRank);
+    }
 
     track.innerHTML = items.map(item => `
-        <div class="discog-card">
+        <div class="discog-card ${item.placeholder ? 'discog-placeholder' : ''}">
             <div class="discog-cover">
-                <img src="${item.cover}" alt="">
+                <img src="${item.cover || 'black.png'}" alt="">
+                <span class="discog-cover-badge">${item.format || (item.kind === 'project' ? 'Montages' : 'Compilation')}</span>
             </div>
             <div class="discog-card-title">${item.title}</div>
-            <div class="discog-card-sub">${item.kind === "project" ? item.sub : item.subject}</div>
+            <div class="discog-card-sub">${item.kind === "project" ? item.sub : (item.format || "Compilation")}</div>
         </div>
     `).join("");
 
     items.forEach((item, i) => {
+        if (item.placeholder) return;
         track.children[i].onclick = () => goToItem(item);
     });
 }
@@ -718,6 +743,73 @@ function renderDiscography() {
 renderPopular();
 renderDiscography();
 
+
+/* ── PROJECT EPISODE DATA (mirrors releases.html) ── */
+const episodeData = {
+    hcm_s1: [
+        { title: "Couloir", img: "hcmEP1.png" },
+        { title: "Japan & Shiawase", img: "hcmEP2.png" },
+        { title: "Tell Me A Joke", img: "hcmEP3.png" },
+        { title: "Under My Skin", img: "hcmEP4.png" },
+        { title: "My Eyes", img: "hcmEP5.png" },
+        { title: "Lean Wit Me", img: "hcmEP6.png" },
+        { title: "Dustcutter", img: "hcmEP7.png" },
+        { title: "Always Be My Fault", img: "hcmEP8.png" },
+        { title: "Cinderella", img: "hcmEP9.png" },
+        { title: "Drugs You Should Try It", img: "hcmEP10.png" }
+    ],
+    hcm_s2: [
+        { title: "Good Days In Speedway", img: "hcmaEP1.png" },
+        { title: "Verglas: Couloir Mountains Revisited", img: "hcmaEP2.png" },
+        { title: "Behold", img: "hcmaEP3.png" },
+        { title: "My Soul", img: "hcmaEP4.png" }
+    ],
+    pre: [
+        { title: "Until We're Skin & Bones", img: "preEP1.png" },
+        { title: "Baptized In Fear", img: "preEP2.png" },
+        { title: "Open Hearts", img: "preEP3.png" },
+        { title: "Opening Night", img: "preEP4.png" },
+        { title: "Reflections Laughing", img: "preEP5.png" },
+        { title: "Baptized In Fear & Open Hearts Mashup", img: "preEP6.png" },
+        { title: "Dancing In The Flames", img: "preEP7.png" }
+    ]
+};
+
+const episodeRatings = {
+    hcm_s1: [5.0, 4.6, 8.6, 4.8, 6.9, 6.7, 7.0, 4.7, 6.9, 6.6],
+    pre: [2.3, 6.6, 5.5, 4.6, 5.7, 7.1, 7.0],
+    hcm_s2: [6.7, 4.0, 7.4, 5.6]
+};
+
+const videoLinks = {
+    hcm_s1: [
+        "https://www.youtube.com/embed/HmVeA0c8IHI",
+        "https://www.youtube.com/embed/omC2tyNmGT8",
+        "https://www.youtube.com/embed/XxG6WaAw7io",
+        "https://www.youtube.com/embed/Zr13uDiDaqo",
+        "https://www.youtube.com/embed/03Sb6iC3KDE",
+        "https://www.youtube.com/embed/Pwir7MB0vG0",
+        "https://www.youtube.com/embed/S1dcCP03h2o",
+        "https://www.youtube.com/embed/u8ZsgfYxA7k",
+        "https://www.youtube.com/embed/4Ax-DpoPB6E",
+        "https://www.youtube.com/embed/m3GMoQJCzjc"
+    ],
+    hcm_s2: [
+        "https://www.youtube.com/embed/v_4zKKeNzm0",
+        "https://www.youtube.com/embed/4T6wBJZkRok",
+        "https://www.youtube.com/embed/ycxLI4GxUwM",
+        "https://www.youtube.com/embed/cg84UqJcj40"
+    ],
+    pre: [
+        "https://www.youtube.com/embed/xJQcI7Pm-Dk",
+        "https://www.youtube.com/embed/QGWBsgL_SQc",
+        "https://www.youtube.com/embed/5Z46ybdul1Q",
+        "https://www.youtube.com/embed/6hTLr4EQXD0",
+        "https://www.youtube.com/embed/m0BXrsELMXw",
+        "https://www.youtube.com/embed/ZJrPjhUWBnI",
+        "https://www.youtube.com/embed/BV6weMlOTNw"
+    ]
+};
 
 /* ══════════════════════════════════════════════════════════
    SPOTIFY-STYLE PROJECT VIEW
@@ -747,8 +839,7 @@ function projectScoreColor(score) {
 }
 function projectScoreText(score) { return score >= 5 && score < 9 ? '#0f0f0f' : 'white'; }
 function projectEpisodeLabel(key, index) {
-    if (key === 'hcm_s1') return index === 0 ? 'P' : `E${index}`;
-    return `E${index + 1}`;
+    return index === 0 ? 'P' : `M${index}`;
 }
 function projectFilmUrl(item) {
     const p = new URLSearchParams({ title: item.link.title });
@@ -785,9 +876,14 @@ function renderProjectView() {
     const part = projectParts[key];
     const eps = episodeData[key] || [];
     document.getElementById('projectCover').src = isAnniversary ? 'HCMS3COVER.png' : part.cover;
-    document.getElementById('projectTitle').textContent = isAnniversary ? 'Hypixel Cinematic Montages (Anniversary)' : key === 'hcm_s1' ? 'Hypixel Cinematic Montages (Beginnings)' : 'Hypixel Cinematic Montages (Pre-Party)';
-    document.getElementById('projectType').textContent = 'Series';
-    document.getElementById('projectMeta').textContent = isAnniversary ? '2025 · Deluxe series · Violethyst Pictures' : `${part.year} · ${eps.length} episodes · Violethyst Pictures`;
+    document.getElementById('projectTitle').textContent = isAnniversary ? 'Hypixel Cinematic Montages: Anniversary' : key === 'hcm_s1' ? 'Hypixel Cinematic Montages: Beginnings' : 'Pre-Party';
+    document.getElementById('projectType').textContent = 'Montages';
+    const meta = isAnniversary
+        ? 'Violethyst Pictures · 2025 · 13 Episodes, 41:36'
+        : key === 'hcm_s1'
+            ? 'Violethyst Pictures · 2022 · 10 Episodes, 35:24'
+            : 'Violethyst Pictures · 2025 · 6 Episodes';
+    document.getElementById('projectMeta').textContent = meta;
     document.getElementById('projectPlay').onclick = () => {
         const playKey = isAnniversary ? 'hcm_s1' : key;
         const url = videoLinks[playKey] && videoLinks[playKey][0];
