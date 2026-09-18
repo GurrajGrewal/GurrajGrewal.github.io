@@ -587,7 +587,6 @@
     <div class="project-overlay-topbar">
         <div class="project-overlay-brand">Gurraj Grewal · Releases</div>
         <div class="project-overlay-actions">
-            <button class="project-view-toggle" id="projectFilmToggle" type="button">Film Format ↗</button>
             <button class="project-close" id="projectClose" type="button" aria-label="Close project view">✕</button>
         </div>
     </div>
@@ -598,7 +597,7 @@
                 <div class="project-eyebrow" id="projectType">Montages</div>
                 <h2 class="project-title" id="projectTitle">Project</h2>
                 <div class="project-meta" id="projectMeta"></div>
-                <button class="project-play" id="projectPlay" type="button">▶ Play</button>
+                <button class="project-play" id="projectPlay" type="button">Immerse</button>
             </div>
         </section>
         <div class="project-tabs" id="projectTabs"></div>
@@ -609,7 +608,7 @@
 
 <!-- Full-screen Film Format overlay; the releases page covers Home. -->
 <div class="film-overlay" id="filmOverlay" aria-hidden="true">
-    <button class="film-close" id="filmClose" type="button" aria-label="Close Film Format">✕</button>
+    <button class="film-close" id="filmClose" type="button" aria-label="Close Immersive Experience">✕</button>
     <iframe id="filmFrame" title="Film Format" allow="autoplay; fullscreen"></iframe>
 </div>
 
@@ -914,7 +913,6 @@ function openProjectOverlay(item) {
     projectOverlay.classList.add('open');
     projectOverlay.setAttribute('aria-hidden', 'false');
     document.body.classList.add('project-overlay-open');
-    document.getElementById('projectFilmToggle').onclick = () => openFilmOverlay(item);
     document.getElementById('projectClose').onclick = closeProjectOverlay;
     renderProjectView();
 }
@@ -948,10 +946,7 @@ function renderProjectView() {
                 ? 'Violethyst Pictures · 2025 · 6 Montages, 22 min 29 sec'
                 : 'Violethyst Pictures · 2026 · 9 Episodes · The Finale';
     document.getElementById('projectMeta').textContent = meta;
-    document.getElementById('projectPlay').onclick = () => {
-        const url = videoLinks[key] && videoLinks[key][0];
-        if (url) window.open(url.replace('/embed/', '/watch?v='), '_blank', 'noopener');
-    };
+    document.getElementById('projectPlay').onclick = () => openFilmOverlay(item);
 
     projectTabs.innerHTML = '';
     projectTabs.style.display = 'none';
