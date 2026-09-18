@@ -181,7 +181,7 @@
         }
         .popular-row {
             display: grid;
-            grid-template-columns: 32px 48px minmax(0, 1fr) 190px 50px;
+            grid-template-columns: 32px 48px minmax(0, 1fr) 220px;
             align-items: center;
             gap: 14px;
             min-height: 64px;
@@ -409,6 +409,23 @@
         /* ══════════════════════════════════════
            SPOTIFY-STYLE PROJECT OVERLAY
            ══════════════════════════════════════ */
+        body.project-overlay-open, body.film-overlay-open { overflow: hidden; }
+        .film-overlay {
+            position: fixed; inset: 0; z-index: 500; display: none;
+            background: #080808;
+        }
+        .film-overlay.open { display: block; }
+        .film-overlay iframe { width: 100%; height: 100%; border: 0; display: block; background: #080808; }
+        .film-close {
+            position: fixed; top: 18px; right: 22px; z-index: 510;
+            width: 40px; height: 40px; border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.16);
+            background: rgba(0,0,0,.45); color: rgba(255,255,255,.82);
+            font: 500 18px 'Poppins', sans-serif; cursor: pointer;
+            backdrop-filter: blur(10px); transition: .2s ease;
+        }
+        .film-close:hover { background: rgba(0,0,0,.68); color: white; transform: scale(1.05); }
+
         body.project-overlay-open { overflow: hidden; }
         .project-overlay {
             position: fixed;
@@ -535,7 +552,7 @@
 
     <!-- POPULAR -->
     <div class="popular-section">
-        <div class="section-label">Ratings</div>
+        <div class="section-label">Popular</div>
         <div class="popular-list" id="popularList"></div>
     </div>
 
@@ -582,6 +599,12 @@
     </main>
 </div>
 
+<!-- Full-screen Film Format overlay; the releases page covers Home. -->
+<div class="film-overlay" id="filmOverlay" aria-hidden="true">
+    <button class="film-close" id="filmClose" type="button" aria-label="Close Film Format">✕</button>
+    <iframe id="filmFrame" title="Film Format" allow="autoplay; fullscreen"></iframe>
+</div>
+
 <script>
 
 /* ══════════════════════════════════════════════════════════
@@ -604,6 +627,10 @@ const catalog = [
     { kind: "project", format: "Montages", popularRank: 3, ratingRank: 1, rating: 6.2, title: "Hypixel Cinematic Montages: Beginnings",
       sub: "2022 · Montages", cover: "HCMBCOVER.png", subject: "Violethyst Pictures", year: 2022,
       videoId: "HmVeA0c8IHI", link: { title: "hcm", season: 1 } },
+
+    { kind: "project", format: "Series", popularRank: null, ratingRank: null, rating: null, title: "Daytona",
+      sub: "2026 · Series", cover: "DAYTONACOVER.png", subject: "Violethyst Pictures", year: 2026,
+      videoId: "u7msMYh8Yyk", link: { title: "daytona", slide: 1 } },
 
     // ── COMPILATIONS ──
     { kind: "compilation", format: "Compilation", title: "Daytona: Teasers & Trailers",
@@ -672,23 +699,17 @@ function renderPopular() {
         .sort((a, b) => a.popularRank - b.popularRank)
         .slice(0, 10);
 
-    list.innerHTML = ranked.map(item => {
-        const isProject = item.kind === "project";
-        const rating = isProject && Number.isFinite(item.rating)
-            ? `<span class="popular-rating" style="background:${projectScoreColor(item.rating)};color:${projectScoreText(item.rating)}">${Number(item.rating).toFixed(1)}</span>`
-            : `<span class="popular-rating unrated">—</span>`;
-        return `
+    list.innerHTML = ranked.map(item => `
         <div class="popular-row" role="button" tabindex="0">
             <span class="popular-rank">${item.popularRank}</span>
             <div class="popular-thumb"><img src="${item.cover || 'black.png'}" alt=""></div>
             <div class="popular-info">
                 <div class="popular-title">${item.title}</div>
-                <div class="popular-sub">${item.format || 'Montages'} · ${item.year || '—'}</div>
+                <div class="popular-sub">${item.format || (item.kind === 'compilation' ? 'Compilation' : 'Montages')} · ${item.year || '—'}</div>
             </div>
             <div class="popular-artist">${item.subject || 'Violethyst Pictures'}</div>
-            ${rating}
-        </div>`;
-    }).join("");
+        </div>`
+    ).join("");
 
     ranked.forEach((item, i) => {
         const row = list.children[i];
@@ -776,6 +797,17 @@ const episodeData = {
         { title: "Reflections Laughing", img: "preEP5.png" },
         { title: "Baptized In Fear & Open Hearts Mashup", img: "preEP6.png" },
         { title: "Dancing In The Flames", img: "preEP7.png" }
+    ],
+    daytona: [
+        { title: "From Shasta", img: "DaytonaEpisode1.png" },
+        { title: "TBA", img: "black.png" },
+        { title: "TBA", img: "black.png" },
+        { title: "TBA", img: "black.png" },
+        { title: "TBA", img: "black.png" },
+        { title: "TBA", img: "black.png" },
+        { title: "TBA", img: "black.png" },
+        { title: "TBA", img: "black.png" },
+        { title: "TBA", img: "black.png" }
     ]
 };
 
@@ -812,6 +844,17 @@ const videoLinks = {
         "https://www.youtube.com/embed/m0BXrsELMXw",
         "https://www.youtube.com/embed/ZJrPjhUWBnI",
         "https://www.youtube.com/embed/BV6weMlOTNw"
+    ],
+    daytona: [
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
+        "https://www.youtube.com/embed/u7msMYh8Yyk",
+        "https://www.youtube.com/embed/u7msMYh8Yyk"
     ]
 };
 
@@ -828,7 +871,8 @@ let activeProjectIsAnniversary = false;
 const projectParts = {
     hcm_s1: { label: 'Beginnings', key: 'hcm_s1', cover: 'HCMBCOVER.png', year: '2022' },
     hcm_s2: { label: 'Anniversary', key: 'hcm_s2', cover: 'HCMACOVER.png', year: '2025' },
-    pre: { label: 'Pre-Party', key: 'pre', cover: 'PRE-PARTYCOVER.png', year: '2025' }
+    pre: { label: 'Pre-Party', key: 'pre', cover: 'PRE-PARTYCOVER.png', year: '2025' },
+    daytona: { label: 'Daytona', key: 'daytona', cover: 'DAYTONACOVER.png', year: '2026' }
 };
 
 function projectScoreColor(score) {
@@ -847,14 +891,17 @@ function projectEpisodeLabel(key, index) {
     return hasPrologue && index === 0 ? 'P' : `M${hasPrologue ? index : index + 1}`;
 }
 function projectFilmUrl(item) {
-    const p = new URLSearchParams({ title: item.link.title });
-    if (item.link.season) p.set('season', item.link.season);
+    const p = new URLSearchParams();
+    if (item.link?.title === 'hcm') p.set('season', item.link.season);
+    if (item.link?.title === 'daytona') p.set('slide', '1');
+    p.set('film', '1');
     return `releases.html?${p.toString()}`;
 }
 function projectPartForItem(item) {
     if (item.link && item.link.title === 'hcm' && item.link.season === 3) return 'anniversary';
     if (item.link && item.link.title === 'hcm' && item.link.season === 1) return 'beginnings';
     if (item.link && item.link.title === 'hcm' && item.link.season === 2) return 'pre';
+    if (item.link && item.link.title === 'daytona') return 'daytona';
     return null;
 }
 function openProjectOverlay(item) {
@@ -866,7 +913,7 @@ function openProjectOverlay(item) {
     projectOverlay.classList.add('open');
     projectOverlay.setAttribute('aria-hidden', 'false');
     document.body.classList.add('project-overlay-open');
-    document.getElementById('projectFilmToggle').onclick = () => { window.location.href = projectFilmUrl(item); };
+    document.getElementById('projectFilmToggle').onclick = () => openFilmOverlay(item);
     document.getElementById('projectClose').onclick = closeProjectOverlay;
     renderProjectView();
 }
@@ -877,21 +924,31 @@ function closeProjectOverlay() {
 }
 function renderProjectView() {
     const isAnniversary = activeProjectIsAnniversary;
-    const key = activeProjectPart === 'beginnings' ? 'hcm_s1' : activeProjectPart === 'pre' ? 'pre' : 'hcm_s2';
+    const key = activeProjectPart === 'beginnings' ? 'hcm_s1'
+        : activeProjectPart === 'pre' ? 'pre'
+        : activeProjectPart === 'daytona' ? 'daytona'
+        : 'hcm_s2';
     const part = projectParts[key];
     const eps = episodeData[key] || [];
-    document.getElementById('projectCover').src = isAnniversary ? 'HCMACOVER.png' : part.cover;
-    document.getElementById('projectTitle').textContent = isAnniversary ? 'Hypixel Cinematic Montages: Anniversary' : key === 'hcm_s1' ? 'Hypixel Cinematic Montages: Beginnings' : 'Pre-Party';
-    document.getElementById('projectType').textContent = 'Montages';
+    const isDaytona = activeProjectPart === 'daytona';
+
+    document.getElementById('projectCover').src = part.cover;
+    document.getElementById('projectTitle').textContent =
+        isAnniversary ? 'Hypixel Cinematic Montages: Anniversary' :
+        key === 'hcm_s1' ? 'Hypixel Cinematic Montages: Beginnings' :
+        key === 'pre' ? 'Pre-Party' : 'Daytona';
+    document.getElementById('projectType').textContent = isDaytona ? 'Series' : 'Montages';
+
     const meta = isAnniversary
         ? 'Violethyst Pictures · 2025 · 13 Montages, 41 min 36 sec'
         : key === 'hcm_s1'
             ? 'Violethyst Pictures · 2022 · 10 Montages, 35 min 24 sec'
-            : 'Violethyst Pictures · 2025 · 6 Montages, 22 min 29 sec';
+            : key === 'pre'
+                ? 'Violethyst Pictures · 2025 · 6 Montages, 22 min 29 sec'
+                : 'Violethyst Pictures · 2026 · 9 Episodes · The Finale';
     document.getElementById('projectMeta').textContent = meta;
     document.getElementById('projectPlay').onclick = () => {
-        const playKey = isAnniversary ? 'hcm_s1' : key;
-        const url = videoLinks[playKey] && videoLinks[playKey][0];
+        const url = videoLinks[key] && videoLinks[key][0];
         if (url) window.open(url.replace('/embed/', '/watch?v='), '_blank', 'noopener');
     };
 
@@ -900,19 +957,18 @@ function renderProjectView() {
 
     const sections = isAnniversary
         ? [{ label: 'Beginnings', key: 'hcm_s1' }, { label: 'Anniversary', key: 'hcm_s2' }]
-        : [{ label: key === 'pre' ? 'Pre-Party' : 'Beginnings', key }];
+        : [{ label: isDaytona ? 'The Finale' : key === 'pre' ? 'Pre-Party' : 'Beginnings', key }];
 
     projectTracks.innerHTML = sections.map(section => {
         const sectionEps = episodeData[section.key] || [];
         const sectionScores = episodeRatings[section.key] || [];
-        const sectionLinks = videoLinks[section.key] || [];
         const rows = sectionEps.map((ep, i) => {
             const score = sectionScores[i];
             const rating = score ? `<span class="project-track-rating" style="background:${projectScoreColor(score)};color:${projectScoreText(score)}">${Number(score).toFixed(1)}</span>` : '<span class="project-track-rating" style="background:#222;color:#555">—</span>';
-            const displayTitle = ep.title;
+            const label = isDaytona ? `E${i + 1}` : projectEpisodeLabel(section.key, i);
             return `<div class="project-track-row" data-key="${section.key}" data-index="${i}" role="button" tabindex="0">
-                <span class="project-track-number">${projectEpisodeLabel(section.key, i)}</span>
-                <span><div class="project-track-title">${displayTitle}</div><div class="project-track-sub">Violethyst Pictures</div></span>
+                <span class="project-track-number">${label}</span>
+                <span><div class="project-track-title">${ep.title}</div><div class="project-track-sub">Violethyst Pictures</div></span>
                 ${rating}
                 <span class="project-track-duration">↗</span>
             </div>`;
@@ -929,6 +985,85 @@ function renderProjectView() {
         row.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } };
     });
 }
+
+/* ══════════════════════════════════════════════════════════
+   FILM FORMAT OVERLAY — embeds the cinematic releases page
+   on top of Home, while applying Home's terminology for
+   released Montage projects.
+   ══════════════════════════════════════════════════════════ */
+const filmOverlay = document.getElementById('filmOverlay');
+const filmFrame = document.getElementById('filmFrame');
+const filmClose = document.getElementById('filmClose');
+let activeFilmKind = null;
+let filmTerminologyTimer = null;
+
+function openFilmOverlay(item) {
+    const part = projectPartForItem(item);
+    if (!part) return;
+    activeFilmKind = part === 'daytona' ? 'daytona' : 'montages';
+    filmOverlay.classList.add('open');
+    document.body.classList.add('film-overlay-open');
+
+    if (part === 'daytona') {
+        filmFrame.src = 'releases.html?slide=1&film=1';
+    } else {
+        const season = part === 'beginnings' ? 1 : part === 'pre' ? 2 : 3;
+        filmFrame.src = `releases.html?season=${season}&film=1`;
+    }
+}
+
+function closeFilmOverlay() {
+    filmFrame.src = '';
+    filmOverlay.classList.remove('open');
+    document.body.classList.remove('film-overlay-open');
+    activeFilmKind = null;
+    if (filmTerminologyTimer) { clearInterval(filmTerminologyTimer); filmTerminologyTimer = null; }
+}
+
+function applyFilmFormatTerminology() {
+    try {
+        const doc = filmFrame.contentDocument;
+        if (!doc || !doc.body) return;
+
+        // Remove the cinematic page's extra rows; keep only the selected project's row.
+        const rows = doc.querySelectorAll('.content-rows .content-row');
+        rows.forEach((row, i) => { if (i > 0) row.style.display = 'none'; });
+
+        const activeSlide = doc.querySelector('.release-slide.active');
+        const isHcmFilm = activeSlide && activeSlide.id === 'slide-hcm';
+        if (!isHcmFilm) return;
+
+        // Released HCM projects are Montages, not a TV season. The season machinery remains in releases.html.
+        const seasonBtn = [...doc.querySelectorAll('.release-buttons button')].find(btn => btn.textContent.trim() === 'Seasons');
+        if (seasonBtn) seasonBtn.style.display = 'none';
+
+        const seasonCount = doc.getElementById('hcmSeasonCount');
+        if (seasonCount) seasonCount.textContent = 'Montages';
+
+        const rowTitle = doc.getElementById('episodesRowTitle');
+        if (rowTitle) rowTitle.textContent = rowTitle.textContent.replace(/^Episodes/, 'Montages');
+
+        doc.querySelectorAll('.episode-number').forEach(el => {
+            const t = el.textContent.trim();
+            if (/^Episode \d+:$/.test(t)) el.textContent = t.replace('Episode', 'Montage');
+            // Prologue remains Prologue.
+        });
+
+        const detailsTitle = doc.getElementById('detailsEpisodesTitle');
+        if (detailsTitle) detailsTitle.textContent = 'Montage Ratings';
+    } catch (err) {
+        console.warn('Film format terminology update failed:', err);
+    }
+}
+
+filmFrame.addEventListener('load', () => {
+    setTimeout(applyFilmFormatTerminology, 450);
+    setTimeout(applyFilmFormatTerminology, 900);
+    if (filmTerminologyTimer) clearInterval(filmTerminologyTimer);
+    filmTerminologyTimer = setInterval(applyFilmFormatTerminology, 700);
+});
+filmClose.addEventListener('click', closeFilmOverlay);
+
 window.addEventListener('keydown', e => { if (e.key === 'Escape' && projectOverlay.classList.contains('open')) closeProjectOverlay(); });
 
 </script>
