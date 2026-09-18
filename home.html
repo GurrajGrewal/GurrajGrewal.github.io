@@ -946,7 +946,7 @@ function renderProjectView() {
                 ? 'Violethyst Pictures · 2025 · 6 Montages, 22 min 29 sec'
                 : 'Violethyst Pictures · 2026 · 9 Episodes · The Finale';
     document.getElementById('projectMeta').textContent = meta;
-    document.getElementById('projectPlay').onclick = () => openFilmOverlay(item);
+    document.getElementById('projectPlay').onclick = () => openFilmOverlay(activeProject);
 
     projectTabs.innerHTML = '';
     projectTabs.style.display = 'none';
