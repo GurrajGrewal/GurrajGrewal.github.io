@@ -390,6 +390,83 @@
             opacity: 0.3;
         }
 
+
+        /* ══════════════════════════════════════
+           SPOTIFY-STYLE PROJECT OVERLAY
+           ══════════════════════════════════════ */
+        body.project-overlay-open { overflow: hidden; }
+        .project-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            display: none;
+            flex-direction: column;
+            background: #0b0b0b;
+            color: white;
+            overflow-y: auto;
+            animation: projectOverlayIn .24s ease both;
+        }
+        .project-overlay.open { display: flex; }
+        @keyframes projectOverlayIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .project-overlay-topbar {
+            position: sticky;
+            top: 0;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 18px 42px;
+            background: rgba(11,11,11,.84);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+        .project-overlay-brand { font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.38); }
+        .project-overlay-actions { display: flex; align-items: center; gap: 10px; }
+        .project-view-toggle, .project-close {
+            border: 1px solid rgba(255,255,255,.13);
+            background: rgba(255,255,255,.06);
+            color: rgba(255,255,255,.8);
+            border-radius: 999px;
+            padding: 10px 16px;
+            font: 500 12px 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+        .project-view-toggle:hover, .project-close:hover { background: rgba(255,255,255,.13); color: white; }
+        .project-overlay-main { width: min(1180px, calc(100% - 84px)); margin: 0 auto; padding: 62px 0 80px; }
+        .project-overview { display: flex; align-items: end; gap: 34px; margin-bottom: 46px; }
+        .project-cover { width: 245px; aspect-ratio: 1; object-fit: cover; border-radius: 8px; box-shadow: 0 22px 60px rgba(0,0,0,.45); flex-shrink: 0; }
+        .project-eyebrow { color: rgba(255,255,255,.4); font-size: 11px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; margin-bottom: 12px; }
+        .project-title { font-size: clamp(30px, 4vw, 58px); line-height: 1.04; letter-spacing: -.045em; margin: 0 0 16px; font-weight: 700; }
+        .project-meta { color: rgba(255,255,255,.48); font-size: 13px; line-height: 1.7; }
+        .project-play { margin-top: 25px; border: 0; background: white; color: black; border-radius: 999px; padding: 13px 25px; font: 700 13px 'Poppins', sans-serif; cursor: pointer; transition: transform .2s ease; }
+        .project-play:hover { transform: scale(1.04); }
+        .project-tabs { display: flex; gap: 8px; margin-bottom: 22px; border-bottom: 1px solid rgba(255,255,255,.08); padding-bottom: 13px; }
+        .project-tab { border: 0; background: transparent; color: rgba(255,255,255,.4); padding: 8px 12px; border-radius: 6px; font: 600 13px 'Poppins', sans-serif; cursor: pointer; }
+        .project-tab.active { color: white; background: rgba(255,255,255,.1); }
+        .project-track-head, .project-track-row { display: grid; grid-template-columns: 42px minmax(0,1fr) 90px 60px; align-items: center; gap: 12px; }
+        .project-track-head { padding: 0 14px 10px; color: rgba(255,255,255,.28); font-size: 10px; text-transform: uppercase; letter-spacing: .12em; }
+        .project-track-row { min-height: 58px; padding: 7px 14px; border-radius: 7px; cursor: pointer; transition: background .15s ease; }
+        .project-track-row:hover { background: rgba(255,255,255,.07); }
+        .project-track-number { color: rgba(255,255,255,.32); font-size: 12px; text-align: center; }
+        .project-track-title { color: rgba(255,255,255,.88); font-size: 13px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .project-track-sub { color: rgba(255,255,255,.3); font-size: 11px; margin-top: 2px; }
+        .project-track-rating { justify-self: end; min-width: 43px; padding: 5px 7px; border-radius: 6px; text-align: center; font-size: 11px; font-weight: 700; }
+        .project-track-duration { color: rgba(255,255,255,.35); font-size: 11px; text-align: right; font-variant-numeric: tabular-nums; }
+        .project-empty { color: rgba(255,255,255,.3); font-size: 13px; padding: 25px 0; }
+        @media (max-width: 700px) {
+            .project-overlay-topbar { padding: 16px 20px; }
+            .project-overlay-main { width: calc(100% - 40px); padding-top: 35px; }
+            .project-overview { align-items: start; flex-direction: column; gap: 22px; }
+            .project-cover { width: 185px; }
+            .project-track-head, .project-track-row { grid-template-columns: 30px minmax(0,1fr) 48px; gap: 8px; }
+            .project-track-duration { display: none; }
+            .project-track-head { grid-template-columns: 30px minmax(0,1fr) 48px; }
+            .project-track-row { padding: 8px 5px; }
+            .project-view-toggle, .project-close { padding: 9px 11px; font-size: 11px; }
+        }
+
     </style>
 </head>
 
@@ -462,6 +539,32 @@
     </div>
 
 </section>
+
+
+<!-- Spotify-inspired project view; film format remains releases.html -->
+<div class="project-overlay" id="projectOverlay" aria-hidden="true">
+    <div class="project-overlay-topbar">
+        <div class="project-overlay-brand">Gurraj Grewal · Releases</div>
+        <div class="project-overlay-actions">
+            <button class="project-view-toggle" id="projectFilmToggle" type="button">Film Format ↗</button>
+            <button class="project-close" id="projectClose" type="button" aria-label="Close project view">✕</button>
+        </div>
+    </div>
+    <main class="project-overlay-main">
+        <section class="project-overview">
+            <img class="project-cover" id="projectCover" src="black.png" alt="">
+            <div>
+                <div class="project-eyebrow" id="projectType">Series</div>
+                <h2 class="project-title" id="projectTitle">Project</h2>
+                <div class="project-meta" id="projectMeta"></div>
+                <button class="project-play" id="projectPlay" type="button">▶ Play in order</button>
+            </div>
+        </section>
+        <div class="project-tabs" id="projectTabs"></div>
+        <div class="project-track-head"><span>#</span><span>Title</span><span style="text-align:right">Rating</span><span style="text-align:right">↗</span></div>
+        <div id="projectTracks"></div>
+    </main>
+</div>
 
 <script>
 
@@ -544,9 +647,7 @@ function formatViews(n) {
 
 function goToItem(item) {
     if (item.kind === "project") {
-        const p = new URLSearchParams({ title: item.link.title });
-        if (item.link.season) p.set("season", item.link.season);
-        window.location.href = `releases.html?${p.toString()}`;
+        openProjectOverlay(item);
     } else if (item.kind === "playlist") {
         window.open(item.link.url, "_blank", "noopener");
     } else if (item.videoId) {
@@ -616,6 +717,119 @@ function renderDiscography() {
 /* ── INIT ── */
 renderPopular();
 renderDiscography();
+
+
+/* ══════════════════════════════════════════════════════════
+   SPOTIFY-STYLE PROJECT VIEW
+   ══════════════════════════════════════════════════════════ */
+const projectOverlay = document.getElementById('projectOverlay');
+const projectTabs = document.getElementById('projectTabs');
+const projectTracks = document.getElementById('projectTracks');
+let activeProject = null;
+let activeProjectPart = null;
+let activeProjectIsAnniversary = false;
+
+const projectParts = {
+    hcm_s1: { label: 'Beginnings', key: 'hcm_s1', cover: 'HCMS1COVER.png', year: '2022' },
+    hcm_s2: { label: 'Anniversary', key: 'hcm_s2', cover: 'HCMS3COVER.png', year: '2025' },
+    pre: { label: 'Pre-Party', key: 'pre', cover: 'HCMS2COVER.png', year: '2025' }
+};
+
+function projectScoreColor(score) {
+    if (score === null || score === undefined || !score) return '#222';
+    if (score < 5) return '#8e0808';
+    if (score < 6) return '#bf6205';
+    if (score < 7.6) return '#cea502';
+    if (score < 8) return '#0aad1d';
+    if (score < 9) return '#0b911b';
+    if (score < 9.5) return '#008430';
+    return '#00b1d1';
+}
+function projectScoreText(score) { return score >= 5 && score < 9 ? '#0f0f0f' : 'white'; }
+function projectEpisodeLabel(key, index) {
+    if (key === 'hcm_s1') return index === 0 ? 'P' : `E${index}`;
+    return `E${index + 1}`;
+}
+function projectFilmUrl(item) {
+    const p = new URLSearchParams({ title: item.link.title });
+    if (item.link.season) p.set('season', item.link.season);
+    return `releases.html?${p.toString()}`;
+}
+function projectPartForItem(item) {
+    if (item.link && item.link.title === 'hcm' && item.link.season === 3) return 'anniversary';
+    if (item.link && item.link.title === 'hcm' && item.link.season === 1) return 'beginnings';
+    if (item.link && item.link.title === 'hcm' && item.link.season === 2) return 'pre';
+    return null;
+}
+function openProjectOverlay(item) {
+    const part = projectPartForItem(item);
+    if (!part) return;
+    activeProject = item;
+    activeProjectIsAnniversary = part === 'anniversary';
+    activeProjectPart = part === 'anniversary' ? 'anniversary' : part;
+    projectOverlay.classList.add('open');
+    projectOverlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('project-overlay-open');
+    document.getElementById('projectFilmToggle').onclick = () => { window.location.href = projectFilmUrl(item); };
+    document.getElementById('projectClose').onclick = closeProjectOverlay;
+    renderProjectView();
+}
+function closeProjectOverlay() {
+    projectOverlay.classList.remove('open');
+    projectOverlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('project-overlay-open');
+}
+function renderProjectView() {
+    const isAnniversary = activeProjectIsAnniversary;
+    const key = activeProjectPart === 'beginnings' ? 'hcm_s1' : activeProjectPart === 'pre' ? 'pre' : 'hcm_s2';
+    const part = projectParts[key];
+    const eps = episodeData[key] || [];
+    document.getElementById('projectCover').src = isAnniversary ? 'HCMS3COVER.png' : part.cover;
+    document.getElementById('projectTitle').textContent = isAnniversary ? 'Hypixel Cinematic Montages (Anniversary)' : key === 'hcm_s1' ? 'Hypixel Cinematic Montages (Beginnings)' : 'Hypixel Cinematic Montages (Pre-Party)';
+    document.getElementById('projectType').textContent = 'Series';
+    document.getElementById('projectMeta').textContent = isAnniversary ? '2025 · Deluxe series · Violethyst Pictures' : `${part.year} · ${eps.length} episodes · Violethyst Pictures`;
+    document.getElementById('projectPlay').onclick = () => {
+        const playKey = isAnniversary ? 'hcm_s1' : key;
+        const url = videoLinks[playKey] && videoLinks[playKey][0];
+        if (url) window.open(url.replace('/embed/', '/watch?v='), '_blank', 'noopener');
+    };
+
+    projectTabs.innerHTML = '';
+    projectTabs.style.display = 'none';
+
+    const sections = isAnniversary
+        ? [{ label: 'Beginnings', key: 'hcm_s1' }, { label: 'Anniversary', key: 'hcm_s2' }]
+        : [{ label: key === 'pre' ? 'Pre-Party' : 'Beginnings', key }];
+
+    projectTracks.innerHTML = sections.map(section => {
+        const sectionEps = episodeData[section.key] || [];
+        const sectionScores = episodeRatings[section.key] || [];
+        const sectionLinks = videoLinks[section.key] || [];
+        const rows = sectionEps.map((ep, i) => {
+            const score = sectionScores[i];
+            const rating = score ? `<span class="project-track-rating" style="background:${projectScoreColor(score)};color:${projectScoreText(score)}">${Number(score).toFixed(1)}</span>` : '<span class="project-track-rating" style="background:#222;color:#555">—</span>';
+            const displayTitle = section.key === 'hcm_s1' && i === 0 ? ep.title + ' (Intro)' : ep.title;
+            return `<div class="project-track-row" data-key="${section.key}" data-index="${i}" role="button" tabindex="0">
+                <span class="project-track-number">${projectEpisodeLabel(section.key, i)}</span>
+                <span><div class="project-track-title">${displayTitle}</div><div class="project-track-sub">Violethyst Pictures</div></span>
+                ${rating}
+                <span class="project-track-duration">↗</span>
+            </div>`;
+        }).join('');
+        return `<section class="project-track-section"><h3 style="font-size:16px;margin:28px 0 10px;font-weight:600;color:rgba(255,255,255,.86)">${section.label}</h3>${rows}</section>`;
+    }).join('');
+
+    projectTracks.querySelectorAll('.project-track-row').forEach(row => {
+        const rowKey = row.dataset.key;
+        const index = Number(row.dataset.index);
+        const url = (videoLinks[rowKey] || [])[index];
+        const open = () => { if (url) window.open(url.replace('/embed/', '/watch?v='), '_blank', 'noopener'); };
+        row.onclick = open;
+        row.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } };
+    });
+}
+window.addEventListener('keydown', e => { if (e.key === 'Escape' && projectOverlay.classList.contains('open')) closeProjectOverlay(); });
+
 </script>
 
 </body>
