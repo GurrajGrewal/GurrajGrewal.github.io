@@ -879,10 +879,10 @@ function renderProjectView() {
     document.getElementById('projectTitle').textContent = isAnniversary ? 'Hypixel Cinematic Montages: Anniversary' : key === 'hcm_s1' ? 'Hypixel Cinematic Montages: Beginnings' : 'Pre-Party';
     document.getElementById('projectType').textContent = 'Montages';
     const meta = isAnniversary
-        ? 'Violethyst Pictures · 2025 · 13 Episodes, 41:36'
+        ? 'Violethyst Pictures · 2025 · 13 Montages, 41 min 36 sec'
         : key === 'hcm_s1'
-            ? 'Violethyst Pictures · 2022 · 10 Episodes, 35:24'
-            : 'Violethyst Pictures · 2025 · 6 Episodes';
+            ? 'Violethyst Pictures · 2022 · 10 Montages, 35 min 24 sec'
+            : 'Violethyst Pictures · 2025 · 6 Montages, 22 min 29 sec';
     document.getElementById('projectMeta').textContent = meta;
     document.getElementById('projectPlay').onclick = () => {
         const playKey = isAnniversary ? 'hcm_s1' : key;
