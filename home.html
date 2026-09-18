@@ -593,7 +593,7 @@
    ══════════════════════════════════════════════════════════ */
 const catalog = [
     // ── PROJECTS ──
-    { kind: "project", format: "Montages", popularRank: 1, ratingRank: 2, rating: 5.9, title: "Hypixel Cinematic Montages: Anniversary",
+    { kind: "project", format: "Montages", popularRank: 4, ratingRank: 2, rating: 5.9, title: "Hypixel Cinematic Montages: Anniversary",
       sub: "2025 · Montages", cover: "HCMACOVER.png", subject: "Violethyst Pictures", year: 2025,
       videoId: "v_4zKKeNzm0", link: { title: "hcm", season: 3 } },
 
@@ -607,7 +607,7 @@ const catalog = [
 
     // ── COMPILATIONS ──
     { kind: "compilation", format: "Compilation", title: "Daytona: Teasers & Trailers",
-      subject: "Violethyst Pictures", year: 2026, cover: "DCAST.png", videoId: null, placeholder: true },
+      subject: "Violethyst Pictures", year: 2026, cover: "DCAST.png", videoId: null, placeholder: true, popularRank: 1, link: { url: "https://www.youtube.com/playlist?list=PLL2d-OATLvpA3aNDuSt-noaBWX4NEmnne" } },
 
 
     // ── OTHER VIDEOS — retained as catalog data, but not currently surfaced in Popular ──
@@ -668,22 +668,27 @@ function goToItem(item) {
 function renderPopular() {
     const list = document.getElementById("popularList");
     const ranked = catalog
-        .filter(i => i.kind === "project" && Number.isFinite(i.ratingRank))
-        .sort((a, b) => a.ratingRank - b.ratingRank)
+        .filter(i => Number.isFinite(i.popularRank))
+        .sort((a, b) => a.popularRank - b.popularRank)
         .slice(0, 10);
 
-    list.innerHTML = ranked.map(item => `
+    list.innerHTML = ranked.map(item => {
+        const isProject = item.kind === "project";
+        const rating = isProject && Number.isFinite(item.rating)
+            ? `<span class="popular-rating" style="background:${projectScoreColor(item.rating)};color:${projectScoreText(item.rating)}">${Number(item.rating).toFixed(1)}</span>`
+            : `<span class="popular-rating unrated">—</span>`;
+        return `
         <div class="popular-row" role="button" tabindex="0">
-            <span class="popular-rank">${item.ratingRank}</span>
+            <span class="popular-rank">${item.popularRank}</span>
             <div class="popular-thumb"><img src="${item.cover || 'black.png'}" alt=""></div>
             <div class="popular-info">
                 <div class="popular-title">${item.title}</div>
                 <div class="popular-sub">${item.format || 'Montages'} · ${item.year || '—'}</div>
             </div>
             <div class="popular-artist">${item.subject || 'Violethyst Pictures'}</div>
-            <span class="popular-rating" style="background:${projectScoreColor(item.rating)};color:${projectScoreText(item.rating)}">${Number(item.rating).toFixed(1)}</span>
-        </div>`
-    ).join("");
+            ${rating}
+        </div>`;
+    }).join("");
 
     ranked.forEach((item, i) => {
         const row = list.children[i];
@@ -734,7 +739,6 @@ function renderDiscography() {
     `).join("");
 
     items.forEach((item, i) => {
-        if (item.placeholder) return;
         track.children[i].onclick = () => goToItem(item);
     });
 }
@@ -905,7 +909,7 @@ function renderProjectView() {
         const rows = sectionEps.map((ep, i) => {
             const score = sectionScores[i];
             const rating = score ? `<span class="project-track-rating" style="background:${projectScoreColor(score)};color:${projectScoreText(score)}">${Number(score).toFixed(1)}</span>` : '<span class="project-track-rating" style="background:#222;color:#555">—</span>';
-            const displayTitle = section.key === 'hcm_s1' && i === 0 ? ep.title + ' (Intro)' : ep.title;
+            const displayTitle = ep.title;
             return `<div class="project-track-row" data-key="${section.key}" data-index="${i}" role="button" tabindex="0">
                 <span class="project-track-number">${projectEpisodeLabel(section.key, i)}</span>
                 <span><div class="project-track-title">${displayTitle}</div><div class="project-track-sub">Violethyst Pictures</div></span>
