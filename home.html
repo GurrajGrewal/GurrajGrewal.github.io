@@ -594,20 +594,20 @@
 const catalog = [
     // ── PROJECTS ──
     { kind: "project", format: "Montages", popularRank: 1, ratingRank: 2, rating: 5.9, title: "Hypixel Cinematic Montages: Anniversary",
-      sub: "2025 · Montages", cover: "HCMS3COVER.png", subject: "Violethyst Pictures", year: 2025,
+      sub: "2025 · Montages", cover: "HCMACOVER.png", subject: "Violethyst Pictures", year: 2025,
       videoId: "v_4zKKeNzm0", link: { title: "hcm", season: 3 } },
 
     { kind: "project", format: "Montages", popularRank: 2, ratingRank: 3, rating: 5.5, title: "Pre-Party",
-      sub: "2025 · Montages", cover: "HCMS2COVER.png", subject: "Violethyst Pictures", year: 2025,
+      sub: "2025 · Montages", cover: "PRE-PARTYCOVER.png", subject: "Violethyst Pictures", year: 2025,
       videoId: "xJQcI7Pm-Dk", link: { title: "hcm", season: 2 } },
 
     { kind: "project", format: "Montages", popularRank: 3, ratingRank: 1, rating: 6.2, title: "Hypixel Cinematic Montages: Beginnings",
-      sub: "2022 · Montages", cover: "HCMS1COVER.png", subject: "Violethyst Pictures", year: 2022,
+      sub: "2022 · Montages", cover: "HCMBCOVER.png", subject: "Violethyst Pictures", year: 2022,
       videoId: "HmVeA0c8IHI", link: { title: "hcm", season: 1 } },
 
     // ── COMPILATIONS ──
     { kind: "compilation", format: "Compilation", title: "Daytona: Teasers & Trailers",
-      subject: "Violethyst Pictures", year: 2026, cover: "black.png", videoId: null, placeholder: true },
+      subject: "Violethyst Pictures", year: 2026, cover: "DCAST.png", videoId: null, placeholder: true },
 
 
     // ── OTHER VIDEOS — retained as catalog data, but not currently surfaced in Popular ──
@@ -822,9 +822,9 @@ let activeProjectPart = null;
 let activeProjectIsAnniversary = false;
 
 const projectParts = {
-    hcm_s1: { label: 'Beginnings', key: 'hcm_s1', cover: 'HCMS1COVER.png', year: '2022' },
-    hcm_s2: { label: 'Anniversary', key: 'hcm_s2', cover: 'HCMS3COVER.png', year: '2025' },
-    pre: { label: 'Pre-Party', key: 'pre', cover: 'HCMS2COVER.png', year: '2025' }
+    hcm_s1: { label: 'Beginnings', key: 'hcm_s1', cover: 'HCMBCOVER.png', year: '2022' },
+    hcm_s2: { label: 'Anniversary', key: 'hcm_s2', cover: 'HCMACOVER.png', year: '2025' },
+    pre: { label: 'Pre-Party', key: 'pre', cover: 'PRE-PARTYCOVER.png', year: '2025' }
 };
 
 function projectScoreColor(score) {
@@ -875,7 +875,7 @@ function renderProjectView() {
     const key = activeProjectPart === 'beginnings' ? 'hcm_s1' : activeProjectPart === 'pre' ? 'pre' : 'hcm_s2';
     const part = projectParts[key];
     const eps = episodeData[key] || [];
-    document.getElementById('projectCover').src = isAnniversary ? 'HCMS3COVER.png' : part.cover;
+    document.getElementById('projectCover').src = isAnniversary ? 'HCMACOVER.png' : part.cover;
     document.getElementById('projectTitle').textContent = isAnniversary ? 'Hypixel Cinematic Montages: Anniversary' : key === 'hcm_s1' ? 'Hypixel Cinematic Montages: Beginnings' : 'Pre-Party';
     document.getElementById('projectType').textContent = 'Montages';
     const meta = isAnniversary
