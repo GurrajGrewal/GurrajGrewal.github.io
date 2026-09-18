@@ -27,9 +27,11 @@
             top: 0;
             width: 100%;
             z-index: 10;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(8,8,8,0.14);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
         }
 
         .nav-center {
@@ -513,7 +515,6 @@
 
     <ul class="nav-center">
         <li><a href="home.html">HOME</a></li>
-        <li><a href="releases.html">RELEASES</a></li>
         <li><a href="announcements.html">ANNOUNCEMENTS</a></li>
         <li><a href="reviews.html">REVIEWS</a></li>
     </ul>
@@ -535,12 +536,12 @@
             </div>
             <div class="hero-stat-divider"></div>
             <div class="hero-stat">
-                <span class="hero-stat-value">3</span>
+                <span class="hero-stat-value">4</span>
                 <span class="hero-stat-label">Projects</span>
             </div>
             <div class="hero-stat-divider"></div>
             <div class="hero-stat">
-                <span class="hero-stat-value">2025</span>
+                <span class="hero-stat-value">2026</span>
                 <span class="hero-stat-label">Latest Release</span>
             </div>
         </div>
@@ -615,7 +616,11 @@
    too new/low to bother showing (renders as "—").
    ══════════════════════════════════════════════════════════ */
 const catalog = [
-    // ── PROJECTS ──
+    // ── PROJECTS — latest release first ──
+    { kind: "project", format: "Series", popularRank: null, ratingRank: null, rating: null, title: "Daytona",
+      sub: "2026 · Series", cover: "DAYTONACOVER.png", subject: "Violethyst Pictures", year: 2026,
+      videoId: "u7msMYh8Yyk", link: { title: "daytona", slide: 1 } },
+
     { kind: "project", format: "Montages", popularRank: 4, ratingRank: 2, rating: 5.9, title: "Hypixel Cinematic Montages: Anniversary",
       sub: "2025 · Montages", cover: "HCMACOVER.png", subject: "Violethyst Pictures", year: 2025,
       videoId: "v_4zKKeNzm0", link: { title: "hcm", season: 3 } },
@@ -627,10 +632,6 @@ const catalog = [
     { kind: "project", format: "Montages", popularRank: 3, ratingRank: 1, rating: 6.2, title: "Hypixel Cinematic Montages: Beginnings",
       sub: "2022 · Montages", cover: "HCMBCOVER.png", subject: "Violethyst Pictures", year: 2022,
       videoId: "HmVeA0c8IHI", link: { title: "hcm", season: 1 } },
-
-    { kind: "project", format: "Series", popularRank: null, ratingRank: null, rating: null, title: "Daytona",
-      sub: "2026 · Series", cover: "DAYTONACOVER.png", subject: "Violethyst Pictures", year: 2026,
-      videoId: "u7msMYh8Yyk", link: { title: "daytona", slide: 1 } },
 
     // ── COMPILATIONS ──
     { kind: "compilation", format: "Compilation", title: "Daytona: Teasers & Trailers",
@@ -1025,6 +1026,11 @@ function applyFilmFormatTerminology() {
         const doc = filmFrame.contentDocument;
         if (!doc || !doc.body) return;
 
+        // Film Format is the cinematic layer of Home, so the old Releases navbar is removed.
+        const filmNavbar = doc.querySelector('.navbar');
+        if (filmNavbar) filmNavbar.style.display = 'none';
+        if (doc.querySelector('.nav-center')) doc.querySelector('.nav-center').style.display = 'none';
+
         // Remove the cinematic page's extra rows; keep only the selected project's row.
         const rows = doc.querySelectorAll('.content-rows .content-row');
         rows.forEach((row, i) => { if (i > 0) row.style.display = 'none'; });
@@ -1064,7 +1070,11 @@ filmFrame.addEventListener('load', () => {
 });
 filmClose.addEventListener('click', closeFilmOverlay);
 
-window.addEventListener('keydown', e => { if (e.key === 'Escape' && projectOverlay.classList.contains('open')) closeProjectOverlay(); });
+window.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (filmOverlay.classList.contains('open')) { closeFilmOverlay(); return; }
+    if (projectOverlay.classList.contains('open')) closeProjectOverlay();
+});
 
 </script>
 
