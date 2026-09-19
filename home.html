@@ -1007,7 +1007,18 @@ function openFilmOverlay(item) {
         filmFrame.dataset.season = String(part === 'beginnings' ? 1 : part === 'pre' ? 2 : 3);
     }
 
-    filmFrame.srcdoc = FILM_PAGE_HTML;
+    // Pass the selected release directly into the embedded film page.
+    // Using frameElement.dataset alone can be unreliable inside a srcdoc iframe.
+    const filmTarget = {
+        kind: filmFrame.dataset.kind || 'montages',
+        slide: filmFrame.dataset.slide || '0',
+        season: filmFrame.dataset.season || '0'
+    };
+    const filmPage = FILM_PAGE_HTML.replace(
+        'const filmTarget = window.frameElement?.dataset || {};',
+        `const filmTarget = ${JSON.stringify(filmTarget)};`
+    );
+    filmFrame.srcdoc = filmPage;
 }
 
 function closeFilmOverlay() {
