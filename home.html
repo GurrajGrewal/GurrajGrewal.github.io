@@ -626,15 +626,15 @@ const catalog = [
       videoId: "u7msMYh8Yyk", link: { title: "daytona", slide: 1 } },
 
     { kind: "project", format: "Montages", popularRank: 4, ratingRank: 2, rating: 5.9, title: "Hypixel Cinematic Montages: Anniversary",
-      sub: "2025 · Montages", cover: "HCMACOVER.png", subject: "Gurraj Grewal, Quadeca, SZA, JID, Kanye West, Ty Dolla $ign", year: 2025,
+      sub: "2025 · Montages", cover: "HCMACOVER.png", subject: "Gurraj Grewal, Quadeca", year: 2025,
       videoId: "v_4zKKeNzm0", link: { title: "hcm", season: 3 } },
 
     { kind: "project", format: "Montages", popularRank: 2, ratingRank: 3, rating: 5.5, title: "Pre-Party",
-      sub: "2025 · Montages", cover: "PRE-PARTYCOVER.png", subject: "Gurraj Grewal, The Weeknd, Travis Scott, Florence + The Machine", year: 2025,
+      sub: "2025 · Montages", cover: "PRE-PARTYCOVER.png", subject: "Gurraj Grewal, The Weeknd", year: 2025,
       videoId: "xJQcI7Pm-Dk", link: { title: "hcm", season: 2 } },
 
     { kind: "project", format: "Montages", popularRank: 3, ratingRank: 1, rating: 6.2, title: "Hypixel Cinematic Montages: Beginnings",
-      sub: "2022 · Montages", cover: "HCMBCOVER.png", subject: "Gurraj Grewal, Quadeca, Throttle, Dion Timmer, Travis Scott, Juice WRLD, Metro Boomin, Future, The Weeknd", year: 2022,
+      sub: "2022 · Montages", cover: "HCMBCOVER.png", subject: "Gurraj Grewal, Quadeca", year: 2022,
       videoId: "HmVeA0c8IHI", link: { title: "hcm", season: 1 } },
 
     // ── COMPILATIONS ──
@@ -834,7 +834,7 @@ const episodeArtists = {
         "Gurraj Grewal, The Weeknd",
         "Gurraj Grewal, The Weeknd",
         "Gurraj Grewal, The Weeknd",
-        "Gurraj Grewal, The Weeknd, Travis Scott, Florence + The Machine",
+        "Gurraj Grewal, The Weeknd",
         "Gurraj Grewal, The Weeknd",
         "Gurraj Grewal, The Weeknd"
     ],
@@ -968,11 +968,11 @@ function renderProjectView() {
     document.getElementById('projectType').textContent = isDaytona ? 'Series' : 'Montages';
 
     const meta = isAnniversary
-        ? 'Gurraj Grewal, Quadeca, SZA, JID, Kanye West, Ty Dolla $ign · 2025 · 13 Montages, 41 min 36 sec'
+        ? 'Gurraj Grewal, Quadeca · 2025 · 13 Montages, 41 min 36 sec'
         : key === 'hcm_s1'
-            ? 'Gurraj Grewal, Quadeca, Throttle, Dion Timmer, Travis Scott, Juice WRLD, Metro Boomin, Future, The Weeknd · 2022 · 10 Montages, 35 min 24 sec'
+            ? 'Gurraj Grewal, Quadeca · 2022 · 10 Montages, 35 min 24 sec'
             : key === 'pre'
-                ? 'Gurraj Grewal, The Weeknd, Travis Scott, Florence + The Machine · 2025 · 6 Montages, 22 min 29 sec'
+                ? 'Gurraj Grewal, The Weeknd · 2025 · 6 Montages, 22 min 29 sec'
                 : 'Gurraj Grewal, Violethyst+ · 2026 · 9 Episodes · The Finale';
     document.getElementById('projectMeta').textContent = meta;
     document.getElementById('projectPlay').onclick = () => openFilmOverlay(activeProject, activeProjectPart);
