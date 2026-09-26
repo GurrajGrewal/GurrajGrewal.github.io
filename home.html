@@ -569,7 +569,7 @@
             display: flex;
             align-items: center;
             gap: 14px;
-            margin-top: 0;
+            margin-top: 2px;
         }
         .hero-stat {
             display: flex;
@@ -577,6 +577,7 @@
             gap: 6px;
             flex-direction: row;
         }
+        .hero-stat-single { gap: 7px; }
         .hero-stat-value {
             font-size: 14px;
             font-weight: 700;
@@ -652,10 +653,9 @@
 
         /* About section preview — exact 16:9 / 1920×1080 ratio */
         .artist-about {
-            width: calc(100% - 20px);
-            max-width: 1920px;
+            width: min(calc(100% - 20px), 1180px);
             margin: 0 auto;
-            padding: 0 34px 64px;
+            padding: 0 0 64px;
             background: var(--page-black);
         }
         .artist-about-heading {
@@ -714,9 +714,9 @@
         }
         .artist-about-preview-content {
             position: absolute;
-            left: clamp(24px, 4vw, 64px);
-            right: clamp(24px, 4vw, 64px);
-            bottom: clamp(24px, 4vw, 56px);
+            left: clamp(24px, 4vw, 48px);
+            right: clamp(24px, 4vw, 48px);
+            bottom: clamp(24px, 4vw, 44px);
             z-index: 1;
         }
         .artist-about-preview-kicker {
@@ -730,21 +730,21 @@
         }
         .artist-about-preview-title {
             margin: 0 0 10px;
-            font-size: clamp(30px, 4vw, 52px);
+            font-size: clamp(28px, 3.5vw, 48px);
             line-height: .98;
             letter-spacing: -.045em;
         }
         .artist-about-preview-copy {
-            max-width: 640px;
+            max-width: 620px;
             margin: 0;
             color: rgba(255,255,255,.82);
-            font-size: 14px;
+            font-size: 13px;
             line-height: 1.6;
         }
         .artist-about-preview-button {
             position: absolute;
-            right: clamp(24px, 4vw, 64px);
-            bottom: clamp(24px, 4vw, 56px);
+            right: clamp(24px, 4vw, 48px);
+            bottom: clamp(24px, 4vw, 44px);
             z-index: 2;
             width: 46px;
             height: 46px;
@@ -878,11 +878,15 @@
         }
         .about-close:hover { background: rgba(255,255,255,.12); }
 
+        @media (min-width: 1400px) {
+            .artist-about-button { max-height: 664px; }
+        }
+
         @media (max-width: 900px) {
             .hero { height: min(68vh, 600px); }
             .hero-content { left: 25px; bottom: 30px; }
             .main { padding-left: 24px; padding-right: 24px; }
-            .artist-about { padding-left: 24px; padding-right: 24px; }
+            .artist-about { width: calc(100% - 48px); }
             .about-stats { grid-template-columns: repeat(2, minmax(130px, 1fr)); }
         }
         @media (max-width: 700px) {
@@ -895,7 +899,7 @@
             .popular-artist { display: none; }
             .popular-thumb { width: 44px; height: 44px; }
             .main { padding: 24px 18px 40px; margin: 0; }
-            .artist-about { padding: 0 18px 40px; margin: 0; }
+            .artist-about { width: calc(100% - 36px); padding: 0 0 40px; margin: 0 auto; }
             .artist-about-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
             .artist-about-button { min-height: 340px; }
             .artist-about-preview-copy { max-width: 92%; }
@@ -952,14 +956,9 @@
         <h1 class="hero-name">Gurraj Grewal</h1>
 
         <div class="hero-stats">
-            <div class="hero-stat">
+            <div class="hero-stat hero-stat-single">
                 <span class="hero-stat-value">1,350</span>
                 <span class="hero-stat-label">Monthly Viewers</span>
-            </div>
-            <span class="hero-stat-separator">•</span>
-            <div class="hero-stat">
-                <span class="hero-stat-value">4</span>
-                <span class="hero-stat-label">Projects</span>
             </div>
         </div>
     </div>
@@ -1037,7 +1036,7 @@
                 </div>
                 <div class="about-stat">
                     <span class="about-stat-value">73,673</span>
-                    <span class="about-stat-label">Monthly Viewers</span>
+                    <span class="about-stat-label">Peak Monthly Viewers</span>
                 </div>
                 <div class="about-stat">
                     <span class="about-stat-value">4</span>
