@@ -506,6 +506,143 @@
             .project-view-toggle, .project-close { padding: 9px 11px; font-size: 11px; }
         }
 
+    
+
+        /* ══════ ABOUT SECTION ══════ */
+        .about-section {
+            padding: 0 72px 82px;
+            background: #080808;
+        }
+
+        .about-header {
+            margin-bottom: 20px;
+        }
+
+        .about-header h2 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: rgba(255,255,255,.95);
+        }
+
+        .about-image-wrap {
+            width: min(980px, 100%);
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #111;
+            border: 1px solid rgba(255,255,255,.05);
+        }
+
+        .about-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-content-row {
+            display: grid;
+            grid-template-columns: minmax(190px, 250px) minmax(0, 1fr);
+            gap: 48px;
+            max-width: 980px;
+            padding: 28px 0 42px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .about-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .about-stat-value {
+            display: block;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.015em;
+        }
+
+        .about-stat-label {
+            display: block;
+            margin-top: 4px;
+            color: rgba(255,255,255,.38);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .10em;
+            text-transform: uppercase;
+            line-height: 1.4;
+        }
+
+        .about-description {
+            align-self: start;
+            max-width: 620px;
+        }
+
+        .about-description p {
+            margin: 0;
+            color: rgba(255,255,255,.78);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .about-links {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 48px;
+            max-width: 980px;
+            padding-top: 36px;
+        }
+
+        .about-link-group h3 {
+            margin: 0 0 14px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .about-link-group a {
+            display: block;
+            width: fit-content;
+            margin: 0 0 9px;
+            color: rgba(255,255,255,.52);
+            font-size: 13px;
+            line-height: 1.45;
+            text-decoration: none;
+            transition: color .18s ease;
+        }
+
+        .about-link-group a:hover {
+            color: #fff;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        @media (max-width: 800px) {
+            .about-section {
+                padding: 0 30px 64px;
+            }
+
+            .about-content-row {
+                grid-template-columns: 1fr;
+                gap: 26px;
+            }
+
+            .about-links {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .about-section {
+                padding: 0 20px 54px;
+            }
+        }
+
     </style>
 </head>
 
@@ -531,23 +668,13 @@
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
-        <div class="hero-eyebrow">Creator · Filmmaker</div>
+        <div class="hero-eyebrow">Creator</div>
         <h1 class="hero-name">Gurraj Grewal</h1>
 
         <div class="hero-stats">
             <div class="hero-stat">
-                <span class="hero-stat-value">642,092</span>
-                <span class="hero-stat-label">Lifetime Views</span>
-            </div>
-            <div class="hero-stat-divider"></div>
-            <div class="hero-stat">
-                <span class="hero-stat-value">4</span>
-                <span class="hero-stat-label">Projects</span>
-            </div>
-            <div class="hero-stat-divider"></div>
-            <div class="hero-stat">
-                <span class="hero-stat-value">2026</span>
-                <span class="hero-stat-label">Latest Release</span>
+                <span class="hero-stat-value">1,350</span>
+                <span class="hero-stat-label">monthly viewers</span>
             </div>
         </div>
     </div>
@@ -579,6 +706,61 @@
 
 </section>
 
+
+
+<!-- ══════ ABOUT ══════ -->
+<section class="about-section" aria-labelledby="about-title">
+    <div class="about-header">
+        <h2 id="about-title">About</h2>
+    </div>
+
+    <div class="about-image-wrap">
+        <img class="about-image" src="GurrajGrewal2026.3.png" alt="Gurraj Grewal">
+    </div>
+
+    <div class="about-content-row">
+        <aside class="about-stats" aria-label="Creator statistics">
+            <div class="about-stat">
+                <span class="about-stat-value">73,673</span>
+                <span class="about-stat-label">peak monthly viewers</span>
+            </div>
+            <div class="about-stat">
+                <span class="about-stat-value">642,092</span>
+                <span class="about-stat-label">total lifetime views</span>
+            </div>
+            <div class="about-stat">
+                <span class="about-stat-value">1,409</span>
+                <span class="about-stat-label">total followers</span>
+            </div>
+        </aside>
+
+        <div class="about-description">
+            <p>
+                Gurraj Grewal is a creator focused on cinematic visual work, editing,
+                Minecraft films, montages, and long-form projects. His work combines
+                music, atmosphere, visual storytelling, and detailed editing to build
+                immersive worlds and a distinct creative identity.
+            </p>
+        </div>
+    </div>
+
+    <div class="about-links">
+        <div class="about-link-group">
+            <h3>Gurraj Grewal</h3>
+            <a href="https://www.youtube.com/@GurrajSGrewal" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="https://www.instagram.com/gurrajsgrewal/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://www.tiktok.com/@gurrajgrewal" target="_blank" rel="noopener noreferrer">TikTok</a>
+            <a href="https://x.com/GurrajGrewal" target="_blank" rel="noopener noreferrer">Twitter / X</a>
+            <a href="https://www.twitch.tv/gurrajgrewal" target="_blank" rel="noopener noreferrer">Twitch</a>
+        </div>
+
+        <div class="about-link-group">
+            <h3>The Violethyst Channels</h3>
+            <a href="https://www.youtube.com/@Violethyst" target="_blank" rel="noopener noreferrer">YouTube, Violethyst</a>
+            <a href="https://www.youtube.com/@ViolethystPlus" target="_blank" rel="noopener noreferrer">YouTube, Violethyst+</a>
+        </div>
+    </div>
+</section>
 
 <!-- Spotify-inspired project view -->
 <div class="project-overlay" id="projectOverlay" aria-hidden="true">
@@ -911,15 +1093,19 @@ const projectParts = {
     daytona: { label: 'Daytona', key: 'daytona', cover: 'DAYTONACOVER.png', year: '2026' }
 };
 
+/* ── COLOUR SYSTEM ── */
 function projectScoreColor(score) {
-    if (score === null || score === undefined || !score) return '#222';
-    if (score < 5) return '#8e0808';
-    if (score < 6) return '#bf6205';
-    if (score < 7.6) return '#cea502';
-    if (score < 8) return '#0aad1d';
-    if (score < 9) return '#0b911b';
-    if (score < 9.5) return '#008430';
-    return '#00b1d1';
+    if (score === null || score === undefined) return null;
+
+    if (score < 4.0) return "#351e4f";
+    if (score < 5.0) return "#8e0808";
+    if (score < 6.0) return "#bf6205";
+    if (score < 7.6) return "#cea502";
+    if (score < 8.0) return "#0aad1d";
+    if (score < 9.0) return "#0b911b";
+    if (score < 9.5) return "#008430";
+
+    return "#00b1d1";
 }
 function projectScoreText(score) { return score >= 5 && score < 9 ? '#0f0f0f' : 'white'; }
 function projectEpisodeLabel(key, index) {
@@ -989,7 +1175,7 @@ function renderProjectView() {
         const sectionScores = episodeRatings[section.key] || [];
         const rows = sectionEps.map((ep, i) => {
             const score = sectionScores[i];
-            const rating = score ? `<span class="project-track-rating" style="background:${projectScoreColor(score)};color:${projectScoreText(score)}">${Number(score).toFixed(1)}</span>` : '<span class="project-track-rating" style="background:#222;color:#555">—</span>';
+            const rating = score !== null && score !== undefined ? `<span class="project-track-rating" style="background:${projectScoreColor(score)};color:${projectScoreText(score)}">${Number(score).toFixed(1)}</span>` : '<span class="project-track-rating" style="background:#222;color:#555">—</span>';
             const label = isDaytona ? `E${i + 1}` : projectEpisodeLabel(section.key, i);
             return `<div class="project-track-row" data-key="${section.key}" data-index="${i}" role="button" tabindex="0">
                 <span class="project-track-number">${label}</span>
