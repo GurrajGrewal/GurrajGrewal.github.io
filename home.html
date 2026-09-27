@@ -93,13 +93,13 @@
             left: 72px;
             z-index: 2;
             display: flex;
-            align-items: flex-end;
+            align-items: flex-start;
             gap: 26px;
         }
 
         .hero-pfp {
-            width: 138px;
-            height: 138px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             object-fit: cover;
             flex: 0 0 auto;
@@ -116,6 +116,8 @@
             flex-direction: row;
             align-items: baseline;
             gap: 7px;
+            white-space: nowrap;
+            width: max-content;
         }
 
         .hero-stat-inline .hero-stat-label {
@@ -288,7 +290,7 @@
             .popular-artist { display: none; }
             .popular-thumb { width: 44px; height: 44px; }
             .hero-content { left: 30px; gap: 18px; }
-            .hero-pfp { width: 108px; height: 108px; }
+            .hero-pfp { width: 145px; height: 145px; }
             .hero-name { font-size: clamp(42px, 8vw, 64px); }
         }
 
@@ -682,8 +684,8 @@
             }
 
             .hero-pfp {
-                width: 102px;
-                height: 102px;
+                width: 145px;
+                height: 145px;
             }
 
             .hero-name {
@@ -857,7 +859,7 @@
             </div>
         </section>
         <div class="project-tabs" id="projectTabs"></div>
-        <div class="project-track-head"><span>#</span><span>Title</span><span style="text-align:right">Rating</span><span style="text-align:right">↗</span></div>
+        <div class="project-track-head" id="projectTrackHead"><span>#</span><span>Title</span><span style="text-align:right">Rating</span><span style="text-align:right">↗</span></div>
         <div id="projectTracks"></div>
     </main>
 </div>
@@ -897,12 +899,29 @@ const catalog = [
 
     // ── COMPILATIONS — Releases > Popular ──
     { kind: "compilation", format: "Compilation", title: "Violethyst+",
-      subject: "Gurraj Grewal", year: null, cover: "ViolethystPlus.png", videoId: null,
-      placeholder: false, releasePopularRank: 1, link: null },
+      subject: "Gurraj Grewal, Violethyst+", year: 2023, cover: "ViolethystPlus.png", videoId: null,
+      placeholder: false, releasePopularRank: 1,
+      channelUrl: "https://www.youtube.com/@ViolethystPlus", tracks: [
+        { title: "Purpose Is Glorious x Memory Reboot — Transition", views: "1K+ views", url: null },
+        { title: "Given Up On Me x Take Me Back To LA — Transition", views: "NEW", url: "https://www.youtube.com/watch?v=PgRLvNBr4HA" }
+      ] },
 
     { kind: "compilation", format: "Compilation", title: "Violethyst",
-      subject: "Gurraj Grewal", year: null, cover: "Violethyst.png", videoId: null,
-      placeholder: false, releasePopularRank: 2, link: null },
+      subject: "Gurraj Grewal, Violethyst", year: 2020, cover: "Violethyst.png", videoId: null,
+      placeholder: false, releasePopularRank: 2,
+      channelUrl: "https://www.youtube.com/@Violethyst", tracks: [
+        { title: "GRAND THEFT AUTO V — PURPOSE IS GLORIOUS x MEMORY REBOOT", views: "2K+ views", url: "https://www.youtube.com/watch?v=lRQb5q-hCeY" },
+        { title: "GODZILLA 2014—2024 | TRANSITION", views: "90K+ views", url: "https://www.youtube.com/watch?v=NkTOKZ6co_c" },
+        { title: "GODZILLA — FE!N | 4K", views: "300K+ views", url: "https://www.youtube.com/watch?v=eymcrK50zng" },
+        { title: "MINECRAFT — MY EYES | 4K CINEMATIC (Epilepsy Warning)", views: "2K+ views", url: "https://www.youtube.com/watch?v=7OXH39YJBCw" },
+        { title: "IRON MAN — NIGHTCRAWLER | 4K", views: "5K+ views", url: "https://www.youtube.com/watch?v=hNQ0w4JYxlk" },
+        { title: "MIGUEL O'HARA — FLOOR 555 | 4K", views: "1K+ views", url: "https://www.youtube.com/watch?v=GVAyQldzF8k" },
+        { title: "THE BATMAN — VAMPIRE HOUR | 4K", views: "2K+ views", url: "https://www.youtube.com/watch?v=ejKw_q44txo" },
+        { title: "MOON KNIGHT — FIELD TRIP | 4K", views: "1K+ views", url: "https://www.youtube.com/watch?v=uKRpmThXs8Q" },
+        { title: "PLAYBOI CARTI — TIMELESS | 4K", views: "30K+ views", url: "https://www.youtube.com/watch?v=hImKEqjTf60" },
+        { title: "KENDRICK LAMAR — TV OFF | 4K", views: "2K+ views", url: "https://www.youtube.com/watch?v=HlT9bi13VyY&pp=0gcJCS8MAYcqIYzv" },
+        { title: "PLAYBOI CARTI — RATHER LIE | 4K", views: "1K+ views", url: null }
+      ] },
 
     { kind: "compilation", format: "Compilation", title: "Daytona: Teasers & Trailers",
       subject: "Gurraj Grewal", year: 2026, cover: "DCAST.png", videoId: null,
@@ -911,24 +930,24 @@ const catalog = [
 
     // ── POPULAR VIDEOS ──
     { kind: "video", popularVideoRank: 1, format: "Video", title: "Given Up On Me x Take Me Back To LA — Transition",
-      subject: "Gurraj Grewal, Violethyst+", year: null, views: null,
-      cover: "https://i.ytimg.com/vi/PgRLvNBr4HA/hqdefault.jpg", videoId: "PgRLvNBr4HA" },
+      subject: "Gurraj Grewal, Violethyst+", year: 2026, views: null,
+      cover: "ViolethystPlus.png", videoId: "PgRLvNBr4HA" },
 
     { kind: "video", popularVideoRank: 2, format: "Video", title: "GODZILLA — FE!N | 4K",
       subject: "Gurraj Grewal, Violethyst", year: 2024, views: 308204,
-      cover: "GFE!N.png", videoId: "eymcrK50zng" },
+      cover: "Violethyst.png", videoId: "eymcrK50zng" },
 
     { kind: "video", popularVideoRank: 3, format: "Video", title: "GODZILLA 2014—2024 | TRANSITION",
       subject: "Gurraj Grewal, Violethyst", year: 2023, views: 91443,
-      cover: "G2014-2024.png", videoId: "NkTOKZ6co_c" },
+      cover: "Violethyst.png", videoId: "NkTOKZ6co_c" },
 
     { kind: "video", popularVideoRank: 4, format: "Video", title: "PLAYBOI CARTI — TIMELESS | 4K",
       subject: "Gurraj Grewal, Violethyst", year: 2024, views: 29584,
-      cover: "TIMELESS.png", videoId: "hImKEqjTf60" },
+      cover: "Violethyst.png", videoId: "hImKEqjTf60" },
 
     { kind: "video", popularVideoRank: 5, format: "Video", title: "KENDRICK LAMAR — TV OFF | 4K",
       subject: "Gurraj Grewal, Violethyst", year: 2025, views: 2290,
-      cover: "TVOFF.png", videoId: "HlT9bi13VyY" },
+      cover: "Violethyst.png", videoId: "HlT9bi13VyY" },
 
     // ── OTHER VIDEOS — retained as catalog data, not surfaced in Popular ──
     { kind: "video", popularVideoRank: null, title: "PLAYBOI CARTI — RATHER LIE", subject: "Gurraj Grewal",
@@ -963,6 +982,8 @@ function formatViews(n) {
 function goToItem(item) {
     if (item.kind === "project") {
         openProjectOverlay(item);
+    } else if (item.kind === "compilation" && item.tracks) {
+        openCompilationOverlay(item);
     } else if (item.kind === "playlist" || item.kind === "compilation") {
         if (item.link?.url) window.open(item.link.url, "_blank", "noopener");
     } else if (item.videoId) {
@@ -1036,7 +1057,7 @@ function renderDiscography() {
                 <span class="discog-cover-badge">${item.format || (item.kind === 'project' ? 'Montages' : 'Compilation')}</span>
             </div>
             <div class="discog-card-title">${item.title}</div>
-            <div class="discog-card-sub">${item.kind === "project" ? item.sub : (item.format || "Compilation")}${item.year ? ` · ${item.year}` : ''}</div>
+            <div class="discog-card-sub">${item.kind === "project" ? item.sub : item.kind === "compilation" ? `${item.year || ''}${item.tracks ? ` · ${item.tracks.length} videos` : ''}` : (item.format || "Compilation")}</div>
         </div>
     `).join("");
 
@@ -1049,6 +1070,39 @@ function renderDiscography() {
 renderPopular();
 renderDiscography();
 
+
+function openCompilationOverlay(item) {
+    activeProject = item;
+    activeProjectIsAnniversary = false;
+    activeProjectPart = null;
+    projectOverlay.classList.add('open');
+    projectOverlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('project-overlay-open');
+    document.getElementById('projectClose').onclick = closeProjectOverlay;
+    document.getElementById('projectCover').src = item.cover;
+    document.getElementById('projectTitle').textContent = item.title;
+    document.getElementById('projectType').textContent = 'Compilation';
+    document.getElementById('projectMeta').textContent = `${item.subject} · ${item.year} · ${item.tracks.length} videos`;
+    const play = document.getElementById('projectPlay');
+    play.textContent = 'Immerse';
+    play.onclick = () => window.open(item.channelUrl, '_blank', 'noopener');
+    projectTabs.innerHTML = '';
+    projectTabs.style.display = 'none';
+    document.getElementById('projectTrackHead').innerHTML = '<span>#</span><span>Title</span><span style="text-align:right">Views</span><span style="text-align:right">↗</span>';
+    projectTracks.innerHTML = item.tracks.map((track, i) => `
+        <div class="project-track-row" data-track-index="${i}" role="button" tabindex="0">
+            <span class="project-track-number">${i + 1}</span>
+            <span><div class="project-track-title">${track.title}</div><div class="project-track-sub">${item.title}</div></span>
+            <span class="project-track-rating" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.75)">${track.views}</span>
+            <span class="project-track-duration">${track.url ? '↗' : '—'}</span>
+        </div>`).join('');
+    projectTracks.querySelectorAll('.project-track-row').forEach((row, i) => {
+        const open = () => { const url = item.tracks[i].url; if (url) window.open(url, '_blank', 'noopener'); };
+        row.onclick = open;
+        row.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } };
+        if (!item.tracks[i].url) { row.style.cursor = 'default'; row.removeAttribute('role'); row.removeAttribute('tabindex'); }
+    });
+}
 
 /* ── PROJECT EPISODE DATA ── */
 const episodeData = {
@@ -1231,6 +1285,8 @@ function closeProjectOverlay() {
     document.body.classList.remove('project-overlay-open');
 }
 function renderProjectView() {
+    document.getElementById('projectTrackHead').innerHTML = '<span>#</span><span>Title</span><span style="text-align:right">Rating</span><span style="text-align:right">↗</span>';
+    document.getElementById('projectPlay').textContent = 'Immerse';
     const isAnniversary = activeProjectIsAnniversary;
     const key = activeProjectPart === 'beginnings' ? 'hcm_s1'
         : activeProjectPart === 'pre' ? 'pre'
