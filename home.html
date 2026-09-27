@@ -92,6 +92,34 @@
             bottom: 60px;
             left: 72px;
             z-index: 2;
+            display: flex;
+            align-items: flex-end;
+            gap: 26px;
+        }
+
+        .hero-pfp {
+            width: 138px;
+            height: 138px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex: 0 0 auto;
+            background: #111;
+            border: 2px solid rgba(255,255,255,.10);
+            box-shadow: 0 12px 30px rgba(0,0,0,.38);
+        }
+
+        .hero-profile-copy {
+            min-width: 0;
+        }
+
+        .hero-stat-inline {
+            flex-direction: row;
+            align-items: baseline;
+            gap: 7px;
+        }
+
+        .hero-stat-inline .hero-stat-label {
+            white-space: nowrap;
         }
 
         .hero-eyebrow {
@@ -259,6 +287,9 @@
             .popular-row { grid-template-columns: 28px 44px minmax(0,1fr) 48px; gap: 11px; }
             .popular-artist { display: none; }
             .popular-thumb { width: 44px; height: 44px; }
+            .hero-content { left: 30px; gap: 18px; }
+            .hero-pfp { width: 108px; height: 108px; }
+            .hero-name { font-size: clamp(42px, 8vw, 64px); }
         }
 
         /* ══════════════════════════════════════
@@ -589,6 +620,29 @@
             line-height: 1.8;
         }
 
+        .about-ai-summary {
+            max-width: 980px;
+            padding: 30px 0 4px;
+        }
+
+        .about-ai-label {
+            display: block;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,.38);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .10em;
+            text-transform: uppercase;
+        }
+
+        .about-ai-summary p {
+            margin: 0;
+            max-width: 760px;
+            color: rgba(255,255,255,.52);
+            font-size: 12px;
+            line-height: 1.75;
+        }
+
         .about-links {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -622,6 +676,20 @@
         }
 
         @media (max-width: 800px) {
+            .hero-content {
+                left: 30px;
+                gap: 18px;
+            }
+
+            .hero-pfp {
+                width: 102px;
+                height: 102px;
+            }
+
+            .hero-name {
+                font-size: clamp(42px, 8vw, 64px);
+            }
+
             .about-section {
                 padding: 0 30px 64px;
             }
@@ -668,13 +736,16 @@
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
-        <div class="hero-eyebrow">Creator</div>
-        <h1 class="hero-name">Gurraj Grewal</h1>
+        <img class="hero-pfp" src="PFP.png" alt="Gurraj Grewal">
+        <div class="hero-profile-copy">
+            <div class="hero-eyebrow">Creator</div>
+            <h1 class="hero-name">Gurraj Grewal</h1>
 
-        <div class="hero-stats">
-            <div class="hero-stat">
-                <span class="hero-stat-value">1,350</span>
-                <span class="hero-stat-label">monthly viewers</span>
+            <div class="hero-stats">
+                <div class="hero-stat hero-stat-inline">
+                    <span class="hero-stat-value">1,486</span>
+                    <span class="hero-stat-label">monthly viewers</span>
+                </div>
             </div>
         </div>
     </div>
@@ -760,6 +831,11 @@
             <a href="https://www.youtube.com/@ViolethystPlus" target="_blank" rel="noopener noreferrer">YouTube, Violethyst+</a>
         </div>
     </div>
+    <div class="about-ai-summary">
+        <span class="about-ai-label">AI Summary</span>
+        <p>Gurraj Grewal is a creator focused on cinematic visual work, editing, Minecraft films, montages, and long-form projects, combining music, atmosphere, visual storytelling, and detailed editing to build immersive worlds and a distinct creative identity.</p>
+    </div>
+
 </section>
 
 <!-- Spotify-inspired project view -->
@@ -802,62 +878,80 @@
    too new/low to bother showing (renders as "—").
    ══════════════════════════════════════════════════════════ */
 const catalog = [
-    // ── PROJECTS — latest release first ──
-    { kind: "project", format: "Series", popularRank: null, ratingRank: null, rating: null, title: "Daytona",
+    // ── PROJECTS ──
+    { kind: "project", format: "Series", releasePopularRank: null, ratingRank: null, rating: null, title: "Daytona",
       sub: "2026 · Series", cover: "DAYTONACOVER.png", subject: "Gurraj Grewal", year: 2026,
       videoId: "u7msMYh8Yyk", link: { title: "daytona", slide: 1 } },
 
-    { kind: "project", format: "Montages", popularRank: 4, ratingRank: 2, rating: 5.9, title: "Hypixel Cinematic Montages: Anniversary",
+    { kind: "project", format: "Montages", releasePopularRank: 6, ratingRank: 2, rating: 5.9, title: "Hypixel Cinematic Montages: Anniversary",
       sub: "2025 · Montages", cover: "HCMACOVER.png", subject: "Gurraj Grewal, Quadeca", year: 2025,
       videoId: "v_4zKKeNzm0", link: { title: "hcm", season: 3 } },
 
-    { kind: "project", format: "Montages", popularRank: 2, ratingRank: 3, rating: 5.5, title: "Pre-Party",
+    { kind: "project", format: "Montages", releasePopularRank: 4, ratingRank: 3, rating: 5.5, title: "Pre-Party",
       sub: "2025 · Montages", cover: "PRE-PARTYCOVER.png", subject: "Gurraj Grewal, The Weeknd", year: 2025,
       videoId: "xJQcI7Pm-Dk", link: { title: "hcm", season: 2 } },
 
-    { kind: "project", format: "Montages", popularRank: 3, ratingRank: 1, rating: 6.2, title: "Hypixel Cinematic Montages: Beginnings",
+    { kind: "project", format: "Montages", releasePopularRank: 5, ratingRank: 1, rating: 6.2, title: "Hypixel Cinematic Montages: Beginnings",
       sub: "2022 · Montages", cover: "HCMBCOVER.png", subject: "Gurraj Grewal, Quadeca", year: 2022,
       videoId: "HmVeA0c8IHI", link: { title: "hcm", season: 1 } },
 
-    // ── COMPILATIONS ──
+    // ── COMPILATIONS — Releases > Popular ──
+    { kind: "compilation", format: "Compilation", title: "Violethyst+",
+      subject: "Gurraj Grewal", year: null, cover: "ViolethystPlus.png", videoId: null,
+      placeholder: false, releasePopularRank: 1, link: null },
+
+    { kind: "compilation", format: "Compilation", title: "Violethyst",
+      subject: "Gurraj Grewal", year: null, cover: "Violethyst.png", videoId: null,
+      placeholder: false, releasePopularRank: 2, link: null },
+
     { kind: "compilation", format: "Compilation", title: "Daytona: Teasers & Trailers",
-      subject: "Gurraj Grewal", year: 2026, cover: "DCAST.png", videoId: null, placeholder: true, popularRank: 1, link: { url: "https://www.youtube.com/playlist?list=PLL2d-OATLvpa3aNDuSt-noaBWX4NEmnne" } },
+      subject: "Gurraj Grewal", year: 2026, cover: "DCAST.png", videoId: null,
+      placeholder: true, releasePopularRank: 3,
+      link: { url: "https://www.youtube.com/playlist?list=PLL2d-OATLvpa3aNDuSt-noaBWX4NEmnne" } },
 
+    // ── POPULAR VIDEOS ──
+    { kind: "video", popularVideoRank: 1, format: "Video", title: "Given Up On Me x Take Me Back To LA — Transition",
+      subject: "Gurraj Grewal, Violethyst+", year: null, views: null,
+      cover: "https://i.ytimg.com/vi/PgRLvNBr4HA/hqdefault.jpg", videoId: "PgRLvNBr4HA" },
 
-    // ── OTHER VIDEOS — retained as catalog data, but not currently surfaced in Popular ──
-    { kind: "video", popularRank: null, title: "GODZILLA — FE!N", subject: "Gurraj Grewal",
-      year: 2024, views: 308204, cover: "GFE!N.png", videoId: "eymcrK50zng" },
+    { kind: "video", popularVideoRank: 2, format: "Video", title: "GODZILLA — FE!N | 4K",
+      subject: "Gurraj Grewal, Violethyst", year: 2024, views: 308204,
+      cover: "GFE!N.png", videoId: "eymcrK50zng" },
 
-    { kind: "video", popularRank: null, title: "GODZILLA 2014—2024", subject: "Gurraj Grewal",
-      year: 2023, views: 91443, cover: "G2014-2024.png", videoId: "NkTOKZ6co_c" },
+    { kind: "video", popularVideoRank: 3, format: "Video", title: "GODZILLA 2014—2024 | TRANSITION",
+      subject: "Gurraj Grewal, Violethyst", year: 2023, views: 91443,
+      cover: "G2014-2024.png", videoId: "NkTOKZ6co_c" },
 
-    { kind: "video", popularRank: null, title: "PLAYBOI CARTI — RATHER LIE", subject: "Gurraj Grewal",
+    { kind: "video", popularVideoRank: 4, format: "Video", title: "PLAYBOI CARTI — TIMELESS | 4K",
+      subject: "Gurraj Grewal, Violethyst", year: 2024, views: 29584,
+      cover: "TIMELESS.png", videoId: "hImKEqjTf60" },
+
+    { kind: "video", popularVideoRank: 5, format: "Video", title: "KENDRICK LAMAR — TV OFF | 4K",
+      subject: "Gurraj Grewal, Violethyst", year: 2025, views: 2290,
+      cover: "TVOFF.png", videoId: "HlT9bi13VyY" },
+
+    // ── OTHER VIDEOS — retained as catalog data, not surfaced in Popular ──
+    { kind: "video", popularVideoRank: null, title: "PLAYBOI CARTI — RATHER LIE", subject: "Gurraj Grewal",
       year: 2025, views: 1831, cover: "RATHERLIE.png", videoId: "HnDmrcyg7Fc" },
 
-    { kind: "video", popularRank: null, title: "PLAYBOI CARTI — TIMELESS", subject: "Gurraj Grewal",
-      year: 2024, views: 29584, cover: "TIMELESS.png", videoId: "hImKEqjTf60" },
-
-    { kind: "video", popularRank: null, title: "KENDRICK LAMAR — TV OFF", subject: "Gurraj Grewal",
-      year: 2025, views: 2290, cover: "TVOFF.png", videoId: "HlT9bi13VyY" },
-
-    { kind: "video", popularRank: null, title: "MIGUEL O'HARA — FLOOR 555", subject: "Gurraj Grewal",
+    { kind: "video", popularVideoRank: null, title: "MIGUEL O'HARA — FLOOR 555", subject: "Gurraj Grewal",
       year: 2024, views: 1861, cover: "MFLOOR555.png", videoId: "GVAyQldzF8k" },
 
-    { kind: "video", popularRank: null, title: "MINECRAFT — MY EYES", subject: "Gurraj Grewal",
+    { kind: "video", popularVideoRank: null, title: "MINECRAFT — MY EYES", subject: "Gurraj Grewal",
       year: 2024, views: 2430, cover: "MMYEYES.png", videoId: "7OXH39YJBCw" },
 
-    { kind: "video", popularRank: null, title: "GRAND THEFT AUTO V — PURPOSE IS GLORIOUS x MEMORY REBOOT", subject: "Gurraj Grewal",
+    { kind: "video", popularVideoRank: null, title: "GRAND THEFT AUTO V — PURPOSE IS GLORIOUS x MEMORY REBOOT", subject: "Gurraj Grewal",
       year: 2023, views: 4120, cover: "GTAVPIGxMR.png", videoId: "lRQb5q-hCeY" },
 
-    { kind: "video", popularRank: null, title: "MOON KNIGHT — FIELD TRIP", subject: "Gurraj Grewal",
+    { kind: "video", popularVideoRank: null, title: "MOON KNIGHT — FIELD TRIP", subject: "Gurraj Grewal",
       year: 2024, views: 1505, cover: "moonknight.png", videoId: "uKRpmThXs8Q" },
 
-    { kind: "video", popularRank: null, title: "THE BATMAN — VAMPIRE HOUR", subject: "Gurraj Grewal",
+    { kind: "video", popularVideoRank: null, title: "THE BATMAN — VAMPIRE HOUR", subject: "Gurraj Grewal",
       year: null, views: null, cover: "VAMPIREHOUR.png", videoId: "ejKw_q44txo" },
 
-    { kind: "video", popularRank: null, title: "IRON MAN — NIGHTCRAWLER", subject: "Gurraj Grewal",
+    { kind: "video", popularVideoRank: null, title: "IRON MAN — NIGHTCRAWLER", subject: "Gurraj Grewal",
       year: null, views: null, cover: "NIGHTCRAWLER2.png", videoId: "hNQ0w4JYxlk" }
-];
+]
 
 function formatViews(n) {
     if (n === null || n === undefined) return "—";
@@ -882,17 +976,17 @@ function goToItem(item) {
 function renderPopular() {
     const list = document.getElementById("popularList");
     const ranked = catalog
-        .filter(i => Number.isFinite(i.popularRank))
-        .sort((a, b) => a.popularRank - b.popularRank)
-        .slice(0, 10);
+        .filter(i => Number.isFinite(i.popularVideoRank))
+        .sort((a, b) => a.popularVideoRank - b.popularVideoRank)
+        .slice(0, 5);
 
     list.innerHTML = ranked.map(item => `
         <div class="popular-row" role="button" tabindex="0">
-            <span class="popular-rank">${item.popularRank}</span>
+            <span class="popular-rank">${item.popularVideoRank}</span>
             <div class="popular-thumb"><img src="${item.cover || 'black.png'}" alt=""></div>
             <div class="popular-info">
                 <div class="popular-title">${item.title}</div>
-                <div class="popular-sub">${item.format || (item.kind === 'compilation' ? 'Compilation' : 'Montages')} · ${item.year || '—'}</div>
+                <div class="popular-sub">${item.format || 'Video'}${item.year ? ` · ${item.year}` : ''}</div>
             </div>
             <div class="popular-artist">${item.subject || 'Gurraj Grewal'}</div>
         </div>`
@@ -931,8 +1025,8 @@ function renderDiscography() {
     } else if (currentDiscogTab === "compilations") {
         items = catalog.filter(i => i.kind === "compilation");
     } else {
-        items = catalog.filter(i => Number.isFinite(i.popularRank))
-            .sort((a, b) => a.popularRank - b.popularRank);
+        items = catalog.filter(i => Number.isFinite(i.releasePopularRank))
+            .sort((a, b) => a.releasePopularRank - b.releasePopularRank);
     }
 
     track.innerHTML = items.map(item => `
@@ -942,7 +1036,7 @@ function renderDiscography() {
                 <span class="discog-cover-badge">${item.format || (item.kind === 'project' ? 'Montages' : 'Compilation')}</span>
             </div>
             <div class="discog-card-title">${item.title}</div>
-            <div class="discog-card-sub">${item.kind === "project" ? item.sub : (item.format || "Compilation")}</div>
+            <div class="discog-card-sub">${item.kind === "project" ? item.sub : (item.format || "Compilation")}${item.year ? ` · ${item.year}` : ''}</div>
         </div>
     `).join("");
 
