@@ -755,6 +755,14 @@
             font-size: 11px;
         }
 
+        .about-growth {
+            color: #0aad1d;
+            font-size: 0.72em;
+            font-weight: 700;
+            vertical-align: 0.08em;
+            margin-left: 3px;
+        }
+
         .about-description {
             max-width: 760px;
         }
@@ -865,12 +873,16 @@
                 <span class="about-stat-value">73,673</span>
                 <span class="about-stat-label">peak monthly viewers</span>
             </div>
+            <div class="about-stat about-stat-current">
+                <span class="about-stat-value">2,270 <span class="about-growth" aria-label="growth">↗</span></span>
+                <span class="about-stat-label">monthly viewers</span>
+            </div>
             <div class="about-stat">
-                <span class="about-stat-value">454,886</span>
+                <span class="about-stat-value">456,088</span>
                 <span class="about-stat-label">total lifetime views</span>
             </div>
             <div class="about-stat">
-                <span class="about-stat-value">1,410</span>
+                <span class="about-stat-value">1,412</span>
                 <span class="about-stat-label">total followers</span>
             </div>
         </aside>
@@ -918,10 +930,6 @@
             <a href="https://www.youtube.com/@Violethyst" target="_blank" rel="noopener noreferrer">YouTube, Violethyst</a>
             <a href="https://www.youtube.com/@ViolethystPlus" target="_blank" rel="noopener noreferrer">YouTube, Violethyst+</a>
         </div>
-    </div>
-    <div class="about-ai-summary">
-        <span class="about-ai-label">AI Summary</span>
-        <p>Gurraj Grewal is currently developing DAYTONA, an original Minecraft cinematic series, while continuing to explore video editing, music, and visual storytelling through his creative projects.</p>
     </div>
 
 </section>
@@ -1140,10 +1148,9 @@ function renderDiscography() {
         <div class="discog-card ${item.placeholder ? 'discog-placeholder' : ''}">
             <div class="discog-cover">
                 <img src="${item.cover || 'black.png'}" alt="">
-                <span class="discog-cover-badge">${item.format || (item.kind === 'project' ? 'Montages' : 'Compilation')}</span>
             </div>
             <div class="discog-card-title">${item.title}</div>
-            <div class="discog-card-sub">${item.kind === "project" ? item.sub : item.kind === "compilation" ? `${item.year || ''}${item.tracks ? ` · ${item.tracks.length} videos` : ''}` : (item.format || "Compilation")}</div>
+            <div class="discog-card-sub">${item.kind === "project" ? item.sub : item.kind === "compilation" ? `${item.year || ''} · Compilation` : (item.format || "Compilation")}</div>
         </div>
     `).join("");
 
