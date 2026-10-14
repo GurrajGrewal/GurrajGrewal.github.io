@@ -526,6 +526,171 @@
         .empty-state span { font-size: 36px; }
         .empty-state p { font-size: 14px; margin: 0; }
 
+
+        /* ── VIEW TOGGLE ── */
+        .view-toggle {
+            display: inline-flex;
+            gap: 4px;
+            padding: 4px;
+            margin-bottom: 24px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 999px;
+        }
+
+        .view-tab {
+            padding: 8px 22px;
+            border: none;
+            border-radius: 999px;
+            background: transparent;
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .view-tab:hover { color: white; }
+        .view-tab.active { background: white; color: black; }
+        .view-tab:focus-visible, .lb-row:focus-visible, .artist-rank:focus-visible {
+            outline: 2px solid rgba(255,255,255,0.7);
+            outline-offset: 2px;
+        }
+
+        /* ── LEADERBOARD ── */
+        .leaderboard { display: none; }
+        .leaderboard.visible { display: block; }
+
+        .lb-intro {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+            line-height: 1.6;
+        }
+
+        .lb-list { display: flex; flex-direction: column; gap: 8px; }
+
+        .lb-row {
+            display: grid;
+            grid-template-columns: 44px 48px minmax(0, 1fr) minmax(0, 220px) 64px;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 18px 12px 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .lb-row:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.14); }
+
+        .lb-rank {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .lb-row.top1 .lb-rank { color: #f2c94c; font-size: 22px; }
+        .lb-row.top2 .lb-rank { color: #c4c9d1; font-size: 22px; }
+        .lb-row.top3 .lb-rank { color: #cd8a4b; font-size: 22px; }
+        .lb-row.top1 { border-color: rgba(242,201,76,0.35); background: rgba(242,201,76,0.05); }
+
+        .lb-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .lb-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+        .lb-name {
+            font-size: 15px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lb-meta { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 2px; }
+
+        .lb-best { min-width: 0; }
+        .lb-best-label { display: block; font-size: 10px; color: rgba(255,255,255,0.25); margin-bottom: 2px; }
+        .lb-best-title {
+            display: block;
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lb-rating, .artist-rating-badge {
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 700;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+        }
+
+        .lb-rating { padding: 8px 0; font-size: 15px; }
+
+        /* ── ARTIST PROFILE RATING ── */
+        .artist-header { flex-wrap: wrap; }
+
+        .artist-rating {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .artist-rating + .artist-back { margin-left: 0; }
+
+        .artist-rating-text { text-align: right; }
+        .artist-rating-label { font-size: 11px; color: rgba(255,255,255,0.35); }
+
+        .artist-rank {
+            display: block;
+            margin: 4px 0 0 auto;
+            padding: 0;
+            background: none;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+            cursor: pointer;
+        }
+
+        .artist-rank:hover { color: white; text-decoration: underline; }
+
+        .artist-rating-badge { padding: 9px 14px; font-size: 20px; min-width: 28px; }
+        .artist-rating-badge.no-rating { background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.4); font-weight: 400; }
+
+        @media (max-width: 700px) {
+            .lb-row { grid-template-columns: 32px 44px minmax(0, 1fr) 56px; gap: 12px; padding: 10px 12px 10px 8px; }
+            .lb-best { display: none; }
+            .lb-avatar { width: 44px; height: 44px; }
+            .artist-rating { margin-left: 0; width: 100%; justify-content: space-between; }
+            .artist-rating-text { text-align: left; }
+            .artist-rank { margin-left: 0; }
+            .artist-rating + .artist-back { margin-left: auto; }
+        }
+
         @media (max-width: 860px) {
             .reviews-page { padding: 90px 24px 60px; }
             .reviews-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
@@ -556,10 +721,10 @@
 
     <div class="reviews-header">
         <div class="reviews-header-left">
-            <h1>Album Reviews</h1>
+            <h1 id="reviewsTitle">Album Reviews</h1>
             <p id="reviewCount">— reviews</p>
         </div>
-        <div class="filter-bar">
+        <div class="filter-bar" id="filterBar">
             <input type="text" id="searchInput" class="search-input" placeholder="🔍  Search albums or artists…" oninput="handleSearch(this.value)">
             <button class="filter-chip active" onclick="setFilter('recent', this)">Recent</button>
             <button class="filter-chip" onclick="setFilter('top', this)">Highest Rated</button>
@@ -567,9 +732,16 @@
         </div>
     </div>
 
+    <div class="view-toggle" role="tablist">
+        <button class="view-tab active" id="tabAlbums" role="tab" onclick="showView('albums')">Albums</button>
+        <button class="view-tab" id="tabLeaderboard" role="tab" onclick="showView('leaderboard')">Leaderboard</button>
+    </div>
+
     <div class="disclaimer">
         <strong>Note on ratings:</strong> It's my opinion.
     </div>
+
+    <div id="albumsView">
 
     <div class="artist-header" id="artistHeader">
         <div class="artist-header-avatar" id="artistAvatar"></div>
@@ -577,7 +749,14 @@
             <h2 id="artistHeaderName"></h2>
             <p id="artistHeaderCount"></p>
         </div>
-        <button class="artist-back" onclick="clearArtistFilter()">← All Reviews</button>
+        <div class="artist-rating" id="artistRating">
+            <div class="artist-rating-text">
+                <div class="artist-rating-label">Artist rating</div>
+                <button class="artist-rank" id="artistRank" onclick="showView('leaderboard')"></button>
+            </div>
+            <div class="artist-rating-badge no-rating" id="artistRatingBadge">—</div>
+        </div>
+        <button class="artist-back" id="artistBack" onclick="clearArtistFilter()">← All Reviews</button>
     </div>
 
     <div class="section-label" id="sectionLabel">Albums by Release Date</div>
@@ -586,6 +765,21 @@
     <div class="empty-state" id="emptyState">
         <span>🎵</span>
         <p>No reviews found.</p>
+    </div>
+
+    </div><!-- /albumsView -->
+
+    <!-- Leaderboard -->
+    <div class="leaderboard" id="leaderboardView">
+        <div class="lb-intro">
+            <span>Ratings reward consistency: more albums at a high, steady standard means a higher rating, so one great album isn't enough to reach the top. Click an artist to open their profile.</span>
+            <span id="lbSummary"></span>
+        </div>
+        <div class="lb-list" id="lbList"></div>
+        <div class="empty-state" id="lbEmpty">
+            <span>🏆</span>
+            <p>No artists ranked yet. Review an album to get the leaderboard started.</p>
+        </div>
     </div>
 
 </div>
@@ -2174,6 +2368,10 @@ function handleSearch(value) {
 
 function filterByArtist(artist, e) {
     if (e) e.stopPropagation();
+    backTarget = currentView === "leaderboard" ? "leaderboard" : "albums";
+    document.getElementById("artistBack").textContent = backTarget === "leaderboard" ? "← Leaderboard" : "← All Reviews";
+    if (currentView !== "albums") setViewUI("albums");
+    updateArtistRating(artist);
     currentArtist = artist;
     searchQuery = "";
     const searchEl = document.getElementById("searchInput");
@@ -2201,6 +2399,11 @@ function filterByArtist(artist, e) {
 function clearArtistFilter() {
     currentArtist = null;
     document.getElementById("artistHeader").classList.remove("visible");
+    if (backTarget === "leaderboard") {
+        backTarget = "albums";
+        showView("leaderboard");
+        return;
+    }
     render();
 }
 
@@ -2295,8 +2498,148 @@ function filterByArtistFromModal() {
 
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeReview(); });
 
+/* ══════════════════════════════════════════════════════════
+   ARTIST RATINGS & LEADERBOARD
+   Artist rating rewards a strong, consistent catalogue:
+     1. Start from the average of their reviewed album scores, but
+        blend in PRIOR_WEIGHT "benchmark" albums scored PRIOR_SCORE.
+        Each real album pushes those out, so a long run of great
+        albums beats a single great one.
+     2. Subtract CONSISTENCY_PENALTY × the spread (standard deviation)
+        of their album scores, so even quality beats a hit-and-miss run.
+   Tweak the three numbers below to tune the system.
+══════════════════════════════════════════════════════════ */
+const LEADERBOARD_SIZE = 100;
+const PRIOR_SCORE         = 6.5;   // what an unproven album is assumed to score
+const PRIOR_WEIGHT        = 3;     // how many such albums an artist starts with
+const CONSISTENCY_PENALTY = 0.5;   // points lost per 1.0 of score spread
+let currentView = "albums";
+let backTarget  = "albums";
+let standings   = [];   // every rated artist, best first (rank only set for the top 100)
+
+function getArtistAlbums(name) {
+    const meta = artistMeta[name];
+    return meta
+        ? meta.discography.map(id => reviews.find(r => r.id === id)).filter(Boolean)
+        : reviews.filter(r => r.artist.split(" & ").map(a => a.trim()).includes(name));
+}
+
+function computeStandings() {
+    const names = new Set();
+    // Collab credits like "Travis Scott & Quavo" count towards each artist, not as their own entry
+    Object.keys(artistMeta).forEach(n => { if (!n.includes(" & ")) names.add(n); });
+    reviews.forEach(r => r.artist.split(" & ").forEach(n => names.add(n.trim())));
+
+    const rows = [];
+    names.forEach(name => {
+        const reviewed = getArtistAlbums(name).filter(r => r.score !== null && r.score !== undefined && !r.upcoming);
+        if (reviewed.length === 0) return;
+        const scores = reviewed.map(r => r.score);
+        const n      = scores.length;
+        const avg    = scores.reduce((a, b) => a + b, 0) / n;
+        const spread = Math.sqrt(scores.reduce((a, x) => a + (x - avg) ** 2, 0) / n);
+        const blended = (avg * n + PRIOR_SCORE * PRIOR_WEIGHT) / (n + PRIOR_WEIGHT);
+        const rating  = Math.min(10, Math.max(0, blended - (n > 1 ? CONSISTENCY_PENALTY * spread : 0)));
+        const best    = reviewed.reduce((b, r) => (r.score > b.score ? r : b));
+        rows.push({ name, rating, avg, count: n, best });
+    });
+
+    rows.sort((a, b) => b.rating - a.rating || b.count - a.count || a.name.localeCompare(b.name));
+    rows.forEach((r, i) => { r.rank = i < LEADERBOARD_SIZE ? i + 1 : null; });
+    standings = rows;
+}
+
+function getArtistStanding(name) {
+    return standings.find(s => s.name === name) || null;
+}
+
+function updateArtistRating(artist) {
+    const s     = getArtistStanding(artist);
+    const badge = document.getElementById("artistRatingBadge");
+    const rank  = document.getElementById("artistRank");
+    if (s) {
+        badge.textContent      = s.rating.toFixed(1);
+        badge.className        = "artist-rating-badge";
+        badge.style.background = scoreColor(s.rating);
+        badge.style.color      = scoreTextColor(s.rating);
+        rank.textContent       = s.rank ? `#${s.rank} on Leaderboard` : "";
+        rank.style.display     = s.rank ? "" : "none";
+    } else {
+        badge.textContent      = "—";
+        badge.className        = "artist-rating-badge no-rating";
+        badge.style.background = "";
+        badge.style.color      = "";
+        rank.style.display     = "none";
+    }
+}
+
+function renderLeaderboard() {
+    const list  = document.getElementById("lbList");
+    const board = standings.filter(s => s.rank);
+    list.innerHTML = "";
+    document.getElementById("lbEmpty").classList.toggle("visible", board.length === 0);
+
+    board.forEach(entry => {
+        const meta = artistMeta[entry.name];
+        const row  = document.createElement("div");
+        row.className = "lb-row" + (entry.rank <= 3 ? ` top${entry.rank}` : "");
+        row.tabIndex  = 0;
+
+        const avatar = (meta && meta.pfp)
+            ? `<img src="${meta.pfp}" alt="${entry.name}">`
+            : entry.name.charAt(0).toUpperCase();
+
+        row.innerHTML = `
+            <div class="lb-rank">${entry.rank}</div>
+            <div class="lb-avatar">${avatar}</div>
+            <div>
+                <div class="lb-name">${entry.name}</div>
+                <div class="lb-meta">${entry.count} album${entry.count !== 1 ? "s" : ""} reviewed · avg ${entry.avg.toFixed(1)}</div>
+            </div>
+            <div class="lb-best">
+                <span class="lb-best-label">Top album</span>
+                <span class="lb-best-title">${entry.best.album}</span>
+            </div>
+            <div class="lb-rating" style="background:${scoreColor(entry.rating)};color:${scoreTextColor(entry.rating)}">${entry.rating.toFixed(1)}</div>
+        `;
+        row.addEventListener("click", () => filterByArtist(entry.name));
+        row.addEventListener("keydown", e => { if (e.key === "Enter") filterByArtist(entry.name); });
+        list.appendChild(row);
+    });
+
+    document.getElementById("lbSummary").textContent = `${board.length} of ${LEADERBOARD_SIZE} spots filled`;
+    document.getElementById("reviewCount").textContent = `${board.length} artist${board.length !== 1 ? "s" : ""} ranked`;
+}
+
+/* Pure UI switch between the Albums and Leaderboard views */
+function setViewUI(view) {
+    currentView = view;
+    const lb = view === "leaderboard";
+    document.getElementById("albumsView").style.display = lb ? "none" : "";
+    document.getElementById("leaderboardView").classList.toggle("visible", lb);
+    document.getElementById("filterBar").style.display  = lb ? "none" : "";
+    document.getElementById("reviewsTitle").textContent = lb ? "Artist Leaderboard" : "Album Reviews";
+    document.getElementById("tabAlbums").classList.toggle("active", !lb);
+    document.getElementById("tabLeaderboard").classList.toggle("active", lb);
+    try { history.replaceState(null, "", lb ? "#leaderboard" : location.pathname + location.search); } catch (e) {}
+}
+
+function showView(view) {
+    currentArtist = null;
+    searchQuery   = "";
+    const searchEl = document.getElementById("searchInput");
+    if (searchEl) searchEl.value = "";
+    document.getElementById("artistHeader").classList.remove("visible");
+
+    setViewUI(view);
+    if (view === "leaderboard") renderLeaderboard();
+    else render();
+}
+
 /* ── INIT ── */
+computeStandings();
 render();
+if (location.hash === "#leaderboard") showView("leaderboard");
 
 </script>
 </body>
