@@ -846,7 +846,7 @@
 
         <div class="discog-tabs">
             <button class="discog-tab active" data-tab="popular" onclick="setDiscogTab('popular')">Popular</button>
-            <button class="discog-tab" data-tab="projects" onclick="setDiscogTab('projects')">Projects</button>
+            <button class="discog-tab" data-tab="montages" onclick="setDiscogTab('montages')">Montages</button>
             <button class="discog-tab" data-tab="compilations" onclick="setDiscogTab('compilations')">Compilations</button>
         </div>
 
@@ -952,7 +952,7 @@
    too new/low to bother showing (renders as "—").
    ══════════════════════════════════════════════════════════ */
 const catalog = [
-    // ── PROJECTS ──
+    // ── MONTAGES ──
 
     { kind: "project", format: "Montages", releasePopularRank: 6, ratingRank: 2, rating: 5.9, title: "Hypixel Cinematic Montages: Anniversary",
       sub: "2025 · Montages", cover: "HCMACOVER.png", subject: "Gurraj Grewal, Quadeca", year: 2025,
@@ -1091,7 +1091,7 @@ function renderPopular() {
 
 
 /* ══════════════════════════════════════════════════════════
-   DISCOGRAPHY — Popular / Projects / Compilations
+   DISCOGRAPHY — Popular / Montages / Compilations
    ══════════════════════════════════════════════════════════ */
 let currentDiscogTab = "popular";
 
@@ -1105,7 +1105,7 @@ function renderDiscography() {
     const track = document.getElementById("discogTrack");
     let items;
 
-    if (currentDiscogTab === "projects") {
+    if (currentDiscogTab === "montages") {
         items = catalog.filter(i => i.kind === "project");
     } else if (currentDiscogTab === "compilations") {
         items = catalog.filter(i => i.kind === "compilation");
