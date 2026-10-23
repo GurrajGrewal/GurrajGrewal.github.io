@@ -9,36 +9,80 @@
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
-        .navbar {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 10;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .nav-center {
+        /* ── MENU (two bars → right side panel) ── */
+        .menu-btn {
+            position: fixed;
+            top: 18px;
+            right: 24px;
+            z-index: 150;
+            width: 46px;
+            height: 46px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
             display: flex;
-            gap: 10px;
-            list-style: none;
-            margin: 0;
-            padding: 10px 20px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            filter: drop-shadow(0 1px 4px rgba(0,0,0,0.55));
         }
+        .menu-btn span {
+            display: block;
+            width: 30px;
+            height: 3px;
+            border-radius: 2px;
+            background: #fff;
+            transition: opacity 0.2s ease;
+        }
+        .menu-btn:hover span { opacity: 0.75; }
 
-        .nav-center li a {
-            display: inline-block;
-            padding: 10px 16px;
+        .menu-scrim {
+            position: fixed;
+            inset: 0;
+            z-index: 130;
+            background: rgba(0,0,0,0.55);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .menu-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 140;
+            width: min(340px, 86vw);
+            padding: 22px 28px;
+            background: rgba(12,12,12,0.94);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-left: 1px solid rgba(255,255,255,0.08);
+            transform: translateX(100%);
+            visibility: hidden;
+            transition: transform 0.3s ease, visibility 0.3s ease;
+            overflow-y: auto;
+        }
+        body.menu-open .menu-scrim { opacity: 1; visibility: visible; }
+        body.menu-open .menu-panel { transform: translateX(0); visibility: visible; }
+
+        .menu-logo { display: inline-block; }
+        .menu-logo img { display: block; height: 64px; width: auto; }
+        .menu-links { display: flex; flex-direction: column; gap: 10px; margin-top: 40px; }
+        .menu-links a {
+            display: block;
+            padding: 12px 18px;
             border-radius: 999px;
             color: white;
             text-decoration: none;
+            font-family: 'Poppins', sans-serif;
             font-weight: 500;
-            transition: all 0.2s ease;
+            font-size: 16px;
+            transition: background 0.2s ease;
         }
-
-        .nav-center li a:hover { background: rgba(255,255,255,0.2); }
-        .nav-center li a[href="reviews.html"] { background: rgba(255,255,255,0.3); }
+        .menu-links a:hover { background: rgba(255,255,255,0.2); }
+        .menu-links a.active { background: rgba(255,255,255,0.3); }
 
         body {
             margin: 0;
@@ -539,18 +583,17 @@
 
 <body>
 
-<header class="navbar">
-    <div class="logo">
-        <a href="index.html">
-            <img src="logo-big-tran.png" alt="Logo">
-        </a>
+<!-- MENU -->
+<button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menuPanel"><span></span><span></span></button>
+<div class="menu-scrim" id="menuScrim"></div>
+<div class="menu-panel" id="menuPanel">
+    <a class="menu-logo" href="index.html"><img src="logo-big-tran.png" alt="Logo"></a>
+    <div class="menu-links">
+        <a href="home.html">HOME</a>
+        <a href="experiences.html">EXPERIENCES</a>
+        <a href="reviews.html" class="active">REVIEWS</a>
     </div>
-    <ul class="nav-center">
-        <li><a href="home.html">HOME</a></li>
-        <li><a href="announcements.html">ANNOUNCEMENTS</a></li>
-        <li><a href="reviews.html">REVIEWS</a></li>
-    </ul>
-</header>
+</div>
 
 <div class="reviews-page">
 
@@ -2299,5 +2342,19 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") closeReview(
 render();
 
 </script>
+<script>
+/* MENU */
+(function () {
+    var btn = document.getElementById('menuBtn');
+    function setMenu(open) {
+        document.body.classList.toggle('menu-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    btn.addEventListener('click', function () { setMenu(!document.body.classList.contains('menu-open')); });
+    document.getElementById('menuScrim').addEventListener('click', function () { setMenu(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+})();
+</script>
+
 </body>
 </html>
