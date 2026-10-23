@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base href="./">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Immerse — Gurraj Grewal</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #080808;
+            color: white;
+            opacity: 0;
+            animation: pageFade 0.45s ease forwards;
+        }
+
+        @keyframes pageFade { to { opacity: 1; } }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        button:focus-visible, a:focus-visible {
+            outline: 2px solid rgba(255,255,255,0.6);
+            outline-offset: 2px;
+        }
+
+        /* ══════════════════════════════════════
+           HERO SLIDER
+        ══════════════════════════════════════ */
+
+        .release-feature {
+    overflow: hidden;
+}
+
+.release-slide {
+    overflow: hidden;
+    transform: translateZ(0);
+}
+        .release-feature {
+            position: relative;
+            height: 72vh;
+            min-height: 520px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .release-slider {
+            display: flex;
+            height: 100%;
+            transition: transform 0.75s cubic-bezier(0.77,0,0.18,1);
+        }
+
+        .release-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .release-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+            transform: scale(1.04);
+            animation: kenburns 22s ease-in-out infinite alternate;
+            animation-play-state: paused;
+        }
+
+        .release-slide.active .release-bg {
+            animation-play-state: running;
+        }
+
+        @keyframes kenburns {
+            0%   { transform: scale(1); }
+            100% { transform: scale(1.09); }
+        }
+
+        /* Rich cinematic gradient — dark left, fade to nothing right */
+        .release-bg::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(to right, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.55) 45%, rgba(8,8,8,0.05) 75%),
+                linear-gradient(to top, rgba(8,8,8,0.8) 0%, transparent 40%);
+        }
+
+        .release-overlay {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            padding: 0 72px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-bottom: 56px;
+        }
+
+        .release-left { max-width: 560px; }
+
+        .release-left > * { animation: fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) both; }
+        .release-left .release-meta        { animation-delay: 0.05s; }
+        .release-left .finale-tag          { animation-delay: 0.1s;  }
+        .release-left .release-logo        { animation-delay: 0.15s; }
+        .release-left .release-description { animation-delay: 0.2s;  }
+        .release-left .release-buttons     { animation-delay: 0.25s; }
+
+        /* Rating / year / seasons row */
+        .release-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            font-weight: 500;
+            margin-bottom: 16px;
+            letter-spacing: 0.01em;
+        }
+
+        .release-meta .dot { opacity: 0.4; }
+
+        /* Inline coloured rating badge */
+        .release-rating-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 0.02em;
+        }
+
+        /* Logo */
+        .release-logo img {
+            max-width: 450px;
+            max-height: 160px;
+            width: auto;
+            object-fit: contain;
+            margin-bottom: 18px;
+            filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
+        }
+
+        .release-description {
+            font-size: 14px;
+            line-height: 1.65;
+            color: rgba(255,255,255,0.55);
+            max-width: 460px;
+            margin-bottom: 28px;
+        }
+
+        /* Buttons */
+        .release-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .play-btn {
+            background: white;
+            color: black;
+            border: none;
+            padding: 12px 30px;
+            font-weight: 700;
+            font-size: 13px;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            border-radius: 999px;
+            letter-spacing: 0.02em;
+            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        .play-btn:hover {
+            background: rgba(255,255,255,0.88);
+            transform: scale(1.03);
+        }
+
+        .info-btn, .season-btn {
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.85);
+            border: 1px solid rgba(255,255,255,0.14);
+            padding: 11px 24px;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            border-radius: 999px;
+            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+            backdrop-filter: blur(8px);
+        }
+
+        .info-btn:hover, .season-btn:hover {
+            background: rgba(255,255,255,0.16);
+            color: white;
+            border-color: rgba(255,255,255,0.28);
+            transform: translateY(-1px);
+        }
+
+        /* ── SERIES FINALE TREATMENT (Daytona) ── */
+        .finale-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: #e8c874;
+            margin-bottom: 16px;
+        }
+
+        .finale-tag::before,
+        .finale-tag::after {
+            content: "";
+            width: 22px;
+            height: 1px;
+            background: #e8c874;
+            opacity: 0.6;
+        }
+
+        .finale-highlight {
+            color: #e8c874;
+            font-weight: 700;
+        }
+
+        /* Slide indicator dots */
+        .slide-dots {
+            position: absolute;
+            bottom: 24px;
+            right: 72px;
+            display: flex;
+            gap: 7px;
+            z-index: 6;
+        }
+
+        .slide-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: none;
+            padding: 0;
+        }
+
+        .slide-dot.active {
+            background: white;
+            width: 20px;
+            border-radius: 3px;
+        }
+
+        /* Arrow controls — bottom right, above the dots */
+        .arrow-controls {
+            position: absolute;
+            bottom: 56px;
+            right: 72px;
+            display: flex;
+            gap: 8px;
+            z-index: 6;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .release-overlay { padding: 0 48px; padding-bottom: 48px; }
+            .arrow-controls  { right: 48px; bottom: 48px; }
+            .slide-dots      { right: 48px; }
+            .release-logo img { max-width: 340px; max-height: 130px; }
+        }
+
+        @media (max-width: 768px) {
+            .release-feature { height: 60vh; min-height: 420px; }
+            .release-overlay { padding: 0 28px; padding-bottom: 80px; }
+            /* Push arrows below the play button row by moving them to bottom-left,
+               safely separated from the content by extra bottom padding */
+            .arrow-controls  { bottom: 28px; right: 28px; }
+            .slide-dots      { bottom: 10px; right: 28px; }
+            .release-left    { max-width: 100%; }
+            .release-logo img { max-width: 260px; max-height: 100px; }
+            .release-description { display: none; } /* reclaim space on small screens */
+            .content-rows { padding: 28px 28px 48px; }
+        }
+
+        @media (max-width: 540px) {
+            .release-feature { height: 55vh; min-height: 360px; }
+            .release-overlay { padding: 0 20px; padding-bottom: 72px; }
+            .arrow-controls  { bottom: 20px; right: 20px; }
+            .slide-dots      { bottom: 6px; right: 20px; }
+            .release-logo img { max-width: 200px; max-height: 80px; }
+            .release-meta    { font-size: 11px; gap: 6px; }
+            .play-btn        { padding: 9px 20px; font-size: 12px; }
+            .info-btn, .season-btn { padding: 8px 14px; font-size: 12px; }
+            .content-rows    { padding: 22px 16px 40px; }
+            .title-card      { width: 175px; }
+            .title-card.wide { width: 230px; }
+            .trending-num    { font-size: 60px; margin-right: -12px; }
+            .episode-card    { width: 180px; }
+            .episode-thumb   { height: 100px; }
+        }
+
+        .arrow {
+            background: rgba(255,255,255,0.08);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.14);
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            border-radius: 999px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+            backdrop-filter: blur(8px);
+        }
+
+        .arrow:hover {
+            background: rgba(255,255,255,0.18);
+            border-color: rgba(255,255,255,0.3);
+            transform: scale(1.08);
+        }
+
+        /* ══════════════════════════════════════
+           CONTENT ROWS — Trending Now / Other Releases
+        ══════════════════════════════════════ */
+        .content-rows { padding: 46px 72px 64px; background: #080808; }
+        .content-row   { margin-bottom: 42px; }
+
+        .row-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 4px;
+        }
+
+        .row-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.95);
+            letter-spacing: -0.01em;
+            margin: 0;
+        }
+
+        .row-track {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 24px 4px 28px;
+            scrollbar-width: none;
+        }
+
+        .row-track::-webkit-scrollbar { display: none; }
+
+        .row-placeholder {
+            padding: 30px 8px;
+            color: rgba(255,255,255,0.3);
+            font-size: 13px;
+            font-style: italic;
+        }
+
+        .title-card {
+            position: relative;
+            flex-shrink: 0;
+            width: 230px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.06);
+            background: #111;
+            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1), border-color 0.3s ease;
+        }
+
+        .title-card.wide { width: 340px; }
+
+        .title-card img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .title-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 22px 50px rgba(0,0,0,0.7);
+            border-color: rgba(255,255,255,0.2);
+            z-index: 3;
+        }
+
+        .title-card:hover img { transform: scale(1.06); }
+
+        .title-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.92), rgba(0,0,0,0.1) 55%, transparent 75%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 12px;
+        }
+
+        .title-card:hover .title-card-overlay { opacity: 1; }
+        .title-card-label { font-size: 13px; font-weight: 600; color: white; line-height: 1.3; }
+        .title-card-sub    { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 3px; }
+
+        .trending-row { align-items: flex-end; }
+        .trending-item { display: flex; align-items: flex-end; flex-shrink: 0; }
+
+        .trending-num {
+            font-size: 100px;
+            font-weight: 800;
+            line-height: 0.8;
+            color: #141414;
+            -webkit-text-stroke: 2px rgba(255,255,255,0.18);
+            margin-right: -20px;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        /* ══════════════════════════════════════
+           EPISODES ROW
+        ══════════════════════════════════════ */
+        .episode-arrows { display: flex; gap: 8px; }
+
+        .ep-arrow {
+            width: 34px;
+            height: 34px;
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        .ep-arrow:hover {
+            background: rgba(255,255,255,0.14);
+            color: white;
+            border-color: rgba(255,255,255,0.22);
+            transform: scale(1.08);
+        }
+
+        .episodes-wrapper {
+            overflow: hidden;
+            position: relative;
+            padding: 20px 4px 24px;
+        }
+
+        .episodes-wrapper::after {
+            content: "";
+            position: absolute;
+            top: 0; right: 0;
+            width: 100px; height: 100%;
+            pointer-events: none;
+            background: linear-gradient(to right, transparent, #080808);
+        }
+
+        .episodes-track {
+            display: flex;
+            gap: 18px;
+            transition: transform 0.5s ease, opacity 0.3s ease;
+        }
+
+        .episodes-track.fade-out { opacity: 0; }
+        .episodes-track.fade-in  { opacity: 1; }
+
+        .episode-card {
+            width: 240px;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        .episode-card:hover { transform: translateY(-4px); }
+        .episode-card:hover .episode-thumb { box-shadow: 0 14px 32px rgba(0,0,0,0.65); border-color: rgba(255,255,255,0.16); }
+
+        .episode-thumb {
+            width: 100%;
+            height: 135px;
+            background: #1a1a1a;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 10px;
+            transition: box-shadow 0.25s ease, border-color 0.25s ease;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .episode-thumb img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .episode-card:hover .episode-thumb img { transform: scale(1.07); }
+
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-overlay::before {
+            content: "";
+            position: absolute;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.18);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.28);
+            transition: all 0.25s ease;
+        }
+
+        .play-overlay::after {
+            content: "";
+            position: relative;
+            z-index: 2;
+            border-left: 9px solid white;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            margin-left: 3px;
+        }
+
+        .episode-card:hover .play-overlay::before {
+            background: rgba(255,255,255,0.32);
+            transform: scale(1.1);
+        }
+
+        .episode-info { padding: 0 2px; }
+
+        .episode-number {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 3px;
+        }
+
+        .episode-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.88);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .episode-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .ep-rating-badge {
+            flex-shrink: 0;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            line-height: 1.3;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+        }
+
+        .ep-rating-badge.unrated {
+            background: #222 !important;
+            color: rgba(255,255,255,0.3);
+            box-shadow: none;
+        }
+
+        /* ══════════════════════════════════════
+           SEASONS MODAL
+        ══════════════════════════════════════ */
+        .seasons-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .seasons-modal.open { display: flex; }
+
+        .seasons-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(8px);
+        }
+
+        .seasons-panel {
+            position: relative;
+            z-index: 1;
+            background: rgba(14,14,14,0.98);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 18px;
+            padding: 32px;
+            min-width: 340px;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 28px 70px rgba(0,0,0,0.8);
+        }
+
+        .seasons-panel h3 {
+            margin: 0 0 20px 0;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .seasons-close {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .seasons-close:hover { background: rgba(255,255,255,0.15); color: white; }
+
+        /* ══════════════════════════════════════
+           DESCRIPTION MODAL
+        ══════════════════════════════════════ */
+        .details-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .details-modal.open { display: flex; }
+
+        .details-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(8px);
+        }
+
+        .details-panel {
+            position: relative;
+            z-index: 1;
+            background: rgba(14,14,14,0.98);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 18px;
+            padding: 32px;
+            min-width: 340px;
+            max-width: 560px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 28px 70px rgba(0,0,0,0.8);
+            animation: popIn 0.25s ease-out;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.2) transparent;
+        }
+
+        .details-panel::-webkit-scrollbar { width: 6px; }
+        .details-panel::-webkit-scrollbar-track { background: transparent; }
+        .details-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 10px; }
+
+        .details-panel h3 {
+            margin: 0 0 22px 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            padding-right: 26px;
+        }
+
+        .details-close {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .details-close:hover { background: rgba(255,255,255,0.15); color: white; }
+
+        .details-grid { display: flex; flex-direction: column; gap: 16px; }
+
+        .details-row .label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 4px;
+        }
+
+        .details-row .value {
+            font-size: 14px;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.5;
+        }
+
+        .details-stack { display: flex; flex-direction: column; gap: 5px; }
+        .details-stack span { display: block; }
+
+        .details-rating-badge {
+            display: inline-flex;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 6px;
+        }
+
+        .details-rating-badge.unrated {
+            background: #222 !important;
+            color: rgba(255,255,255,0.3) !important;
+        }
+
+        .track-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 6px 6px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .track-row:hover { background: rgba(255,255,255,0.06); }
+
+        .track-num {
+            font-size: 11px;
+            color: rgba(255,255,255,0.3);
+            width: 20px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .track-name {
+            flex: 1;
+            min-width: 0;
+            font-size: 13px;
+            color: rgba(255,255,255,0.78);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .track-tile {
+            width: 46px;
+            height: 32px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+        }
+
+        .track-tile.unrated {
+            background: #222 !important;
+            color: rgba(255,255,255,0.3);
+            box-shadow: none;
+        }
+
+        .season-option {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s cubic-bezier(0.4,0,0.2,1), border-color 0.2s ease;
+            border: 1px solid transparent;
+            margin-bottom: 8px;
+        }
+
+        .season-option:hover  { background: rgba(255,255,255,0.06); transform: translateX(2px); }
+        .season-option.active { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.18); }
+
+        .season-option img {
+            width: 76px; height: 48px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .season-option-info { flex: 1; }
+
+        .season-option-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 3px;
+        }
+
+        .season-option-rating {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: none;
+            letter-spacing: normal;
+            padding: 2px 7px;
+            border-radius: 5px;
+            line-height: 1.4;
+        }
+
+        .season-option-rating.unrated {
+            background: #222 !important;
+            color: rgba(255,255,255,0.3) !important;
+        }
+
+        .season-option-title { font-size: 14px; font-weight: 600; color: white; }
+
+        .season-option-ep {
+            font-size: 11px;
+            color: rgba(255,255,255,0.35);
+            margin-top: 2px;
+        }
+
+        .season-option-check {
+            font-size: 1rem;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .season-option.active .season-option-check { opacity: 1; }
+
+        /* ══════════════════════════════════════
+           VIDEO MODAL
+        ══════════════════════════════════════ */
+        .glass-modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .glass-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(16px);
+        }
+
+        .glass-wrapper {
+            position: relative;
+            width: 92%;
+            max-width: 1400px;
+        }
+
+        .glass-close {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .glass-close:hover { background: rgba(255,255,255,0.22); }
+
+        .glass-player {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+            animation: popIn 0.25s ease-out;
+        }
+
+        .glass-player iframe { width: 100%; height: 100%; border: none; }
+
+        @keyframes popIn {
+            from { transform: scale(0.97); opacity: 0; }
+            to   { transform: scale(1);    opacity: 1; }
+        }
+
+        /* ══════════════════════════════════════
+           GALLERY MODAL
+        ══════════════════════════════════════ */
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-modal.open { display: flex; }
+
+        .gallery-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(14px);
+        }
+
+        .gallery-panel {
+            position: relative;
+            z-index: 1;
+            width: 92%;
+            max-width: 1100px;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .gallery-title {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .gallery-close {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: white;
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .gallery-close:hover { background: rgba(255,255,255,0.18); }
+
+        .gallery-main {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #111;
+            margin-bottom: 14px;
+            flex-shrink: 0;
+        }
+
+        .gallery-main img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: opacity 0.25s ease;
+        }
+
+        .gallery-main img.fade { opacity: 0; }
+
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.55);
+            border: 1px solid rgba(255,255,255,0.14);
+            color: white;
+            width: 42px; height: 42px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 2;
+        }
+
+        .gallery-arrow:hover { background: rgba(255,255,255,0.15); }
+        .gallery-arrow.left  { left: 14px; }
+        .gallery-arrow.right { right: 14px; }
+
+        .gallery-counter {
+            position: absolute;
+            bottom: 12px; right: 14px;
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.5);
+            background: rgba(0,0,0,0.45);
+            padding: 3px 10px;
+            border-radius: 999px;
+            letter-spacing: 0.06em;
+        }
+
+        .gallery-thumbs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .gallery-thumbs::-webkit-scrollbar { height: 3px; }
+        .gallery-thumbs::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
+        .gallery-thumb {
+            flex-shrink: 0;
+            width: 96px; height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s, opacity 0.2s;
+            opacity: 0.45;
+        }
+
+        .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-thumb.active { border-color: white; opacity: 1; }
+        .gallery-thumb:hover  { opacity: 0.8; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .release-overlay { padding: 0 32px 40px; }
+            .arrow-controls  { right: 32px; }
+            .slide-dots      { right: 32px; }
+            .content-rows    { padding: 38px 32px 56px; }
+        }
+
+    
+
+/* Dedicated Home immersion page: no navbar, no season controls, one project per page. */
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #080808;
+    color: white;
+    overflow-x: hidden;
+}
+body {
+    opacity: 1 !important;
+    animation: none !important;
+}
+.navbar, .arrow-controls, .slide-dots, .seasons-modal {
+    display: none !important;
+}
+.release-feature {
+    height: 100vh !important;
+    min-height: 720px !important;
+}
+.release-slider {
+    height: 100% !important;
+    transform: none !important;
+}
+.release-slide {
+    display: block !important;
+    min-width: 100% !important;
+    height: 100% !important;
+}
+.release-bg {
+    animation-play-state: running !important;
+}
+.release-left {
+    max-width: 680px;
+}
+.release-logo img {
+    max-width: 520px;
+    max-height: 190px;
+}
+.release-description {
+    color: rgba(255,255,255,.62);
+}
+.release-buttons {
+    gap: 10px;
+}
+.content-rows {
+    padding: 54px 72px 72px;
+}
+.content-row {
+    margin-bottom: 0;
+}
+.episodes-wrapper {
+    padding-top: 18px;
+}
+.episode-card {
+    width: 240px;
+}
+.film-project-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.46);
+}
+.film-project-kicker::before {
+    content: "";
+    width: 24px;
+    height: 1px;
+    background: rgba(255,255,255,.45);
+}
+.details-panel .details-row .value,
+.details-panel .details-row .value * {
+    color: rgba(255,255,255,.85);
+}
+@media (max-width: 768px) {
+    .release-feature {
+        height: auto !important;
+        min-height: 680px !important;
+    }
+    .release-overlay {
+        padding: 0 28px 42px !important;
+    }
+    .content-rows {
+        padding: 35px 28px 48px;
+    }
+}
+@media (max-width: 540px) {
+    .release-overlay {
+        padding: 0 20px 34px !important;
+    }
+    .content-rows {
+        padding: 28px 16px 40px;
+    }
+}
+
+
+
+/* Polished dark-glass finish for the updated Immersion experience */
+:root { color-scheme: dark; }
+body { background: #08090b; }
+.release-feature, .content-rows { background-color: #08090b; }
+.release-bg::after {
+    background:
+        linear-gradient(90deg, rgba(4,5,8,.9) 0%, rgba(4,5,8,.62) 44%, rgba(4,5,8,.1) 82%),
+        linear-gradient(0deg, #08090b 0%, rgba(8,9,11,.08) 54%, rgba(8,9,11,.15) 100%);
+}
+.play-btn, .info-btn, .season-btn, .ep-arrow, .glass-close, .details-close, .gallery-close, .gallery-arrow {
+    border-radius: 999px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.24), 0 8px 26px rgba(0,0,0,.28);
+    transition: transform .24s ease, background .24s ease, border-color .24s ease, box-shadow .24s ease;
+}
+.play-btn { background: linear-gradient(180deg,#fff 0%,#dfe2e8 100%); box-shadow: inset 0 1px 0 white, 0 7px 24px rgba(255,255,255,.1); }
+.info-btn, .season-btn, .ep-arrow { background: linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.045)); border-color: rgba(255,255,255,.16); backdrop-filter: blur(18px); }
+.play-btn:hover, .info-btn:hover, .season-btn:hover, .ep-arrow:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.24); }
+.episode-thumb { border-radius: 16px; background: #111318; box-shadow: 0 14px 38px rgba(0,0,0,.2); }
+.episode-card { transition: transform .32s cubic-bezier(.2,.7,.2,1), opacity .28s ease; }
+.episode-card:hover { transform: translateY(-6px); }
+.episode-card-unavailable { opacity: .65; cursor: not-allowed; }
+.episode-card-unavailable:hover { transform: none; }
+.episode-unavailable-label { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:linear-gradient(140deg,rgba(8,9,12,.52),rgba(8,9,12,.82)); color:rgba(255,255,255,.68); font-size:10px; font-weight:700; letter-spacing:.16em; }
+.glass-modal { padding: 20px; opacity: 0; visibility: hidden; transition: opacity .28s ease, visibility .28s ease; }
+.glass-modal.open { display:flex; opacity:1; visibility:visible; }
+.glass-backdrop { background:rgba(2,3,5,.82); backdrop-filter: blur(24px) saturate(120%); -webkit-backdrop-filter: blur(24px) saturate(120%); }
+.glass-wrapper { width:min(1240px,92vw,calc((100vh - 220px) * 1.7778)); max-height:92vh; padding:20px; border:1px solid rgba(255,255,255,.14); border-radius:26px; background:linear-gradient(145deg,rgba(31,33,39,.96),rgba(9,10,13,.96)); box-shadow:0 40px 120px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.1); overflow:visible; animation: popIn .32s cubic-bezier(.2,.7,.2,1); }
+.glass-modal-head { display:flex; gap:20px; align-items:center; min-height:94px; padding:2px 62px 18px 2px; }
+.glass-modal-logo { width:clamp(92px,14vw,180px); max-height:74px; object-fit:contain; object-position:left center; filter:drop-shadow(0 4px 14px rgba(0,0,0,.45)); flex:0 0 auto; }
+.glass-modal-copy { min-width:0; }
+.glass-modal-kicker { color:rgba(255,255,255,.45); font-size:9px; font-weight:700; letter-spacing:.2em; margin-bottom:5px; }
+.glass-modal-title { font-size:clamp(16px,2vw,23px); line-height:1.2; font-weight:700; margin:0 0 5px; color:#fff; }
+.glass-modal-description { font-size:12px; line-height:1.55; color:rgba(255,255,255,.56); margin:0 0 7px; max-width:740px; }
+.glass-modal-genres { font-size:10px; letter-spacing:.045em; color:rgba(255,255,255,.78); }
+.glass-close { position:absolute; top:20px; right:20px; left:auto; transform:none; width:42px; height:42px; display:flex; align-items:center; justify-content:center; z-index:5; background:linear-gradient(145deg,rgba(255,255,255,.17),rgba(255,255,255,.055)); border-color:rgba(255,255,255,.2); }
+.glass-close:hover { transform:rotate(90deg); background:rgba(255,255,255,.2); }
+.glass-player { aspect-ratio:16/9; border-radius:17px; border:1px solid rgba(255,255,255,.13); box-shadow:0 20px 55px rgba(0,0,0,.42); }
+.details-panel, .gallery-panel { border-radius:24px; background:linear-gradient(145deg,rgba(25,26,31,.98),rgba(8,9,12,.98)); border-color:rgba(255,255,255,.13); box-shadow:0 36px 100px rgba(0,0,0,.68),inset 0 1px 0 rgba(255,255,255,.06); }
+@media (max-width:700px) {
+  .glass-wrapper { width:100%; padding:14px; border-radius:20px; }
+  .glass-modal-head { gap:12px; padding-right:52px; align-items:flex-start; }
+  .glass-modal-logo { width:82px; max-height:58px; }
+  .glass-modal-description { font-size:11px; max-height:3.2em; overflow:hidden; }
+  .glass-close { top:14px; right:14px; width:36px; height:36px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; }
+}
+
+</style>
+</head>
+<body>
+
+<section class="release-feature">
+    <div class="release-slider" id="slider">
+        <div class="release-slide active">
+            <div class="release-bg" id="filmBg"></div>
+            <div class="release-overlay">
+                <div class="release-left">
+                    <div class="film-project-kicker" id="filmFormat"></div>
+                    <div class="release-meta">
+                        <span class="release-rating-badge" id="filmRating">—</span>
+                        <span class="dot">•</span>
+                        <span id="filmYear"></span>
+                        <span class="dot">•</span>
+                        <span id="filmCount"></span>
+                    </div>
+                    <div class="release-logo">
+                        <img id="filmLogo" alt="">
+                    </div>
+                    <div class="release-description">
+                        <p id="filmDescription"></p>
+                    </div>
+                    <div class="release-buttons">
+                        <button class="play-btn" id="filmPlay" type="button">▶ Play</button>
+                        <button class="info-btn" id="filmDescriptionBtn" type="button">Description</button>
+                        <button class="season-btn" id="filmGalleryBtn" type="button">Gallery</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content-rows">
+    <div class="content-row">
+        <div class="row-header">
+            <div class="row-title" id="episodesRowTitle"></div>
+            <div class="episode-arrows">
+                <button class="ep-arrow left" type="button" aria-label="Previous">‹</button>
+                <button class="ep-arrow right" type="button" aria-label="Next">›</button>
+            </div>
+        </div>
+        <div class="episodes-wrapper">
+            <div class="episodes-track" id="episodesTrack"></div>
+        </div>
+    </div>
+</section>
+
+<!-- VIDEO MODAL -->
+<div id="videoModal" class="glass-modal" aria-hidden="true">
+    <div class="glass-backdrop" onclick="closeVideo()"></div>
+    <div class="glass-wrapper" role="dialog" aria-modal="true" aria-label="Now playing">
+        <div class="glass-modal-head">
+            <img id="videoModalLogo" class="glass-modal-logo" src="" alt="">
+            <div class="glass-modal-copy">
+                <div class="glass-modal-kicker">NOW PLAYING</div>
+                <h2 id="videoModalTitle" class="glass-modal-title">Episode</h2>
+                <p id="videoModalDescription" class="glass-modal-description"></p>
+                <div id="videoModalGenres" class="glass-modal-genres"></div>
+            </div>
+        </div>
+        <button class="glass-close" type="button" onclick="closeVideo()" aria-label="Close player">×</button>
+        <div class="glass-player">
+            <iframe id="videoFrame" title="Video player" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+<!-- DESCRIPTION MODAL -->
+<div class="details-modal" id="detailsModal">
+    <div class="details-backdrop" onclick="closeDetailsModal()"></div>
+    <div class="details-panel">
+        <button class="details-close" onclick="closeDetailsModal()">×</button>
+        <h3 id="detailsTitle">Title</h3>
+        <div class="details-grid" id="detailsGrid"></div>
+    </div>
+</div>
+
+<!-- GALLERY MODAL -->
+<div class="gallery-modal" id="galleryModal">
+    <div class="gallery-backdrop" onclick="closeGallery()"></div>
+    <div class="gallery-panel">
+        <div class="gallery-header">
+            <span class="gallery-title" id="galleryTitle">Gallery</span>
+            <button class="gallery-close" onclick="closeGallery()">×</button>
+        </div>
+        <div class="gallery-main">
+            <img id="galleryMainImg" src="white.png" alt="">
+            <button class="gallery-arrow left" onclick="galleryStep(-1)">‹</button>
+            <button class="gallery-arrow right" onclick="galleryStep(1)">›</button>
+            <span class="gallery-counter" id="galleryCounter">1 / 1</span>
+        </div>
+        <div class="gallery-thumbs" id="galleryThumbs"></div>
+    </div>
+</div>
+
+<script>
+const FILM_PROJECT_KEY = new URLSearchParams(window.location.search).get("project") || "daytona";
+const PROJECTS = {"beginnings":{"title":"Hypixel Cinematic Montages: Beginnings","format":"Montages","year":"2022","date":"November 13th, 2022","rating":6.2,"count":"10 Montages","cover":"HCMBCOVER.png","logo":"HCMLogo.png","bg":"HCMArt.png","description":"Violethyst and Sibashi enter each match with one goal: survive. In a world where a single mistake ends the game, teamwork is the only way out.","genres":"Minecraft, Cinematic, Action","credits":"Created by Gurraj Grewal","artists":["Quadeca","Travis Scott","Future","The Weeknd","Juice WRLD","Metro Boomin","Throttle","Dion Timmer"],"music":["Quadeca — Couloir","Throttle — Japan","Dion Timmer — Shiawase","Quadeca — Tell Me A Joke","Quadeca — Under My Skin","Travis Scott — My Eyes","Juice WRLD — Lean Wit Me","Quadeca — Dustcutter","Future, Metro Boomin & The Weeknd — Always Be My Fault","Future, Metro Boomin & Travis Scott — Cinderella","Travis Scott — Drugs You Should Try It"],"episodeKey":"hcm_s1","isPrologue":true,"episodes":[{"title":"Couloir","img":"hcmEP1.png","rating":5.0,"url":"https://www.youtube.com/embed/HmVeA0c8IHI"},{"title":"Japan & Shiawase","img":"hcmEP2.png","rating":4.6,"url":"https://www.youtube.com/embed/omC2tyNmGT8"},{"title":"Tell Me A Joke","img":"hcmEP3.png","rating":8.6,"url":"https://www.youtube.com/embed/XxG6WaAw7io"},{"title":"Under My Skin","img":"hcmEP4.png","rating":4.8,"url":"https://www.youtube.com/embed/Zr13uDiDaqo"},{"title":"My Eyes","img":"hcmEP5.png","rating":6.9,"url":"https://www.youtube.com/embed/03Sb6iC3KDE"},{"title":"Lean Wit Me","img":"hcmEP6.png","rating":6.7,"url":"https://www.youtube.com/embed/Pwir7MB0vG0"},{"title":"Dustcutter","img":"hcmEP7.png","rating":7.0,"url":"https://www.youtube.com/embed/S1dcCP03h2o"},{"title":"Always Be My Fault","img":"hcmEP8.png","rating":4.7,"url":"https://www.youtube.com/embed/u8ZsgfYxA7k"},{"title":"Cinderella","img":"hcmEP9.png","rating":6.9,"url":"https://www.youtube.com/embed/4Ax-DpoPB6E"},{"title":"Drugs You Should Try It","img":"hcmEP10.png","rating":6.6,"url":"https://www.youtube.com/embed/m3GMoQJCzjc"}],"gallery":["HCMGallery1.png","HCMGallery2.png","HCMGallery3.png","HCMGallery4.png","HCMGallery5.png","HCMGallery6.png","HCMGallery7.png","HCMGallery8.png","HCMGallery9.png","HCMGallery10.png"],"galleryTitle":"Hypixel Cinematic Montages: Beginnings — Gallery"},"pre":{"title":"Pre-Party","format":"Montages","year":"2025","date":"April 15th, 2025","rating":5.5,"count":"6 Montages","cover":"PRE-PARTYCOVER.png","logo":"PRE-PARTYLOGO.png","bg":"PRE-PARTYART.png","description":"A spinoff centered on Viouth, a variant of Violethyst. Introducing tracks from The Weeknd's Hurry Up Tomorrow album turned into montages.","genres":"Minecraft, Cinematic, Action","credits":"Created by Gurraj Grewal","artists":["The Weeknd","Travis Scott"],"music":["The Weeknd — Until We're Skin & Bones","The Weeknd — Baptized In Fear","The Weeknd — Open Hearts","The Weeknd — Opening Night","The Weeknd & Travis Scott — Reflections Laughing","The Weeknd — Dancing In The Flames"],"episodeKey":"pre","isPrologue":true,"episodes":[{"title":"Until We're Skin & Bones","img":"preEP1.png","rating":2.3,"url":"https://www.youtube.com/embed/xJQcI7Pm-Dk"},{"title":"Baptized In Fear","img":"preEP2.png","rating":6.6,"url":"https://www.youtube.com/embed/QGWBsgL_SQc"},{"title":"Open Hearts","img":"preEP3.png","rating":5.5,"url":"https://www.youtube.com/embed/5Z46ybdul1Q"},{"title":"Opening Night","img":"preEP4.png","rating":4.6,"url":"https://www.youtube.com/embed/6hTLr4EQXD0"},{"title":"Reflections Laughing","img":"preEP5.png","rating":5.7,"url":"https://www.youtube.com/embed/m0BXrsELMXw"},{"title":"Baptized In Fear & Open Hearts Mashup","img":"preEP6.png","rating":7.1,"url":"https://www.youtube.com/embed/ZJrPjhUWBnI"},{"title":"Dancing In The Flames","img":"preEP7.png","rating":7.0,"url":"https://www.youtube.com/embed/BV6weMlOTNw"}],"gallery":["PrePartyGallery1.png","PrePartyGallery2.png","PrePartyGallery3.png","PrePartyGallery4.png","PrePartyGallery5.png","PrePartyGallery6.png","PrePartyGallery7.png","PrePartyGallery8.png","PrePartyGallery9.png","PrePartyGallery10.png"],"galleryTitle":"Pre-Party — Gallery"},"anniversary":{"title":"Hypixel Cinematic Montages: Anniversary","format":"Montages","year":"2025","date":"December 13th, 2025","rating":5.9,"count":"4 Montages","cover":"HCMACOVER.png","logo":"HCMALogo.png","bg":"HCMAArt.png","description":"Three years later, Violethyst returns to the games. Revisiting the rivalry, the matches, and the momentum that started it all.","genres":"Minecraft, Cinematic, Action","credits":"Created by Gurraj Grewal","artists":["SZA","Quadeca","JID","Kanye West","Ty Dolla $ign"],"music":["SZA — Good Days","Quadeca — Verglas","JID — Behold","Kanye West & Ty Dolla $ign — My Soul"],"episodeKey":"hcm_s2","isPrologue":false,"episodes":[{"title":"Good Days In Speedway","img":"hcmaEP1.png","rating":6.7,"url":"https://www.youtube.com/embed/v_4zKKeNzm0"},{"title":"Verglas: Couloir Mountains Revisited","img":"hcmaEP2.png","rating":4.0,"url":"https://www.youtube.com/embed/4T6wBJZkRok"},{"title":"Behold","img":"hcmaEP3.png","rating":7.4,"url":"https://www.youtube.com/embed/ycxLI4GxUwM"},{"title":"My Soul","img":"hcmaEP4.png","rating":5.6,"url":"https://www.youtube.com/embed/cg84UqJcj40"}],"gallery":["HCMS3Gallery1.png","HCMS3Gallery2.png","HCMS3Gallery3.png","HCMS3Gallery4.png","HCMS3Gallery5.png","HCMS3Gallery6.png","HCMS3Gallery7.png","HCMS3Gallery8.png","HCMS3Gallery9.png","HCMS3Gallery10.png"],"galleryTitle":"Hypixel Cinematic Montages: Anniversary — Gallery"},"daytona":{"title":"Daytona","format":"Series","year":"2026","date":"2026","rating":null,"count":"2 Episodes","cover":"DAYTONACOVER.png","logo":"DAYTONALogo.png","bg":"DaytonaArt.png","description":"Four players from Shasta take part in the Hypixel Games in Los Angeles. What follows is not another game. It is the end of one.","genres":"Mystery · Drama · Adventure","credits":"Created by Gurraj Grewal","artists":["Gurraj Grewal","Violethyst+"],"music":[],"episodeKey":"daytona","isPrologue":false,"episodes":[{"title":"From Shasta","img":"DaytonaEpisode1.png","rating":null,"url":"https://www.youtube.com/embed/ND8VEPZKZKdI?start=1387"},{"title":"The Architect","img":"black.png","rating":null,"url":null,"available":false}],"gallery":["DaytonaGallery1.png","DaytonaGallery2.png","DaytonaGallery3.png","DaytonaGallery4.png","DaytonaGallery5.png","DaytonaGallery6.png","DaytonaGallery7.png","DaytonaGallery8.png","DaytonaGallery9.png","DaytonaGallery10.png","DaytonaGallery11.png","DaytonaGallery12.png"],"galleryTitle":"Daytona — Gallery"}};
+const project = PROJECTS[FILM_PROJECT_KEY];
+
+function scoreColor(score) {
+    if (score === null || score === undefined) return "#222";
+    if (score < 4.0) return "#351e4f";
+    if (score < 5.0) return "#8e0808";
+    if (score < 6.0) return "#bf6205";
+    if (score < 7.6) return "#cea502";
+    if (score < 8.0) return "#0aad1d";
+    if (score < 9.0) return "#0b911b";
+    if (score < 9.5) return "#008430";
+    return "#00b1d1";
+}
+
+function scoreTextColor(score) {
+    if (score === null || score === undefined) return "white";
+    return (score >= 5 && score < 9) ? "#0f0f0f" : "white";
+}
+
+function episodeLabel(index) {
+    if (project.isPrologue && index === 0) return "Prologue:";
+    if (project.isPrologue) return `Montage ${index}:`;
+    if (project.format === "Series") return `Episode ${index + 1}:`;
+    return `Montage ${index + 1}:`;
+}
+
+document.getElementById("filmBg").style.backgroundImage = `url('${project.bg}')`;
+document.getElementById("filmLogo").src = project.logo;
+document.getElementById("filmLogo").alt = project.title;
+document.getElementById("filmFormat").textContent = project.format;
+document.getElementById("filmYear").textContent = project.year;
+document.getElementById("filmCount").textContent = project.count;
+document.getElementById("filmDescription").textContent = project.description;
+
+const ratingEl = document.getElementById("filmRating");
+if (project.rating === null) {
+    ratingEl.textContent = "—";
+    ratingEl.style.background = "rgba(255,255,255,.12)";
+    ratingEl.style.color = "rgba(255,255,255,.45)";
+} else {
+    ratingEl.textContent = Number(project.rating).toFixed(1);
+    ratingEl.style.background = scoreColor(project.rating);
+    ratingEl.style.color = scoreTextColor(project.rating);
+}
+
+document.getElementById("episodesRowTitle").textContent =
+    project.format === "Series" ? "Episodes" : "Montages";
+
+function openVideo(url, episodeTitle = "") {
+    if (!url) return;
+    const separator = url.includes("?") ? "&" : "?";
+    document.getElementById("videoFrame").src = url + separator + "autoplay=1&rel=0&modestbranding=1";
+    document.getElementById("videoModalLogo").src = project.logo;
+    document.getElementById("videoModalLogo").alt = project.title;
+    document.getElementById("videoModalTitle").textContent = episodeTitle || project.title;
+    document.getElementById("videoModalDescription").textContent = project.description;
+    document.getElementById("videoModalGenres").textContent = project.genres || "";
+    const modal = document.getElementById("videoModal");
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("video-modal-open");
+}
+
+function closeVideo() {
+    document.getElementById("videoFrame").src = "";
+    const modal = document.getElementById("videoModal");
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("video-modal-open");
+}
+
+function playProject() {
+    const first = project.episodes.find(ep => ep.url);
+    if (first) openVideo(first.url, first.title);
+}
+
+document.getElementById("filmPlay").addEventListener("click", playProject);
+
+const episodesTrack = document.getElementById("episodesTrack");
+let episodeScrollIndex = 0;
+
+project.episodes.forEach((ep, i) => {
+    const card = document.createElement("div");
+    card.className = "episode-card";
+    const score = ep.rating;
+    const ratingBadge = score === null || score === undefined
+        ? `<span class="ep-rating-badge unrated">—</span>`
+        : `<span class="ep-rating-badge" style="background:${scoreColor(score)};color:${scoreTextColor(score)}">${Number(score).toFixed(1)}</span>`;
+    const playable = Boolean(ep.url) && ep.available !== false;
+    card.className = playable ? "episode-card" : "episode-card episode-card-unavailable";
+    card.innerHTML = `
+        <div class="episode-thumb">
+            <img src="${ep.img}" alt="">
+            ${playable ? '<div class="play-overlay"></div>' : '<div class="episode-unavailable-label">COMING SOON</div>'}
+        </div>
+        <div class="episode-info">
+            <div class="episode-number">${episodeLabel(i)}</div>
+            <div class="episode-title-row">
+                <div class="episode-title">${ep.title}</div>
+                ${ratingBadge}
+            </div>
+        </div>`;
+    if (playable) card.addEventListener("click", () => openVideo(ep.url, ep.title));
+    else { card.setAttribute("aria-disabled", "true"); card.tabIndex = -1; }
+    episodesTrack.appendChild(card);
+});
+
+function getMaxScrollIndex() {
+    const cardWidth = 258;
+    const totalCards = episodesTrack.children.length;
+    const visibleWidth = document.querySelector(".episodes-wrapper").offsetWidth;
+    return Math.max(0, Math.ceil((totalCards * cardWidth - visibleWidth) / cardWidth));
+}
+
+document.querySelector(".ep-arrow.right").addEventListener("click", () => {
+    if (episodeScrollIndex < getMaxScrollIndex()) {
+        episodeScrollIndex++;
+        episodesTrack.style.transform = `translateX(-${episodeScrollIndex * 258}px)`;
+    }
+});
+document.querySelector(".ep-arrow.left").addEventListener("click", () => {
+    if (episodeScrollIndex > 0) {
+        episodeScrollIndex--;
+        episodesTrack.style.transform = `translateX(-${episodeScrollIndex * 258}px)`;
+    }
+});
+
+function stackList(arr) {
+    return `<div class="details-stack">${arr.map(item => `<span>${item}</span>`).join("")}</div>`;
+}
+
+function openDetailsModal() {
+    document.getElementById("detailsTitle").textContent = project.title;
+    const rows = [
+        ["Average Rating", project.rating === null
+            ? '<span class="details-rating-badge unrated">—</span>'
+            : `<span class="details-rating-badge" style="background:${scoreColor(project.rating)};color:${scoreTextColor(project.rating)}">${Number(project.rating).toFixed(1)}</span>`],
+        ["Release Year", project.date],
+        ["Format", `${project.format}`],
+        ["Genres", project.genres],
+        ["Credits", project.credits],
+        ["Artists Listed", stackList(project.artists)],
+        ["Music Used", stackList(project.music)]
+    ];
+    document.getElementById("detailsGrid").innerHTML = rows.map(([label,value]) => `
+        <div class="details-row">
+            <div class="label">${label}</div>
+            <div class="value">${value}</div>
+        </div>`).join("");
+
+
+    document.getElementById("detailsModal").classList.add("open");
+}
+
+function closeDetailsModal() {
+    document.getElementById("detailsModal").classList.remove("open");
+}
+document.getElementById("filmDescriptionBtn").addEventListener("click", openDetailsModal);
+
+let galleryImages = project.gallery.slice();
+let galleryIndex = 0;
+
+function renderGallery() {
+    const img = document.getElementById("galleryMainImg");
+    img.classList.add("fade");
+    setTimeout(() => {
+        img.src = galleryImages[galleryIndex];
+        img.classList.remove("fade");
+    }, 120);
+    document.getElementById("galleryCounter").textContent = `${galleryIndex + 1} / ${galleryImages.length}`;
+    document.querySelectorAll(".gallery-thumb").forEach((thumb, i) => {
+        thumb.classList.toggle("active", i === galleryIndex);
+    });
+    const activeThumb = document.querySelector(".gallery-thumb.active");
+    if (activeThumb) activeThumb.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
+}
+
+function openGallery() {
+    document.getElementById("galleryTitle").textContent = project.galleryTitle;
+    const thumbs = document.getElementById("galleryThumbs");
+    thumbs.innerHTML = "";
+    galleryImages.forEach((src, i) => {
+        const thumb = document.createElement("div");
+        thumb.className = "gallery-thumb" + (i === 0 ? " active" : "");
+        thumb.innerHTML = `<img src="${src}" alt="Screenshot ${i+1}">`;
+        thumb.onclick = () => { galleryIndex = i; renderGallery(); };
+        thumbs.appendChild(thumb);
+    });
+    galleryIndex = 0;
+    renderGallery();
+    document.getElementById("galleryModal").classList.add("open");
+}
+
+function closeGallery() {
+    document.getElementById("galleryModal").classList.remove("open");
+}
+
+function galleryStep(dir) {
+    galleryIndex = (galleryIndex + dir + galleryImages.length) % galleryImages.length;
+    renderGallery();
+}
+
+document.getElementById("filmGalleryBtn").addEventListener("click", openGallery);
+
+document.addEventListener("keydown", e => {
+    if (e.key !== "Escape") return;
+    if (document.getElementById("videoModal").style.display === "flex") closeVideo();
+    else if (document.getElementById("galleryModal").classList.contains("open")) closeGallery();
+    else if (document.getElementById("detailsModal").classList.contains("open")) closeDetailsModal();
+});
+</script>
+</body>
+</html>
