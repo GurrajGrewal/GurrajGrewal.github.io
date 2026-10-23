@@ -65,8 +65,8 @@
         }
 
         .hero-pfp {
-            width: 200px;
-            height: 200px;
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
             object-fit: cover;
             flex: 0 0 auto;
@@ -651,8 +651,8 @@
             }
 
             .hero-pfp {
-                width: 145px;
-                height: 145px;
+                width: 160px;
+                height: 160px;
             }
 
             .hero-name {
@@ -758,6 +758,31 @@
 
     </style>
     <link rel="stylesheet" href="style.css">
+    <style id="home-final-overrides">
+        /* Keep the global hamburger out of the project and Immersion content. */
+        body.project-overlay-open .site-header,
+        body.film-overlay-open .site-header {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+        body.project-overlay-open .nav-drawer,
+        body.project-overlay-open .nav-scrim,
+        body.film-overlay-open .nav-drawer,
+        body.film-overlay-open .nav-scrim {
+            visibility: hidden !important;
+            pointer-events: none !important;
+            opacity: 0 !important;
+        }
+        .site-brand { gap: 0 !important; }
+        .hero-pfp { width: 220px; height: 220px; }
+        @media (max-width: 800px) {
+            .hero-pfp { width: 160px; height: 160px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .site-header { transition: none !important; }
+        }
+    </style>
 </head>
 
 <body>
@@ -767,9 +792,6 @@
         <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation" aria-controls="siteNavDrawer" aria-expanded="false">
             <span></span><span></span>
         </button>
-        <a class="site-logo" href="index.html" aria-label="Gurraj Grewal home">
-            <img src="logo-big-tran.png" alt="Gurraj Grewal">
-        </a>
     </div>
 </header>
 <div class="nav-scrim" id="navScrim" aria-hidden="true"></div>
@@ -1006,7 +1028,7 @@ const catalog = [
 
     // ── OTHER VIDEOS — retained as catalog data, not surfaced in Popular ──
     { kind: "video", popularVideoRank: 4, format: "Video", title: "PLAYBOI CARTI — RATHER LIE | 4K", subject: "Gurraj Grewal, Violethyst",
-      year: 2025, views: 1831, cover: "RATHERLIE.png", videoId: "HnDmrcyg7Fc" },
+      year: 2025, views: 1831, cover: "Violethyst.png", videoId: "HnDmrcyg7Fc" },
 
     { kind: "video", popularVideoRank: null, title: "MIGUEL O'HARA — FLOOR 555", subject: "Gurraj Grewal",
       year: 2024, views: 1861, cover: "MFLOOR555.png", videoId: "GVAyQldzF8k" },
@@ -1134,7 +1156,18 @@ function openCompilationOverlay(item) {
     document.body.classList.add('project-overlay-open');
     document.getElementById('projectClose').onclick = closeProjectOverlay;
     document.getElementById('projectCover').src = item.cover;
-    document.getElementById('projectTitle').textContent = item.title;
+
+    const projectLogo = document.getElementById('projectLogo');
+    projectLogo.removeAttribute('src');
+    projectLogo.alt = '';
+    projectLogo.style.display = 'none';
+    const projectTitle = document.getElementById('projectTitle');
+    projectTitle.textContent = item.title; // e.g. “Violethyst” / “Violethyst+” as clean text
+    projectTitle.classList.remove('sr-only');
+    projectTitle.style.display = 'block';
+    document.getElementById('projectBackdrop').style.backgroundImage = `linear-gradient(180deg, rgba(7,8,11,.26) 0%, rgba(7,8,11,.82) 58%, #08090b 100%), linear-gradient(90deg, rgba(7,8,11,.62), transparent 82%), url('${item.cover}')`;
+    document.getElementById('projectDescription').textContent = '';
+    document.getElementById('projectGenres').innerHTML = '';
     document.getElementById('projectType').textContent = 'Compilation';
     document.getElementById('projectMeta').textContent = `${item.subject} · ${item.year} · ${item.tracks.length} videos`;
     const play = document.getElementById('projectPlay');
@@ -1338,8 +1371,13 @@ function renderProjectView() {
 
     document.getElementById('projectCover').src = part.cover;
     document.getElementById('projectCover').alt = part.label + ' cover';
-    document.getElementById('projectLogo').src = part.logo;
-    document.getElementById('projectLogo').alt = part.label;
+    const projectLogo = document.getElementById('projectLogo');
+    projectLogo.style.display = '';
+    projectLogo.src = part.logo;
+    projectLogo.alt = part.label;
+    const projectTitle = document.getElementById('projectTitle');
+    projectTitle.classList.add('sr-only');
+    projectTitle.style.display = '';
     document.getElementById('projectBackdrop').style.backgroundImage = `linear-gradient(180deg, rgba(7,8,11,.34) 0%, rgba(7,8,11,.78) 52%, #08090b 100%), linear-gradient(90deg, rgba(7,8,11,.72), transparent 82%), url('${part.bg}')`;
     document.getElementById('projectDescription').textContent = part.description;
     document.getElementById('projectGenres').innerHTML = part.genres.split(' · ').map(genre => `<span class="project-genre">${genre}</span>`).join('');
@@ -1374,9 +1412,11 @@ function renderProjectView() {
             const rating = score !== null && score !== undefined ? `<span class="project-track-rating" style="background:${projectScoreColor(score)};color:${projectScoreText(score)}">${Number(score).toFixed(1)}</span>` : '<span class="project-track-rating" style="background:#222;color:#555">—</span>';
             const label = isDaytona ? `E${i + 1}` : projectEpisodeLabel(section.key, i);
             const unavailable = ep.available === false;
+            const credits = ((episodeArtists[section.key] || [])[i] || (isDaytona ? "Gurraj Grewal, Violethyst+" : "Gurraj Grewal"));
+            const subtitle = unavailable ? `Coming Soon · ${credits}` : credits;
             return `<div class="project-track-row${unavailable ? ' is-unavailable' : ''}" data-key="${section.key}" data-index="${i}" ${unavailable ? 'aria-disabled="true"' : 'role="button" tabindex="0"'}>
                 <span class="project-track-number">${label}</span>
-                <span><div class="project-track-title">${ep.title}</div><div class="project-track-sub">${unavailable ? 'Coming soon' : ((episodeArtists[section.key] || [])[i] || (isDaytona ? "Gurraj Grewal, Violethyst+" : "Gurraj Grewal"))}</div></span>
+                <span><div class="project-track-title">${ep.title}</div><div class="project-track-sub">${subtitle}</div></span>
                 ${rating}
                 <span class="project-track-duration">${unavailable ? 'SOON' : '↗'}</span>
             </div>`;
@@ -1411,6 +1451,31 @@ function renderProjectView() {
 const filmOverlay = document.getElementById('filmOverlay');
 const filmFrame = document.getElementById('filmFrame');
 const filmClose = document.getElementById('filmClose');
+
+// The gallery lives in immersion.html. Apply this small same-origin override from
+// home.html so its images sit directly on the dark backdrop without a grey panel.
+filmFrame.addEventListener('load', () => {
+    try {
+        const frameDocument = filmFrame.contentDocument;
+        if (!frameDocument || !frameDocument.querySelector('.gallery-panel')) return;
+        if (frameDocument.getElementById('home-gallery-panel-override')) return;
+        const galleryOverride = frameDocument.createElement('style');
+        galleryOverride.id = 'home-gallery-panel-override';
+        galleryOverride.textContent = `
+            .gallery-panel {
+                background: transparent !important;
+                border: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+            }
+            .gallery-main { background: transparent !important; }
+        `;
+        frameDocument.head.appendChild(galleryOverride);
+    } catch (error) {
+        // Cross-origin restrictions should fail harmlessly; this site normally shares an origin.
+    }
+});
+
 function openFilmOverlay(item, forcedPart = null) {
     const part = forcedPart || projectPartForItem(item);
     if (!part) return;
