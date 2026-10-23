@@ -94,9 +94,6 @@ body.nav-open, body.project-overlay-open, body.film-overlay-open, body.video-mod
 .menu-toggle:hover span:nth-child(2) { width: 20px; margin-left: 0; }
 .menu-toggle[aria-expanded="true"] span:first-child { transform: translateY(4px) rotate(45deg); }
 .menu-toggle[aria-expanded="true"] span:nth-child(2) { width: 20px; margin-left: 0; transform: translateY(-4px) rotate(-45deg); }
-.site-logo { display: inline-flex; align-items: center; max-width: min(44vw, 300px); text-decoration: none; }
-.site-logo img { display: block; width: auto; height: 64px; max-width: 100%; object-fit: contain; filter: drop-shadow(0 4px 16px rgba(0,0,0,.32)); transition: transform .35s var(--ease-out), filter .35s ease; }
-.site-logo:hover img { transform: scale(1.025); filter: drop-shadow(0 8px 22px rgba(0,0,0,.44)); }
 
 /* Left-side navigation drawer and soft scrim. */
 .nav-scrim {
@@ -234,13 +231,11 @@ button, .discog-tab, .filter-chip, .artist-back, .play-btn, .info-btn, .season-b
 
 @media (max-width: 900px) {
     .site-header { height: 78px; padding-inline: 16px; }
-    .site-logo img { height: 56px; }
     .project-overlay-main { width: calc(100% - 40px) !important; }
 }
 @media (max-width: 700px) {
     .site-header { height: 72px; }
     .menu-toggle { width: 44px; height: 44px; flex-basis: 44px; border-radius: 15px; }
-    .site-logo img { height: 49px; }
     .site-brand { gap: 10px; }
     .nav-drawer { border-radius: 25px; }
     .nav-drawer-links a { min-height: 63px; border-radius: 18px; }
@@ -257,7 +252,6 @@ button, .discog-tab, .filter-chip, .artist-back, .play-btn, .info-btn, .season-b
     .about-section, .main { padding-left: 20px !important; padding-right: 20px !important; }
 }
 @media (max-width: 420px) {
-    .site-logo img { height: 43px; }
     .menu-toggle { width: 42px; height: 42px; flex-basis: 42px; }
     .nav-drawer { inset: 8px 8px 8px 8px; width: auto; padding: 23px; }
     .project-meta { font-size: 11px !important; }
