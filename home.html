@@ -1491,7 +1491,9 @@ function openFilmOverlay(item, forcedPart = null, playEpisode = false) {
     // Keep the dedicated Immersion layout in its own editable HTML file.
     // When Episode 1 is selected in the Daytona track list, ask Immersion to
     // open that episode's YouTube embed immediately instead of opening a new tab.
-    const params = new URLSearchParams({ project: part });
+    // Bump the iframe URL so browsers/CDNs don't reuse an older Immersion page
+    // that may still contain the previous 23:07 playback offset.
+    const params = new URLSearchParams({ project: part, v: '20261024-2' });
     if (playEpisode && part === 'daytona') params.set('play', 'from-shasta');
     filmFrame.src = `immersion.html?${params.toString()}`;
 }

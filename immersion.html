@@ -1388,8 +1388,20 @@ document.getElementById("episodesRowTitle").textContent =
 
 function openVideo(url, episodeTitle = "") {
     if (!url) return;
-    const separator = url.includes("?") ? "&" : "?";
-    document.getElementById("videoFrame").src = url + separator + "autoplay=1&rel=0&modestbranding=1";
+
+    // Always strip saved/legacy seek offsets before opening an episode.
+    // Daytona: From Shasta must explicitly begin at 0 seconds.
+    const playerUrl = new URL(url, window.location.href);
+    playerUrl.searchParams.delete("t");
+    playerUrl.searchParams.delete("start");
+    playerUrl.searchParams.delete("time_continue");
+    playerUrl.searchParams.set("autoplay", "1");
+    playerUrl.searchParams.set("rel", "0");
+    playerUrl.searchParams.set("modestbranding", "1");
+    if (FILM_PROJECT_KEY === "daytona" && episodeTitle === "From Shasta") {
+        playerUrl.searchParams.set("start", "0");
+    }
+    document.getElementById("videoFrame").src = playerUrl.toString();
     document.getElementById("videoModalLogo").src = project.logo;
     document.getElementById("videoModalLogo").alt = project.title;
     document.getElementById("videoModalTitle").textContent = episodeTitle || project.title;
