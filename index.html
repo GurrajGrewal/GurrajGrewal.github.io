@@ -1,15 +1,175 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>02/02</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080808">
+    <meta name="description" content="Gurraj Grewal — creator and filmmaker.">
+    <title>Gurraj Grewal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #080808;
+            --white: #f8f8fb;
+            --muted: rgba(248, 248, 251, .52);
+            --ease: cubic-bezier(.2, .75, .25, 1);
+        }
+        * { box-sizing: border-box; }
+        html, body { width: 100%; min-height: 100%; margin: 0; }
+        body {
+            min-height: 100svh;
+            overflow: hidden;
+            display: grid;
+            place-items: center;
+            background: var(--bg);
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+        .intro {
+            position: relative;
+            isolation: isolate;
+            width: 100%;
+            min-height: 100svh;
+            display: grid;
+            place-items: center;
+            padding: 32px 24px;
+            text-align: center;
+        }
+        .intro::before {
+            content: '';
+            position: absolute;
+            z-index: -2;
+            width: min(76vw, 760px);
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(140, 132, 190, .105) 0%, rgba(91, 89, 127, .045) 35%, transparent 70%);
+            opacity: 0;
+            animation: glow-in 1.8s .15s ease forwards, glow-breathe 5s 2s ease-in-out infinite;
+        }
+        .ring {
+            position: absolute;
+            z-index: -1;
+            width: clamp(250px, 39vw, 460px);
+            aspect-ratio: 1;
+            border: 1px solid rgba(255,255,255,.055);
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(.78) rotate(-22deg);
+            animation: ring-in 1.8s .15s var(--ease) forwards, ring-turn 22s 2s linear infinite;
+        }
+        .ring::before, .ring::after {
+            content: '';
+            position: absolute;
+            border: 1px solid rgba(255,255,255,.035);
+            border-radius: 50%;
+            inset: 8%;
+        }
+        .ring::after { inset: 17%; border-color: rgba(255,255,255,.025); }
+        .content { width: 100%; display: flex; flex-direction: column; align-items: center; }
+        h1 {
+            margin: 0;
+            font-size: clamp(42px, 7.5vw, 88px);
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -.045em;
+            white-space: nowrap;
+            opacity: 0;
+            filter: blur(12px);
+            transform: translateY(16px) scale(.985);
+            animation: name-arrive 1.35s .35s var(--ease) forwards;
+        }
+        .rule {
+            height: 1px;
+            width: 0;
+            margin-top: 26px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.68), transparent);
+            animation: rule-expand 1s 1.05s var(--ease) forwards;
+        }
+        .explore {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-width: 132px;
+            margin-top: 31px;
+            padding: 12px 20px;
+            border: 1px solid rgba(255,255,255,.17);
+            border-radius: 999px;
+            background: rgba(255,255,255,.045);
+            color: var(--white);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: .025em;
+            opacity: 0;
+            transform: translateY(8px);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            transition: background .25s ease, border-color .25s ease, transform .25s ease;
+            animation: button-arrive .8s 1.25s var(--ease) forwards;
+        }
+        .explore:hover { background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.36); transform: translateY(-2px); }
+        .explore:active { transform: translateY(0) scale(.98); }
+        .arrow { display: inline-block; transition: transform .25s ease; }
+        .explore:hover .arrow { transform: translateX(3px); }
+        .progress {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255,255,255,.06);
+        }
+        .progress span {
+            display: block;
+            width: 0;
+            height: 100%;
+            background: rgba(255,255,255,.5);
+            animation: progress 6.5s linear forwards;
+        }
+        @keyframes name-arrive { to { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); } }
+        @keyframes rule-expand { to { width: clamp(100px, 18vw, 190px); } }
+        @keyframes button-arrive { to { opacity: 1; transform: translateY(0); } }
+        @keyframes glow-in { to { opacity: 1; } }
+        @keyframes glow-breathe { 0%,100% { scale: 1; opacity: .75; } 50% { scale: 1.08; opacity: 1; } }
+        @keyframes ring-in { to { opacity: 1; transform: scale(1) rotate(-22deg); } }
+        @keyframes ring-turn { to { rotate: 360deg; } }
+        @keyframes progress { to { width: 100%; } }
+        @media (max-width: 520px) {
+            h1 { font-size: clamp(35px, 9vw, 54px); letter-spacing: -.05em; }
+            .ring { width: 82vw; }
+            .rule { margin-top: 22px; }
+            .explore { margin-top: 26px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+        }
+    </style>
 </head>
-<body class="enter-page">
-<div class="enter-container">
-    <a href="home.html">
-        <img src="logo-big.png" alt="02/02 Logo" class="enter-logo-img">
-    </a>
-</div>
+<body>
+    <main class="intro" aria-label="Gurraj Grewal">
+        <div class="ring" aria-hidden="true"></div>
+        <div class="content">
+            <h1>Gurraj Grewal</h1>
+            <div class="rule" aria-hidden="true"></div>
+            <a class="explore" href="home.html">Explore <span class="arrow" aria-hidden="true">↗</span></a>
+        </div>
+    </main>
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <script>
+        // Automatically enter the main site after a short cinematic intro.
+        const redirectTimer = window.setTimeout(() => {
+            window.location.replace('home.html');
+        }, 6500);
+
+        // The Explore link works immediately and cancels the automatic redirect.
+        document.querySelector('.explore').addEventListener('click', () => {
+            window.clearTimeout(redirectTimer);
+        });
+    </script>
 </body>
 </html>
