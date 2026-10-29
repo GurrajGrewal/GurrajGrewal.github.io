@@ -776,6 +776,9 @@
         }
         .site-brand { gap: 0 !important; }
         .hero-pfp { width: 220px; height: 220px; }
+        .hero-name a { color: inherit; text-decoration: none; display: inline-block; cursor: pointer; transition: opacity .2s ease; }
+        .hero-name a:hover { opacity: .82; }
+        .hero-name a:focus-visible { outline: 2px solid rgba(255,255,255,.7); outline-offset: 5px; border-radius: 3px; }
         @media (max-width: 800px) {
             .hero-pfp { width: 160px; height: 160px; }
         }
@@ -817,11 +820,11 @@
         <img class="hero-pfp" src="PFP.png" alt="Gurraj Grewal">
         <div class="hero-profile-copy">
             <div class="hero-eyebrow">Creator</div>
-            <h1 class="hero-name">Gurraj Grewal</h1>
+            <h1 class="hero-name"><a href="https://www.youtube.com/@GurrajSGrewal" target="_blank" rel="noopener noreferrer">Gurraj Grewal</a></h1>
 
             <div class="hero-stats">
                 <div class="hero-stat hero-stat-inline">
-                    <span class="hero-stat-value">2,561</span>
+                    <span class="hero-stat-value">3,070 <span class="about-growth" aria-label="growth">↗</span></span>
                     <span class="hero-stat-label">MONTHLY VIEWERS</span>
                 </div>
             </div>
@@ -874,15 +877,15 @@
                 <span class="about-stat-label">peak monthly viewers</span>
             </div>
             <div class="about-stat about-stat-current">
-                <span class="about-stat-value">2,561 <span class="about-growth" aria-label="growth">↗</span></span>
+                <span class="about-stat-value">3,070 <span class="about-growth" aria-label="growth">↗</span></span>
                 <span class="about-stat-label">monthly viewers</span>
             </div>
             <div class="about-stat">
-                <span class="about-stat-value">456,942</span>
+                <span class="about-stat-value">458,162</span>
                 <span class="about-stat-label">total lifetime views</span>
             </div>
             <div class="about-stat">
-                <span class="about-stat-value">1,317</span>
+                <span class="about-stat-value">1,414</span>
                 <span class="about-stat-label">total followers</span>
             </div>
         </aside>
@@ -958,7 +961,7 @@
    ══════════════════════════════════════════════════════════ */
 const catalog = [
     // ── PROJECTS ──
-    { kind: "project", format: "Series", releasePopularRank: 0, popularVideoRank: 2, popularTitle: "DAYTONA — EPISODE 1", popularCover: "DaytonaEpisode1.png", ratingRank: null, rating: 8.5, title: "Daytona",
+    { kind: "project", format: "Series", releasePopularRank: 3, popularVideoRank: null, popularTitle: "DAYTONA — EPISODE 1", popularCover: "DaytonaEpisode1.png", ratingRank: null, rating: 8.5, title: "Daytona",
       sub: "2026 · Series", cover: "DAYTONACOVER.png", subject: "Gurraj Grewal, Violethyst+", year: 2026,
       videoId: "ND8VEPKZKdI", link: { title: "daytona", slide: 1 } },
 
@@ -966,11 +969,11 @@ const catalog = [
       sub: "2025 · Montages", cover: "HCMACOVER.png", subject: "Gurraj Grewal, Quadeca", year: 2025,
       videoId: "v_4zKKeNzm0", link: { title: "hcm", season: 3 } },
 
-    { kind: "project", format: "Montages", releasePopularRank: 4, ratingRank: 3, rating: 5.5, title: "Pre-Party",
+    { kind: "project", format: "Montages", releasePopularRank: 5, ratingRank: 3, rating: 5.5, title: "Pre-Party",
       sub: "2025 · Montages", cover: "PRE-PARTYCOVER.png", subject: "Gurraj Grewal, The Weeknd", year: 2025,
       videoId: "xJQcI7Pm-Dk", link: { title: "hcm", season: 2 } },
 
-    { kind: "project", format: "Montages", releasePopularRank: 5, ratingRank: 1, rating: 6.2, title: "Hypixel Cinematic Montages: Beginnings",
+    { kind: "project", format: "Montages", releasePopularRank: 7, ratingRank: 1, rating: 6.2, title: "Hypixel Cinematic Montages: Beginnings",
       sub: "2022 · Montages", cover: "HCMBCOVER.png", subject: "Gurraj Grewal, Quadeca", year: 2022,
       videoId: "HmVeA0c8IHI", link: { title: "hcm", season: 1 } },
 
@@ -1002,7 +1005,7 @@ const catalog = [
 
     { kind: "compilation", format: "Compilation", title: "Daytona: Specials",
       subject: "Gurraj Grewal", year: 2026, cover: "DAYTONASPECIALSCOVER.png", videoId: null,
-      placeholder: true, releasePopularRank: 3,
+      placeholder: true, releasePopularRank: 4,
       link: { url: "https://www.youtube.com/playlist?list=PLL2d-OATLvpa3aNDuSt-noaBWX4NEmnne" } },
 
     // ── POPULAR VIDEOS ──
@@ -1010,15 +1013,15 @@ const catalog = [
       subject: "Gurraj Grewal, Violethyst+", year: 2026, views: null,
       cover: "ViolethystPlus.png", videoId: "PgRLvNBr4HA" },
 
-    { kind: "video", popularVideoRank: 3, format: "Video", title: "GODZILLA — FE!N | 4K",
+    { kind: "video", popularVideoRank: 2, format: "Video", title: "GODZILLA — FE!N | 4K",
       subject: "Gurraj Grewal, Violethyst", year: 2024, views: 308204,
       cover: "Violethyst.png", videoId: "eymcrK50zng" },
 
-    { kind: "video", popularVideoRank: 5, format: "Video", title: "GODZILLA 2014—2024 | TRANSITION",
+    { kind: "video", popularVideoRank: 4, format: "Video", title: "GODZILLA 2014—2024 | TRANSITION",
       subject: "Gurraj Grewal, Violethyst", year: 2023, views: 91443,
       cover: "Violethyst.png", videoId: "NkTOKZ6co_c" },
 
-    { kind: "video", popularVideoRank: null, format: "Video", title: "PLAYBOI CARTI — TIMELESS | 4K",
+    { kind: "video", popularVideoRank: 5, format: "Video", title: "PLAYBOI CARTI — TIMELESS | 4K",
       subject: "Gurraj Grewal, Violethyst", year: 2024, views: 29584,
       cover: "Violethyst.png", videoId: "hImKEqjTf60" },
 
@@ -1027,7 +1030,7 @@ const catalog = [
       cover: "Violethyst.png", videoId: "HlT9bi13VyY" },
 
     // ── OTHER VIDEOS — retained as catalog data, not surfaced in Popular ──
-    { kind: "video", popularVideoRank: 4, format: "Video", title: "PLAYBOI CARTI — RATHER LIE | 4K", subject: "Gurraj Grewal, Violethyst",
+    { kind: "video", popularVideoRank: 3, format: "Video", title: "PLAYBOI CARTI — RATHER LIE | 4K", subject: "Gurraj Grewal, Violethyst",
       year: 2025, views: 1831, cover: "Violethyst.png", videoId: "HnDmrcyg7Fc" },
 
     { kind: "video", popularVideoRank: null, title: "MIGUEL O'HARA — FLOOR 555", subject: "Gurraj Grewal",
@@ -1147,19 +1150,6 @@ renderPopular();
 renderDiscography();
 
 
-// Keep the project banner backdrop as tall as the entire scrollable overlay,
-// so it fades out naturally instead of stopping at a fixed viewport height.
-function syncProjectBackdropHeight() {
-    const backdrop = document.getElementById('projectBackdrop');
-    if (!backdrop || !projectOverlay.classList.contains('open')) return;
-    const fullHeight = Math.max(projectOverlay.scrollHeight, projectOverlay.clientHeight, window.innerHeight);
-    backdrop.style.height = `${fullHeight}px`;
-}
-
-window.addEventListener('resize', () => {
-    if (projectOverlay.classList.contains('open')) syncProjectBackdropHeight();
-});
-
 function openCompilationOverlay(item) {
     activeProject = item;
     activeProjectIsAnniversary = false;
@@ -1205,7 +1195,6 @@ function openCompilationOverlay(item) {
         row.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } };
         if (!item.tracks[i].url) { row.style.cursor = 'default'; row.removeAttribute('role'); row.removeAttribute('tabindex'); }
     });
-    requestAnimationFrame(syncProjectBackdropHeight);
 }
 
 /* ── PROJECT EPISODE DATA ── */
@@ -1470,7 +1459,6 @@ function renderProjectView() {
         row.onclick = open;
         row.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } };
     });
-    requestAnimationFrame(syncProjectBackdropHeight);
 }
 
 /* ══════════════════════════════════════════════════════════

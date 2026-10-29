@@ -189,9 +189,10 @@ button, .discog-tab, .filter-chip, .artist-back, .play-btn, .info-btn, .season-b
     transition: transform .24s var(--ease-out), color .24s ease, background .24s ease, border-color .24s ease, box-shadow .24s ease;
 }
 .discog-tab:hover, .filter-chip:hover, .artist-back:hover { transform: translateY(-1px); }
-.popular-row { border-radius: 14px !important; transition: background .25s ease, transform .25s var(--ease-out) !important; }
+.popular-row { border-radius: 8px !important; transition: background .25s ease, transform .25s var(--ease-out) !important; }
 .popular-row:not(.placeholder):hover { transform: translateX(4px); background: rgba(255,255,255,.065) !important; }
-.popular-thumb, .discog-cover, .review-thumb, .about-image-wrap, .project-cover { border-radius: 18px !important; }
+.popular-thumb { border-radius: 7px !important; }
+.discog-cover, .review-thumb, .about-image-wrap, .project-cover { border-radius: 18px !important; }
 .discog-card:hover, .review-card:hover { transform: translateY(-5px) !important; }
 .discog-cover, .review-thumb { box-shadow: 0 12px 34px rgba(0,0,0,.2); transition: box-shadow .32s ease, border-color .32s ease; }
 .discog-card:hover .discog-cover, .review-card:hover .review-thumb { box-shadow: 0 22px 50px rgba(0,0,0,.45) !important; }
