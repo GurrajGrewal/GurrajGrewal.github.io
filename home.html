@@ -927,7 +927,7 @@
             <img class="project-cover" id="projectCover" src="black.png" alt="">
             <div class="project-overview-copy">
                 <div class="project-eyebrow" id="projectType">Montages</div>
-                <img class="project-logo" id="projectLogo" src="" alt="">
+                <a id="projectLogoLink" class="project-logo-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Open project YouTube playlist" style="display:block;width:fit-content;max-width:100%;"><img class="project-logo" id="projectLogo" src="" alt=""></a>
                 <h2 class="project-title sr-only" id="projectTitle">Project</h2>
                 <div class="project-meta" id="projectMeta"></div>
                 <p class="project-description" id="projectDescription"></p>
@@ -1158,6 +1158,9 @@ function openCompilationOverlay(item) {
     document.getElementById('projectCover').src = item.cover;
 
     const projectLogo = document.getElementById('projectLogo');
+    const projectLogoLink = document.getElementById('projectLogoLink');
+    projectLogoLink.style.display = 'none';
+    projectLogoLink.removeAttribute('href');
     projectLogo.removeAttribute('src');
     projectLogo.alt = '';
     projectLogo.style.display = 'none';
@@ -1165,10 +1168,7 @@ function openCompilationOverlay(item) {
     projectTitle.textContent = item.title; // e.g. “Violethyst” / “Violethyst+” as clean text
     projectTitle.classList.remove('sr-only');
     projectTitle.style.display = 'block';
-    // Compilations are not individual projects: keep their cover, but no banner art.
-    const compilationBackdrop = document.getElementById('projectBackdrop');
-    compilationBackdrop.style.backgroundImage = 'none';
-    compilationBackdrop.style.backgroundColor = '#08090b';
+    document.getElementById('projectBackdrop').style.backgroundImage = `linear-gradient(180deg, rgba(7,8,11,.26) 0%, rgba(7,8,11,.82) 58%, #08090b 100%), linear-gradient(90deg, rgba(7,8,11,.62), transparent 82%), url('${item.cover}')`;
     document.getElementById('projectDescription').textContent = '';
     document.getElementById('projectGenres').innerHTML = '';
     document.getElementById('projectType').textContent = 'Compilation';
@@ -1312,10 +1312,10 @@ let activeProjectPart = null;
 let activeProjectIsAnniversary = false;
 
 const projectParts = {
-    hcm_s1: { label: 'Beginnings', key: 'hcm_s1', cover: 'HCMBCOVER.png', logo: 'HCMLogo.png', bg: 'HCMArt.png', year: '2022', genres: 'Minecraft · Cinematic · Action', description: 'Violethyst and Sibashi enter each match with one goal: survive. In a world where a single mistake ends the game, teamwork is the only way out.' },
-    hcm_s2: { label: 'Anniversary', key: 'hcm_s2', cover: 'HCMACOVER.png', logo: 'HCMALogo.png', bg: 'HCMAArt.png', year: '2025', genres: 'Minecraft · Cinematic · Action', description: 'Three years later, Violethyst returns to the games. Revisiting the rivalry, the matches, and the momentum that started it all.' },
-    pre: { label: 'Pre-Party', key: 'pre', cover: 'PRE-PARTYCOVER.png', logo: 'PRE-PARTYLOGO.png', bg: 'PRE-PARTYART.png', year: '2025', genres: 'Minecraft · Cinematic · Action', description: 'A spinoff centered on Viouth, a variant of Violethyst, with montages set to music from The Weeknd’s Hurry Up Tomorrow.' },
-    daytona: { label: 'Daytona', key: 'daytona', cover: 'DAYTONACOVER.png', logo: 'DAYTONALogo.png', bg: 'DaytonaArt.png', year: '2026', genres: 'Mystery · Drama · Adventure', description: 'Four players from Shasta take part in the Hypixel Games in Los Angeles. What follows is not another game. It is the end of one.' }
+    hcm_s1: { label: 'Beginnings', key: 'hcm_s1', cover: 'HCMBCOVER.png', logo: 'HCMLogo.png', playlist: 'https://www.youtube.com/playlist?list=PLL2d-OATLvpabkDYXMU0a3wlo2Jl7n2te', bg: 'HCMArt.png', year: '2022', genres: 'Minecraft · Cinematic · Action', description: 'Violethyst and Sibashi enter each match with one goal: survive. In a world where a single mistake ends the game, teamwork is the only way out.' },
+    hcm_s2: { label: 'Anniversary', key: 'hcm_s2', cover: 'HCMACOVER.png', logo: 'HCMALogo.png', playlist: 'https://www.youtube.com/playlist?list=PLL2d-OATLvpZcgHA5vyRy8vkZ5AKfcWBt', bg: 'HCMAArt.png', year: '2025', genres: 'Minecraft · Cinematic · Action', description: 'Three years later, Violethyst returns to the games. Revisiting the rivalry, the matches, and the momentum that started it all.' },
+    pre: { label: 'Pre-Party', key: 'pre', cover: 'PRE-PARTYCOVER.png', logo: 'PRE-PARTYLOGO.png', playlist: 'http://youtube.com/playlist?list=PLL2d-OATLvpaY5qgFMRs5LQwZDdWhvu1t', bg: 'PRE-PARTYART.png', year: '2025', genres: 'Minecraft · Cinematic · Action', description: 'A spinoff centered on Viouth, a variant of Violethyst, with montages set to music from The Weeknd’s Hurry Up Tomorrow.' },
+    daytona: { label: 'Daytona', key: 'daytona', cover: 'DAYTONACOVER.png', logo: 'DAYTONALogo.png', playlist: 'https://www.youtube.com/playlist?list=PLaJAa-momMSQ', bg: 'DaytonaArt.png', year: '2026', genres: 'Mystery · Drama · Adventure', description: 'Four players from Shasta take part in the Hypixel Games in Los Angeles. What follows is not another game. It is the end of one.' }
 };
 
 /* ── COLOUR SYSTEM ── */
@@ -1376,9 +1376,14 @@ function renderProjectView() {
     document.getElementById('projectCover').src = part.cover;
     document.getElementById('projectCover').alt = part.label + ' cover';
     const projectLogo = document.getElementById('projectLogo');
+    const projectLogoLink = document.getElementById('projectLogoLink');
     projectLogo.style.display = '';
     projectLogo.src = part.logo;
     projectLogo.alt = part.label;
+    projectLogoLink.href = part.playlist || '#';
+    projectLogoLink.style.display = part.playlist ? 'block' : 'none';
+    projectLogoLink.title = part.playlist ? 'Open YouTube playlist' : '';
+    projectLogoLink.setAttribute('aria-label', `Open ${part.label} YouTube playlist`);
     const projectTitle = document.getElementById('projectTitle');
     projectTitle.classList.add('sr-only');
     projectTitle.style.display = '';
