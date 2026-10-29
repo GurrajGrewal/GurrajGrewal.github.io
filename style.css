@@ -200,8 +200,10 @@ button, .discog-tab, .filter-chip, .artist-back, .play-btn, .info-btn, .season-b
 .filter-chip.active, .discog-tab.active { box-shadow: 0 6px 20px rgba(255,255,255,.08); }
 
 /* Netflix-like project detail layer. */
-.project-overlay { background: radial-gradient(ellipse at 50% 0%, rgba(51,53,63,.38), transparent 54%), #08090b !important; isolation: isolate; }
-.project-overlay-backdrop { position: absolute; top: 0; left: 0; right: 0; height: min(790px, 92vh); background-size: cover; background-position: center 35%; opacity: .98; pointer-events: none; z-index: 0; }
+.project-overlay { background: #08090b !important; isolation: isolate; }
+/* The banner backdrop is resized by home.html to the full scroll height.
+   A solid base avoids the extra radial glow that looked like a second light source. */
+.project-overlay-backdrop { position: absolute; top: 0; left: 0; right: 0; height: 100vh; background-size: cover; background-position: center top; background-repeat: no-repeat; opacity: 1; pointer-events: none; z-index: 0; will-change: height; }
 .project-overlay-topbar { position: sticky; top: 0; z-index: 4; min-height: 76px; padding: 16px clamp(20px,4vw,48px) !important; background: rgba(8,9,12,.32) !important; border-bottom-color: rgba(255,255,255,.07) !important; backdrop-filter: blur(24px) saturate(130%); -webkit-backdrop-filter: blur(24px) saturate(130%); }
 .project-overlay-main { position: relative; z-index: 1; width: min(1180px, calc(100% - 84px)); padding-top: clamp(46px,7vw,86px) !important; }
 .project-overview { align-items: center !important; gap: clamp(24px,4vw,52px) !important; margin-bottom: clamp(34px,5vw,58px) !important; }

@@ -1147,6 +1147,19 @@ renderPopular();
 renderDiscography();
 
 
+// Keep the project banner backdrop as tall as the entire scrollable overlay,
+// so it fades out naturally instead of stopping at a fixed viewport height.
+function syncProjectBackdropHeight() {
+    const backdrop = document.getElementById('projectBackdrop');
+    if (!backdrop || !projectOverlay.classList.contains('open')) return;
+    const fullHeight = Math.max(projectOverlay.scrollHeight, projectOverlay.clientHeight, window.innerHeight);
+    backdrop.style.height = `${fullHeight}px`;
+}
+
+window.addEventListener('resize', () => {
+    if (projectOverlay.classList.contains('open')) syncProjectBackdropHeight();
+});
+
 function openCompilationOverlay(item) {
     activeProject = item;
     activeProjectIsAnniversary = false;
@@ -1192,6 +1205,7 @@ function openCompilationOverlay(item) {
         row.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } };
         if (!item.tracks[i].url) { row.style.cursor = 'default'; row.removeAttribute('role'); row.removeAttribute('tabindex'); }
     });
+    requestAnimationFrame(syncProjectBackdropHeight);
 }
 
 /* ── PROJECT EPISODE DATA ── */
@@ -1456,6 +1470,7 @@ function renderProjectView() {
         row.onclick = open;
         row.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } };
     });
+    requestAnimationFrame(syncProjectBackdropHeight);
 }
 
 /* ══════════════════════════════════════════════════════════
