@@ -976,15 +976,15 @@ const catalog = [
 
     // ── COMPILATIONS — Releases > Popular ──
     { kind: "compilation", format: "Compilation", title: "Violethyst+",
-      subject: "Gurraj Grewal, Violethyst+", year: 2023, cover: "ViolethystPlus.png", videoId: null,
+      subject: "Gurraj Grewal, Violethyst+", year: 2023, cover: "ViolethystPlus.png", banner: "ViolethystPlusBanner.png", videoId: null,
       placeholder: false, releasePopularRank: 1,
       channelUrl: "https://www.youtube.com/@ViolethystPlus", tracks: [
         { title: "Purpose Is Glorious x Memory Reboot — Transition", views: "1K+ views", url: "https://www.youtube.com/watch?v=-pp6C1Lt1LM" },
-        { title: "Given Up On Me x Take Me Back To LA — Transition", views: "2K+ views", url: "https://www.youtube.com/watch?v=PgRLvNBr4HA" }
+        { title: "Given Up On Me x Take Me Back To LA — Transition", views: "3K+ views", url: "https://www.youtube.com/watch?v=PgRLvNBr4HA" }
       ] },
 
     { kind: "compilation", format: "Compilation", title: "Violethyst",
-      subject: "Gurraj Grewal, Violethyst", year: 2020, cover: "Violethyst.png", videoId: null,
+      subject: "Gurraj Grewal, Violethyst", year: 2020, cover: "Violethyst.png", banner: "ViolethystBanner.png", videoId: null,
       placeholder: false, releasePopularRank: 2,
       channelUrl: "https://www.youtube.com/@Violethyst", tracks: [
         { title: "GRAND THEFT AUTO V — PURPOSE IS GLORIOUS x MEMORY REBOOT", views: "2K+ views", url: "https://www.youtube.com/watch?v=lRQb5q-hCeY" },
@@ -1168,7 +1168,7 @@ function openCompilationOverlay(item) {
     projectTitle.textContent = item.title; // e.g. “Violethyst” / “Violethyst+” as clean text
     projectTitle.classList.remove('sr-only');
     projectTitle.style.display = 'block';
-    document.getElementById('projectBackdrop').style.backgroundImage = `linear-gradient(180deg, rgba(7,8,11,.26) 0%, rgba(7,8,11,.82) 58%, #08090b 100%), linear-gradient(90deg, rgba(7,8,11,.62), transparent 82%), url('${item.cover}')`;
+    document.getElementById('projectBackdrop').style.backgroundImage = `linear-gradient(180deg, rgba(7,8,11,.26) 0%, rgba(7,8,11,.82) 58%, #08090b 100%), linear-gradient(90deg, rgba(7,8,11,.62), transparent 82%), url('${item.banner || item.cover}')`;
     document.getElementById('projectDescription').textContent = '';
     document.getElementById('projectGenres').innerHTML = '';
     document.getElementById('projectType').textContent = 'Compilation';
